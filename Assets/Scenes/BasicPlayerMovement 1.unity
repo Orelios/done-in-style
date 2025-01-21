@@ -519,7 +519,6 @@ GameObject:
   - component: {fileID: 1514709992}
   - component: {fileID: 1514709991}
   - component: {fileID: 1514709990}
-  - component: {fileID: 1514709996}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -539,19 +538,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7036f2ec6b3364f4bb397b73f12823a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rb: {fileID: 1514709992}
-  GroundCheck: {fileID: 1512621523}
-  GroundLayer:
+  rb: {fileID: 1514709992}
+  groundCheck: {fileID: 1512621523}
+  groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  Speed: 8
-  JumpPower: 5
-  CoyoteTime: 0.2
-  JumpBufferTime: 0.2
-  showGizmos: 1
-  baseGravity: 2.5
-  maxFallSpeed: 15
-  fallSpeedMultiplier: 2
+  speed: 8
+  jumpPower: 5
+  coyoteTime: 0.2
+  jumpBufferTime: 0.2
+  showGizmos: 0
 --- !u!114 &1514709991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,8 +575,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1514709996}
-        m_TargetAssemblyTypeName: PlayerInputManager, Assembly-CSharp
+      - m_Target: {fileID: 1514709990}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: Move
         m_Mode: 0
         m_Arguments:
@@ -611,8 +607,8 @@ MonoBehaviour:
     m_ActionName: 'Player/Crouch[/Keyboard/c]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1514709996}
-        m_TargetAssemblyTypeName: PlayerInputManager, Assembly-CSharp
+      - m_Target: {fileID: 1514709990}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: Jump
         m_Mode: 0
         m_Arguments:
@@ -826,18 +822,6 @@ Transform:
   - {fileID: 1512621523}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1514709996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514709989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee677387ae889a44f9ac54411fba8138, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
