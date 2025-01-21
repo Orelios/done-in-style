@@ -474,70 +474,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1277466667
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1277466669}
-  - component: {fileID: 1277466668}
-  m_Layer: 0
-  m_Name: Stylish Rank
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1277466668
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277466667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00f9ddfa16600a5408f72d65baf7cc22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StylishRanks:
-  - RankName: ' '
-    RankType: 0
-    RequiredBreakthroughPoints: 3
-  - RankName: Loser
-    RankType: 1
-    RequiredBreakthroughPoints: 4
-  - RankName: Cooking
-    RankType: 2
-    RequiredBreakthroughPoints: 5
-  - RankName: Ballin
-    RankType: 3
-    RequiredBreakthroughPoints: 6
-  - RankName: Awesome
-    RankType: 4
-    RequiredBreakthroughPoints: 7
-  - RankName: Stylish
-    RankType: 5
-    RequiredBreakthroughPoints: 999
-  pointFalloffTimer: 2
---- !u!4 &1277466669
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277466667}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1512621522
 GameObject:
   m_ObjectHideFlags: 0
@@ -583,7 +519,6 @@ GameObject:
   - component: {fileID: 1514709992}
   - component: {fileID: 1514709991}
   - component: {fileID: 1514709990}
-  - component: {fileID: 1514709996}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -603,15 +538,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7036f2ec6b3364f4bb397b73f12823a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rb: {fileID: 1514709992}
-  GroundCheck: {fileID: 1512621523}
-  GroundLayer:
+  rb: {fileID: 1514709992}
+  groundCheck: {fileID: 1512621523}
+  groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  Speed: 8
-  JumpPower: 5
-  CoyoteTime: 0.2
-  JumpBufferTime: 0.2
+  speed: 8
+  jumpPower: 5
+  coyoteTime: 0.2
+  jumpBufferTime: 0.2
   showGizmos: 0
 --- !u!114 &1514709991
 MonoBehaviour:
@@ -887,23 +822,6 @@ Transform:
   - {fileID: 1512621523}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1514709996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514709989}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 256b7dd24bb62fa4aaa7790fea01c054, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentGearEquipped: 0
-  defaultGearToEquip: 0
-  skateboardColor: {r: 1, g: 0, b: 0, a: 1}
-  rollerSkatesColor: {r: 0, g: 1, b: 0, a: 1}
-  pogoStickColor: {r: 0, g: 0, b: 1, a: 1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -912,4 +830,3 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1514709995}
   - {fileID: 772326354}
-  - {fileID: 1277466669}
