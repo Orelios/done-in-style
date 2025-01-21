@@ -24,17 +24,17 @@ public class TEMP_PlayerGearSwap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) && (int)currentGearEquipped != 0)
+        if (Input.GetKeyDown(KeyCode.Alpha1) && (int)currentGearEquipped != 0)
         {
             currentGearEquipped = GearType.Skateboard;
             _spriteRenderer.color = skateboardColor;
         }
-        else if (Input.GetKeyDown(KeyCode.S) && (int)currentGearEquipped != 1)
+        else if (Input.GetKeyDown(KeyCode.Alpha2) && (int)currentGearEquipped != 1)
         {
             currentGearEquipped = GearType.RollerSkates;
             _spriteRenderer.color = rollerSkatesColor;   
         }
-        else if(Input.GetKeyDown(KeyCode.D) && (int)currentGearEquipped != 2)
+        else if(Input.GetKeyDown(KeyCode.Alpha3) && (int)currentGearEquipped != 2)
         {
             currentGearEquipped = GearType.PogoStick;
             _spriteRenderer.color = pogoStickColor;
