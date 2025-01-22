@@ -7,6 +7,7 @@ public class TEMP_StylishCombo : MonoBehaviour
     [Header("Style Configs")]
     public StylishRank[] StylishRanks;
     [SerializeField] private float pointFalloffTimer = 2.0f;
+    [SerializeField] private int maxStylishPoints;
     private StylishRank _currentRank;
     private StylishRank _highestRank;
     private StylishRank _lowestRank;
@@ -32,7 +33,7 @@ public class TEMP_StylishCombo : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             _currentStylishPoints++;
-            _currentStylishPoints = Mathf.Clamp(_currentStylishPoints++, 0, 999);
+            _currentStylishPoints = Mathf.Clamp(_currentStylishPoints++, 0, maxStylishPoints);
             _timeBeforeRankFalloff = 0f;
             currentPointsText.text = $"{_currentStylishPoints}";
             
@@ -50,7 +51,7 @@ public class TEMP_StylishCombo : MonoBehaviour
         if (_timeBeforeRankFalloff >= pointFalloffTimer)
         {
             _currentStylishPoints--;
-            _currentStylishPoints = Mathf.Clamp(_currentStylishPoints, 0, 999);
+            _currentStylishPoints = Mathf.Clamp(_currentStylishPoints, 0, maxStylishPoints);
             _timeBeforeRankFalloff = 0f;
             currentPointsText.text = $"{_currentStylishPoints}";
 

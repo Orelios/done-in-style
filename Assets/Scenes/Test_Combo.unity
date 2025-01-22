@@ -887,17 +887,18 @@ MonoBehaviour:
     RequiredBreakthroughPoints: 4
   - RankName: Cooking
     RankType: 2
-    RequiredBreakthroughPoints: 8
+    RequiredBreakthroughPoints: 7
   - RankName: Ballin
     RankType: 3
-    RequiredBreakthroughPoints: 12
+    RequiredBreakthroughPoints: 11
   - RankName: Awesome
     RankType: 4
-    RequiredBreakthroughPoints: 17
+    RequiredBreakthroughPoints: 15
   - RankName: Stylish
     RankType: 5
-    RequiredBreakthroughPoints: 999
+    RequiredBreakthroughPoints: 21
   pointFalloffTimer: 2
+  maxStylishPoints: 22
   currentRankText: {fileID: 1032227797}
   currentPointsText: {fileID: 1092924389}
 --- !u!4 &1277466669
