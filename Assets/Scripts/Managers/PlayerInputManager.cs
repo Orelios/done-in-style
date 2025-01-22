@@ -3,10 +3,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerInputManager : MonoBehaviour
 {
-    //Players basic movement input
-    public Vector2 Movement { get; private set; }
+    //Players basic HorizontalMovement input
+    public float HorizontalMovement { get; private set; }
     public void Move(InputAction.CallbackContext context)
-    { Movement = context.ReadValue<Vector2>(); }
+    { HorizontalMovement = context.ReadValue<float>(); }
 
     //Player Jump
     public bool Jumping { get; private set; }
