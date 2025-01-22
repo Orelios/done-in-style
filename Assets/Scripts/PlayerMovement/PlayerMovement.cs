@@ -42,9 +42,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Rb.linearVelocity = new Vector2(_playerInputManager.Movement.x * _speed, Rb.linearVelocity.y);
-        if (!_isFacingRight && _playerInputManager.Movement.x > 0f) { Flip(); }
-        else if (_isFacingRight && _playerInputManager.Movement.x < 0f) { Flip(); }
+        Rb.linearVelocity = new Vector2(_playerInputManager.HorizontalMovement * _speed, Rb.linearVelocity.y);
+        if (!_isFacingRight && _playerInputManager.HorizontalMovement > 0f) { Flip(); }
+        else if (_isFacingRight && _playerInputManager.HorizontalMovement < 0f) { Flip(); }
 
         //Handles the timer for coyote time
         _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;

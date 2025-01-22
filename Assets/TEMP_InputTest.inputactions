@@ -7,9 +7,9 @@
             "actions": [
                 {
                     "name": "Move",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "a6e516b5-e897-457f-a8b4-6e4e9cab79e8",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -45,6 +45,24 @@
                     "name": "Trick",
                     "type": "Button",
                     "id": "61cc162f-23e8-48b5-a143-b1d7b79f5cc6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "f49adadb-0fe6-405f-8cdc-da09a279d818",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Drop",
+                    "type": "Button",
+                    "id": "50040b9e-6b38-4d40-b701-42a8f3964f98",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -86,9 +104,20 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Arrow Keys",
-                    "id": "d869355d-d641-4496-8cb8-fd46b636b13b",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "5705c0f7-db9e-4669-bed2-73b9681ce981",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Trick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "5b161bf5-1999-4ff1-a8a0-8b96d7323c94",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -97,30 +126,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "555b9154-7b2b-4c81-b2b8-ec2fa317f4f5",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "6b32f6d9-8cd9-465b-9b04-cd9e40f70a94",
-                    "path": "<Keyboard>/downArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "ae7642e4-da44-4025-9a81-e5dca989717c",
+                    "name": "negative",
+                    "id": "5f3a3583-3055-4947-9d28-4ba6210b0b80",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
@@ -130,8 +137,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
-                    "id": "6710f179-de19-49fa-9bbc-6032bfee4947",
+                    "name": "positive",
+                    "id": "d4a8afa8-9c2b-447f-913e-d6362e6fcd44",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
@@ -142,12 +149,23 @@
                 },
                 {
                     "name": "",
-                    "id": "5705c0f7-db9e-4669-bed2-73b9681ce981",
-                    "path": "<Keyboard>/f",
+                    "id": "86b17a58-be1f-4861-8f20-2e48588e968a",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Trick",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "99465c88-066c-4548-ba47-d93fec0864a2",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
