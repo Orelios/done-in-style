@@ -1,67 +1,104 @@
 using UnityEngine;
-using UnityEngine.InputSystem; 
+using UnityEngine.InputSystem;
 
-public class PlayerMovement: MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
+    private PlayerInputManager _playerInputManager;
+
     [Header("Components")]
-    public Rigidbody2D rb;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
+    public Rigidbody2D Rb;
+    public Transform GroundCheck;
+    public LayerMask GroundLayer;
 
     [Header("Horizontal Movement Configs")]
-    [SerializeField] private float speed = 8f;
-    private float horizontal;
-    private bool isFacingRight = true;
-    
+    public float Speed;
+    private float _speed = 8f;
+    private bool _isFacingRight = true;
+
     [Header("Jump Configs")]
-    [SerializeField] private float jumpPower = 5f;
-    [SerializeField, Range(0.05f, 0.25f)] private float coyoteTime = 0.2f;
-    [SerializeField, Range(0.05f, 0.25f)] private float jumpBufferTime = 0.2f;
-    private float lastGroundedTime = 0f;
-    
+    public float JumpPower;
+    private float _jumpPower;
+    [Range(0.05f, 0.25f)] public float CoyoteTime = 0.2f;
+    private float _coyoteTime = 0.2f;
+    [Range(0.05f, 0.25f)] public float JumpBufferTime = 0.2f;
+    private float _jumpBufferTime = 0.2f;
+    private float _lastGroundedTime = 0f;
+
     [Header("Debug Configs")]
     [SerializeField] private bool showGizmos = false;
-    
+
+    [Header("Gravity")]
+    [SerializeField] private float baseGravity;
+    [SerializeField] private float maxFallSpeed;
+    [SerializeField] private float fallSpeedMultiplier;
+
+    private void Awake()
+    {
+        _playerInputManager = GetComponent<PlayerInputManager>();
+        _speed = Speed;
+        _coyoteTime = CoyoteTime;
+        _jumpPower = JumpPower;
+    }
+
     private void Update()
     {
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y); 
-        if(!isFacingRight && horizontal > 0f) { Flip(); }
-        else if(isFacingRight && horizontal < 0f) { Flip(); } 
-        
-        //Handles the timer for coyote time
-        lastGroundedTime = IsGrounded() ?  0f : lastGroundedTime += Time.deltaTime;
-    }
+        Rb.linearVelocity = new Vector2(_playerInputManager.Movement.x * _speed, Rb.linearVelocity.y);
+        if (!_isFacingRight && _playerInputManager.Movement.x > 0f) { Flip(); }
+        else if (_isFacingRight && _playerInputManager.Movement.x < 0f) { Flip(); }
 
+        //Handles the timer for coyote time
+        _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
+
+        Jump();
+        Gravity();
+    }
+    #region Jumping
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer); 
+        return Physics2D.OverlapCircle(GroundCheck.position, 0.2f, GroundLayer);
     }
 
-    public void Jump(InputAction.CallbackContext context)
+    public void Jump()
     {
         /*if(context.performed && IsGrounded()) 
         { rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower); }
         if(context.canceled && rb.linearVelocity.y > 0 ) { new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f); }*/
 
         //OPTIMIZE: validates if player can jump;
-        bool canJump = IsGrounded() || (!IsGrounded() && lastGroundedTime < coyoteTime);
-        
-        if (context.performed && canJump)
+        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < _coyoteTime);
+
+        if (_playerInputManager.Jumping && canJump)
         {
-            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            //Rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpPower);
+        }
+        else if (!_playerInputManager.Jumping)
+        {
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Rb.linearVelocity.y);
         }
     }
-    private void Flip()
-    {
-        isFacingRight = !isFacingRight; 
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1; 
-        transform.localScale = localScale;
-    }
+    #endregion
 
-    public void Move(InputAction.CallbackContext context)
+    #region Gravity
+    private void Gravity()
     {
-        horizontal = context.ReadValue<Vector2>().x; 
+        if (Rb.linearVelocity.y < 0)
+        {
+            Rb.gravityScale = baseGravity * fallSpeedMultiplier;
+            Rb.linearVelocity = new Vector2(Rb.linearVelocityX, Mathf.Max(Rb.linearVelocity.y, -maxFallSpeed));
+        }
+        else
+        {
+            Rb.gravityScale = baseGravity;
+        }
+    }
+    #endregion
+    private void Flip() //flips character where player is facing towards
+    {
+        _isFacingRight = !_isFacingRight;
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
     }
 
     private void OnDrawGizmos()
@@ -70,8 +107,8 @@ public class PlayerMovement: MonoBehaviour
         {
             return;
         }
-        
+
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(groundCheck.position, 0.2f);
+        Gizmos.DrawWireSphere(GroundCheck.position, 0.2f);
     }
 }
