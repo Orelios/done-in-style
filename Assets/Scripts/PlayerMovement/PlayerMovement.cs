@@ -11,8 +11,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask GroundLayer;
 
     [Header("Horizontal Movement Configs")]
-    public float Speed;
-    private float _speed = 8f;
+    [SerializeField] private float baseSpeed = 8f;
+    public float Speed { get => baseSpeed; set => baseSpeed = value; }
     private bool _isFacingRight = true;
 
     [Header("Jump Configs")]
@@ -31,18 +31,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float baseGravity;
     [SerializeField] private float maxFallSpeed;
     [SerializeField] private float fallSpeedMultiplier;
+    
+    private PlayerGearSwapper _playerGearSwapper;
 
     private void Awake()
     {
         _playerInputManager = GetComponent<PlayerInputManager>();
-        _speed = Speed;
+        _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _coyoteTime = CoyoteTime;
         _jumpPower = JumpPower;
     }
 
     private void Update()
     {
-        Rb.linearVelocity = new Vector2(_playerInputManager.HorizontalMovement * _speed, Rb.linearVelocity.y);
+        Rb.linearVelocity = new Vector2(_playerInputManager.HorizontalMovement * baseSpeed * _playerGearSwapper.HorizontalMovementMultiplier, Rb.linearVelocity.y);
         if (!_isFacingRight && _playerInputManager.HorizontalMovement > 0f) { Flip(); }
         else if (_isFacingRight && _playerInputManager.HorizontalMovement < 0f) { Flip(); }
 
@@ -70,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         if (_playerInputManager.Jumping && canJump)
         {
             //Rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
-            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpPower);
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpPower * _playerGearSwapper.JumpForceMultiplier);
         }
         else if (!_playerInputManager.Jumping)
         {
