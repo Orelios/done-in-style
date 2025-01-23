@@ -83,7 +83,7 @@ public class Temp_RankCalculator : MonoBehaviour
         stylishPointsText.text = $"{CurrentStylishPoints}";
         _pointFalloffTimer = pointsFalloffTime;
         
-        if (CurrentStylishPoints < CurrentStylishRank.RequiredBreakthroughPoints)
+        if (CurrentStylishPoints < stylishRanksList[_currentStylishRankIndex - 1].RequiredBreakthroughPoints)
         {
             DecreaseStylishRank();
         }
