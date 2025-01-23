@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -31,20 +33,42 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float baseGravity;
     [SerializeField] private float maxFallSpeed;
     [SerializeField] private float fallSpeedMultiplier;
+    public float BaseGravity => baseGravity;
     
     private PlayerGearSwapper _playerGearSwapper;
+    private GearTricks _gearTricks;
 
+    /*
+    [Header("Temp stuff")]
+    public float dashSpeed = 20f;
+    public float dashDuration = 0.2f;
+    public float dashCooldown = 1f;
+
+    private bool isDashing = false;
+    private float lastDashTime;
+    private Vector2 dashDirection;
+    */
+    
     private void Awake()
     {
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
+        _gearTricks = GetComponent<GearTricks>();
         _coyoteTime = CoyoteTime;
         _jumpPower = JumpPower;
     }
 
     private void Update()
     {
-        Rb.linearVelocity = new Vector2(_playerInputManager.HorizontalMovement * baseSpeed * _playerGearSwapper.HorizontalMovementMultiplier, Rb.linearVelocity.y);
+        //Disables movement while dashing
+        if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType 
+            == EDaredevilGearType.Skateboard) { return; }
+
+        //Makes player move depending on where they are facing
+        Rb.linearVelocity = new Vector2(_playerInputManager.HorizontalMovement * baseSpeed * 
+            _playerGearSwapper.HorizontalMovementMultiplier, Rb.linearVelocity.y);
+
+        //Flips player sprite to the direction they are heading to 
         if (!_isFacingRight && _playerInputManager.HorizontalMovement > 0f) { Flip(); }
         else if (_isFacingRight && _playerInputManager.HorizontalMovement < 0f) { Flip(); }
 
@@ -54,6 +78,37 @@ public class PlayerMovement : MonoBehaviour
         Jump();
         Gravity();
     }
+    /*
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (context.performed && Time.time >= lastDashTime + dashCooldown)
+        {
+            StartCoroutine(DashingCoroutine());
+        }
+         
+    }
+    private IEnumerator DashingCoroutine()
+    {
+        isDashing = true;
+        lastDashTime = Time.time;
+
+        // Dash always in the current horizontal direction
+        float horizontalDirection = Mathf.Sign(transform.localScale.x);
+        dashDirection = new Vector2(horizontalDirection, 0).normalized;
+
+        // Disable gravity during the dash
+        Rb.gravityScale = 0;
+        Rb.linearVelocity = dashDirection * dashSpeed;
+        Debug.Log(Rb.linearVelocity);
+
+        yield return new WaitForSeconds(dashDuration);
+
+        // End dash
+        Rb.gravityScale = baseGravity; // Restore gravity
+        Rb.linearVelocity = Vector2.zero; // Reset velocity
+        isDashing = false;
+    }
+    */
     #region Jumping
     private bool IsGrounded()
     {
@@ -87,7 +142,8 @@ public class PlayerMovement : MonoBehaviour
         if (Rb.linearVelocity.y < 0)
         {
             Rb.gravityScale = baseGravity * fallSpeedMultiplier;
-            Rb.linearVelocity = new Vector2(Rb.linearVelocityX, Mathf.Max(Rb.linearVelocity.y, -maxFallSpeed));
+            Rb.linearVelocity = new Vector2(Rb.linearVelocityX, Mathf.Max(Rb.linearVelocity.y, -(maxFallSpeed - 
+                _gearTricks.FallingSpeedModifier)));
         }
         else
         {
