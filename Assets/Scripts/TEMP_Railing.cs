@@ -1,10 +1,18 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TEMP_Railing : MonoBehaviour
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    public List<Vector2> ColliderPoints = new();
+    private EdgeCollider2D _collider;
+
+    private void Start()
     {
-        Debug.Log(other.gameObject.name);
+        _collider = GetComponent<EdgeCollider2D>();
+        
+        foreach (var points in _collider.points)
+        {
+            ColliderPoints.Add(points);
+        }
     }
 }

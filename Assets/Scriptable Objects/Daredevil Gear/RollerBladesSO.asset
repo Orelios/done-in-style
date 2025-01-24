@@ -15,4 +15,4 @@ MonoBehaviour:
   daredevilGearType: 2
   daredevilGearName: Roller Blades
   movementSpeedMultiplier: 1.5
-  jumpForceMultiplier: 0.5
+  jumpForceMultiplier: 1
