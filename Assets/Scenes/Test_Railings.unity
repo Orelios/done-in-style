@@ -555,6 +555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 458711940}
   - component: {fileID: 458711941}
+  - component: {fileID: 458711942}
   m_Layer: 0
   m_Name: Grind Trigger
   m_TagString: Untagged
@@ -623,6 +624,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.9650876, y: 3.8242812}
   m_EdgeRadius: 0
+--- !u!114 &458711942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 458711939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7e7f1071c2711b4fbc1cdffca988284, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &505180001
 GameObject:
   m_ObjectHideFlags: 0
