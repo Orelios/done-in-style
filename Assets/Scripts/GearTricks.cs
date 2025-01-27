@@ -10,6 +10,11 @@ public class GearTricks : MonoBehaviour
 
     [Header("Components")]
     public Rigidbody2D Rb;
+    [SerializeField] private TEMP_ScoreCalculator scoreCalculator;
+    [SerializeField] private Temp_RankCalculator rankCalculator;
+
+    [Header("Score")]
+    [SerializeField] private int scorePerTrick;
 
     [Header("Skateboard")]
     public float dashSpeed = 20f;
@@ -67,6 +72,10 @@ public class GearTricks : MonoBehaviour
     {
         isDashing = true;
         lastDashTime = Time.time;
+        
+        //add score
+        scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+        rankCalculator.IncreaseStylishPoints();
 
         // Dash always in the current horizontal direction
         float horizontalDirection = Mathf.Sign(transform.localScale.x);
@@ -94,6 +103,10 @@ public class GearTricks : MonoBehaviour
     private IEnumerator SlowFallCoroutine()
     {
         _fallingSpeed = fallingSpeed; 
+        
+        //add score
+        scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+        rankCalculator.IncreaseStylishPoints();
 
         yield return new WaitForSeconds(slowFallTimer);
 
@@ -107,6 +120,10 @@ public class GearTricks : MonoBehaviour
 
         if (_jumps != 0)
         {
+            //add score
+            scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+            rankCalculator.IncreaseStylishPoints();
+            
             if(Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
 
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _playerMovement.JumpPower *
