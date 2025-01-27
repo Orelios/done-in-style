@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using TMPro;
 using UnityEngine;
 
@@ -11,10 +12,11 @@ public class Temp_RankCalculator : MonoBehaviour
     public StylishRankSO CurrentStylishRank {get; private set;}
     private int _currentStylishRankIndex;
 
-    [Header("Stylish Points Configs")]
-    public int CurrentStylishPoints { get; private set; }
+    [Header("Stylish Points Configs")] 
+    [SerializeField] private int maxStylishPoints;
     [SerializeField] private TextMeshProUGUI stylishRankText;
     [SerializeField] private TextMeshProUGUI  stylishPointsText;
+    public int CurrentStylishPoints { get; private set; }
 
     [Header(("Falloff Timer Configs"))]
     [SerializeField] private float pointsFalloffTime;
@@ -62,10 +64,10 @@ public class Temp_RankCalculator : MonoBehaviour
     //increments points, clamps points value between the lowest and highest points breakthrough, resets falloff timer, and updates points UI
     public void IncreaseStylishPoints()
     {
-        //CurrentStylishPoints = Mathf.Clamp(CurrentStylishPoints++, 0, stylishRanksList[^1].RequiredBreakthroughPoints + 1);
         CurrentStylishPoints++;
-        CurrentStylishPoints= Mathf.Clamp(CurrentStylishPoints, 0, stylishRanksList[^2].RequiredBreakthroughPoints + 1);
-        stylishPointsText.text = $"{CurrentStylishPoints}";
+        CurrentStylishPoints= Mathf.Clamp(CurrentStylishPoints, 0, maxStylishPoints);
+        //string is shown as the value of current stylish points and a new line with the text MAX with font size of 75 if current stylish points is max
+        stylishPointsText.text = $"{CurrentStylishPoints}" + $"<size=75>{(CurrentStylishPoints == maxStylishPoints ? "\nMAX" : "")}</size>";
         _pointFalloffTimer = pointsFalloffTime;
         
         if (CurrentStylishPoints > CurrentStylishRank.RequiredBreakthroughPoints)
@@ -77,13 +79,12 @@ public class Temp_RankCalculator : MonoBehaviour
     //decrements points, clamps points value between the lowest and highest points breakthrough, resets falloff timer, and updates points UI
     public void DecreaseStylishPoints()
     {
-        //CurrentStylishPoints = Mathf.Clamp(CurrentStylishPoints--, 0, stylishRanksList[^1].RequiredBreakthroughPoints + 1);
         CurrentStylishPoints--;
-        CurrentStylishPoints= Mathf.Clamp(CurrentStylishPoints, 0, stylishRanksList[^2].RequiredBreakthroughPoints + 1);
+        CurrentStylishPoints= Mathf.Clamp(CurrentStylishPoints, 0, maxStylishPoints);
         stylishPointsText.text = $"{CurrentStylishPoints}";
         _pointFalloffTimer = pointsFalloffTime;
         
-        if (_currentStylishRankIndex > 0 && CurrentStylishPoints < stylishRanksList[_currentStylishRankIndex - 1].RequiredBreakthroughPoints)
+        if (_currentStylishRankIndex > 0 && CurrentStylishPoints <= stylishRanksList[_currentStylishRankIndex - 1].RequiredBreakthroughPoints)
         {
             DecreaseStylishRank();
         }
