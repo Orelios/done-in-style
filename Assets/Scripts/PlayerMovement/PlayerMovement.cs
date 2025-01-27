@@ -14,8 +14,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Horizontal Movement Configs")]
     [SerializeField] private float baseSpeed = 8f;
+    [SerializeField] private float acceleration;
+    [SerializeField] private float deceleration; 
     public float Speed { get => baseSpeed; set => baseSpeed = value; }
     private bool _isFacingRight = true;
+    private Vector2 _velocity; 
 
     [Header("Jump Configs")]
     public float JumpPower;
@@ -63,11 +66,11 @@ public class PlayerMovement : MonoBehaviour
         //Disables movement while dashing
         if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType 
             == EDaredevilGearType.Skateboard) { return; }
-
+        /*
         //Makes player move depending on where they are facing
         Rb.linearVelocity = new Vector2(_playerInputManager.HorizontalMovement * baseSpeed * 
             _playerGearSwapper.HorizontalMovementMultiplier, Rb.linearVelocity.y);
-
+        */
         //Flips player sprite to the direction they are heading to 
         if (!_isFacingRight && _playerInputManager.HorizontalMovement > 0f) { Flip(); }
         else if (_isFacingRight && _playerInputManager.HorizontalMovement < 0f) { Flip(); }
@@ -77,6 +80,31 @@ public class PlayerMovement : MonoBehaviour
 
         Jump();
         Gravity();
+    }
+
+    private void FixedUpdate()
+    {
+        //Disables movement while dashing
+        if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType
+            == EDaredevilGearType.Skateboard) { return; }
+
+        // Calculate target speed based on input
+        float targetSpeed = _playerInputManager.HorizontalMovement * baseSpeed * _playerGearSwapper.HorizontalMovementMultiplier;
+
+        // Smoothly adjust the current velocity towards the target speed
+        if (Mathf.Abs(_playerInputManager.HorizontalMovement) > 0.1f)
+        {
+            // Accelerate towards the target speed
+            _velocity.x = Mathf.MoveTowards(_velocity.x, targetSpeed, acceleration * Time.fixedDeltaTime);
+        }
+        else
+        {
+            // Decelerate to 0 when no input is provided
+            _velocity.x = Mathf.MoveTowards(_velocity.x, 0, deceleration * Time.fixedDeltaTime);
+        }
+
+        // Apply the calculated velocity to the Rigidbody2D
+        Rb.linearVelocity = new Vector2(_velocity.x, Rb.linearVelocity.y);
     }
     /*
     public void Dash(InputAction.CallbackContext context)
