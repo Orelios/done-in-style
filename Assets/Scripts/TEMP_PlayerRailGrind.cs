@@ -47,8 +47,7 @@ public class TEMP_PlayerRailGrind : MonoBehaviour
     {
         if (_onRail && _railing is not null)
         {
-            _rb.linearVelocity = new Vector2(_railDirection * grindSpeed, 0);
-            
+            _rb.linearVelocity = new Vector2(_railDirection * grindSpeed, _rb.linearVelocity.y);
         }
     }
 }

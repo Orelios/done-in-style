@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerGearSwapper : MonoBehaviour
 {
-    [Header("Gear Swapping Configs")]
+    [Header("Gear Swapping Configs")] 
+    [SerializeField] private List<DaredevilGearSO> daredevilGears = new();
     [SerializeField] private DaredevilGearSO defaultGearToEquip;
     private DaredevilGearSO _currentGearEquipped;
     public DaredevilGearSO CurrentGearEquipped => _currentGearEquipped;
@@ -34,16 +37,27 @@ public class PlayerGearSwapper : MonoBehaviour
         debugAnchor.SetActive(showDebugText);
     }
 
-    public void SwapGear(DaredevilGearSO gearToSwapTo)
+    //TODO: optimize to not be dependent on being hard coded
+    public void SwapGear(InputAction.CallbackContext context)
     {
-        //if not and cooldown and is not switching to the same Gear
-        if (Time.time < lastSwapTime + swapCooldown && gearToSwapTo != _currentGearEquipped)
-            return;
+        //determines which gear to equip based on which gear swap key is pressed
+        switch (context.control.name)
+        {
+            case "a":
+                _currentGearEquipped = daredevilGears[daredevilGears.FindIndex(gear => gear.DaredevilGearType == EDaredevilGearType.Skateboard)];
+                break;
+            case "s":
+                _currentGearEquipped = daredevilGears[daredevilGears.FindIndex(gear => gear.DaredevilGearType == EDaredevilGearType.RollerBlades)];
+                break;
+            case "d":
+                _currentGearEquipped = daredevilGears[daredevilGears.FindIndex(gear => gear.DaredevilGearType == EDaredevilGearType.PogoStick)];
+                break;
+            default:
+                Debug.LogWarning($"Mismatch! Control name {context.control.name} was not recognized");
+                break;
+        }
         
-        lastSwapTime = Time.time;
-        
-        //swtiches current gear into a different gear, adsjuting speed and jump values accordingly
-        _currentGearEquipped = gearToSwapTo;
+        //adjusts movement and jump multipliers based on last swapped gear
         HorizontalMovementMultiplier = _currentGearEquipped.MovementSpeedMultiplier;
         JumpForceMultiplier = _currentGearEquipped.JumpForceMultiplier;
         
