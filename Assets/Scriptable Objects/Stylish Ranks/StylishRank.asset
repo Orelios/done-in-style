@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: StylishRank
   m_EditorClassIdentifier: 
   rankType: 5
-  rankName: Stylish
+  rankName: STYLISH!
   scoreMultiplier: 5
   requiredBreakthroughPoints: 999

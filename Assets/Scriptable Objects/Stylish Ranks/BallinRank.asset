@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BallinRank
   m_EditorClassIdentifier: 
   rankType: 3
-  rankName: Ballin'
+  rankName: BALLIN'!
   scoreMultiplier: 3
   requiredBreakthroughPoints: 18

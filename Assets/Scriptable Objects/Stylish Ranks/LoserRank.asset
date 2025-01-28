@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: LoserRank
   m_EditorClassIdentifier: 
   rankType: 1
-  rankName: Loser
+  rankName: LOSER!
   scoreMultiplier: 2
   requiredBreakthroughPoints: 6

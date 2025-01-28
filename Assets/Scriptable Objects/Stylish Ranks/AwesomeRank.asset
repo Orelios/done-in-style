@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AwesomeRank
   m_EditorClassIdentifier: 
   rankType: 4
-  rankName: Awesome
+  rankName: AWESOME!
   scoreMultiplier: 3.5
   requiredBreakthroughPoints: 25
