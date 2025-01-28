@@ -14,8 +14,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Horizontal Movement Configs")]
     [SerializeField] private float baseSpeed = 8f;
+    [SerializeField] private float acceleration;
+    [SerializeField] private float deceleration;
+    [SerializeField] private float velPower;
+    [SerializeField] private float frictionAmount; 
     public float Speed { get => baseSpeed; set => baseSpeed = value; }
     private bool _isFacingRight = true;
+    private Vector2 _velocity; 
 
     [Header("Jump Configs")]
     public float JumpPower;
@@ -63,11 +68,11 @@ public class PlayerMovement : MonoBehaviour
         //Disables movement while dashing
         if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType 
             == EDaredevilGearType.Skateboard) { return; }
-
+        /*
         //Makes player move depending on where they are facing
         Rb.linearVelocity = new Vector2(_playerInputManager.HorizontalMovement * baseSpeed * 
             _playerGearSwapper.HorizontalMovementMultiplier, Rb.linearVelocity.y);
-
+        */
         //Flips player sprite to the direction they are heading to 
         if (!_isFacingRight && _playerInputManager.HorizontalMovement > 0f) { Flip(); }
         else if (_isFacingRight && _playerInputManager.HorizontalMovement < 0f) { Flip(); }
@@ -78,37 +83,35 @@ public class PlayerMovement : MonoBehaviour
         Jump();
         Gravity();
     }
-    /*
-    public void Dash(InputAction.CallbackContext context)
+
+    private void FixedUpdate()
     {
-        if (context.performed && Time.time >= lastDashTime + dashCooldown)
+        //Disables movement while dashing
+        if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType
+            == EDaredevilGearType.Skateboard) { return; }
+
+        // Calculate target speed based on input
+        float targetSpeed = _playerInputManager.HorizontalMovement * baseSpeed * _playerGearSwapper.HorizontalMovementMultiplier;
+
+        float speedDif = targetSpeed - Rb.linearVelocity.x;
+
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
+
+        float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
+
+        Rb.AddForce(movement * Vector2.right); 
+
+        //Friction
+        if(_lastGroundedTime > 0 && Mathf.Abs(_playerInputManager.HorizontalMovement) < 0.01f)
         {
-            StartCoroutine(DashingCoroutine());
+            float amount = Mathf.Min(Mathf.Abs(Rb.linearVelocity.x), Mathf.Abs(frictionAmount));
+
+            amount *= Mathf.Sign(Rb.linearVelocity.x);
+
+            Rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse); 
         }
-         
     }
-    private IEnumerator DashingCoroutine()
-    {
-        isDashing = true;
-        lastDashTime = Time.time;
-
-        // Dash always in the current horizontal direction
-        float horizontalDirection = Mathf.Sign(transform.localScale.x);
-        dashDirection = new Vector2(horizontalDirection, 0).normalized;
-
-        // Disable gravity during the dash
-        Rb.gravityScale = 0;
-        Rb.linearVelocity = dashDirection * dashSpeed;
-        Debug.Log(Rb.linearVelocity);
-
-        yield return new WaitForSeconds(dashDuration);
-
-        // End dash
-        Rb.gravityScale = baseGravity; // Restore gravity
-        Rb.linearVelocity = Vector2.zero; // Reset velocity
-        isDashing = false;
-    }
-    */
+    
     #region Jumping
     private bool IsGrounded()
     {
