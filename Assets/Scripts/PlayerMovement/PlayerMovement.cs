@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     public float Deceleration { get => deceleration; set => deceleration = value; }
     public float VelPower { get => velPower; set => velPower = value; }
     public float FrictionAmount { get => frictionAmount; set => frictionAmount = value; }
+    public float AppliedMovementSpeed { get; private set; }
     private bool _isFacingRight = true;
     private Vector2 _velocity; 
 
@@ -68,9 +69,9 @@ public class PlayerMovement : MonoBehaviour
 
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
 
-        float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
+        AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
 
-        Rb.AddForce(movement * Vector2.right); 
+        Rb.AddForce(AppliedMovementSpeed * Vector2.right); 
 
         //Friction
         if(_lastGroundedTime > 0 && Mathf.Abs(_playerInputManager.HorizontalMovement) < 0.01f)
