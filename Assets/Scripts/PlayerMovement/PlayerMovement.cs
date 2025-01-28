@@ -15,7 +15,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Horizontal Movement Configs")]
     [SerializeField] private float baseSpeed = 8f;
     [SerializeField] private float acceleration;
-    [SerializeField] private float deceleration; 
+    [SerializeField] private float deceleration;
+    [SerializeField] private float velPower;
+    [SerializeField] private float frictionAmount; 
     public float Speed { get => baseSpeed; set => baseSpeed = value; }
     private bool _isFacingRight = true;
     private Vector2 _velocity; 
@@ -91,52 +93,25 @@ public class PlayerMovement : MonoBehaviour
         // Calculate target speed based on input
         float targetSpeed = _playerInputManager.HorizontalMovement * baseSpeed * _playerGearSwapper.HorizontalMovementMultiplier;
 
-        // Smoothly adjust the current velocity towards the target speed
-        if (Mathf.Abs(_playerInputManager.HorizontalMovement) > 0.1f)
+        float speedDif = targetSpeed - Rb.linearVelocity.x;
+
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
+
+        float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
+
+        Rb.AddForce(movement * Vector2.right); 
+
+        //Friction
+        if(_lastGroundedTime > 0 && Mathf.Abs(_playerInputManager.HorizontalMovement) < 0.01f)
         {
-            // Accelerate towards the target speed
-            _velocity.x = Mathf.MoveTowards(_velocity.x, targetSpeed, acceleration * Time.fixedDeltaTime);
+            float amount = Mathf.Min(Mathf.Abs(Rb.linearVelocity.x), Mathf.Abs(frictionAmount));
+
+            amount *= Mathf.Sign(Rb.linearVelocity.x);
+
+            Rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse); 
         }
-        else
-        {
-            // Decelerate to 0 when no input is provided
-            _velocity.x = Mathf.MoveTowards(_velocity.x, 0, deceleration * Time.fixedDeltaTime);
-        }
-
-        // Apply the calculated velocity to the Rigidbody2D
-        Rb.linearVelocity = new Vector2(_velocity.x, Rb.linearVelocity.y);
     }
-    /*
-    public void Dash(InputAction.CallbackContext context)
-    {
-        if (context.performed && Time.time >= lastDashTime + dashCooldown)
-        {
-            StartCoroutine(DashingCoroutine());
-        }
-         
-    }
-    private IEnumerator DashingCoroutine()
-    {
-        isDashing = true;
-        lastDashTime = Time.time;
-
-        // Dash always in the current horizontal direction
-        float horizontalDirection = Mathf.Sign(transform.localScale.x);
-        dashDirection = new Vector2(horizontalDirection, 0).normalized;
-
-        // Disable gravity during the dash
-        Rb.gravityScale = 0;
-        Rb.linearVelocity = dashDirection * dashSpeed;
-        Debug.Log(Rb.linearVelocity);
-
-        yield return new WaitForSeconds(dashDuration);
-
-        // End dash
-        Rb.gravityScale = baseGravity; // Restore gravity
-        Rb.linearVelocity = Vector2.zero; // Reset velocity
-        isDashing = false;
-    }
-    */
+    
     #region Jumping
     private bool IsGrounded()
     {

@@ -2693,20 +2693,28 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1446583099622726470, guid: 98feee31f3cc6484c973f0f6c9ab1528, type: 3}
+      propertyPath: velPower
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446583099622726470, guid: 98feee31f3cc6484c973f0f6c9ab1528, type: 3}
       propertyPath: JumpPower
       value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 1446583099622726470, guid: 98feee31f3cc6484c973f0f6c9ab1528, type: 3}
       propertyPath: baseSpeed
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1446583099622726470, guid: 98feee31f3cc6484c973f0f6c9ab1528, type: 3}
       propertyPath: acceleration
-      value: 30
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1446583099622726470, guid: 98feee31f3cc6484c973f0f6c9ab1528, type: 3}
       propertyPath: deceleration
-      value: 40
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1446583099622726470, guid: 98feee31f3cc6484c973f0f6c9ab1528, type: 3}
+      propertyPath: frictionAmount
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1948983137711070427, guid: 98feee31f3cc6484c973f0f6c9ab1528, type: 3}
       propertyPath: m_LocalPosition.y
