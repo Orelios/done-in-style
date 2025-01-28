@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CookingRank
   m_EditorClassIdentifier: 
   rankType: 2
-  rankName: Cooking
+  rankName: COOKING!
   scoreMultiplier: 2.5
   requiredBreakthroughPoints: 12
