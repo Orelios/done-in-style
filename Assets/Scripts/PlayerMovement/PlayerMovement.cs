@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -18,17 +17,21 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float deceleration;
     [SerializeField] private float velPower;
     [SerializeField] private float frictionAmount; 
-    public float Speed { get => baseSpeed; set => baseSpeed = value; }
+    public float BaseSpeed { get => baseSpeed; set => baseSpeed = value; }
+    public float Acceleration { get => acceleration; set => acceleration = value; }
+    public float Deceleration { get => deceleration; set => deceleration = value; }
+    public float VelPower { get => velPower; set => velPower = value; }
+    public float FrictionAmount { get => frictionAmount; set => frictionAmount = value; }
     private bool _isFacingRight = true;
     private Vector2 _velocity; 
 
     [Header("Jump Configs")]
-    public float JumpPower;
-    private float _jumpPower;
-    [Range(0.05f, 0.25f)] public float CoyoteTime = 0.2f;
-    private float _coyoteTime = 0.2f;
-    [Range(0.05f, 0.25f)] public float JumpBufferTime = 0.2f;
-    private float _jumpBufferTime = 0.2f;
+    [SerializeField]  float jumpPower;
+    [SerializeField, Range(0.05f, 0.25f)] private float coyoteTime = 0.2f;
+    [SerializeField, Range(0.05f, 0.25f)]private float jumpBufferTime = 0.2f;
+    public float JumpPower { get => jumpPower; set => jumpPower = value; }
+    public float CoyoteTime { get => coyoteTime; set => coyoteTime = value; }
+    public float JumpBufferTime { get => jumpBufferTime; set => jumpBufferTime = value; }
     private float _lastGroundedTime = 0f;
 
     [Header("Debug Configs")]
@@ -38,50 +41,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float baseGravity;
     [SerializeField] private float maxFallSpeed;
     [SerializeField] private float fallSpeedMultiplier;
-    public float BaseGravity => baseGravity;
+    public float BaseGravity { get => baseGravity; set => baseGravity = value; }
+    public float MaxFallSpeed { get => maxFallSpeed; set => maxFallSpeed = value; }
+    public float FallSpeedMultiplier { get => fallSpeedMultiplier; set => fallSpeedMultiplier = value; }
     
     private PlayerGearSwapper _playerGearSwapper;
     private GearTricks _gearTricks;
-
-    /*
-    [Header("Temp stuff")]
-    public float dashSpeed = 20f;
-    public float dashDuration = 0.2f;
-    public float dashCooldown = 1f;
-
-    private bool isDashing = false;
-    private float lastDashTime;
-    private Vector2 dashDirection;
-    */
     
     private void Awake()
     {
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _gearTricks = GetComponent<GearTricks>();
-        _coyoteTime = CoyoteTime;
-        _jumpPower = JumpPower;
-    }
-
-    private void Update()
-    {
-        //Disables movement while dashing
-        if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType 
-            == EDaredevilGearType.Skateboard) { return; }
-        /*
-        //Makes player move depending on where they are facing
-        Rb.linearVelocity = new Vector2(_playerInputManager.HorizontalMovement * baseSpeed * 
-            _playerGearSwapper.HorizontalMovementMultiplier, Rb.linearVelocity.y);
-        */
-        //Flips player sprite to the direction they are heading to 
-        if (!_isFacingRight && _playerInputManager.HorizontalMovement > 0f) { Flip(); }
-        else if (_isFacingRight && _playerInputManager.HorizontalMovement < 0f) { Flip(); }
-
-        //Handles the timer for coyote time
-        _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
-
-        Jump();
-        Gravity();
     }
 
     private void FixedUpdate()
@@ -110,6 +81,16 @@ public class PlayerMovement : MonoBehaviour
 
             Rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse); 
         }
+        
+        //Flips player sprite to the direction they are heading to 
+        if (!_isFacingRight && _playerInputManager.HorizontalMovement > 0f) { Flip(); }
+        else if (_isFacingRight && _playerInputManager.HorizontalMovement < 0f) { Flip(); }
+
+        //Handles the timer for coyote time
+        _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
+
+        Jump();
+        Gravity();
     }
     
     #region Jumping
@@ -120,17 +101,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        /*if(context.performed && IsGrounded()) 
-        { rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower); }
-        if(context.canceled && rb.linearVelocity.y > 0 ) { new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f); }*/
-
         //OPTIMIZE: validates if player can jump;
-        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < _coyoteTime);
+        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
 
         if (_playerInputManager.Jumping && canJump)
         {
-            //Rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
-            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpPower * _playerGearSwapper.JumpForceMultiplier);
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, jumpPower * _playerGearSwapper.JumpForceMultiplier);
         }
         else if (!_playerInputManager.Jumping)
         {
