@@ -30,7 +30,7 @@ public class TEMP_PlayerRailGrind : MonoBehaviour
         {
             _onRail = true;
             _railing = other.gameObject.GetComponent<TEMP_Railing>();
-            _railDirection = Mathf.Sign(transform.localScale.x);
+            _railDirection = transform.rotation.y == 0 ? 1 : -1;
         }
     }
 
