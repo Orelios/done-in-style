@@ -78,7 +78,7 @@ public class GearTricks : MonoBehaviour
         rankCalculator.IncreaseStylishPoints();
 
         // Dash always in the current horizontal direction
-        float horizontalDirection = Mathf.Sign(transform.localScale.x);
+        float horizontalDirection = transform.rotation.y == 0 ? 1 : -1;
         dashDirection = new Vector2(horizontalDirection, 0).normalized;
 
         // Disable gravity during the dash
