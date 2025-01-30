@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,15 +8,25 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputManager _playerInputManager;
 
     [Header("Components")]
+    [Tooltip("Attach here the Player's Rigidbody2D")]
     public Rigidbody2D Rb;
+    [Tooltip("Attach here the Player's GroundCheck")]
     public Transform GroundCheck;
+    [Tooltip("Select here the Ground LayerMask for ground detection")]
     public LayerMask GroundLayer;
+    [Tooltip("Attach here the Camera Handler")]
+    [SerializeField] private CameraHandler cameraHandler;
 
     [Header("Horizontal Movement Configs")]
+    [Tooltip("Insert here the base movement speed of the Player")]
     [SerializeField] private float baseSpeed = 8f;
+    [Tooltip("Insert here the acceleration factor of the Player")]
     [SerializeField] private float acceleration;
+    [Tooltip("Insert here the deceleration factor of the Player")]
     [SerializeField] private float deceleration;
+    [Tooltip("Insert here the velocity power of the Player; this is used mainly for when the Player is changing horizontal directions")]
     [SerializeField] private float velPower;
+    [Tooltip("Insert here the friction amount; this helps the deceleration to put the Player to a complete stop faster ")]
     [SerializeField] private float frictionAmount; 
     public float BaseSpeed { get => baseSpeed; set => baseSpeed = value; }
     public float Acceleration { get => acceleration; set => acceleration = value; }
@@ -23,12 +34,15 @@ public class PlayerMovement : MonoBehaviour
     public float VelPower { get => velPower; set => velPower = value; }
     public float FrictionAmount { get => frictionAmount; set => frictionAmount = value; }
     public float AppliedMovementSpeed { get; private set; }
-    private bool _isFacingRight = true;
+    public bool IsFacingRight = true;
     private Vector2 _velocity; 
 
     [Header("Jump Configs")]
-    [SerializeField]  float jumpPower;
+    [Tooltip("Insert here the jump power of the Player; this is how high the Player can jump")]
+    [SerializeField]  private float jumpPower;
+    [Tooltip("Insert here how long Coyote Time will run after the player goes off of a ledge; this is how long the Player can still jump after going off a ledge")]
     [SerializeField, Range(0.05f, 0.25f)] private float coyoteTime = 0.2f;
+    [Tooltip("UNIMPLEMENTED: Insert here how long the Player's jump input will buffer; this is how long the Player's jump input is saved when in the air to help time the next jump when landing on the ground")]
     [SerializeField, Range(0.05f, 0.25f)]private float jumpBufferTime = 0.2f;
     public float JumpPower { get => jumpPower; set => jumpPower = value; }
     public float CoyoteTime { get => coyoteTime; set => coyoteTime = value; }
@@ -39,8 +53,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool showGizmos = false;
 
     [Header("Gravity")]
+    [Tooltip("Insert here the base gravity value of the Player; this is how fast the Player will fall down")]
     [SerializeField] private float baseGravity;
+    [Tooltip("Insert here the maximum falling speed the Player will have when falling down")]
     [SerializeField] private float maxFallSpeed;
+    [Tooltip("Insert here the fall speed multiplier when falling down; this is used to help reach the maximum falling speed faster")]
     [SerializeField] private float fallSpeedMultiplier;
     public float BaseGravity { get => baseGravity; set => baseGravity = value; }
     public float MaxFallSpeed { get => maxFallSpeed; set => maxFallSpeed = value; }
@@ -54,6 +71,19 @@ public class PlayerMovement : MonoBehaviour
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _gearTricks = GetComponent<GearTricks>();
+    }
+
+    private void Update()
+    {
+        if (Rb.linearVelocityY < cameraHandler.YVelocityThreshold && !cameraHandler.IsPanningCoroutineActive)
+        {
+            cameraHandler.LerpCameraPanning(true);
+        }
+
+        if (Rb.linearVelocityY >= 0 && !cameraHandler.IsPanningCoroutineActive)
+        {
+            cameraHandler.LerpCameraPanning(false);
+        }
     }
 
     private void FixedUpdate()
@@ -82,10 +112,15 @@ public class PlayerMovement : MonoBehaviour
 
             Rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse); 
         }
-        
-        //Flips player sprite to the direction they are heading to 
-        if (!_isFacingRight && _playerInputManager.HorizontalMovement > 0f) { Flip(); }
-        else if (_isFacingRight && _playerInputManager.HorizontalMovement < 0f) { Flip(); }
+
+        switch (IsFacingRight)
+        {
+            //Flips player sprite to the direction they are heading to 
+            case false when _playerInputManager.HorizontalMovement > 0f:
+            case true when _playerInputManager.HorizontalMovement < 0f:
+                Flip();
+                break;
+        }
 
         //Handles the timer for coyote time
         _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
@@ -133,10 +168,14 @@ public class PlayerMovement : MonoBehaviour
     #endregion
     private void Flip() //flips character where player is facing towards
     {
-        _isFacingRight = !_isFacingRight;
+        /*IsFacingRight = !IsFacingRight;
         Vector3 localScale = transform.localScale;
         localScale.x *= -1;
-        transform.localScale = localScale;
+        transform.localScale = localScale;*/
+        
+        IsFacingRight = !IsFacingRight;
+        Vector3 flipRotation = new(transform.rotation.x, IsFacingRight == true ? 0 : 180f, transform.rotation.z);
+        transform.rotation = Quaternion.Euler(flipRotation);
     }
 
     private void OnDrawGizmos()

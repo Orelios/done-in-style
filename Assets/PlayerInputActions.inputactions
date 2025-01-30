@@ -60,7 +60,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Drop",
+                    "name": "Special",
                     "type": "Button",
                     "id": "50040b9e-6b38-4d40-b701-42a8f3964f98",
                     "expectedControlType": "",
@@ -165,7 +165,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Drop",
+                    "action": "Special",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
