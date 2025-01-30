@@ -1,87 +1,89 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerInputManager _playerInputManager;
 
     [Header("Components")]
+    [Tooltip("Attach here the Player's Rigidbody2D")]
     public Rigidbody2D Rb;
+    [Tooltip("Attach here the Player's GroundCheck")]
     public Transform GroundCheck;
+    [Tooltip("Select here the Ground LayerMask for ground detection")]
     public LayerMask GroundLayer;
+    [Tooltip("Attach here the Camera Handler")]
+    [SerializeField] private CameraHandler cameraHandler;
 
     [Header("Horizontal Movement Configs")]
+    [Tooltip("Insert here the base movement speed of the Player")]
     [SerializeField] private float baseSpeed = 8f;
+    [Tooltip("Insert here the acceleration factor of the Player")]
     [SerializeField] private float acceleration;
+    [Tooltip("Insert here the deceleration factor of the Player")]
     [SerializeField] private float deceleration;
+    [Tooltip("Insert here the velocity power of the Player; this is used mainly for when the Player is changing horizontal directions")]
     [SerializeField] private float velPower;
+    [Tooltip("Insert here the friction amount; this helps the deceleration to put the Player to a complete stop faster ")]
     [SerializeField] private float frictionAmount; 
-    public float Speed { get => baseSpeed; set => baseSpeed = value; }
-    private bool _isFacingRight = true;
+    public float BaseSpeed { get => baseSpeed; set => baseSpeed = value; }
+    public float Acceleration { get => acceleration; set => acceleration = value; }
+    public float Deceleration { get => deceleration; set => deceleration = value; }
+    public float VelPower { get => velPower; set => velPower = value; }
+    public float FrictionAmount { get => frictionAmount; set => frictionAmount = value; }
+    public float AppliedMovementSpeed { get; private set; }
+    public bool IsFacingRight = true;
     private Vector2 _velocity; 
 
     [Header("Jump Configs")]
-    public float JumpPower;
-    private float _jumpPower;
-    [Range(0.05f, 0.25f)] public float CoyoteTime = 0.2f;
-    private float _coyoteTime = 0.2f;
-    [Range(0.05f, 0.25f)] public float JumpBufferTime = 0.2f;
-    private float _jumpBufferTime = 0.2f;
+    [Tooltip("Insert here the jump power of the Player; this is how high the Player can jump")]
+    [SerializeField]  private float jumpPower;
+    [Tooltip("Insert here how long Coyote Time will run after the player goes off of a ledge; this is how long the Player can still jump after going off a ledge")]
+    [SerializeField, Range(0.05f, 0.25f)] private float coyoteTime = 0.2f;
+    [Tooltip("UNIMPLEMENTED: Insert here how long the Player's jump input will buffer; this is how long the Player's jump input is saved when in the air to help time the next jump when landing on the ground")]
+    [SerializeField, Range(0.05f, 0.25f)]private float jumpBufferTime = 0.2f;
+    public float JumpPower { get => jumpPower; set => jumpPower = value; }
+    public float CoyoteTime { get => coyoteTime; set => coyoteTime = value; }
+    public float JumpBufferTime { get => jumpBufferTime; set => jumpBufferTime = value; }
     private float _lastGroundedTime = 0f;
 
     [Header("Debug Configs")]
     [SerializeField] private bool showGizmos = false;
 
     [Header("Gravity")]
+    [Tooltip("Insert here the base gravity value of the Player; this is how fast the Player will fall down")]
     [SerializeField] private float baseGravity;
+    [Tooltip("Insert here the maximum falling speed the Player will have when falling down")]
     [SerializeField] private float maxFallSpeed;
+    [Tooltip("Insert here the fall speed multiplier when falling down; this is used to help reach the maximum falling speed faster")]
     [SerializeField] private float fallSpeedMultiplier;
-    public float BaseGravity => baseGravity;
+    public float BaseGravity { get => baseGravity; set => baseGravity = value; }
+    public float MaxFallSpeed { get => maxFallSpeed; set => maxFallSpeed = value; }
+    public float FallSpeedMultiplier { get => fallSpeedMultiplier; set => fallSpeedMultiplier = value; }
     
     private PlayerGearSwapper _playerGearSwapper;
     private GearTricks _gearTricks;
-
-    /*
-    [Header("Temp stuff")]
-    public float dashSpeed = 20f;
-    public float dashDuration = 0.2f;
-    public float dashCooldown = 1f;
-
-    private bool isDashing = false;
-    private float lastDashTime;
-    private Vector2 dashDirection;
-    */
     
     private void Awake()
     {
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _gearTricks = GetComponent<GearTricks>();
-        _coyoteTime = CoyoteTime;
-        _jumpPower = JumpPower;
     }
 
     private void Update()
     {
-        //Disables movement while dashing
-        if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType 
-            == EDaredevilGearType.Skateboard) { return; }
-        /*
-        //Makes player move depending on where they are facing
-        Rb.linearVelocity = new Vector2(_playerInputManager.HorizontalMovement * baseSpeed * 
-            _playerGearSwapper.HorizontalMovementMultiplier, Rb.linearVelocity.y);
-        */
-        //Flips player sprite to the direction they are heading to 
-        if (!_isFacingRight && _playerInputManager.HorizontalMovement > 0f) { Flip(); }
-        else if (_isFacingRight && _playerInputManager.HorizontalMovement < 0f) { Flip(); }
+        if (Rb.linearVelocityY < cameraHandler.YVelocityThreshold && !cameraHandler.IsPanningCoroutineActive)
+        {
+            cameraHandler.LerpCameraPanning(true);
+        }
 
-        //Handles the timer for coyote time
-        _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
-
-        Jump();
-        Gravity();
+        if (Rb.linearVelocityY >= 0 && !cameraHandler.IsPanningCoroutineActive)
+        {
+            cameraHandler.LerpCameraPanning(false);
+        }
     }
 
     private void FixedUpdate()
@@ -97,9 +99,9 @@ public class PlayerMovement : MonoBehaviour
 
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
 
-        float movement = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
+        AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
 
-        Rb.AddForce(movement * Vector2.right); 
+        Rb.AddForce(AppliedMovementSpeed * Vector2.right); 
 
         //Friction
         if(_lastGroundedTime > 0 && Mathf.Abs(_playerInputManager.HorizontalMovement) < 0.01f)
@@ -110,6 +112,21 @@ public class PlayerMovement : MonoBehaviour
 
             Rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse); 
         }
+
+        switch (IsFacingRight)
+        {
+            //Flips player sprite to the direction they are heading to 
+            case false when _playerInputManager.HorizontalMovement > 0f:
+            case true when _playerInputManager.HorizontalMovement < 0f:
+                Flip();
+                break;
+        }
+
+        //Handles the timer for coyote time
+        _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
+
+        Jump();
+        Gravity();
     }
     
     #region Jumping
@@ -120,17 +137,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        /*if(context.performed && IsGrounded()) 
-        { rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpPower); }
-        if(context.canceled && rb.linearVelocity.y > 0 ) { new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * 0.5f); }*/
-
         //OPTIMIZE: validates if player can jump;
-        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < _coyoteTime);
+        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
 
         if (_playerInputManager.Jumping && canJump)
         {
-            //Rb.AddForce(Vector2.up * _jumpPower, ForceMode2D.Impulse);
-            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpPower * _playerGearSwapper.JumpForceMultiplier);
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, jumpPower * _playerGearSwapper.JumpForceMultiplier);
         }
         else if (!_playerInputManager.Jumping)
         {
@@ -156,10 +168,14 @@ public class PlayerMovement : MonoBehaviour
     #endregion
     private void Flip() //flips character where player is facing towards
     {
-        _isFacingRight = !_isFacingRight;
+        /*IsFacingRight = !IsFacingRight;
         Vector3 localScale = transform.localScale;
         localScale.x *= -1;
-        transform.localScale = localScale;
+        transform.localScale = localScale;*/
+        
+        IsFacingRight = !IsFacingRight;
+        Vector3 flipRotation = new(transform.rotation.x, IsFacingRight == true ? 0 : 180f, transform.rotation.z);
+        transform.rotation = Quaternion.Euler(flipRotation);
     }
 
     private void OnDrawGizmos()
