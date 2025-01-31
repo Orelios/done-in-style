@@ -11,7 +11,7 @@ public class Spikes : MonoBehaviour
         if (!collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit)
         {
             collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity = 
-                new Vector2((-BounceHeight*2) * collision.gameObject.GetComponent<Transform>().localScale.x, BounceHeight);
+                new Vector2((-BounceHeight*2) * collision.gameObject.GetComponent<Transform>().transform.rotation.y == 0 ? 1 : -1, BounceHeight);
 
             scoreCalculator.DecreaseScore(damage);
             scoreCalculator.GetComponent<Temp_RankCalculator>().DecreaseStylishPoints();
