@@ -5,9 +5,13 @@ public class DestructibleObjects : MonoBehaviour
     [SerializeField] private EDaredevilGearType gearType; 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerGearSwapper>().CurrentGearEquipped.DaredevilGearType == gearType)
+        if (collision.gameObject.GetComponent<GearTricks>())
         {
-            Destroy(gameObject); 
+            if (collision.gameObject.GetComponent<PlayerGearSwapper>().CurrentGearEquipped.DaredevilGearType == gearType)
+            {
+                Destroy(gameObject);
+            }
         }
+        
     }
 }
