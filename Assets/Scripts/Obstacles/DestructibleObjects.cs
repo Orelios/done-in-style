@@ -3,7 +3,8 @@ using UnityEngine;
 public class DestructibleObjects : MonoBehaviour
 {
     [SerializeField] private EDaredevilGearType gearType; 
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<GearTricks>())
         {
@@ -12,6 +13,5 @@ public class DestructibleObjects : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        
     }
 }
