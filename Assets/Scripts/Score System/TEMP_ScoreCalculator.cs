@@ -22,4 +22,12 @@ public class TEMP_ScoreCalculator : MonoBehaviour
         _currentScore += Mathf.RoundToInt(scoreValueToAdd * scoreMultiplier);
         scoreText.text = $"{_currentScore : 00000}";
     }
+
+    public void DecreaseScore(int scoreValueToRemove) 
+    {
+        if(_currentScore != 0) {
+            _currentScore -= scoreValueToRemove;
+            scoreText.text = $"{_currentScore: 00000}";
+        }
+    }
 }
