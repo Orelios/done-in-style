@@ -225,7 +225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3200571784263442899, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: gearType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1883,7 +1883,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3200571784263442899, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: gearType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2678,7 +2678,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3200571784263442899, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: gearType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5146,7 +5146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3200571784263442899, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: gearType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6040,7 +6040,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3200571784263442899, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: gearType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12193,7 +12193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3200571784263442899, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: gearType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12936,7 +12936,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3200571784263442899, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: gearType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: m_LocalPosition.x
