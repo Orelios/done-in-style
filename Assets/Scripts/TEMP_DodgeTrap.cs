@@ -11,14 +11,18 @@ public class TEMP_DodgeTrap : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit && !_playerPassed)
+        if (collision.gameObject.GetComponent<TEMP_PlayerIFrames>())
         {
-            _ScoreCalculator.AddScore(100, 
-                _ScoreCalculator.GetComponent<Temp_RankCalculator>().CurrentStylishRank.ScoreMultiplier);
+            if (!collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit && !_playerPassed)
+            {
+                _ScoreCalculator.AddScore(100,
+                    _ScoreCalculator.GetComponent<Temp_RankCalculator>().CurrentStylishRank.ScoreMultiplier);
 
-            _ScoreCalculator.GetComponent<Temp_RankCalculator>().IncreaseStylishPoints();
+                _ScoreCalculator.GetComponent<Temp_RankCalculator>().IncreaseStylishPoints();
 
-            _playerPassed=true;
+                _playerPassed = true;
+            }
         }
+        
     }
 }
