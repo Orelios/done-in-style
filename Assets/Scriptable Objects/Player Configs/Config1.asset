@@ -17,6 +17,16 @@ MonoBehaviour:
   groundDeceleration: 20
   airAcceleration: 5
   airDeceleration: 5
+  jumpHeight: 6.5
+  jumpCompensationFactor: 1.054
+  timeUntilJumpApex: 0.35
+  gravityOnReleaseMultiplier: 2
+  maxFallSpeed: 26
+  timeForUpwardsCancel: 0.027
+  apexThreshold: 0.97
+  apexHangTime: 0.075
+  jumpBufferingTime: 0.125
+  coyoteTime: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
