@@ -15,7 +15,7 @@ public class JumpPad : MonoBehaviour
     */
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerMovement>() &&
+        if (collision.gameObject.GetComponent<OLD_PlayerMovement>() &&
             collision.gameObject.GetComponent<PlayerGearSwapper>().
             CurrentGearEquipped.DaredevilGearType == EDaredevilGearType.PogoStick)
         { 

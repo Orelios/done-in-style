@@ -9,10 +9,10 @@ public class PlayerInputManager : MonoBehaviour
     { HorizontalMovement = context.ReadValue<float>(); }
 
     //Player Jump
-    public bool Jumping { get; private set; }
+    public bool IsJumping { get; private set; }
     public void Jump(InputAction.CallbackContext context)
     {
-        if (context.started) { Jumping = true; }
-        else if (context.canceled) { Jumping = false; }
+        if (context.started) { IsJumping = true; }
+        else if (context.canceled) { IsJumping = false; }
     }
 }
