@@ -65,16 +65,39 @@ public class PlayerMovement : MonoBehaviour
     
     private PlayerGearSwapper _playerGearSwapper;
     private GearTricks _gearTricks;
+
+    [Header("Test")] 
+    [SerializeField] float maxMovementSpeed;
+    private PlayerVelocitySM _playerVelocitySM;
     
     private void Awake()
     {
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _gearTricks = GetComponent<GearTricks>();
+
+        _playerVelocitySM = new();
+
+        var atRestState = new AtRestState(this);
+        var acceleratingState = new AcceleratingState(this);
+        var maxSpeedState = new MaxSpeedState(this);
+        
+        NormalTransition(atRestState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) > 0f));
+        NormalTransition(acceleratingState, maxSpeedState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) == maxMovementSpeed));
+        NormalTransition(maxSpeedState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) < maxMovementSpeed));
+        NormalTransition(acceleratingState, atRestState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) == 0f));
+        
+        _playerVelocitySM.SetState(atRestState);
+    }
+
+    private void NormalTransition(IState fromState, IState nextState, IPredicate condition)
+    {
+        _playerVelocitySM.AddNormalTransition(fromState, nextState, condition);
     }
 
     private void Update()
     {
+        _playerVelocitySM.Update();
         if (Rb.linearVelocityY < cameraHandler.YVelocityThreshold && !cameraHandler.IsPanningCoroutineActive)
         {
             cameraHandler.LerpCameraPanning(true);
@@ -88,6 +111,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _playerVelocitySM.FixedUpdate();
         //Disables movement while dashing
         if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType
             == EDaredevilGearType.Skateboard) { return; }
@@ -100,6 +124,7 @@ public class PlayerMovement : MonoBehaviour
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
 
         AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
+        AppliedMovementSpeed = Mathf.Clamp(AppliedMovementSpeed, float.MinValue, maxMovementSpeed);
 
         Rb.AddForce(AppliedMovementSpeed * Vector2.right); 
 
