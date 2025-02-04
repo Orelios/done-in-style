@@ -76,6 +76,7 @@ public class PlayerConfigsSO : ScriptableObject
         Gravity = -(2f * AdjustedJumpHeight) / Mathf.Pow(timeUntilJumpApex, 2f);
         InitialJumpVelocity = Mathf.Abs(Gravity);
     }*/
+    /*
     [Header("Horizontal Movement")] 
     [SerializeField] private float baseMaxSpeed;
     [SerializeField] private float baseAcceleration;
@@ -116,5 +117,45 @@ public class PlayerConfigsSO : ScriptableObject
 
         AccelerationAmount = Mathf.Clamp(AccelerationAmount, 0.01f, baseMaxSpeed);
         DecelerationAmount = Mathf.Clamp(DecelerationAmount, 0.01f, baseMaxSpeed);
-    }
+    }*/
+
+    [Header("Horizontal Movement Configs")]
+    [Tooltip("Insert here the base movement speed of the Player")]
+    [SerializeField] private float baseSpeed = 8f;
+    [Tooltip("Insert here the acceleration factor of the Player")]
+    [SerializeField] private float acceleration;
+    [Tooltip("Insert here the deceleration factor of the Player")]
+    [SerializeField] private float deceleration;
+    [Tooltip("Insert here the velocity power of the Player; this is used mainly for when the Player is changing horizontal directions")]
+    [SerializeField] private float velPower;
+    [Tooltip("Insert here the friction amount; this helps the deceleration to put the Player to a complete stop faster ")]
+    [SerializeField] private float frictionAmount;
+    public float BaseSpeed { get => baseSpeed; set => baseSpeed = value; }
+    public float Acceleration { get => acceleration; set => acceleration = value; }
+    public float Deceleration { get => deceleration; set => deceleration = value; }
+    public float VelPower { get => velPower; set => velPower = value; }
+    public float FrictionAmount { get => frictionAmount; set => frictionAmount = value; }
+    public float AppliedMovementSpeed { get; private set; }
+
+    [Header("Jump Configs")]
+    [Tooltip("Insert here the jump power of the Player; this is how high the Player can jump")]
+    [SerializeField] private float jumpPower;
+    [Tooltip("Insert here how long Coyote Time will run after the player goes off of a ledge; this is how long the Player can still jump after going off a ledge")]
+    [SerializeField, Range(0.05f, 0.25f)] private float coyoteTime = 0.2f;
+    [Tooltip("UNIMPLEMENTED: Insert here how long the Player's jump input will buffer; this is how long the Player's jump input is saved when in the air to help time the next jump when landing on the ground")]
+    [SerializeField, Range(0.05f, 0.25f)] private float jumpBufferTime = 0.2f;
+    public float JumpPower { get => jumpPower; set => jumpPower = value; }
+    public float CoyoteTime { get => coyoteTime; set => coyoteTime = value; }
+    public float JumpBufferTime { get => jumpBufferTime; set => jumpBufferTime = value; }
+
+    [Header("Gravity")]
+    [Tooltip("Insert here the base gravity value of the Player; this is how fast the Player will fall down")]
+    [SerializeField] private float baseGravity;
+    [Tooltip("Insert here the maximum falling speed the Player will have when falling down")]
+    [SerializeField] private float maxFallSpeed;
+    [Tooltip("Insert here the fall speed multiplier when falling down; this is used to help reach the maximum falling speed faster")]
+    [SerializeField] private float fallSpeedMultiplier;
+    public float BaseGravity { get => baseGravity; set => baseGravity = value; }
+    public float MaxFallSpeed { get => maxFallSpeed; set => maxFallSpeed = value; }
+    public float FallSpeedMultiplier { get => fallSpeedMultiplier; set => fallSpeedMultiplier = value; }
 }
