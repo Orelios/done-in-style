@@ -10,7 +10,7 @@ public class CameraHandler : MonoBehaviour
     [Tooltip("Attach here the Camera used to follow the Player; must be a Cinemachine Position Composer")]
     [SerializeField] private CinemachinePositionComposer cameraFollowingPlayer;
     [Tooltip("Attach here the PlayerMovement script from the Player")]
-    [SerializeField] private OLD_PlayerMovement playerMovement;
+    [SerializeField] private PlayerMovement playerMovement;
     
     [Header("Camera Configs")]
     [Tooltip("Insert here the Camera offset when the Player is currently grounded")]

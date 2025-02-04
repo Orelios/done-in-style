@@ -12,24 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9f55dd70dd9a44b8783ead2f5d8c78, type: 3}
   m_Name: Config1
   m_EditorClassIdentifier: 
-  baseMovementSpeed: 12.5
-  groundAcceleration: 5
-  groundDeceleration: 20
-  airAcceleration: 5
-  airDeceleration: 5
-  jumpHeight: 6.5
-  jumpCompensationFactor: 1.054
-  timeUntilJumpApex: 0.35
-  gravityOnReleaseMultiplier: 2
-  maxFallSpeed: 26
-  timeForUpwardsCancel: 0.027
-  apexThreshold: 0.97
-  apexHangTime: 0.075
-  jumpBufferingTime: 0.125
-  coyoteTime: 0.1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  groundCheckDistance: 0.02
-  headCheckDistance: 0.02
-  headWidth: 0.75
+  baseMaxSpeed: 0
+  baseAcceleration: 0
+  AccelerationAmount: NaN
+  baseDeceleration: 0
+  DecelerationAmount: NaN
+  inAirAccelerationMultiplier: 0
+  inAirDecelerationMultiplier: 0
+  doConserveMomentum: 0
+  maxJumpHeight: 0
+  jumpTimeToApex: 0
+  JumpForce: NaN
+  jumpCutGravityMultiplier: 0
+  jumpHangGravityMultiplier: 0
+  jumpHangTimeThreshold: 0
+  jumpHangAccelerationMultiplier: 0
+  jumpHangMaxSpeedMultiplier: 0
+  coyoteTime: 0
+  jumpInputBufferTime: 0
+  GravityStrength: NaN
+  GravityScale: NaN
+  fallGravityMultiplier: 0
+  maxFallSpeed: 0

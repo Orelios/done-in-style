@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class SCRAPPED_PlayerMovement : MonoBehaviour
 {
-    [Header("References")]
+    /*[Header("References")]
     [SerializeField] private PlayerConfigsSO playerConfig;
     [SerializeField] private Collider2D bodyCollider;
     [SerializeField] private Collider2D feetCollider;
@@ -300,5 +300,154 @@ public class PlayerMovement : MonoBehaviour
         _coyoteTimer = _isGrounded ? _coyoteTimer -= Time.deltaTime : playerConfig.CoyoteTime;
     }
 
-    #endregion
+    #endregion*/
+    
+    public float moveSpeed = 5f; // Maximum speed
+    public float groundAcceleration = 10f; // Acceleration when grounded
+    public float airAcceleration = 2f; // Reduced acceleration when in the air
+    public float groundDeceleration = 10f; // Deceleration when grounded
+    public float airDeceleration = 5f; // Reduced deceleration when in the air
+    public float baseJumpForce = 5f; // Base jump force
+    public float maxJumpTime = 0.5f; // Maximum time for holding jump button for max jump height
+    public LayerMask groundLayer; // Ground detection layer
+    public float gravityScale = 1f; // Gravity scale to adjust gravity strength
+
+    private Rigidbody2D rb;
+    private Vector2 currentVelocity;
+
+    // Jumping variables
+    private bool isGrounded;
+    private bool jumpPressed;
+    private float jumpTime = 0f; // Timer for how long the jump button is held
+    private float coyoteTime = 0.1f; // Coyote time after leaving the ground
+    private float jumpBufferTime = 0.2f; // Jump buffering window
+    private float coyoteTimeCounter;
+    private float jumpBufferCounter;
+
+    private bool isJumping;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        currentVelocity = Vector2.zero;
+        coyoteTimeCounter = 0f;
+        jumpBufferCounter = 0f;
+        rb.gravityScale = gravityScale;
+    }
+
+    // Update is used for input and jump handling
+    void Update()
+    {
+        CheckGroundStatus();
+        HandleJumpInput();
+
+        // Handle jump buffering timer
+        if (jumpBufferCounter > 0)
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
+
+        // Handle coyote time countdown
+        if (!isGrounded)
+        {
+            coyoteTimeCounter -= Time.deltaTime;
+        }
+    }
+
+    // FixedUpdate is for physics-related updates like movement
+    void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    void MovePlayer()
+    {
+        // Get horizontal input (A/D or arrow keys)
+        float moveX = Input.GetAxis("Horizontal");
+
+        // Calculate target velocity based on input
+        Vector2 targetVelocity = new Vector2(moveX, 0).normalized * moveSpeed;
+
+        // Determine if we should use grounded or airborne values
+        float currentAcceleration = isGrounded ? groundAcceleration : airAcceleration;
+        float currentDeceleration = isGrounded ? groundDeceleration : airDeceleration;
+
+        // If there's movement input, accelerate towards target velocity
+        if (targetVelocity.magnitude > 0)
+        {
+            currentVelocity = Vector2.MoveTowards(currentVelocity, targetVelocity, currentAcceleration * Time.fixedDeltaTime);
+        }
+        else
+        {
+            // If no input, decelerate smoothly
+            currentVelocity = Vector2.MoveTowards(currentVelocity, Vector2.zero, currentDeceleration * Time.fixedDeltaTime);
+        }
+
+        // Apply the current velocity to the Rigidbody2D (preserving the y-velocity for gravity and jumps)
+        rb.linearVelocity = new Vector2(currentVelocity.x, rb.linearVelocity.y);
+
+        // Rotate the player to face the direction of movement (smooth rotation around Z-axis for 2D)
+        if (currentVelocity.x != 0)
+        {
+            float angle = Mathf.Sign(currentVelocity.x) * 90f; // Rotate 90 degrees left or right based on movement
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
+    }
+
+    // Check if the player is grounded using a raycast or similar method
+    void CheckGroundStatus()
+    {
+        // Cast a ray downwards to check for the ground
+        isGrounded = Physics2D.Raycast(transform.position, Vector2.down, 0.1f, groundLayer);
+
+        // Reset coyote time if grounded
+        if (isGrounded)
+        {
+            coyoteTimeCounter = coyoteTime;
+            jumpTime = 0f; // Reset jump time when grounded
+        }
+    }
+
+    // Handle jump input and jumping behavior
+    void HandleJumpInput()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            jumpPressed = true;
+            jumpBufferCounter = jumpBufferTime; // Reset the jump buffer timer
+            jumpTime = 0f; // Start counting the jump time
+            isJumping = true;
+        }
+
+        if (Input.GetButton("Jump") && jumpPressed && jumpTime < maxJumpTime && !isGrounded)
+        {
+            // Increase the jump time as long as the button is held down and we haven't reached the max jump time
+            jumpTime += Time.deltaTime;
+            // Calculate the vertical velocity based on how long the button has been held
+            float jumpVelocity = Mathf.Lerp(baseJumpForce, baseJumpForce * 2f, jumpTime / maxJumpTime); // Gradually increase jump velocity
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpVelocity); // Update vertical velocity
+        }
+
+        if (Input.GetButtonUp("Jump") || jumpTime >= maxJumpTime)
+        {
+            // Stop the jump if the player releases the button or hits the max jump time
+            jumpPressed = false;
+        }
+
+        if (jumpBufferCounter > 0)
+        {
+            if (isGrounded || coyoteTimeCounter > 0)
+            {
+                // Jump if grounded or in coyote time
+                if (!isJumping)
+                {
+                    float jumpVelocity = baseJumpForce; // Apply the base jump velocity
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpVelocity);
+                    isJumping = true;
+                }
+                jumpBufferCounter = 0f; // Reset jump buffer counter
+            }
+        }
+    }
 }

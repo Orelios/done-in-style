@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class GearTricks : MonoBehaviour
 {
     private PlayerGearSwapper _playerGearSwapper;
-    private OLD_PlayerMovement _playerMovement;
+    private PlayerMovement _playerMovement;
     private PlayerInputManager _playerInputManager;
 
     [Header("Components")]
@@ -44,7 +44,7 @@ public class GearTricks : MonoBehaviour
     private void Awake()
     {
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
-        _playerMovement = GetComponent<OLD_PlayerMovement>();
+        _playerMovement = GetComponent<PlayerMovement>();
         _playerInputManager = GetComponent<PlayerInputManager>();
         _jumps = maxJumps; 
     }

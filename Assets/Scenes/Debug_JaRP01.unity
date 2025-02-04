@@ -1274,7 +1274,7 @@ Transform:
   m_GameObject: {fileID: 558358739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.03, z: -10}
+  m_LocalPosition: {x: 0, y: -1.52, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2498,7 +2498,7 @@ Transform:
   m_GameObject: {fileID: 1858937460}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.0086, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2834,7 +2834,7 @@ Transform:
   m_GameObject: {fileID: 2020243630}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.03, z: 0}
+  m_LocalPosition: {x: 0, y: -1.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2854,9 +2854,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43da01f167a6dde4abb59fc40aca220f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerConfig: {fileID: 11400000, guid: ea9c27d638b40f643a9bf378e9fb52a4, type: 2}
-  bodyCollider: {fileID: 150909940}
-  feetCollider: {fileID: 1858937461}
+  moveSpeed: 5
+  groundAcceleration: 10
+  airAcceleration: 2
+  groundDeceleration: 10
+  airDeceleration: 5
+  baseJumpForce: 5
+  maxJumpTime: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  gravityScale: 1
 --- !u!114 &2020243633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2963,10 +2971,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0
-  m_GravityScale: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: 5e22a033586f8e1469eda8682e98cf24, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -3907,7 +3915,7 @@ Transform:
   m_GameObject: {fileID: 511968297436822432}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.03, z: -10}
+  m_LocalPosition: {x: 0, y: -1.52, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

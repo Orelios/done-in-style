@@ -1,9 +1,9 @@
-    using System;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class OLD_PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     private PlayerInputManager _playerInputManager;
 

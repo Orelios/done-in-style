@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewPlayerConfigs", menuName = "Scriptable Objects/Player Configs")]
 public class PlayerConfigsSO : ScriptableObject
 {
-    [Header("Horizontal Movement")] 
+    /*[Header("Horizontal Movement")] 
     [SerializeField] private float baseMovementSpeed;
     [SerializeField] private float groundAcceleration;
     [SerializeField] private float groundDeceleration;
@@ -75,5 +75,46 @@ public class PlayerConfigsSO : ScriptableObject
         AdjustedJumpHeight *= jumpCompensationFactor;
         Gravity = -(2f * AdjustedJumpHeight) / Mathf.Pow(timeUntilJumpApex, 2f);
         InitialJumpVelocity = Mathf.Abs(Gravity);
+    }*/
+    [Header("Horizontal Movement")] 
+    [SerializeField] private float baseMaxSpeed;
+    [SerializeField] private float baseAcceleration;
+    [HideInInspector] public float AccelerationAmount;
+    [SerializeField] private float baseDeceleration;
+    [HideInInspector] public float DecelerationAmount;
+    [SerializeField, Range(0f, 1)] private float inAirAccelerationMultiplier;
+    [SerializeField, Range(0f, 1)] private float inAirDecelerationMultiplier;
+    [SerializeField] private bool doConserveMomentum;
+
+    [Header("Jump")] 
+    [SerializeField] private float maxJumpHeight;
+    [SerializeField] private float jumpTimeToApex;
+    [HideInInspector] public float JumpForce;
+    [SerializeField] private float jumpCutGravityMultiplier;
+    [SerializeField, Range(0f, 1)] private float jumpHangGravityMultiplier;
+    [SerializeField] private float jumpHangTimeThreshold;
+    [SerializeField] private float jumpHangAccelerationMultiplier;
+    [SerializeField] private float jumpHangMaxSpeedMultiplier;
+    [SerializeField] private float coyoteTime;
+    [SerializeField] private float jumpInputBufferTime;
+
+    [Header("Gravity")] 
+    [HideInInspector] public float GravityStrength;
+    [HideInInspector] public float GravityScale;
+    [SerializeField] private float fallGravityMultiplier;
+    [SerializeField] private float maxFallSpeed;
+    
+    private void OnValidate()
+    {
+        GravityStrength = -(2 * maxJumpHeight) / Mathf.Pow(jumpTimeToApex, 2);
+        GravityScale = GravityStrength / Physics2D.gravity.y;
+        
+        AccelerationAmount = (50 * baseAcceleration) / baseMaxSpeed;
+        DecelerationAmount = (50 * baseDeceleration) / baseMaxSpeed;
+
+        JumpForce = Mathf.Abs(GravityStrength) * jumpTimeToApex;
+
+        AccelerationAmount = Mathf.Clamp(AccelerationAmount, 0.01f, baseMaxSpeed);
+        DecelerationAmount = Mathf.Clamp(DecelerationAmount, 0.01f, baseMaxSpeed);
     }
 }
