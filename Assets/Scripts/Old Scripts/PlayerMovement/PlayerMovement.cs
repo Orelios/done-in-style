@@ -140,11 +140,11 @@ public class PlayerMovement : MonoBehaviour
         //OPTIMIZE: validates if player can jump;
         bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
 
-        if (_playerInputManager.Jumping && canJump)
+        if (_playerInputManager.IsJumping && canJump)
         {
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, jumpPower * _playerGearSwapper.JumpForceMultiplier);
         }
-        else if (!_playerInputManager.Jumping)
+        else if (!_playerInputManager.IsJumping)
         {
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Rb.linearVelocity.y);
         }
