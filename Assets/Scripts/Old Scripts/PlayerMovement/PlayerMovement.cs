@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
         
         //create the Transitions between States
         NormalTransition(atRestState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) > 0f));
-        NormalTransition(acceleratingState, maxSpeedState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) == maxMovementSpeed));
+        NormalTransition(acceleratingState, maxSpeedState, new FuncPredicate(() => Mathf.Approximately(Mathf.Abs(AppliedMovementSpeed), maxMovementSpeed)));
         NormalTransition(maxSpeedState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) < maxMovementSpeed));
         NormalTransition(acceleratingState, atRestState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) == 0f));
         
@@ -133,8 +133,9 @@ public class PlayerMovement : MonoBehaviour
 
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
 
-        AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
+        AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower);
         AppliedMovementSpeed = Mathf.Clamp(AppliedMovementSpeed, float.MinValue, maxMovementSpeed);
+        AppliedMovementSpeed  *= Mathf.Sign(speedDif);
 
         Rb.AddForce(AppliedMovementSpeed * Vector2.right); 
 

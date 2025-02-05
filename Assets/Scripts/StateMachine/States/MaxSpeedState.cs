@@ -1,30 +1,25 @@
 using UnityEngine;
 
-public class MaxSpeedState : IState
+public class MaxSpeedState : VelocityState
 {
-    protected PlayerMovement _playerMovement;
-
-    public MaxSpeedState(PlayerMovement playerMovement)
-    {
-        _playerMovement = playerMovement;
-    }
+    public MaxSpeedState(PlayerMovement playerMovement) : base(playerMovement){ }
     
-    public  void OnStateEnter()
+    public override void OnStateEnter()
     {
         Debug.Log("Entering MaxSpeedState");
     }
 
-    public  void Update()
+    public override void Update()
     {
         
     }
 
-    public  void FixedUpdate()
+    public override void FixedUpdate()
     {
         
     }
 
-    public  void OnStateExit()
+    public override void OnStateExit()
     {
         
     }

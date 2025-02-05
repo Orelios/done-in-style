@@ -1,30 +1,25 @@
 using UnityEngine;
 
-public class AcceleratingState : IState
+public class AcceleratingState : VelocityState
 {
-    protected PlayerMovement _playerMovement;
-
-    public AcceleratingState(PlayerMovement playerMovement)
-    {
-        _playerMovement = playerMovement;
-    }
+    public AcceleratingState(PlayerMovement playerMovement) : base(playerMovement) { }
     
-    public  void OnStateEnter()
+    public override void OnStateEnter()
     {
         Debug.Log("Entering AcceleratingState");
     }
 
-    public  void Update()
+    public override void Update()
     {
         
     }
 
-    public  void FixedUpdate()
+    public override void FixedUpdate()
     {
         
     }
 
-    public  void OnStateExit()
+    public override void OnStateExit()
     {
         
     }

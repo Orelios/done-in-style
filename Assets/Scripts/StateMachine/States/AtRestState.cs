@@ -1,30 +1,25 @@
 using UnityEngine;
 
-public class AtRestState : IState
+public class AtRestState : VelocityState
 {
-    protected PlayerMovement _playerMovement;
-
-    public AtRestState(PlayerMovement playerMovement)
-    {
-        _playerMovement = playerMovement;
-    }
+    public AtRestState(PlayerMovement playerMovement) : base(playerMovement){ }
     
-    public  void OnStateEnter()
+    public override void OnStateEnter()
     {
         Debug.Log("Entering AtRestState");
     }
 
-    public  void Update()
+    public override void Update()
     {
         
     }
 
-    public  void FixedUpdate()
+    public override void FixedUpdate()
     {
         
     }
 
-    public  void OnStateExit()
+    public override void OnStateExit()
     {
         
     }
