@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Test")] 
     [SerializeField] float maxMovementSpeed;
-    private PlayerVelocitySM _playerVelocitySM;
+    public PlayerVelocitySM _playerVelocitySM;
     
     private void Awake()
     {
