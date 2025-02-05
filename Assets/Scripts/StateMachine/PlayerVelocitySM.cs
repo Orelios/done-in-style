@@ -33,6 +33,11 @@ public class PlayerVelocitySM
         
     }
 
+    public StateNode GetCurrentState()
+    {
+        return _currentStateNode;
+    }
+
     private void ChangeState(IState targetState)
     {
         if (targetState == _currentStateNode.State)
@@ -81,7 +86,7 @@ public class PlayerVelocitySM
     }
     
     //This is basically just a State with all its valid Transitions
-    private class StateNode
+    public class StateNode
     {
         public IState State { get; }
         public HashSet<ITransition> Transitions { get; }
