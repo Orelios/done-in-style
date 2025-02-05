@@ -76,20 +76,30 @@ public class PlayerMovement : MonoBehaviour
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _gearTricks = GetComponent<GearTricks>();
 
+        InitializeStateMachine();
+    }
+
+    private void InitializeStateMachine()
+    {
+        //create the State Machine
         _playerVelocitySM = new();
 
+        //declare and create the velocity States
         var atRestState = new AtRestState(this);
         var acceleratingState = new AcceleratingState(this);
         var maxSpeedState = new MaxSpeedState(this);
         
+        //create the Transitions between States
         NormalTransition(atRestState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) > 0f));
         NormalTransition(acceleratingState, maxSpeedState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) == maxMovementSpeed));
         NormalTransition(maxSpeedState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) < maxMovementSpeed));
         NormalTransition(acceleratingState, atRestState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) == 0f));
         
+        //assign the default State
         _playerVelocitySM.SetState(atRestState);
     }
 
+    //function to create Transitions between one State to another 
     private void NormalTransition(IState fromState, IState nextState, IPredicate condition)
     {
         _playerVelocitySM.AddNormalTransition(fromState, nextState, condition);

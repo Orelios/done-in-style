@@ -7,6 +7,7 @@ public class PlayerVelocitySM
     private StateNode _currentStateNode;
     private Dictionary<Type, StateNode> _stateNodes = new();
 
+    //check for any Transition to a new State; invoke the Update() function of the current State
     public void Update()
     {
         var transition = GetTransition();
@@ -19,6 +20,7 @@ public class PlayerVelocitySM
         _currentStateNode.State?.Update();
     }
 
+    //Invoke the FixedUpdate() function of the current State
     public void FixedUpdate()
     {
         _currentStateNode.State?.FixedUpdate();
@@ -64,6 +66,7 @@ public class PlayerVelocitySM
         GetOrAddStateNode(fromState).AddNormalTransition(GetOrAddStateNode(targetState).State, condition);
     }
 
+    //function to get a State Node; if value is null, creates a State Node instead
     private StateNode GetOrAddStateNode(IState state)
     {
         var stateNode = _stateNodes.GetValueOrDefault(state.GetType());
