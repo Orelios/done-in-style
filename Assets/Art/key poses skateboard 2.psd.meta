@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      key poses skateboard 2_0: 8197140135602798108
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
