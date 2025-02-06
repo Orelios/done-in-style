@@ -46,15 +46,9 @@ public class TimeHandler : MonoBehaviour
         {
             var progress = elapsedTime / duration;
 
-            if (progress >= _percentageForSmoothingToStart)
-            {
-                Time.timeScale = Mathf.Lerp(_slowDownFactor, _originalTimeScale, (_slowDownDuration * _percentageForSmoothingToStart) / duration);
-            }
-            else
-            {
-                Time.timeScale = Mathf.Lerp(initialTimeScale, _originalTimeScale, elapsedTime / duration);
-                //Time.timeScale = _slowDownFactor;
-            }
+            Time.timeScale = progress >= _percentageForSmoothingToStart ? 
+                Mathf.Lerp(_slowDownFactor, _originalTimeScale, (_slowDownDuration * _percentageForSmoothingToStart) / duration) : 
+                Mathf.Lerp(initialTimeScale, _originalTimeScale, elapsedTime / (duration * _percentageForSmoothingToStart));
             
             
             elapsedTime += Time.unscaledDeltaTime;
