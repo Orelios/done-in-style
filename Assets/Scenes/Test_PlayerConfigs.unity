@@ -13793,6 +13793,7 @@ GameObject:
   - component: {fileID: 235569482294768257}
   - component: {fileID: 8877816160859945757}
   - component: {fileID: 8877816160859945758}
+  - component: {fileID: 8877816160859945759}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -14304,12 +14305,31 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4992886128219656315}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92dd544a93d95b44288dec4556478a7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rb: {fileID: 4512033947066149562}
+  GroundCheck: {fileID: 853161944540960336}
+  GroundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  cameraHandler: {fileID: 514223689}
+  playerConfigsSO: {fileID: 11400000, guid: ea9c27d638b40f643a9bf378e9fb52a4, type: 2}
+  IsFacingRight: 1
+  showGizmos: 0
+--- !u!114 &8877816160859945759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4992886128219656315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19a5010ff982464baa988aa5395aa0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   GroundCheck: {fileID: 853161944540960336}
   GroundLayer:
     serializedVersion: 2

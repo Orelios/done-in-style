@@ -22,6 +22,14 @@ public class PlayerGearSwapper : MonoBehaviour
     [SerializeField] private GameObject debugAnchor;
     [SerializeField] private TextMeshProUGUI debugText;
     [SerializeField] private bool showDebugText;
+
+    [Header("Pogostick")]
+    [SerializeField] private int maxJumps;
+    [SerializeField] private float jumpCooldown;
+    [SerializeField] private float inBetweenJumpCooldown;
+
+    private New_PlayerMovement playerMovement;
+    
     
     void Start()
     {
@@ -29,6 +37,13 @@ public class PlayerGearSwapper : MonoBehaviour
         HorizontalMovementMultiplier = _currentGearEquipped.MovementSpeedMultiplier;
         JumpForceMultiplier = _currentGearEquipped.JumpForceMultiplier;
         debugText.text = $"{_currentGearEquipped.DaredevilGearName}";
+        playerMovement = GetComponent<New_PlayerMovement>();
+    }
+
+    private void Awake()
+    {
+        Pogostick pogostick = new Pogostick(playerMovement, daredevilGears[daredevilGears.FindIndex(gear => 
+        gear.DaredevilGearType == EDaredevilGearType.PogoStick)], maxJumps, jumpCooldown, inBetweenJumpCooldown);
     }
 
     private void Update()

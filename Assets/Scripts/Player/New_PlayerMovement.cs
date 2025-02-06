@@ -8,7 +8,7 @@ public class New_PlayerMovement : MonoBehaviour
     private PlayerInputManager _playerInputManager;
 
     [Header("Components")]
-    private Rigidbody2D _rb;
+    [NonSerialized]public Rigidbody2D _rb;
     [Tooltip("Attach here the Player's GroundCheck")]
     public Transform GroundCheck;
     [Tooltip("Select here the Ground LayerMask for ground detection")]
@@ -16,7 +16,7 @@ public class New_PlayerMovement : MonoBehaviour
     [Tooltip("Attach here the Camera Handler")]
     [SerializeField] private CameraHandler cameraHandler;
     [Tooltip("Attach here the PlayerConfigSO")]
-    [SerializeField] private PlayerConfigsSO playerConfigsSO;
+    public PlayerConfigsSO PlayerConfigsSO;
 
     [Header("Direction of Player Facing")]
     public bool IsFacingRight = true;
@@ -79,21 +79,21 @@ public class New_PlayerMovement : MonoBehaviour
     private void Move()
     {
         // Calculate target speed based on input
-        float targetSpeed = _playerInputManager.HorizontalMovement * playerConfigsSO.BaseSpeed *
+        float targetSpeed = _playerInputManager.HorizontalMovement * PlayerConfigsSO.BaseSpeed *
             _playerGearSwapper.HorizontalMovementMultiplier;
 
         float speedDif = targetSpeed - _rb.linearVelocity.x;
 
-        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? playerConfigsSO.Acceleration : playerConfigsSO.Deceleration;
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? PlayerConfigsSO.Acceleration : PlayerConfigsSO.Deceleration;
 
-        float appliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, playerConfigsSO.VelPower) * Mathf.Sign(speedDif);
+        float appliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, PlayerConfigsSO.VelPower) * Mathf.Sign(speedDif);
 
         _rb.AddForce(appliedMovementSpeed * Vector2.right);
 
         //Friction
         if (_lastGroundedTime > 0 && Mathf.Abs(_playerInputManager.HorizontalMovement) < 0.01f)
         {
-            float amount = Mathf.Min(Mathf.Abs(_rb.linearVelocity.x), Mathf.Abs(playerConfigsSO.FrictionAmount));
+            float amount = Mathf.Min(Mathf.Abs(_rb.linearVelocity.x), Mathf.Abs(PlayerConfigsSO.FrictionAmount));
 
             amount *= Mathf.Sign(_rb.linearVelocity.x);
 
@@ -103,7 +103,7 @@ public class New_PlayerMovement : MonoBehaviour
     #endregion
 
     #region Jumping
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(GroundCheck.position, 0.2f, GroundLayer);
     }
@@ -111,11 +111,11 @@ public class New_PlayerMovement : MonoBehaviour
     public void Jump()
     {
         //OPTIMIZE: validates if player can jump;
-        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < playerConfigsSO.CoyoteTime);
+        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < PlayerConfigsSO.CoyoteTime);
 
         if (_playerInputManager.IsJumping && canJump)
         {
-            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, playerConfigsSO.JumpPower * 
+            _rb.linearVelocity = new Vector2(_rb.linearVelocity.x, PlayerConfigsSO.JumpPower * 
                 _playerGearSwapper.JumpForceMultiplier);
         }
         else if (!_playerInputManager.IsJumping)
@@ -130,13 +130,13 @@ public class New_PlayerMovement : MonoBehaviour
     {
         if (_rb.linearVelocity.y < 0)
         {
-            _rb.gravityScale = playerConfigsSO.BaseGravity * playerConfigsSO.FallSpeedMultiplier;
-            _rb.linearVelocity = new Vector2(_rb.linearVelocityX, Mathf.Max(_rb.linearVelocity.y, -(playerConfigsSO.MaxFallSpeed -
+            _rb.gravityScale = PlayerConfigsSO.BaseGravity * PlayerConfigsSO.FallSpeedMultiplier;
+            _rb.linearVelocity = new Vector2(_rb.linearVelocityX, Mathf.Max(_rb.linearVelocity.y, -(PlayerConfigsSO.MaxFallSpeed -
                 _gearTricks.FallingSpeedModifier)));
         }
         else
         {
-            _rb.gravityScale = playerConfigsSO.BaseGravity;
+            _rb.gravityScale = PlayerConfigsSO.BaseGravity;
         }
     }
     #endregion
