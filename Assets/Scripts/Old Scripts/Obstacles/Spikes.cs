@@ -19,6 +19,7 @@ public class Spikes : MonoBehaviour
                 scoreCalculator.GetComponent<Temp_RankCalculator>().DecreaseStylishPoints();
 
                 collision.gameObject.GetComponent<TEMP_PlayerIFrames>().PlayerHit();
+                collision.gameObject.GetComponent<PlayerHealth>().DecreaseHealth();
             }
         }
         
