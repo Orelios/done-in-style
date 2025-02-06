@@ -65,16 +65,49 @@ public class PlayerMovement : MonoBehaviour
     
     private PlayerGearSwapper _playerGearSwapper;
     private GearTricks _gearTricks;
+
+    [Header("Test")] 
+    [SerializeField] float maxMovementSpeed;
+    public PlayerVelocitySM _playerVelocitySM;
     
     private void Awake()
     {
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _gearTricks = GetComponent<GearTricks>();
+
+        InitializeStateMachine();
+    }
+
+    private void InitializeStateMachine()
+    {
+        //create the State Machine
+        _playerVelocitySM = new();
+
+        //declare and create the velocity States
+        var atRestState = new AtRestState(this);
+        var acceleratingState = new AcceleratingState(this);
+        var maxSpeedState = new MaxSpeedState(this);
+        
+        //create the Transitions between States
+        NormalTransition(atRestState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) > 0f));
+        NormalTransition(acceleratingState, maxSpeedState, new FuncPredicate(() => Mathf.Approximately(Mathf.Abs(AppliedMovementSpeed), maxMovementSpeed)));
+        NormalTransition(maxSpeedState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) < maxMovementSpeed));
+        NormalTransition(acceleratingState, atRestState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) == 0f));
+        
+        //assign the default State
+        _playerVelocitySM.SetState(atRestState);
+    }
+
+    //function to create Transitions between one State to another 
+    private void NormalTransition(IState fromState, IState nextState, IPredicate condition)
+    {
+        _playerVelocitySM.AddNormalTransition(fromState, nextState, condition);
     }
 
     private void Update()
     {
+        _playerVelocitySM.Update();
         if (Rb.linearVelocityY < cameraHandler.YVelocityThreshold && !cameraHandler.IsPanningCoroutineActive)
         {
             cameraHandler.LerpCameraPanning(true);
@@ -88,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _playerVelocitySM.FixedUpdate();
         //Disables movement while dashing
         if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType
             == EDaredevilGearType.Skateboard) { return; }
@@ -99,7 +133,9 @@ public class PlayerMovement : MonoBehaviour
 
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
 
-        AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower) * Mathf.Sign(speedDif);
+        AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower);
+        AppliedMovementSpeed = Mathf.Clamp(AppliedMovementSpeed, float.MinValue, maxMovementSpeed);
+        AppliedMovementSpeed  *= Mathf.Sign(speedDif);
 
         Rb.AddForce(AppliedMovementSpeed * Vector2.right); 
 

@@ -12,25 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9f55dd70dd9a44b8783ead2f5d8c78, type: 3}
   m_Name: Config1
   m_EditorClassIdentifier: 
-  baseMaxSpeed: 0
-  baseAcceleration: 0
-  AccelerationAmount: NaN
-  baseDeceleration: 0
-  DecelerationAmount: NaN
-  inAirAccelerationMultiplier: 0
-  inAirDecelerationMultiplier: 0
-  doConserveMomentum: 0
-  maxJumpHeight: 0
-  jumpTimeToApex: 0
-  JumpForce: NaN
-  jumpCutGravityMultiplier: 0
-  jumpHangGravityMultiplier: 0
-  jumpHangTimeThreshold: 0
-  jumpHangAccelerationMultiplier: 0
-  jumpHangMaxSpeedMultiplier: 0
-  coyoteTime: 0
-  jumpInputBufferTime: 0
-  GravityStrength: NaN
-  GravityScale: NaN
-  fallGravityMultiplier: 0
-  maxFallSpeed: 0
+  baseSpeed: 8
+  acceleration: 7
+  deceleration: 7
+  velPower: 0.9
+  frictionAmount: 0.2
+  jumpPower: 9
+  coyoteTime: 0.05
+  jumpBufferTime: 0.2
+  baseGravity: 3
+  maxFallSpeed: 30
+  fallSpeedMultiplier: 2
