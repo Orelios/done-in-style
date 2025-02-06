@@ -10,6 +10,7 @@ public class DestructibleObjects : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<PlayerGearSwapper>().CurrentGearEquipped.DaredevilGearType == gearType)
             {
+                TimeHandler.SlowDownTime();
                 Destroy(gameObject);
             }
         }
