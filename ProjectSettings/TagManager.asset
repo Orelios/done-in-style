@@ -47,5 +47,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BG
+    uniqueID: 2449255493
+    locked: 0
+  - name: BG2
+    uniqueID: 2205966749
+    locked: 0
+  - name: BG3
+    uniqueID: 3254647315
+    locked: 0
+  - name: BG4
+    uniqueID: 1411014581
+    locked: 0
+  - name: BG5
+    uniqueID: 3630091375
+    locked: 0
+  - name: Player
+    uniqueID: 2751568905
+    locked: 0
   m_RenderingLayers:
   - Default
