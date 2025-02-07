@@ -48,9 +48,7 @@ public class RampPlayer : MonoBehaviour
     // When the player enters a ramp trigger (RampLeft or RampRight), determine the direction of movement
     void OnTriggerEnter2D(Collider2D other)
     {
-        Ramp ramp = other.transform.parent.GetComponent<Ramp>();
-        rampLeft = ramp.leftMarker;
-        rampRight = ramp.rightMarker;
+        
         /*
         if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<PlayerGearSwapper>().CurrentGearEquipped.DaredevilGearType == EDaredevilGearType.Skateboard)
         {
@@ -59,6 +57,10 @@ public class RampPlayer : MonoBehaviour
         */
         if ((other.CompareTag("RampLeft") || other.CompareTag("RampRight")) && wasRecentlyOnRamp == false)
         {
+            Ramp ramp = other.transform.parent.GetComponent<Ramp>();
+            rampLeft = ramp.leftMarker;
+            rampRight = ramp.rightMarker;
+
             isOnRamp = true;
             wasRecentlyOnRamp = true;
             if (other.CompareTag("RampLeft"))
@@ -160,7 +162,7 @@ public class RampPlayer : MonoBehaviour
             {
                 isOnRamp = false;
                 isGoingUpRamp = false;
-                _playerMovement.Rb.gravityScale = _playerConfigsSO.BaseGravity;
+                _playerMovement.Rb.gravityScale = _playerMovement.BaseGravity;
                 _rampLastVelocity = _playerMovement.Rb.linearVelocity;
                 rampLeft = null;
                 rampRight = null;
@@ -172,7 +174,7 @@ public class RampPlayer : MonoBehaviour
             // Wait for the next frame
             yield return null;
         }
-        Debug.Log("Coroutine ends");
+        //Debug.Log("Coroutine ends");
     }
 
     IEnumerator RampCooldownTimer()
@@ -187,6 +189,7 @@ public class RampPlayer : MonoBehaviour
         {
             wasRecentlyOnRamp = false;
         }
+        Debug.Log("Cooldown ends");
     }
 
     IEnumerator RampPreserveMomentum()
@@ -197,6 +200,7 @@ public class RampPlayer : MonoBehaviour
             _playerMovement.Rb.linearVelocity = new Vector2(_rampLastVelocity.x, (lastYVelocity - _rampMomentumGravity));
             yield return null;
         }
+        Debug.Log("Momentum ends");
         //_playerMovement.Rb.linearVelocity = new Vector2(0, 0);
         /*if (_playerMovement.IsGrounded())
         {
