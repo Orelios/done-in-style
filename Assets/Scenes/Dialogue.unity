@@ -670,6 +670,7 @@ GameObject:
   m_Component:
   - component: {fileID: 60715763}
   - component: {fileID: 60715764}
+  - component: {fileID: 60715765}
   m_Layer: 0
   m_Name: Dialogue Trigger
   m_TagString: Untagged
@@ -738,6 +739,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.991831, y: 2.7213445}
   m_EdgeRadius: 0
+--- !u!114 &60715765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60715762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb64df8571c9c6b4d9f467eb01c6dfe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &62669695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8047686447257209447, guid: ac9913f13e09099439c028c2ae9c465c, type: 3}
@@ -4718,7 +4731,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 917074655}
-  - component: {fileID: 917074654}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -4726,18 +4738,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &917074654
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 917074653}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb64df8571c9c6b4d9f467eb01c6dfe0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &917074655
 Transform:
   m_ObjectHideFlags: 0
@@ -11254,7 +11254,7 @@ GameObject:
   - component: {fileID: 8877816160859945758}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
