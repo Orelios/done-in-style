@@ -8,6 +8,8 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private float speed = 2f;   // Speed of the platform movement
     [SerializeField] private float moveDelay = 0.5f; //Delay before platform moves back after reaching destination
 
+    private Transform player;
+
     // The current position will be automatically set to the platform's initial position in the scene
     private Vector2 currentPos;
 
@@ -54,4 +56,27 @@ public class MovingPlatform : MonoBehaviour
             yield return new WaitForSeconds(moveDelay);
         }
     }
+    /*
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Check if the colliding object has the "Player" tag
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            player = collision.transform;
+
+            player.transform.parent = transform;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        // Check if the colliding object has the "Player" tag
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            player = collision.transform;
+
+            player.transform.parent = null;
+        }
+    }
+    */
 }
