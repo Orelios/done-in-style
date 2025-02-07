@@ -10,6 +10,7 @@ public class RampPlayer : MonoBehaviour
     {
 
         //NOTE!!! Update to use PlayerMovement script that has PlayerConfigsSO when available
+        //Disable movement when isOnRamp == true in PlayerMovement script (if using new new version)
 
 
         //_playerConfigsSO = GetComponent<PlayerConfigsSO>();
@@ -33,7 +34,7 @@ public class RampPlayer : MonoBehaviour
     public bool isOnRamp = false, wasRecentlyOnRamp = false, isGoingUpRamp = false;
     public bool isMovingRight = false;  // Indicates if the player is moving toward the right (RampRight)
 
-    private float _rampCooldownTimer, _rampCooldownDuration = 0.5f;
+    private float _rampCooldownTimer, _rampCooldownDuration = 1f;
 
     [SerializeField] private float _rampMomentumGravity = .01f, _rampSpeedMultiplier = 3f;
 
@@ -73,7 +74,8 @@ public class RampPlayer : MonoBehaviour
                 // Player is starting at RampRight, moving toward RampLeft
                 isMovingRight = false;
             }
-
+            //_playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, 0f);
+            //_playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, -100f);
             StartCoroutine(IncreaseSpeedOnRamp());
         }
 
@@ -99,7 +101,7 @@ public class RampPlayer : MonoBehaviour
     IEnumerator IncreaseSpeedOnRamp()
     {
         //Debug.Log("Coroutine start");
-        _playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, _playerMovement.Rb.linearVelocity.y - 10);
+        //_playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, -1000);
 
         // Define the start and end points based on direction
         Vector2 startPosition = isMovingRight ? rampLeft.transform.position : rampRight.transform.position;
@@ -122,6 +124,7 @@ public class RampPlayer : MonoBehaviour
             // Increase Gravity to prevent flying only when going down
             if (!isGoingUpRamp)
             {
+                //_playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, _playerMovement.Rb.linearVelocity.y - 10f);
                 _playerMovement.Rb.gravityScale = _playerMovement.BaseGravity * 10;
             }
             else
@@ -145,7 +148,7 @@ public class RampPlayer : MonoBehaviour
             // Apply the calculated speed to the player's velocity (on the x and y axes of the ramp)
             Vector2 targetVelocity = new Vector2(targetSpeed * (isMovingRight ? 1 : -1), _playerMovement.Rb.linearVelocity.y);
             _playerMovement.Rb.linearVelocity = targetVelocity;
-            //Debug.Log("velocity = " + _playerMovement.Rb.linearVelocityX);
+            //Debug.Log("velocity = " + _playerMovement.Rb.linearVelocityY);
 
             // Stop the coroutine when the player reaches the target (either RampRight or RampLeft)
             if (isMovingRight && Vector2.Distance(transform.position, rampRight.transform.position) < 1f)
@@ -191,7 +194,7 @@ public class RampPlayer : MonoBehaviour
         {
             wasRecentlyOnRamp = false;
         }
-        Debug.Log("Cooldown ends");
+        //Debug.Log("Cooldown ends");
     }
 
     IEnumerator RampPreserveMomentum()
@@ -203,11 +206,6 @@ public class RampPlayer : MonoBehaviour
             _playerMovement.Rb.linearVelocity = new Vector2(_rampLastVelocity.x, (lastYVelocity - _rampMomentumGravity));
             yield return null;
         }
-        Debug.Log("Momentum ends");
-        //_playerMovement.Rb.linearVelocity = new Vector2(0, 0);
-        /*if (_playerMovement.IsGrounded())
-        {
-            _playerMovement.Rb.linearVelocity = new Vector2(0, 0);
-        }*/
+        //Debug.Log("Momentum ends");
     }
 }
