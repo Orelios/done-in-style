@@ -126,6 +126,12 @@ public class PlayerMovement : MonoBehaviour
         if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType
             == EDaredevilGearType.Skateboard) { return; }
 
+        if (GetComponent<RampPlayer>().isRamping)
+        {
+            //Jump();
+            return;
+        }
+
         // Calculate target speed based on input
         float targetSpeed = _playerInputManager.HorizontalMovement * baseSpeed * _playerGearSwapper.HorizontalMovementMultiplier;
 

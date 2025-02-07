@@ -8,6 +8,8 @@ TagManager:
   - RampLeft
   - RampRight
   - GoingUpRamp
+  - RampSurface
+  - RampExit
   layers:
   - Default
   - TransparentFX
