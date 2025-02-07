@@ -4527,7 +4527,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8040581359572244232, guid: ac9913f13e09099439c028c2ae9c465c, type: 3}
       propertyPath: m_Name
-      value: Platform (9)
+      value: RampRPlatform
       objectReference: {fileID: 0}
     - target: {fileID: 8047686447257209447, guid: ac9913f13e09099439c028c2ae9c465c, type: 3}
       propertyPath: m_LocalScale.x
@@ -7108,7 +7108,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8040581359572244232, guid: ac9913f13e09099439c028c2ae9c465c, type: 3}
       propertyPath: m_Name
-      value: Platform (10)
+      value: RampLPlatform
       objectReference: {fileID: 0}
     - target: {fileID: 8047686447257209447, guid: ac9913f13e09099439c028c2ae9c465c, type: 3}
       propertyPath: m_LocalScale.x
@@ -7542,7 +7542,7 @@ GameObject:
   - component: {fileID: 1340456785}
   - component: {fileID: 1340456784}
   m_Layer: 0
-  m_Name: Ramp
+  m_Name: TestRamp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7575,8 +7575,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1273240066}
   - {fileID: 1969173577}
+  - {fileID: 1273240066}
   - {fileID: 1703988614}
   - {fileID: 1726684617}
   - {fileID: 388165157}
@@ -12854,7 +12854,8 @@ MonoBehaviour:
   hasExitedRamp: 1
   isMovingRight: 0
   _rampMomentumGravity: 0.01
-  _rampSpeedMultiplier: 3
+  _rampSpeedStartMultiplier: 2
+  _rampSpeedEndMultiplier: 3
   _isColliding: 0
 --- !u!4 &9085756192438577051
 Transform:

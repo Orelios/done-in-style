@@ -25,7 +25,6 @@ public class RampPlayer : MonoBehaviour
     {
         normSpeed = _playerMovement.BaseSpeed * _playerGearSwapper.HorizontalMovementMultiplier;
         rampSpeed = normSpeed * _rampSpeedEndMultiplier;
-        //Debug.Log("BaseSpeed = " + _playerMovement.BaseSpeed);
     }
 
     public GameObject rampLeft;    // Left point of the ramp (starting point in one direction)
@@ -42,7 +41,6 @@ public class RampPlayer : MonoBehaviour
 
     [SerializeField] private bool _isColliding = false;
 
-    // Define normal speed and rampSpeed
     float normSpeed;
     float rampSpeed;
 
@@ -63,7 +61,6 @@ public class RampPlayer : MonoBehaviour
             rampLeft = ramp.leftMarker;
             rampRight = ramp.rightMarker;
 
-            //isOnRamp = true;
             wasRecentlyOnRamp = true;
             if (other.CompareTag("RampLeft"))
             {
@@ -75,8 +72,6 @@ public class RampPlayer : MonoBehaviour
                 // Player is starting at RampRight, moving toward RampLeft
                 isMovingRight = false;
             }
-            //_playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, 0f);
-            //_playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, -100f);
             StartCoroutine(IncreaseSpeedOnRamp());
         }
 
@@ -124,9 +119,6 @@ public class RampPlayer : MonoBehaviour
     // Coroutine to gradually increase velocity based on the player's position along the ramp
     IEnumerator IncreaseSpeedOnRamp()
     {
-        //Debug.Log("Coroutine start");
-        //_playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, -1000);
-
         isGoingUpRamp = false;
 
         // Define the start and end points based on direction
@@ -142,7 +134,6 @@ public class RampPlayer : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                //isOnRamp = false;
                 isRamping = false;
                 isGoingUpRamp = false;
                 _playerMovement.Rb.gravityScale = _playerMovement.BaseGravity;
@@ -153,7 +144,6 @@ public class RampPlayer : MonoBehaviour
             // Increase Gravity to prevent flying only when going down
             if (!isGoingUpRamp)
             {
-                //_playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, _playerMovement.Rb.linearVelocity.y - 10f);
                 _playerMovement.Rb.gravityScale = _playerMovement.BaseGravity * 10;
             }
             else
@@ -165,11 +155,9 @@ public class RampPlayer : MonoBehaviour
             float distanceToTarget = isMovingRight ?
                 Vector2.Distance(transform.position, rampRight.transform.position) :
                 Vector2.Distance(transform.position, rampLeft.transform.position);
-            //Debug.Log("distanceToTarget = " + distanceToTarget);
 
             // Calculate how far the player has traveled along the ramp
             float progress = Mathf.InverseLerp(journeyLength, 0, distanceToTarget);
-            //Debug.Log("progress = " + progress);
 
             // Calculate the desired speed based on how far along the ramp the player is
             float targetSpeed = Mathf.Lerp((normSpeed * _rampSpeedStartMultiplier), rampSpeed, progress);
@@ -177,12 +165,10 @@ public class RampPlayer : MonoBehaviour
             // Apply the calculated speed to the player's velocity (on the x and y axes of the ramp)
             Vector2 targetVelocity = new Vector2(targetSpeed * (isMovingRight ? 1 : -1), _playerMovement.Rb.linearVelocity.y);
             _playerMovement.Rb.linearVelocity = targetVelocity;
-            //Debug.Log("velocity = " + _playerMovement.Rb.linearVelocityX);
 
             // Stop the coroutine when the player reaches the target (either RampRight or RampLeft)
             if (isMovingRight && Vector2.Distance(transform.position, rampRight.transform.position) < 1f)
             {
-                //isOnRamp = false;
                 isRamping = false;
                 isGoingUpRamp = false;
                 _playerMovement.Rb.gravityScale = _playerMovement.BaseGravity;
@@ -195,7 +181,6 @@ public class RampPlayer : MonoBehaviour
             }
             else if (!isMovingRight && Vector2.Distance(transform.position, rampLeft.transform.position) < 1f)
             {
-                //isOnRamp = false;
                 isRamping = false;
                 isGoingUpRamp = false;
                 _playerMovement.Rb.gravityScale = _playerMovement.BaseGravity;
