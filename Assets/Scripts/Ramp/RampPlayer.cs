@@ -10,33 +10,33 @@ public class RampPlayer : MonoBehaviour
     {
 
         //NOTE!!! Update to use PlayerMovement script that has PlayerConfigsSO when available
-        //Disable movement when isOnRamp == true in PlayerMovement script (if using new new version)
+        //Disable movement when isRamping == true in PlayerMovement script (if using new new version)
 
 
         //_playerConfigsSO = GetComponent<PlayerConfigsSO>();
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _playerMovement = GetComponent<PlayerMovement>();
         normSpeed = _playerMovement.BaseSpeed * _playerGearSwapper.HorizontalMovementMultiplier;
-        rampSpeed = normSpeed * _rampSpeedMultiplier;
+        rampSpeed = normSpeed * _rampSpeedEndMultiplier;
     }
 
     // Update is called once per frame
     void Update()
     {
         normSpeed = _playerMovement.BaseSpeed * _playerGearSwapper.HorizontalMovementMultiplier;
-        rampSpeed = normSpeed * _rampSpeedMultiplier;
+        rampSpeed = normSpeed * _rampSpeedEndMultiplier;
         //Debug.Log("BaseSpeed = " + _playerMovement.BaseSpeed);
     }
 
     public GameObject rampLeft;    // Left point of the ramp (starting point in one direction)
     public GameObject rampRight;   // Right point of the ramp (starting point in the other direction)
 
-    public bool isOnRamp = false, wasRecentlyOnRamp = false, isGoingUpRamp = false;
+    public bool isOnRamp = false, wasRecentlyOnRamp = false, isGoingUpRamp = false, isRamping = false, hasExitedRamp = true;
     public bool isMovingRight = false;  // Indicates if the player is moving toward the right (RampRight)
 
     private float _rampCooldownTimer, _rampCooldownDuration = 1f;
 
-    [SerializeField] private float _rampMomentumGravity = .01f, _rampSpeedMultiplier = 3f;
+    [SerializeField] private float _rampMomentumGravity = .01f, _rampSpeedStartMultiplier = 2f, _rampSpeedEndMultiplier = 3f;
 
     private Vector2 _rampLastVelocity;
 
@@ -56,13 +56,14 @@ public class RampPlayer : MonoBehaviour
             //ramp shenangaingis
         }
         */
-        if ((other.CompareTag("RampLeft") || other.CompareTag("RampRight")) && wasRecentlyOnRamp == false)
+        
+        if ((other.CompareTag("RampLeft") || other.CompareTag("RampRight")) && !wasRecentlyOnRamp && !isRamping && hasExitedRamp)
         {
             Ramp ramp = other.transform.parent.GetComponent<Ramp>();
             rampLeft = ramp.leftMarker;
             rampRight = ramp.rightMarker;
 
-            isOnRamp = true;
+            //isOnRamp = true;
             wasRecentlyOnRamp = true;
             if (other.CompareTag("RampLeft"))
             {
@@ -83,9 +84,32 @@ public class RampPlayer : MonoBehaviour
         {
             isGoingUpRamp = true;
         }
+
+        if (other.CompareTag("RampExit"))
+        {
+            hasExitedRamp = true;
+        }
     }
 
-    
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("RampSurface"))
+        {
+            isOnRamp = true;
+            hasExitedRamp = false;
+            isGoingUpRamp = false;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("RampSurface"))
+        {
+            isOnRamp = false;
+        }
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         _isColliding = true;
@@ -103,6 +127,8 @@ public class RampPlayer : MonoBehaviour
         //Debug.Log("Coroutine start");
         //_playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, -1000);
 
+        isGoingUpRamp = false;
+
         // Define the start and end points based on direction
         Vector2 startPosition = isMovingRight ? rampLeft.transform.position : rampRight.transform.position;
         Vector2 endPosition = isMovingRight ? rampRight.transform.position : rampLeft.transform.position;
@@ -110,11 +136,14 @@ public class RampPlayer : MonoBehaviour
         // Calculate the full length of the ramp
         float journeyLength = Vector2.Distance(startPosition, endPosition);
 
-        while (isOnRamp)
+        isRamping = true;
+
+        while (isRamping)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                isOnRamp = false;
+                //isOnRamp = false;
+                isRamping = false;
                 isGoingUpRamp = false;
                 _playerMovement.Rb.gravityScale = _playerMovement.BaseGravity;
                 StartCoroutine(RampCooldownTimer());
@@ -143,17 +172,18 @@ public class RampPlayer : MonoBehaviour
             //Debug.Log("progress = " + progress);
 
             // Calculate the desired speed based on how far along the ramp the player is
-            float targetSpeed = Mathf.Lerp(rampSpeed, normSpeed, progress);
+            float targetSpeed = Mathf.Lerp((normSpeed * _rampSpeedStartMultiplier), rampSpeed, progress);
 
             // Apply the calculated speed to the player's velocity (on the x and y axes of the ramp)
             Vector2 targetVelocity = new Vector2(targetSpeed * (isMovingRight ? 1 : -1), _playerMovement.Rb.linearVelocity.y);
             _playerMovement.Rb.linearVelocity = targetVelocity;
-            //Debug.Log("velocity = " + _playerMovement.Rb.linearVelocityY);
+            //Debug.Log("velocity = " + _playerMovement.Rb.linearVelocityX);
 
             // Stop the coroutine when the player reaches the target (either RampRight or RampLeft)
             if (isMovingRight && Vector2.Distance(transform.position, rampRight.transform.position) < 1f)
             {
-                isOnRamp = false;
+                //isOnRamp = false;
+                isRamping = false;
                 isGoingUpRamp = false;
                 _playerMovement.Rb.gravityScale = _playerMovement.BaseGravity;
                 _rampLastVelocity = _playerMovement.Rb.linearVelocity;
@@ -165,7 +195,8 @@ public class RampPlayer : MonoBehaviour
             }
             else if (!isMovingRight && Vector2.Distance(transform.position, rampLeft.transform.position) < 1f)
             {
-                isOnRamp = false;
+                //isOnRamp = false;
+                isRamping = false;
                 isGoingUpRamp = false;
                 _playerMovement.Rb.gravityScale = _playerMovement.BaseGravity;
                 _rampLastVelocity = _playerMovement.Rb.linearVelocity;
@@ -179,6 +210,8 @@ public class RampPlayer : MonoBehaviour
             // Wait for the next frame
             yield return null;
         }
+        isRamping = false;
+        StartCoroutine(RampCooldownTimer());
         //Debug.Log("Coroutine ends");
     }
 
