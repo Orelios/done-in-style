@@ -83,7 +83,7 @@ public class RampPlayer : MonoBehaviour
         }
     }
 
-    /*
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
         _isColliding = true;
@@ -93,12 +93,14 @@ public class RampPlayer : MonoBehaviour
     {
         _isColliding = false;
     }
-    */
+    
 
     // Coroutine to gradually increase velocity based on the player's position along the ramp
     IEnumerator IncreaseSpeedOnRamp()
     {
         //Debug.Log("Coroutine start");
+        _playerMovement.Rb.linearVelocity = new Vector2(_playerMovement.Rb.linearVelocity.x, _playerMovement.Rb.linearVelocity.y - 10);
+
         // Define the start and end points based on direction
         Vector2 startPosition = isMovingRight ? rampLeft.transform.position : rampRight.transform.position;
         Vector2 endPosition = isMovingRight ? rampRight.transform.position : rampLeft.transform.position;
@@ -196,6 +198,7 @@ public class RampPlayer : MonoBehaviour
     {
         while (!Input.anyKey)
         {
+            if (_isColliding && _rampCooldownTimer >= .1f) { break; }
             float lastYVelocity = _playerMovement.Rb.linearVelocity.y;
             _playerMovement.Rb.linearVelocity = new Vector2(_rampLastVelocity.x, (lastYVelocity - _rampMomentumGravity));
             yield return null;
