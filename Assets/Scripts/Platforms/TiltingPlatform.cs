@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class TiltingPlatform : MonoBehaviour
 {
-    [SerializeField] private float maxTiltAngle = 15f;  // Maximum tilt angle in degrees
-    [SerializeField] private float rotationSpeed = 5f;    // Speed at which the platform tilts (degrees per second)
+    [SerializeField] private float maxTiltAngle = 20f;  // Maximum tilt angle in degrees
+    [SerializeField] private float rotationSpeed = 90f;    // Speed at which the platform tilts (degrees per second)
 
     private Vector2 platformCenter;  // The center of the platform
     private float platformWidth;     // The width of the platform (calculated from its scale)
