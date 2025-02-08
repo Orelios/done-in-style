@@ -3,10 +3,14 @@ using UnityEngine;
 public class TiltingPlatform : MonoBehaviour
 {
     [SerializeField] private float maxTiltAngle = 15f;  // Maximum tilt angle in degrees
+    [SerializeField] private float rotationSpeed = 5f;    // Speed at which the platform tilts (degrees per second)
 
     private Vector2 platformCenter;  // The center of the platform
     private float platformWidth;     // The width of the platform (calculated from its scale)
     private Transform player;        // The player's transform (assigned when the player collides)
+
+    private float targetTiltAngle;   // The desired tilt angle the platform should reach
+    private float currentTiltAngle;  // The current tilt angle of the platform
 
     void Start()
     {
@@ -35,10 +39,14 @@ public class TiltingPlatform : MonoBehaviour
         float distanceFactor = Mathf.Clamp01(playerDistance / (platformWidth / 2));
 
         // Calculate the tilt angle based on how far the player is from the center
-        float tiltAngle = distanceFactor * maxTiltAngle;
+        float targetTiltAngle = distanceFactor * maxTiltAngle;
 
-        // Apply the tilt by changing the platform's Z rotation
-        transform.rotation = Quaternion.Euler(0, 0, (tiltAngle * Mathf.Sign(player.position.x - platformCenter.x)) * -1f);
+        // Adjust tilt direction based on which side of the platform the player is on
+        targetTiltAngle *= (Mathf.Sign(player.position.x - platformCenter.x) * -1);
+
+        currentTiltAngle = Mathf.MoveTowards(currentTiltAngle, targetTiltAngle, rotationSpeed * Time.deltaTime);
+
+        transform.rotation = Quaternion.Euler(0, 0, currentTiltAngle);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
