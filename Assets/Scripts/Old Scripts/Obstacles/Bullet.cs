@@ -14,6 +14,7 @@ public class Bullet : MonoBehaviour
                 _scoreCalculator.DecreaseScore(damage);
                 _scoreCalculator.GetComponent<Temp_RankCalculator>().DecreaseStylishPoints();
                 collision.gameObject.GetComponent<TEMP_PlayerIFrames>().PlayerHit();
+                collision.gameObject.GetComponent<PlayerHealth>().DecreaseHealth();
             }
         }
         
