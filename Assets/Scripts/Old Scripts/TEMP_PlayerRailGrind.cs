@@ -26,7 +26,7 @@ public class TEMP_PlayerRailGrind : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Rail") && GetComponent<PlayerGearSwapper>().CurrentGearEquipped.DaredevilGearType == EDaredevilGearType.RollerBlades)
+        if (other.gameObject.CompareTag("Rail"))
         {
             _onRail = true;
             _railing = other.gameObject.GetComponent<TEMP_Railing>();
