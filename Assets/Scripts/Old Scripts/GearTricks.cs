@@ -16,7 +16,7 @@ public class GearTricks : MonoBehaviour
     [Header("Score")]
     [SerializeField] private int scorePerTrick;
 
-    [Header("Skateboard")]
+    [Header("Dash")]
     public float dashSpeed = 20f;
     public float dashDuration = 0.2f;
     public float dashCooldown = 1f;
@@ -32,7 +32,7 @@ public class GearTricks : MonoBehaviour
     private float _fallingSpeed; 
     public float FallingSpeedModifier => _fallingSpeed; 
 
-    [Header("PogoStick")]
+    [Header("Double Jump")]
     [SerializeField] private int maxJumps;
     [SerializeField] private float jumpCooldown;
     [SerializeField] private float inBetweenJumpCooldown; 
@@ -51,15 +51,21 @@ public class GearTricks : MonoBehaviour
 
     public void Trick(InputAction.CallbackContext context)
     {
-        if(_playerGearSwapper.CurrentGearEquipped.DaredevilGearType == EDaredevilGearType.Skateboard) 
-        { if (context.performed) { Skateboard(); } }
-        else if (_playerGearSwapper.CurrentGearEquipped.DaredevilGearType == EDaredevilGearType.RollerBlades)
-        { if (context.performed) { RollerBlade(); } }
-        else if (_playerGearSwapper.CurrentGearEquipped.DaredevilGearType == EDaredevilGearType.PogoStick)
-        {if (context.performed) { PogoStick(); } }
+        switch (context.control.name)
+        {
+            case "a":
+                if (context.performed) { Dash(); }
+                break;
+            case "s":
+                if (context.performed) { DoubleJump(); }
+                break;
+            default:
+                Debug.LogWarning($"Mismatch! Control name {context.control.name} was not recognized");
+                break;
+        }
     }
 
-    private void Skateboard() 
+    private void Dash() 
     {
         if (Time.time >= lastDashTime + dashCooldown)
         {
@@ -94,26 +100,7 @@ public class GearTricks : MonoBehaviour
         isDashing = false;
     }
 
-    private void RollerBlade() 
-    {
-        StartCoroutine(SlowFallCoroutine());
-        //Debug.Log("RollerBlades");
-    }
-
-    private IEnumerator SlowFallCoroutine()
-    {
-        _fallingSpeed = fallingSpeed; 
-        
-        //add score
-        scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
-        rankCalculator.IncreaseStylishPoints();
-
-        yield return new WaitForSeconds(slowFallTimer);
-
-        _fallingSpeed = 0;
-        Debug.Log("working");
-    }
-    private void PogoStick() 
+    private void DoubleJump() 
     {
         if (Time.time < _lastJumpTime + jumpCooldown) { return; }
         else if(_jumps == 0) { _jumps = maxJumps; }
