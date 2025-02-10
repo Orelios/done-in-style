@@ -16,3 +16,5 @@ MonoBehaviour:
   rankName: 
   scoreMultiplier: 1
   requiredBreakthroughPoints: 2
+  accelerationMultiplier: 1
+  maxSpeedMultiplier: 1

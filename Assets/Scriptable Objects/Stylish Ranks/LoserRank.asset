@@ -16,3 +16,5 @@ MonoBehaviour:
   rankName: LOSER!
   scoreMultiplier: 2
   requiredBreakthroughPoints: 6
+  accelerationMultiplier: 1.2
+  maxSpeedMultiplier: 1.2

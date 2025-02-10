@@ -3,16 +3,19 @@ using UnityEngine;
 public class TEMP_PlayerRailGrind : MonoBehaviour
 {
     [Header("Grinding Configs")]
-    [SerializeField] private float grindSpeed;
+    [SerializeField] private float grindingSpeedMultiplier;
     [SerializeField] private float heightOffset;
     private bool _onRail;
     private float _railDirection;
+    private float _grindingSpeed;
     
+    private PlayerMovement _playerMovement;
     private Rigidbody2D _rb;
     private TEMP_Railing _railing;
 
     private void Start()
     {
+        _playerMovement = GetComponent<PlayerMovement>();
         _rb = GetComponent<Rigidbody2D>();
     }
 
@@ -28,8 +31,14 @@ public class TEMP_PlayerRailGrind : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Rail"))
         {
+            /*if (Mathf.Abs(_rb.linearVelocityX) < 3f)
+            {
+                Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                return;
+            }*/
             _onRail = true;
             _railing = other.gameObject.GetComponent<TEMP_Railing>();
+            _grindingSpeed = _rb.linearVelocityX * grindingSpeedMultiplier;
             _railDirection = transform.rotation.y == 0 ? 1 : -1;
         }
     }
@@ -38,8 +47,12 @@ public class TEMP_PlayerRailGrind : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Rail"))
         {
+            //Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
+            _grindingSpeed = 0f;
+            _railDirection = 0f;
             _onRail = false;
             _railing = null;
+            _rb.linearVelocity = new(0f, _rb.linearVelocityY);
         }
     }
 
@@ -47,7 +60,7 @@ public class TEMP_PlayerRailGrind : MonoBehaviour
     {
         if (_onRail && _railing is not null)
         {
-            _rb.linearVelocity = new Vector2(_railDirection * grindSpeed, _rb.linearVelocity.y);
+            _rb.linearVelocity = new Vector2(_grindingSpeed, _rb.linearVelocity.y);
         }
     }
 }
