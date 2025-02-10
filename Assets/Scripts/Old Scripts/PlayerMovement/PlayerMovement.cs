@@ -5,8 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerInputManager _playerInputManager;
-
+    #region Components
     [Header("Components")]
     [Tooltip("Attach here the Player's Rigidbody2D")]
     public Rigidbody2D Rb;
@@ -16,9 +15,11 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask GroundLayer;
     [Tooltip("Attach here the Camera Handler")]
     [SerializeField] private CameraHandler cameraHandler;
+    #endregion
 
+    #region Horizontal Movement
     [Header("Horizontal Movement Configs")]
-    [Tooltip("Insert here the base movement speed of the Player")]
+    [Tooltip("Insert here the max movement speed of the Player")]
     [SerializeField] private float baseSpeed = 8f;
     [Tooltip("Insert here the acceleration factor of the Player")]
     [SerializeField] private float acceleration;
@@ -34,9 +35,12 @@ public class PlayerMovement : MonoBehaviour
     public float VelPower { get => velPower; set => velPower = value; }
     public float FrictionAmount { get => frictionAmount; set => frictionAmount = value; }
     public float AppliedMovementSpeed { get; private set; }
+    public float AppliedAcceleration { get; private set; }
     public bool IsFacingRight = true;
     private Vector2 _velocity; 
+    #endregion
 
+    #region Jump
     [Header("Jump Configs")]
     [Tooltip("Insert here the jump power of the Player; this is how high the Player can jump")]
     [SerializeField]  private float jumpPower;
@@ -48,10 +52,9 @@ public class PlayerMovement : MonoBehaviour
     public float CoyoteTime { get => coyoteTime; set => coyoteTime = value; }
     public float JumpBufferTime { get => jumpBufferTime; set => jumpBufferTime = value; }
     private float _lastGroundedTime = 0f;
+    #endregion
 
-    [Header("Debug Configs")]
-    [SerializeField] private bool showGizmos = false;
-
+    #region Gravity
     [Header("Gravity")]
     [Tooltip("Insert here the base gravity value of the Player; this is how fast the Player will fall down")]
     [SerializeField] private float baseGravity;
@@ -62,23 +65,38 @@ public class PlayerMovement : MonoBehaviour
     public float BaseGravity { get => baseGravity; set => baseGravity = value; }
     public float MaxFallSpeed { get => maxFallSpeed; set => maxFallSpeed = value; }
     public float FallSpeedMultiplier { get => fallSpeedMultiplier; set => fallSpeedMultiplier = value; }
+    #endregion
+
+    #region Others
+    [Header("Debug Configs")]
+    [SerializeField] private bool showGizmos = false;
     
+    [Header("Test")] 
+    [SerializeField] private float maxMovementSpeed;
+    public float MaxMovementSpeed => baseSpeed;
+    public float AppliedMaxMovementSpeed { get; private set; }
+
+    #endregion
+    
+    #region Private Variables
+    private PlayerInputManager _playerInputManager;
     private PlayerGearSwapper _playerGearSwapper;
     private GearTricks _gearTricks;
-
-    [Header("Test")] 
-    [SerializeField] float maxMovementSpeed;
-    public PlayerVelocitySM _playerVelocitySM;
+    private PlayerVelocitySM _playerVelocitySM;
+    private Temp_RankCalculator _rankCalculator;
+    #endregion
     
     private void Awake()
     {
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _gearTricks = GetComponent<GearTricks>();
+        _rankCalculator = FindFirstObjectByType<Temp_RankCalculator>();
 
         InitializeStateMachine();
     }
 
+    //function to create the velocity State Machine and its States  
     private void InitializeStateMachine()
     {
         //create the State Machine
@@ -133,14 +151,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Calculate target speed based on input
-        float targetSpeed = _playerInputManager.HorizontalMovement * baseSpeed * _playerGearSwapper.HorizontalMovementMultiplier;
-
+        float targetSpeed = _playerInputManager.HorizontalMovement * baseSpeed * _rankCalculator.CurrentStylishRank.MaxSpeedMultiplier;
         float speedDif = targetSpeed - Rb.linearVelocity.x;
-
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
 
-        AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * accelRate, velPower);
-        AppliedMovementSpeed = Mathf.Clamp(AppliedMovementSpeed, float.MinValue, maxMovementSpeed);
+        AppliedMaxMovementSpeed = baseSpeed * _rankCalculator.CurrentStylishRank.MaxSpeedMultiplier;;
+        AppliedAcceleration = accelRate * _rankCalculator.CurrentStylishRank.AccelerationMultiplier;
+        AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * AppliedAcceleration, velPower);
+        AppliedMovementSpeed = Mathf.Clamp(AppliedMovementSpeed, float.MinValue, AppliedMaxMovementSpeed);
         AppliedMovementSpeed  *= Mathf.Sign(speedDif);
 
         Rb.AddForce(AppliedMovementSpeed * Vector2.right); 

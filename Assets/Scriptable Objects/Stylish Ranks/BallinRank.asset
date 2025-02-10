@@ -16,3 +16,5 @@ MonoBehaviour:
   rankName: BALLIN'!
   scoreMultiplier: 3
   requiredBreakthroughPoints: 18
+  accelerationMultiplier: 1.6
+  maxSpeedMultiplier: 1.6

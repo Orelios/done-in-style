@@ -16,3 +16,5 @@ MonoBehaviour:
   rankName: AWESOME!
   scoreMultiplier: 3.5
   requiredBreakthroughPoints: 25
+  accelerationMultiplier: 1.8
+  maxSpeedMultiplier: 1.8

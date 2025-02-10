@@ -16,3 +16,5 @@ MonoBehaviour:
   rankName: COOKING!
   scoreMultiplier: 2.5
   requiredBreakthroughPoints: 12
+  accelerationMultiplier: 1.4
+  maxSpeedMultiplier: 1.4

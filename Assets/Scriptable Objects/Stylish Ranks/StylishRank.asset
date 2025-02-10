@@ -16,3 +16,5 @@ MonoBehaviour:
   rankName: STYLISH!
   scoreMultiplier: 5
   requiredBreakthroughPoints: 999
+  accelerationMultiplier: 2
+  maxSpeedMultiplier: 2

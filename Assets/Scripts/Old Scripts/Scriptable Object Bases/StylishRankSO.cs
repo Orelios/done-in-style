@@ -7,11 +7,15 @@ public class StylishRankSO : ScriptableObject
     [SerializeField] private string rankName;
     [SerializeField] private float scoreMultiplier;
     [SerializeField] private int requiredBreakthroughPoints;
+    [SerializeField, Range(1f, 2f)] private float accelerationMultiplier;
+    [SerializeField, Range(1f, 2f)] private float maxSpeedMultiplier;
     
     public ERankType RankType => rankType;
     public string RankName => rankName;
     public float ScoreMultiplier => scoreMultiplier;
     public int RequiredBreakthroughPoints => requiredBreakthroughPoints;
+    public float AccelerationMultiplier => accelerationMultiplier;
+    public float MaxSpeedMultiplier => maxSpeedMultiplier;
 }
 
 public enum ERankType
