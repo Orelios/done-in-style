@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Swap Gear Skateboard",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "6591fece-eb1e-4f36-85b8-7797811a1fc3",
                     "expectedControlType": "",
@@ -24,18 +24,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Swap Gear Roller Blades",
+                    "name": "DoubleJump",
                     "type": "Button",
                     "id": "f84b9d16-3871-426b-a4e5-ebf6fe3ee4bb",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Swap Gear Pogo Stick",
-                    "type": "Button",
-                    "id": "dd614774-b086-4693-9fd8-00c99708b45f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -77,7 +68,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Swap Gear Skateboard",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -88,18 +79,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Swap Gear Roller Blades",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "bd9af073-74ea-45fa-85df-f131ed328c20",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Swap Gear Pogo Stick",
+                    "action": "DoubleJump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
