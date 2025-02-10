@@ -63,7 +63,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue()
     {
-        //index = 0;
+        StopAllCoroutines();
+        dialogueText.text = string.Empty;
         StartCoroutine(TypeLine());
     }
 
