@@ -28,7 +28,7 @@ public class Turret : MonoBehaviour
         Vector2 targetPos = target.position; 
         _direction = targetPos - (Vector2)transform.position;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction, towerRange);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction, towerRange, LayerMask.GetMask("Player"));
 
         if (hit)
         {
