@@ -15597,9 +15597,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3963230956684170925}
-        m_TargetAssemblyTypeName: PlayerGearSwapper, Assembly-CSharp
-        m_MethodName: SwapGear
+      - m_Target: {fileID: 7630835473645370153}
+        m_TargetAssemblyTypeName: GearTricks, Assembly-CSharp
+        m_MethodName: Trick
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15613,9 +15613,9 @@ MonoBehaviour:
     m_ActionName: 'Player Controls/Swap Gear Skateboard[/Keyboard/a]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3963230956684170925}
-        m_TargetAssemblyTypeName: PlayerGearSwapper, Assembly-CSharp
-        m_MethodName: SwapGear
+      - m_Target: {fileID: 7630835473645370153}
+        m_TargetAssemblyTypeName: GearTricks, Assembly-CSharp
+        m_MethodName: Trick
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15627,22 +15627,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f84b9d16-3871-426b-a4e5-ebf6fe3ee4bb
     m_ActionName: 'Player Controls/Swap Gear Roller Blades[/Keyboard/s]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3963230956684170925}
-        m_TargetAssemblyTypeName: PlayerGearSwapper, Assembly-CSharp
-        m_MethodName: SwapGear
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: dd614774-b086-4693-9fd8-00c99708b45f
-    m_ActionName: 'Player Controls/Swap Gear Pogo Stick[/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 4132832253861444003}
@@ -15660,19 +15644,7 @@ MonoBehaviour:
     m_ActionId: a6e516b5-e897-457f-a8b4-6e4e9cab79e8
     m_ActionName: 'Player Controls/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7630835473645370153}
-        m_TargetAssemblyTypeName: GearTricks, Assembly-CSharp
-        m_MethodName: Trick
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 61cc162f-23e8-48b5-a143-b1d7b79f5cc6
     m_ActionName: 'Player Controls/Trick[/Keyboard/f]'
   - m_PersistentCalls:
@@ -15695,6 +15667,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 50040b9e-6b38-4d40-b701-42a8f3964f98
     m_ActionName: 'Player Controls/Drop[/Keyboard/downArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dd614774-b086-4693-9fd8-00c99708b45f
+    m_ActionName: 'Player Controls/Swap Gear Pogo Stick[/Keyboard/d]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Controls
