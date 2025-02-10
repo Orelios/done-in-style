@@ -58,6 +58,8 @@ public class DialogueManager : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        StopAllCoroutines();
+        dialogueText.text = _dialogues[index];
         _dialogueCanvas.gameObject.SetActive(false);
     }
 
