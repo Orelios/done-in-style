@@ -37,7 +37,12 @@ public class PlayerTricks : MonoBehaviour
     [SerializeField] private float inBetweenJumpCooldown; 
     private float _lastJumpTime;
     private float _lastInBetweenJumpTime; 
-    private float _jumps; 
+    private float _jumps;
+
+    [Header("Snapping and Taping")]
+    public float tapingDuration = 5f;
+    [HideInInspector] public bool isSnapping = false;
+    [HideInInspector] public bool isTaping = false;
 
 
     private void Awake()
@@ -63,6 +68,28 @@ public class PlayerTricks : MonoBehaviour
         }
     }
 
+    private void AddScoreAndRank()
+    {
+        if (isSnapping || isTaping)
+        {
+            scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+            rankCalculator.IncreaseStylishPoints();
+            //Double score and rank
+            scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+            rankCalculator.IncreaseStylishPoints();
+            if (isSnapping)
+            {
+                isSnapping = false;
+            }
+        }
+        else
+        {
+            //if not Snapping or Taping, add score and rank only once
+            scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+            rankCalculator.IncreaseStylishPoints();
+        }
+    }
+
     private void Dash() 
     {
         if (Time.time >= lastDashTime + dashCooldown)
@@ -76,10 +103,11 @@ public class PlayerTricks : MonoBehaviour
     {
         isDashing = true;
         lastDashTime = Time.time;
-        
+
         //add score
-        scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
-        rankCalculator.IncreaseStylishPoints();
+        //scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+        //rankCalculator.IncreaseStylishPoints();
+        AddScoreAndRank();
 
         // Dash always in the current horizontal direction
         float horizontalDirection = transform.rotation.y == 0 ? 1 : -1;
@@ -106,10 +134,11 @@ public class PlayerTricks : MonoBehaviour
         if (_jumps != 0)
         {
             //add score
-            scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
-            rankCalculator.IncreaseStylishPoints();
-            
-            if(Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
+            //scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+            //rankCalculator.IncreaseStylishPoints();
+            AddScoreAndRank();
+
+            if (Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
 
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _playerMovement.JumpPower);
 
