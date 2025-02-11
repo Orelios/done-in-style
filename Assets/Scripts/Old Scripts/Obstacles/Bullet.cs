@@ -7,17 +7,13 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<GearTricks>())
+        if (collision.gameObject.GetComponent<TEMP_PlayerIFrames>() && !collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit)
         {
-            if (!collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit)
-            {
-                _scoreCalculator.DecreaseScore(damage);
-                _scoreCalculator.GetComponent<Temp_RankCalculator>().DecreaseStylishPoints();
-                collision.gameObject.GetComponent<TEMP_PlayerIFrames>().PlayerHit();
-                collision.gameObject.GetComponent<PlayerHealth>().DecreaseHealth();
-            }
+            _scoreCalculator.DecreaseScore(damage);
+            _scoreCalculator.GetComponent<Temp_RankCalculator>().DecreaseStylishPoints();
+            collision.gameObject.GetComponent<TEMP_PlayerIFrames>().PlayerHit();
         }
-        
+
         Destroy(gameObject); 
     }
 }
