@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TEMP_Railing : MonoBehaviour
+public class Railing : MonoBehaviour
 {
     public List<Vector2> ColliderPoints = new();
     private EdgeCollider2D _collider;

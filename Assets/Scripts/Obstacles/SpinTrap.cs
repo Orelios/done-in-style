@@ -9,7 +9,7 @@ public class SpinTrap : MonoBehaviour
     //private 
 
     [Header("Damage Components")]
-    [SerializeField] private TEMP_ScoreCalculator scoreCalculator;
+    [SerializeField] private ScoreCalculator scoreCalculator;
     [SerializeField] private int damage;
     private float _rotZ; 
     void Update()
@@ -22,7 +22,7 @@ public class SpinTrap : MonoBehaviour
         if (collision.gameObject.GetComponent<TEMP_PlayerIFrames>() && !collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit)
         {
             scoreCalculator.DecreaseScore(damage);
-            scoreCalculator.GetComponent<Temp_RankCalculator>().DecreaseStylishPoints();
+            scoreCalculator.GetComponent<RankCalculator>().DecreaseStylishPoints();
             collision.gameObject.GetComponent<TEMP_PlayerIFrames>().PlayerHit();
         }
     }

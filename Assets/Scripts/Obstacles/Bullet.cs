@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [HideInInspector]public TEMP_ScoreCalculator _scoreCalculator;
+    [HideInInspector]public ScoreCalculator _scoreCalculator;
     [SerializeField] private int damage; 
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.GetComponent<TEMP_PlayerIFrames>() && !collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit)
         {
             _scoreCalculator.DecreaseScore(damage);
-            _scoreCalculator.GetComponent<Temp_RankCalculator>().DecreaseStylishPoints();
+            _scoreCalculator.GetComponent<RankCalculator>().DecreaseStylishPoints();
             collision.gameObject.GetComponent<TEMP_PlayerIFrames>().PlayerHit();
         }
 

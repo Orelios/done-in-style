@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class TEMP_StylishCombo : MonoBehaviour
+public class OLD_StylishCombo : MonoBehaviour
 {
     [Header("Style Configs")]
     public StylishRank[] StylishRanks;

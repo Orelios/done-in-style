@@ -16,7 +16,7 @@ public class Turret : MonoBehaviour
     private Vector2 _direction;
 
     [Header("Components")]
-    [SerializeField] private TEMP_ScoreCalculator scoreCalculator;
+    [SerializeField] private ScoreCalculator scoreCalculator;
 
     private void Update()
     {

@@ -3,8 +3,24 @@ using UnityEngine;
 
 public class RampPlayer : MonoBehaviour
 {
+    private GameObject rampLeft;    // Left point of the ramp (starting point in one direction)
+    private GameObject rampRight;   // Right point of the ramp (starting point in the other direction)
+
+    private bool isOnRamp = false, wasRecentlyOnRamp = false, isGoingUpRamp = false, hasExitedRamp = true;
+    [HideInInspector] public bool isRamping = false;
+    private bool isMovingRight = false;  // Indicates if the player is moving toward the right (RampRight)
+
+    private float _rampCooldownTimer, _rampCooldownDuration = 1f;
+
+    [SerializeField] private float _rampMomentumGravity = .01f, _rampSpeedStartMultiplier = 2f, _rampSpeedEndMultiplier = 3f;
+
+    private Vector2 _rampLastVelocity;
+
+    private bool _isColliding = false;
+
+    float normSpeed;
+    float rampSpeed;    
     private PlayerConfigsSO _playerConfigsSO;
-    private PlayerGearSwapper _playerGearSwapper;
     private PlayerMovement _playerMovement;
     void Start()
     {
@@ -14,35 +30,17 @@ public class RampPlayer : MonoBehaviour
 
 
         //_playerConfigsSO = GetComponent<PlayerConfigsSO>();
-        _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _playerMovement = GetComponent<PlayerMovement>();
-        normSpeed = _playerMovement.BaseSpeed * _playerGearSwapper.HorizontalMovementMultiplier;
+        normSpeed = _playerMovement.BaseSpeed;
         rampSpeed = normSpeed * _rampSpeedEndMultiplier;
     }
 
     // Update is called once per frame
     void Update()
     {
-        normSpeed = _playerMovement.BaseSpeed * _playerGearSwapper.HorizontalMovementMultiplier;
+        normSpeed = _playerMovement.BaseSpeed;
         rampSpeed = normSpeed * _rampSpeedEndMultiplier;
     }
-
-    public GameObject rampLeft;    // Left point of the ramp (starting point in one direction)
-    public GameObject rampRight;   // Right point of the ramp (starting point in the other direction)
-
-    public bool isOnRamp = false, wasRecentlyOnRamp = false, isGoingUpRamp = false, isRamping = false, hasExitedRamp = true;
-    public bool isMovingRight = false;  // Indicates if the player is moving toward the right (RampRight)
-
-    private float _rampCooldownTimer, _rampCooldownDuration = 1f;
-
-    [SerializeField] private float _rampMomentumGravity = .01f, _rampSpeedStartMultiplier = 2f, _rampSpeedEndMultiplier = 3f;
-
-    private Vector2 _rampLastVelocity;
-
-    [SerializeField] private bool _isColliding = false;
-
-    float normSpeed;
-    float rampSpeed;
 
     // When the player enters a ramp trigger (RampLeft or RampRight), determine the direction of movement
     void OnTriggerEnter2D(Collider2D other)
