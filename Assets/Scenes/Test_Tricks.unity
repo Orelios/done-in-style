@@ -4490,7 +4490,7 @@ Transform:
   m_GameObject: {fileID: 558358739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.7200012, y: -1.1700001, z: -10}
+  m_LocalPosition: {x: 84.18, y: 5.02, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -15457,7 +15457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3178509b8ea1684e99707f5d25f8125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grindSpeed: 10
+  grindingSpeedMultiplier: 0
   heightOffset: 1
 --- !u!114 &417066593179080383
 MonoBehaviour:
@@ -15667,10 +15667,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 50040b9e-6b38-4d40-b701-42a8f3964f98
     m_ActionName: 'Player Controls/Drop[/Keyboard/downArrow]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: dd614774-b086-4693-9fd8-00c99708b45f
-    m_ActionName: 'Player Controls/Swap Gear Pogo Stick[/Keyboard/d]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Controls
@@ -15894,7 +15890,7 @@ Transform:
   m_GameObject: {fileID: 4992886128219656315}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.7200012, y: -1.1700001, z: 0}
+  m_LocalPosition: {x: 84.18, y: 5.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16253,7 +16249,7 @@ Transform:
   m_GameObject: {fileID: 511968297436822432}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.7200012, y: -1.1700001, z: -10}
+  m_LocalPosition: {x: 84.18, y: 5.02, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -16318,10 +16314,10 @@ MonoBehaviour:
   jumpPower: 9
   coyoteTime: 0.2
   jumpBufferTime: 0.2
-  showGizmos: 0
   baseGravity: 3
   maxFallSpeed: 30
   fallSpeedMultiplier: 2
+  showGizmos: 0
   maxMovementSpeed: 20
 --- !u!224 &6589605993216006445
 RectTransform:
@@ -16646,6 +16642,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInvincibilityTime: 2
+  knockbackStrength: 10
 --- !u!114 &8877816160859945758
 MonoBehaviour:
   m_ObjectHideFlags: 0
