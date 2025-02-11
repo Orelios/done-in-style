@@ -6,7 +6,7 @@ public class DestructibleObjects : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<GearTricks>())
+        if (collision.gameObject.GetComponent<PlayerTricks>())
         {
             if (collision.gameObject.GetComponent<PlayerGearSwapper>().CurrentGearEquipped.DaredevilGearType == gearType)
             {

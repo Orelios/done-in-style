@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class TEMP_PlayerScore : MonoBehaviour
 {
-    [SerializeField] private TEMP_ScoreCalculator scoreCalculator;
-    [SerializeField] private Temp_RankCalculator rankCalculator;
+    [SerializeField] private ScoreCalculator scoreCalculator;
+    [SerializeField] private RankCalculator rankCalculator;
 
     private int _scoreValue = 100;
 

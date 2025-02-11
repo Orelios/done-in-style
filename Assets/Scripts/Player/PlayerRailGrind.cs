@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TEMP_PlayerRailGrind : MonoBehaviour
+public class PlayerRailGrind : MonoBehaviour
 {
     [Header("Grinding Configs")]
     [SerializeField] private float grindingSpeedMultiplier;
@@ -11,7 +11,7 @@ public class TEMP_PlayerRailGrind : MonoBehaviour
     
     private PlayerMovement _playerMovement;
     private Rigidbody2D _rb;
-    private TEMP_Railing _railing;
+    private Railing _railing;
 
     private void Start()
     {
@@ -37,7 +37,7 @@ public class TEMP_PlayerRailGrind : MonoBehaviour
                 return;
             }*/
             _onRail = true;
-            _railing = other.gameObject.GetComponent<TEMP_Railing>();
+            _railing = other.gameObject.GetComponent<Railing>();
             _grindingSpeed = _rb.linearVelocityX * grindingSpeedMultiplier;
             _railDirection = transform.rotation.y == 0 ? 1 : -1;
         }

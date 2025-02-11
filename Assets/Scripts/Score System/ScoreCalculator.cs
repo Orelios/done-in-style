@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-public class TEMP_ScoreCalculator : MonoBehaviour
+public class ScoreCalculator : MonoBehaviour
 {
     private int _currentScore;
     public int CurrentScore { get => _currentScore; private set => _currentScore = value; }

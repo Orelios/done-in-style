@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GearTricks : MonoBehaviour
+public class PlayerTricks : MonoBehaviour
 {
     private PlayerGearSwapper _playerGearSwapper;
     private PlayerMovement _playerMovement;
@@ -10,8 +10,8 @@ public class GearTricks : MonoBehaviour
 
     [Header("Components")]
     public Rigidbody2D Rb;
-    [SerializeField] private TEMP_ScoreCalculator scoreCalculator;
-    [SerializeField] private Temp_RankCalculator rankCalculator;
+    [SerializeField] private ScoreCalculator scoreCalculator;
+    [SerializeField] private RankCalculator rankCalculator;
 
     [Header("Score")]
     [SerializeField] private int scorePerTrick;

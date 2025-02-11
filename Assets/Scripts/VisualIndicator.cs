@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class TEMP_VisualIndicator : MonoBehaviour
+public class VisualIndicator : MonoBehaviour
 {
-    private PlayerGearSwapper _gearSwapper;
+    /*private PlayerGearSwapper _gearSwapper;
 
     private void Awake()
     {
@@ -22,5 +22,5 @@ public class TEMP_VisualIndicator : MonoBehaviour
         { gameObject.GetComponent<SpriteRenderer>().color = Color.red; ; }
         else if (_gearSwapper.CurrentGearEquipped.DaredevilGearType == EDaredevilGearType.PogoStick)
         { gameObject.GetComponent<SpriteRenderer>().color = Color.green; }
-    }
+    }*/
 }

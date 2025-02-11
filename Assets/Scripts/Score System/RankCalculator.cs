@@ -4,7 +4,7 @@ using System.Drawing;
 using TMPro;
 using UnityEngine;
 
-public class Temp_RankCalculator : MonoBehaviour
+public class RankCalculator : MonoBehaviour
 {
     [Header("Stylish Ranks Configs")]
     [SerializeField] private List<StylishRankSO> stylishRanksList = new();

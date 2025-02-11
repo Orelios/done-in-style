@@ -80,18 +80,16 @@ public class PlayerMovement : MonoBehaviour
     
     #region Private Variables
     private PlayerInputManager _playerInputManager;
-    private PlayerGearSwapper _playerGearSwapper;
-    private GearTricks _gearTricks;
+    private PlayerTricks _playerTricks;
     private PlayerVelocitySM _playerVelocitySM;
-    private Temp_RankCalculator _rankCalculator;
+    private RankCalculator _rankCalculator;
     #endregion
     
     private void Awake()
     {
         _playerInputManager = GetComponent<PlayerInputManager>();
-        _playerGearSwapper = GetComponent<PlayerGearSwapper>();
-        _gearTricks = GetComponent<GearTricks>();
-        _rankCalculator = FindFirstObjectByType<Temp_RankCalculator>();
+        _playerTricks = GetComponent<PlayerTricks>();
+        _rankCalculator = FindFirstObjectByType<RankCalculator>();
 
         InitializeStateMachine();
     }
@@ -141,8 +139,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerVelocitySM.FixedUpdate();
         //Disables movement while dashing
-        if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType
-            == EDaredevilGearType.Skateboard) { return; }
+        if (_playerTricks.IsDashing) { return; }
 
         if (GetComponent<RampPlayer>().isRamping)
         {
@@ -192,7 +189,9 @@ public class PlayerMovement : MonoBehaviour
     #region Jumping
     private bool IsGrounded()
     {
-        return Physics2D.OverlapCircle(GroundCheck.position, 0.2f, GroundLayer);
+        //return Physics2D.OverlapCircle(GroundCheck.position, 0.2f, GroundLayer);
+        //TODO: creates adjustable overlapBox dimensions variable
+        return Physics2D.OverlapBox(GroundCheck.position, new(1f, 0.5f), 0f, GroundLayer);
     }
 
     public void Jump()
@@ -202,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_playerInputManager.IsJumping && canJump)
         {
-            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, jumpPower * _playerGearSwapper.JumpForceMultiplier);
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, jumpPower);
         }
         else if (!_playerInputManager.IsJumping)
         {
@@ -218,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Rb.gravityScale = baseGravity * fallSpeedMultiplier;
             Rb.linearVelocity = new Vector2(Rb.linearVelocityX, Mathf.Max(Rb.linearVelocity.y, -(maxFallSpeed - 
-                _gearTricks.FallingSpeedModifier)));
+                _playerTricks.FallingSpeedModifier)));
         }
         else
         {
@@ -246,6 +245,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(GroundCheck.position, 0.2f);
+        Gizmos.DrawWireCube(GroundCheck.position, new(1f, 0.5f));
     }
 }
