@@ -17,7 +17,7 @@ public class Taping : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_ui != null)
+        if (_ui != null && _playerTricks != null)
         {
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S))
             {
@@ -42,6 +42,7 @@ public class Taping : MonoBehaviour
         {
             _playerTricks.isTaping = false;
             _ui.SetActive(false);
+            _playerTricks = null;
         }
     }
 
