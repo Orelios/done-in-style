@@ -19,7 +19,7 @@ public class Taping : MonoBehaviour
     {
         if (_ui != null && _playerTricks != null)
         {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S))
+            if (!_playerTricks.isTaping && (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S)))
             {
                 StartCoroutine(StartTaping());
             }
@@ -31,8 +31,12 @@ public class Taping : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _playerTricks = other.GetComponent<PlayerTricks>();
-            _playerTricks.isTaping = true;
-            _ui.SetActive(true);
+            //_playerTricks.isTaping = true;
+            if (!_playerTricks.isTaping)
+            {
+                //_playerTricks.canTape = true;
+                _ui.SetActive(true);
+            }
         }
     }
 
@@ -40,14 +44,20 @@ public class Taping : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            _playerTricks.isTaping = false;
-            _ui.SetActive(false);
-            _playerTricks = null;
+            //_playerTricks.isTaping = false;
+            //_playerTricks.canTape = false;
+            if (!_playerTricks.isTaping)
+            {
+                _ui.SetActive(false);
+                _playerTricks = null;
+            }
+            
         }
     }
 
     IEnumerator StartTaping()
     {
+        _playerTricks.isTaping = true;
         yield return new WaitForSeconds(_playerTricks.tapingDuration);
         _playerTricks.isTaping = false;
         _ui.SetActive(false);

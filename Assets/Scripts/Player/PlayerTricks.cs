@@ -43,6 +43,7 @@ public class PlayerTricks : MonoBehaviour
     public float tapingDuration = 5f;
     [HideInInspector] public bool isSnapping = false;
     [HideInInspector] public bool isTaping = false;
+    //[HideInInspector] public bool canTape = false;
     [SerializeField] private SnapshotEffect _snapshot;
 
 
