@@ -43,12 +43,14 @@ public class PlayerTricks : MonoBehaviour
     public float tapingDuration = 5f;
     [HideInInspector] public bool isSnapping = false;
     [HideInInspector] public bool isTaping = false;
+    [SerializeField] private SnapshotEffect _snapshot;
 
 
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
         _playerInputManager = GetComponent<PlayerInputManager>();
+        _snapshot = GameObject.Find("UI/Player/SnappingUI").GetComponent<SnapshotEffect>();
         _jumps = maxJumps; 
     }
 
@@ -79,6 +81,7 @@ public class PlayerTricks : MonoBehaviour
             rankCalculator.IncreaseStylishPoints();
             if (isSnapping)
             {
+                _snapshot.TriggerSnapshot();
                 isSnapping = false;
             }
         }

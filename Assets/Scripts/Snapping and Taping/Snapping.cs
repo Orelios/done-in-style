@@ -9,7 +9,7 @@ public class Snapping : MonoBehaviour
     {
         if (_ui == null)
         {
-            _ui = GameObject.Find("UI/Player/SnappingUI");
+            _ui = GameObject.Find("UI/Player/SnappingUI/CameraUI");
         }
     }
 

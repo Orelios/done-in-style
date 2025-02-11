@@ -10,7 +10,7 @@ public class Taping : MonoBehaviour
     {
         if (_ui == null)
         {
-            _ui = GameObject.Find("UI/Player/TapingUI");
+            _ui = GameObject.Find("UI/Player/TapingUI/CameraUI");
         }
     }
 
