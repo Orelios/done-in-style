@@ -10,6 +10,7 @@ TagManager:
   - GoingUpRamp
   - RampSurface
   - RampExit
+  - RailingInteraction
   layers:
   - Default
   - TransparentFX
