@@ -191,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //return Physics2D.OverlapCircle(GroundCheck.position, 0.2f, GroundLayer);
         //TODO: creates adjustable overlapBox dimensions variable
-        return Physics2D.OverlapBox(GroundCheck.position, new(.9f, 0.5f), 0f, GroundLayer);
+        return Physics2D.OverlapBox(GroundCheck.position, new(.9f, 0.1f), 0f, GroundLayer);
     }
 
     public void Jump()

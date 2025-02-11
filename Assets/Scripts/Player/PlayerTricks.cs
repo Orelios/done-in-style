@@ -43,7 +43,7 @@ public class PlayerTricks : MonoBehaviour
     public float tapingDuration = 5f;
     [HideInInspector] public bool isSnapping = false;
     [HideInInspector] public bool isTaping = false;
-    //[HideInInspector] public bool canTape = false;
+    [HideInInspector] public bool canTape = false;
     [SerializeField] private SnapshotEffect _snapshot;
 
 
@@ -73,7 +73,7 @@ public class PlayerTricks : MonoBehaviour
 
     private void AddScoreAndRank()
     {
-        if (isSnapping || isTaping)
+        if (isSnapping || isTaping || canTape)
         {
             scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
             rankCalculator.IncreaseStylishPoints();
