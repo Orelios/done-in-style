@@ -6,6 +6,7 @@ public class SceneHandler : MonoBehaviour
     public void RestartScene() 
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
     }
 
     public void QuitApllication()
