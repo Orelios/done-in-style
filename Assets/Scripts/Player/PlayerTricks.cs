@@ -2,16 +2,15 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GearTricks : MonoBehaviour
+public class PlayerTricks : MonoBehaviour
 {
-    private PlayerGearSwapper _playerGearSwapper;
     private PlayerMovement _playerMovement;
     private PlayerInputManager _playerInputManager;
 
     [Header("Components")]
     public Rigidbody2D Rb;
-    [SerializeField] private TEMP_ScoreCalculator scoreCalculator;
-    [SerializeField] private Temp_RankCalculator rankCalculator;
+    [SerializeField] private ScoreCalculator scoreCalculator;
+    [SerializeField] private RankCalculator rankCalculator;
 
     [Header("Score")]
     [SerializeField] private int scorePerTrick;
@@ -43,7 +42,6 @@ public class GearTricks : MonoBehaviour
 
     private void Awake()
     {
-        _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _playerMovement = GetComponent<PlayerMovement>();
         _playerInputManager = GetComponent<PlayerInputManager>();
         _jumps = maxJumps; 
@@ -113,8 +111,7 @@ public class GearTricks : MonoBehaviour
             
             if(Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
 
-            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _playerMovement.JumpPower *
-            _playerGearSwapper.JumpForceMultiplier);
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _playerMovement.JumpPower);
 
             _jumps--;
 

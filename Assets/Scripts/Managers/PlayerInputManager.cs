@@ -15,4 +15,12 @@ public class PlayerInputManager : MonoBehaviour
         if (context.started) { IsJumping = true; }
         else if (context.canceled) { IsJumping = false; }
     }
+
+    public void Next(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            //next dialogue line
+        }
+    }
 }

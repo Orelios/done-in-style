@@ -28,13 +28,13 @@ public class New_PlayerMovement : MonoBehaviour
     [SerializeField] private bool showGizmos = false;
 
     private PlayerGearSwapper _playerGearSwapper;
-    private GearTricks _gearTricks;
+    private PlayerTricks _playerTricks;
 
     private void Awake()
     {
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerGearSwapper = GetComponent<PlayerGearSwapper>();
-        _gearTricks = GetComponent<GearTricks>();
+        _playerTricks = GetComponent<PlayerTricks>();
         _rb = GetComponent<Rigidbody2D>();
     }
 
@@ -54,7 +54,7 @@ public class New_PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         //Disables movement while dashing
-        if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType
+        if (_playerTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType
             == EDaredevilGearType.Skateboard) { return; }
 
         Move(); 
@@ -132,7 +132,7 @@ public class New_PlayerMovement : MonoBehaviour
         {
             _rb.gravityScale = playerConfigsSO.BaseGravity * playerConfigsSO.FallSpeedMultiplier;
             _rb.linearVelocity = new Vector2(_rb.linearVelocityX, Mathf.Max(_rb.linearVelocity.y, -(playerConfigsSO.MaxFallSpeed -
-                _gearTricks.FallingSpeedModifier)));
+                _playerTricks.FallingSpeedModifier)));
         }
         else
         {
