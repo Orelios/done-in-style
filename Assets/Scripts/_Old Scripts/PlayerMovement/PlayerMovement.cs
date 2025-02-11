@@ -245,6 +245,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(GroundCheck.position, new(1f, 0.5f));
+        Gizmos.DrawWireCube(GroundCheck.position, new(0.9f, 0.25f));
     }
 }
