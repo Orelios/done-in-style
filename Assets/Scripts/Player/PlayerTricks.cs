@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerTricks : MonoBehaviour
 {
-    private PlayerGearSwapper _playerGearSwapper;
     private PlayerMovement _playerMovement;
     private PlayerInputManager _playerInputManager;
 
@@ -43,7 +42,6 @@ public class PlayerTricks : MonoBehaviour
 
     private void Awake()
     {
-        _playerGearSwapper = GetComponent<PlayerGearSwapper>();
         _playerMovement = GetComponent<PlayerMovement>();
         _playerInputManager = GetComponent<PlayerInputManager>();
         _jumps = maxJumps; 
@@ -113,8 +111,7 @@ public class PlayerTricks : MonoBehaviour
             
             if(Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
 
-            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _playerMovement.JumpPower *
-            _playerGearSwapper.JumpForceMultiplier);
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _playerMovement.JumpPower);
 
             _jumps--;
 
