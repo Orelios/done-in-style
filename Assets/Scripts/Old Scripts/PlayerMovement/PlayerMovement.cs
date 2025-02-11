@@ -141,8 +141,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerVelocitySM.FixedUpdate();
         //Disables movement while dashing
-        if (_gearTricks.IsDashing && _playerGearSwapper.CurrentGearEquipped.DaredevilGearType
-            == EDaredevilGearType.Skateboard) { return; }
+        if (_gearTricks.IsDashing) { return; }
 
         if (GetComponent<RampPlayer>().isRamping)
         {
