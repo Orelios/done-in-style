@@ -17,6 +17,7 @@ public class RampPlayer : MonoBehaviour
     private Vector2 _rampLastVelocity;
 
     private bool _isColliding = false;
+    public bool IsColliding => _isColliding;
 
     float normSpeed;
     float rampSpeed;    
