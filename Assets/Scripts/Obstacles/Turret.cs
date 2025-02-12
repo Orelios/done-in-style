@@ -11,7 +11,8 @@ public class Turret : MonoBehaviour
     [Header("Bullet Components")]
     [SerializeField] private Transform shootPoint; 
     [SerializeField] private GameObject bullet;
-    [SerializeField] private float bulletSpeed; 
+    [SerializeField] private float bulletSpeed;
+    [SerializeField] private float bulletLifeSpan; 
     private bool _detected;
     private Vector2 _direction;
 
@@ -49,6 +50,8 @@ public class Turret : MonoBehaviour
         bullet.gameObject.GetComponent<Bullet>()._scoreCalculator = scoreCalculator;
         GameObject bulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
         bulletIns.GetComponent<Rigidbody2D>().AddForce(_direction * bulletSpeed);
+        //Physics2D.IgnoreCollision(bulletIns.GetComponent<Collider2D>(), bullet.gameObject.GetComponent<Collider2D>());
+        Destroy(bulletIns, bulletLifeSpan);
         _lastShootTime = Time.time;
     }
 

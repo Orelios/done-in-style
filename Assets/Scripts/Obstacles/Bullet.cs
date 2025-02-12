@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -14,6 +15,9 @@ public class Bullet : MonoBehaviour
             collision.gameObject.GetComponent<TEMP_PlayerIFrames>().PlayerHit();
         }
 
-        Destroy(gameObject); 
+        
+        if(!collision.gameObject.TryGetComponent<Bullet>(out Bullet bullet)) { Destroy(gameObject); }
+        
+
     }
 }
