@@ -49,13 +49,14 @@ public class TimeHandler : MonoBehaviour
             Time.timeScale = progress >= _percentageForSmoothingToStart ? 
                 Mathf.Lerp(_slowDownFactor, _originalTimeScale, (_slowDownDuration * _percentageForSmoothingToStart) / duration) : 
                 Mathf.Lerp(initialTimeScale, _originalTimeScale, elapsedTime / (duration * _percentageForSmoothingToStart));
-            
-            
+
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
             elapsedTime += Time.unscaledDeltaTime;
             
             yield return null;
         }
         
         Time.timeScale = _originalTimeScale;
+        Time.fixedDeltaTime = 0.02f;
     }
 }
