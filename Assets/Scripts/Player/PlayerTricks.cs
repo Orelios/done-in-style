@@ -25,10 +25,6 @@ public class PlayerTricks : MonoBehaviour
     private float lastDashTime;
     private Vector2 dashDirection;
 
-    private RampPlayer _player;
-    private Vector2 dashLastVelocity;
-    [SerializeField] private Vector2 _dashMomentumDecrease = new Vector2(0.1f, 0.1f);
-
     [Header("RollerBlade")]
     [SerializeField] private float fallingSpeed;
     [SerializeField] private float slowFallTimer; 
@@ -57,7 +53,6 @@ public class PlayerTricks : MonoBehaviour
         _playerInputManager = GetComponent<PlayerInputManager>();
         _snapshot = GameObject.Find("UI/Player/SnappingUI").GetComponent<SnapshotEffect>();
         _jumps = maxJumps; 
-        _player = GetComponent<RampPlayer>();
     }
 
     public void Trick(InputAction.CallbackContext context)
@@ -130,41 +125,15 @@ public class PlayerTricks : MonoBehaviour
 
         // Disable gravity during the dash
         Rb.gravityScale = 0;
-        _playerMovement.Rb.linearVelocity = dashDirection * dashSpeed;
-        dashLastVelocity = dashDirection * dashSpeed;
+        Rb.linearVelocity = dashDirection * dashSpeed;
         Debug.Log(Rb.linearVelocity);
 
         yield return new WaitForSeconds(dashDuration);
 
         // End dash
         Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
-        //Rb.linearVelocity = Vector2.zero; // Reset velocity
-        StartCoroutine(PreserveMomentum());
-        //isDashing = false;
-    }
-
-    IEnumerator PreserveMomentum()
-    {
-        _playerMovement.Rb.linearVelocity = dashLastVelocity;
-        while (!Input.anyKeyDown)
-        {
-            if (_player.isColliding) { break; }
-            //dashLastVelocity = _playerMovement.Rb.linearVelocity.y;
-            //_playerMovement.Rb.linearVelocity -= _dashMomentumDecrease;
-            Vector2 lastVelocity = _playerMovement.Rb.linearVelocity;
-            if (lastVelocity.x > 0)
-            {
-                _playerMovement.Rb.linearVelocity = new Vector2(lastVelocity.x - _dashMomentumDecrease.x, lastVelocity.y - _dashMomentumDecrease.y);
-            }
-            else
-            {
-                _playerMovement.Rb.linearVelocity = new Vector2(lastVelocity.x + _dashMomentumDecrease.x, lastVelocity.y - _dashMomentumDecrease.y);
-            }
-
-            yield return null;
-        }
+        Rb.linearVelocity = new(Rb.linearVelocityX / 2f, Rb.linearVelocityY / 2f); // Reset velocity
         _isDashing = false;
-        //Debug.Log("Momentum ends");
     }
 
     private void DoubleJump() 

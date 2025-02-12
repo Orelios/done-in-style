@@ -8,21 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-<<<<<<<< HEAD:Assets/Prefabs/Stage Interactions/Destructible object.prefab
   - component: {fileID: 8374161095482758642}
   - component: {fileID: 8155192069621637921}
   - component: {fileID: 8841172893951998306}
   - component: {fileID: 3200571784263442899}
   m_Layer: 0
   m_Name: Destructible object
-========
-  - component: {fileID: 8047686447257209447}
-  - component: {fileID: 3474960902305996191}
-  - component: {fileID: 1759001049430615482}
-  - component: {fileID: 3935295344459196382}
-  m_Layer: 6
-  m_Name: Temp_Platform2DEffector
->>>>>>>> dash-momentum:Assets/Prefabs/Platforms/Temp_Platform2DEffector.prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -235,25 +226,3 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
-<<<<<<<< HEAD:Assets/Prefabs/Stage Interactions/Destructible object.prefab
-========
---- !u!251 &3935295344459196382
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8040581359572244232}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RotationalOffset: 0
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 179
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 1
->>>>>>>> dash-momentum:Assets/Prefabs/Platforms/Temp_Platform2DEffector.prefab

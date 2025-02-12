@@ -16,7 +16,7 @@ public class RampPlayer : MonoBehaviour
 
     private Vector2 _rampLastVelocity;
 
-    public bool isColliding = false;
+    private bool _isColliding = false;
 
     float normSpeed;
     float rampSpeed;    
@@ -105,12 +105,12 @@ public class RampPlayer : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        isColliding = true;
+        _isColliding = true;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        isColliding = false;
+        _isColliding = false;
     }
     
 
@@ -217,7 +217,7 @@ public class RampPlayer : MonoBehaviour
     {
         while (!Input.anyKey)
         {
-            if (isColliding && _rampCooldownTimer >= .1f) { break; }
+            if (_isColliding && _rampCooldownTimer >= .1f) { break; }
             float lastYVelocity = _playerMovement.Rb.linearVelocity.y;
             _playerMovement.Rb.linearVelocity = new Vector2(_rampLastVelocity.x, (lastYVelocity - _rampMomentumGravity));
             yield return null;
