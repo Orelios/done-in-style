@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
@@ -9,9 +8,10 @@ public class MovingPlatform : MonoBehaviour
     [SerializeField] private float moveDelay = 0.5f; //Delay before platform moves back after reaching destination
 
     private Transform player;
+    private Vector2 currentPos;  // The current position of the platform
+    private float timeToMoveBack; // Time tracker to wait before moving back
 
-    // The current position will be automatically set to the platform's initial position in the scene
-    private Vector2 currentPos;
+    private bool isMovingToTarget = true; // Flag to check direction of movement
 
     // Start is called before the first frame update
     void Start()
@@ -19,48 +19,58 @@ public class MovingPlatform : MonoBehaviour
         // Register the initial position of the platform as currentPos
         currentPos = transform.position;
 
-        // Start the coroutine that handles the movement between the two positions
-        if (targetPos != Vector2.zero) // If targetPos is set, begin the movement
-        {
-            StartCoroutine(MovePlatform());
-        }
-        else
+        if (targetPos == Vector2.zero) // If targetPos is not set, log a warning
         {
             Debug.LogWarning("Target position for " + gameObject.name + " is not set in the Inspector!");
         }
     }
 
-    // Coroutine to move the platform between currentPos and targetPos infinitely
-    private IEnumerator MovePlatform()
+    // Update is called once per frame
+    void Update()
     {
-        while (true)
+        if (targetPos == Vector2.zero) return; // Do nothing if no target position
+
+        if (isMovingToTarget)
         {
-            // Move from currentPos to targetPos
-            float journeyLength = Vector2.Distance(currentPos, targetPos);
-            float startTime = Time.time;
+            // Move the platform towards the target position
+            float step = speed * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, targetPos, step);
 
-            while (Vector2.Distance(transform.position, targetPos) > 0.1f)
+            // If the platform reaches the target position
+            if ((Vector2)transform.position == targetPos)
             {
-                float distanceCovered = (Time.time - startTime) * speed;
-                float fractionOfJourney = distanceCovered / journeyLength;
-                transform.position = Vector2.Lerp(currentPos, targetPos, fractionOfJourney);
-                yield return null;
+                // Swap currentPos and targetPos
+                Vector2 temp = currentPos;
+                currentPos = targetPos;
+                targetPos = temp;
+
+                // Start a timer before moving back
+                timeToMoveBack = Time.time + moveDelay;
+                isMovingToTarget = false; // Stop moving towards target
             }
-
-            // Once the platform reaches the target position, swap currentPos and targetPos
-            Vector2 temp = currentPos;
-            currentPos = targetPos;
-            targetPos = temp;
-
-            // Wait for a short moment before moving again (optional)
-            yield return new WaitForSeconds(moveDelay);
+        }
+        else
+        {
+            // Check if it's time to start moving back after delay
+            if (Time.time >= timeToMoveBack)
+            {
+                isMovingToTarget = true; // Start moving to the new target
+            }
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+        if (collision.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth)
+            && collision.gameObject.GetComponent<PlayerInputManager>().HorizontalMovement == 0)
         {
-            collision.transform.SetParent(transform); // Attach player to platform
+            collision.transform.SetParent(transform); // Attach player to platform when standing on it
+            Debug.Log("working");
+            //collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+        }
+        if(collision.gameObject.GetComponent<PlayerInputManager>().HorizontalMovement != 0)
+        {
+            collision.transform.SetParent(null);
         }
     }
 
@@ -68,9 +78,10 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
         {
-            collision.transform.SetParent(null); // Detach player from platform
+            collision.transform.SetParent(null); // Detach player from platform when they leave it
         }
     }
+
     /*
     void OnCollisionEnter2D(Collision2D collision)
     {
