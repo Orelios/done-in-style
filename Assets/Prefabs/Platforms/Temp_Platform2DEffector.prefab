@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1759001049430615482}
   - component: {fileID: 3935295344459196382}
   m_Layer: 6
-  m_Name: Platform
+  m_Name: Temp_Platform2DEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
