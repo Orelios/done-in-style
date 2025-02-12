@@ -56,6 +56,21 @@ public class MovingPlatform : MonoBehaviour
             yield return new WaitForSeconds(moveDelay);
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+        {
+            collision.transform.SetParent(transform); // Attach player to platform
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+        {
+            collision.transform.SetParent(null); // Detach player from platform
+        }
+    }
     /*
     void OnCollisionEnter2D(Collision2D collision)
     {
