@@ -31,10 +31,17 @@ public class PlayerTricks : MonoBehaviour
     [SerializeField] private Vector2 _dashMomentumDecay = new Vector2(0.345f, 0.69f);
 
     [Header("Ground Pound")]
+    private bool _isPounding = false;
+    public bool IsPounding => _isPounding;
+    [SerializeField] private float _groundPoundSpeed = 50f;
+    public float poundCooldown = 1f;
+    private float lastPoundTime;
+    #region DO NOT DELETE
     [SerializeField] private float fallingSpeed;
     [SerializeField] private float slowFallTimer; 
     private float _fallingSpeed; 
     public float FallingSpeedModifier => _fallingSpeed;
+    #endregion
 
     [Header("Double Jump")] 
     [SerializeField] private float doubleJumpPower;
@@ -70,6 +77,9 @@ public class PlayerTricks : MonoBehaviour
                 break;
             case "s":
                 if (context.performed) { DoubleJump(); }
+                break;
+            case "d":
+                if (context.performed) { GroundPound(); }
                 break;
             default:
                 Debug.LogWarning($"Mismatch! Control name {context.control.name} was not recognized");
@@ -191,5 +201,40 @@ public class PlayerTricks : MonoBehaviour
             if(_jumps == 0) { _lastJumpTime = Time.time; }
         }
         Debug.Log("PogoStick");
+    }
+
+    private void GroundPound()
+    {
+        if ((Time.time >= lastPoundTime + poundCooldown) && !_playerMovement.IsGrounded())
+        {
+            StartCoroutine(GroundPoundCoroutine());
+        }
+        
+    }
+
+    private IEnumerator GroundPoundCoroutine()
+    {
+        _isPounding = true;
+        AddScoreAndRank();
+
+        // Disable gravity during the dash
+        Rb.gravityScale = 0;
+        Debug.Log("isPounding = " + _isPounding);
+        while (_isPounding)
+        {
+            if (Input.GetKeyUp(KeyCode.D))
+            {
+                _isPounding = false;
+                Debug.Log("isPounding = " + _isPounding);
+            }
+            //Rb.linearVelocity = new Vector2(0f, (-1f * _groundPoundSpeed));
+            _playerMovement.Rb.linearVelocity = new Vector2(0f, (-1 * _groundPoundSpeed));
+            yield return null;
+        }
+
+        // End GroundPound
+        Rb.gravityScale = _playerMovement.BaseGravity;
+        lastPoundTime = Time.time;
+        _isPounding = false;
     }
 }

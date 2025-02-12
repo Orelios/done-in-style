@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerVelocitySM.FixedUpdate();
         //Disables movement while dashing
-        if (_playerTricks.IsDashing) { return; }
+        if (_playerTricks.IsDashing || _playerTricks.IsPounding) { return; }
 
         if (GetComponent<RampPlayer>().isRamping)
         {
@@ -187,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
     }
     
     #region Jumping
-    private bool IsGrounded()
+    public bool IsGrounded()
     {
         //return Physics2D.OverlapCircle(GroundCheck.position, 0.2f, GroundLayer);
         //TODO: creates adjustable overlapBox dimensions variable
