@@ -3,12 +3,15 @@ using UnityEngine;
 public class PlayerRailGrind : MonoBehaviour
 {
     [Header("Grinding Configs")]
+    [Tooltip("Input here the burst of speed the player will get when grinding")]
     [SerializeField] private float grindingSpeedMultiplier;
+    [Tooltip("Input here the minimum speed the player needs to start grinding")]
     [SerializeField] private float minimumSpeedToGrind;
     public float MinimumSpeedToGrind => minimumSpeedToGrind;
+    [Tooltip("Adjust here the decay rate of the player's speed when stopping grinding; a lower value will result in a faster decay rate")]
+    [SerializeField, Range(1, 100)] private int speedDecayRate;
     [SerializeField] private float heightOffset;
-    public bool IsOnRail;
-    private float _railDirection;
+    [HideInInspector]public bool IsOnRail;
     private float _grindingSpeed;
     
     private Rigidbody2D _rb;
@@ -37,15 +40,13 @@ public class PlayerRailGrind : MonoBehaviour
         IsOnRail = true;
         _railing = railing;
         _grindingSpeed = _rb.linearVelocityX * grindingSpeedMultiplier;
-        _railDirection = transform.rotation.y == 0 ? 1 : -1;
     }
 
     public void DisableRailing()
     {
         _grindingSpeed = 0f;
-        _railDirection = 0f;
         IsOnRail = false;
         _railing = null;
-        _rb.linearVelocity = new(_rb.linearVelocityX / 2f, _rb.linearVelocityY);
+        _rb.linearVelocity = new(_rb.linearVelocityX * (speedDecayRate / 100f), _rb.linearVelocityY);
     }
 }

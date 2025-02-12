@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     #region Jump
     [Header("Jump Configs")]
-    [Tooltip("Insert here the jump power of the Player; this is how high the Player can jump")]
+    [Tooltip("Insert here the jump power of the Player; this is how high the Player can jump, includes the double jump force")]
     [SerializeField]  private float jumpPower;
     [Tooltip("Insert here how long Coyote Time will run after the player goes off of a ledge; this is how long the Player can still jump after going off a ledge")]
     [SerializeField, Range(0.05f, 0.25f)] private float coyoteTime = 0.2f;
