@@ -20,8 +20,8 @@ public class PlayerTricks : MonoBehaviour
     public float dashDuration = 0.2f;
     public float dashCooldown = 1f;
 
-    private bool _isDashing = false;
-    public bool IsDashing => _isDashing;
+    private bool isDashing = false;
+    public bool IsDashing => isDashing;
     private float lastDashTime;
     private Vector2 dashDirection;
 
@@ -29,10 +29,9 @@ public class PlayerTricks : MonoBehaviour
     [SerializeField] private float fallingSpeed;
     [SerializeField] private float slowFallTimer; 
     private float _fallingSpeed; 
-    public float FallingSpeedModifier => _fallingSpeed;
+    public float FallingSpeedModifier => _fallingSpeed; 
 
-    [Header("Double Jump")] 
-    [SerializeField] private float doubleJumpPower;
+    [Header("Double Jump")]
     [SerializeField] private int maxJumps;
     [SerializeField] private float jumpCooldown;
     [SerializeField] private float inBetweenJumpCooldown; 
@@ -46,7 +45,8 @@ public class PlayerTricks : MonoBehaviour
     [HideInInspector] public bool isTaping = false;
     [HideInInspector] public bool canTape = false;
     [SerializeField] private SnapshotEffect _snapshot;
-    
+
+
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
@@ -69,12 +69,6 @@ public class PlayerTricks : MonoBehaviour
                 Debug.LogWarning($"Mismatch! Control name {context.control.name} was not recognized");
                 break;
         }
-    }
-
-    public bool IsDoingTrick()
-    {
-        //TODO: return the other tricks
-        return _isDashing;
     }
 
     private void AddScoreAndRank()
@@ -111,7 +105,7 @@ public class PlayerTricks : MonoBehaviour
 
     private IEnumerator DashCoroutine()
     {
-        _isDashing = true;
+        isDashing = true;
         lastDashTime = Time.time;
 
         //add score
@@ -132,8 +126,8 @@ public class PlayerTricks : MonoBehaviour
 
         // End dash
         Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
-        Rb.linearVelocity = new(Rb.linearVelocityX / 2f, Rb.linearVelocityY / 2f); // Reset velocity
-        _isDashing = false;
+        Rb.linearVelocity = Vector2.zero; // Reset velocity
+        isDashing = false;
     }
 
     private void DoubleJump() 
@@ -150,7 +144,7 @@ public class PlayerTricks : MonoBehaviour
 
             if (Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
 
-            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, doubleJumpPower);
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _playerMovement.JumpPower);
 
             _jumps--;
 

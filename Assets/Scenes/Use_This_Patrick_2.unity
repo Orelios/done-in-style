@@ -4175,63 +4175,6 @@ Transform:
   - {fileID: 1047598353}
   m_Father: {fileID: 979439967}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &499820500
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1023503293085441, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_Name
-      value: Destructible object
-      objectReference: {fileID: 0}
-    - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 189.31282
-      objectReference: {fileID: 0}
-    - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.9550457
-      objectReference: {fileID: 0}
-    - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
 --- !u!1 &501606966
 GameObject:
   m_ObjectHideFlags: 0
@@ -7969,7 +7912,7 @@ Transform:
   m_GameObject: {fileID: 1007690712}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 219.5, y: -1.1696, z: -0.06509646}
+  m_LocalPosition: {x: 213.8, y: -1.1696, z: -0.06509646}
   m_LocalScale: {x: 6.2278, y: 0.4607, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10808,7 +10751,7 @@ Transform:
   m_GameObject: {fileID: 1340221554}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 158.51, y: 2.71, z: 0}
+  m_LocalPosition: {x: 177.93, y: -2.89, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -11398,7 +11341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6413399197039459861, guid: 415a851e197b434469442ec51abe5191, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 208.8
+      value: 199.81
       objectReference: {fileID: 0}
     - target: {fileID: 6413399197039459861, guid: 415a851e197b434469442ec51abe5191, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17228,7 +17171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grindingSpeedMultiplier: 1.5
   minimumSpeedToGrind: 5
-  speedDecayRate: 75
   heightOffset: 1
   IsOnRail: 0
 --- !u!114 &417066593179080383
@@ -18269,7 +18211,6 @@ MonoBehaviour:
   dashCooldown: 1
   fallingSpeed: 0
   slowFallTimer: 0
-  doubleJumpPower: 15
   maxJumps: 2
   jumpCooldown: 2
   inBetweenJumpCooldown: 2
@@ -18485,4 +18426,3 @@ SceneRoots:
   - {fileID: 407042443}
   - {fileID: 559684798}
   - {fileID: 1397913877}
-  - {fileID: 499820500}

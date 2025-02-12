@@ -232,6 +232,22 @@ MonoBehaviour:
     m_ActionName: 'Player Controls/Swap Gear Roller Blades[/Keyboard/s]'
   - m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 8916791110867131239}
+        m_TargetAssemblyTypeName: PlayerGearSwapper, Assembly-CSharp
+        m_MethodName: SwapGear
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 65a36fe6250dc9746b8a66fc71ad1045, type: 2}
+          m_ObjectArgumentAssemblyTypeName: DaredevilGearSO, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dd614774-b086-4693-9fd8-00c99708b45f
+    m_ActionName: 'Player Controls/Swap Gear Pogo Stick[/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 8494970610157712489}
         m_TargetAssemblyTypeName: PlayerInputManager, Assembly-CSharp
         m_MethodName: Move
@@ -282,10 +298,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 50040b9e-6b38-4d40-b701-42a8f3964f98
     m_ActionName: 'Player Controls/Drop[/Keyboard/downArrow]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 67d2fe04-eede-4e81-92af-f51b0001c69f
-    m_ActionName: 'Player Controls/Next[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player Controls
@@ -320,21 +332,14 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 64
-  cameraHandler: {fileID: 0}
   baseSpeed: 8
-  acceleration: 0
-  deceleration: 0
-  velPower: 0
-  frictionAmount: 0
-  IsFacingRight: 1
-  jumpPower: 0
-  coyoteTime: 0.2
-  jumpBufferTime: 0.2
+  JumpPower: 8
+  CoyoteTime: 0.2
+  JumpBufferTime: 0.2
+  showGizmos: 0
   baseGravity: 3
   maxFallSpeed: 15
   fallSpeedMultiplier: 2
-  showGizmos: 0
-  maxMovementSpeed: 0
 --- !u!114 &8916791110867131239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,7 +352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43966c5adec56f347b22eb005bd7fcac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  daredevilGears: []
   defaultGearToEquip: {fileID: 11400000, guid: 0e37da67853c5e94aa5ecfaabed071f5, type: 2}
   swapCooldown: 2
   debugAnchor: {fileID: 3754738523708909467}
@@ -374,15 +378,9 @@ MonoBehaviour:
   dashCooldown: 1
   fallingSpeed: 0
   slowFallTimer: 0
-  doubleJumpPower: 0
   maxJumps: 2
   jumpCooldown: 2
   inBetweenJumpCooldown: 2
-  tapingDuration: 5
-  isSnapping: 0
-  isTaping: 0
-  canTape: 0
-  _snapshot: {fileID: 0}
 --- !u!114 &4877545244270034236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,11 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3178509b8ea1684e99707f5d25f8125, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grindingSpeedMultiplier: 0
-  minimumSpeedToGrind: 0
-  speedDecayRate: 1
+  grindSpeed: 10
   heightOffset: 1
-  IsOnRail: 0
 --- !u!1 &764469611039999992
 GameObject:
   m_ObjectHideFlags: 0
