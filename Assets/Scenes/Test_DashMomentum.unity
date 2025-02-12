@@ -18171,7 +18171,7 @@ MonoBehaviour:
   dashSpeed: 30
   dashDuration: 0.2
   dashCooldown: 1
-  _dashMomentumDecrease: {x: 0.1, y: 0.1}
+  _dashMomentumDecrease: {x: 0.345, y: 0.69}
   fallingSpeed: 0
   slowFallTimer: 0
   maxJumps: 2
