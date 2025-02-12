@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerRailGrind : MonoBehaviour
@@ -5,6 +6,7 @@ public class PlayerRailGrind : MonoBehaviour
     [Header("Grinding Configs")]
     [SerializeField] private float grindingSpeedMultiplier;
     [SerializeField] private float minimumSpeedToGrind;
+    [SerializeField] private Vector2 grindMomentumDecay = new Vector2(0.345f, 0.69f);
     public float MinimumSpeedToGrind => minimumSpeedToGrind;
     [SerializeField] private float heightOffset;
     public bool IsOnRail;
@@ -32,6 +34,15 @@ public class PlayerRailGrind : MonoBehaviour
         _rb.linearVelocity = new Vector2(_grindingSpeed, _rb.linearVelocity.y);
     }
 
+    private IEnumerator DecayMomentum()
+    {
+        var lastVelocity = _rb.linearVelocity;
+
+        _rb.linearVelocity = new(lastVelocity.x > 0f ? lastVelocity.x - grindMomentumDecay.x : lastVelocity.x + grindMomentumDecay.x, lastVelocity.y);
+
+        yield return null;
+    }
+
     public void EnableRailing(Railing railing)
     {
         IsOnRail = true;
@@ -46,6 +57,7 @@ public class PlayerRailGrind : MonoBehaviour
         _railDirection = 0f;
         IsOnRail = false;
         _railing = null;
-        _rb.linearVelocity = new(_rb.linearVelocityX / 2f, _rb.linearVelocityY);
+        //_rb.linearVelocity = new(_rb.linearVelocityX / 2f, _rb.linearVelocityY);
+        StartCoroutine(DecayMomentum());
     }
 }
