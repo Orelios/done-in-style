@@ -21,7 +21,17 @@ public class JumpPad : MonoBehaviour
 
             collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity = 
                 Vector2.ClampMagnitude(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity, BounceHeight);
+            if (collision.gameObject.GetComponent<PlayerTricks>().canTrick == false)
+            {
+                collision.gameObject.GetComponent<PlayerTricks>().EnableTrick();
+            }
+            
         }
         //Debug.Log(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity.y);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
     }
 }

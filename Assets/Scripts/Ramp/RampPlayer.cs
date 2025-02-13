@@ -23,6 +23,7 @@ public class RampPlayer : MonoBehaviour
     float rampSpeed;    
     private PlayerConfigsSO _playerConfigsSO;
     private PlayerMovement _playerMovement;
+    private PlayerTricks _playertricks;
     void Start()
     {
 
@@ -31,6 +32,7 @@ public class RampPlayer : MonoBehaviour
 
 
         //_playerConfigsSO = GetComponent<PlayerConfigsSO>();
+        _playertricks = GetComponent<PlayerTricks>();
         _playerMovement = GetComponent<PlayerMovement>();
         normSpeed = _playerMovement.BaseSpeed;
         rampSpeed = normSpeed * _rampSpeedEndMultiplier;
@@ -195,6 +197,8 @@ public class RampPlayer : MonoBehaviour
             yield return null;
         }
         isRamping = false;
+        _playertricks.AddScoreAndRank();
+        _playertricks.EnableTrick();
         StartCoroutine(RampCooldownTimer());
         //Debug.Log("Coroutine ends");
     }

@@ -33,7 +33,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Trick",
+                    "name": "TrickMove",
                     "type": "Button",
                     "id": "61cc162f-23e8-48b5-a143-b1d7b79f5cc6",
                     "expectedControlType": "",
@@ -108,7 +108,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Trick",
+                    "action": "TrickMove",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
