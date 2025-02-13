@@ -197,6 +197,7 @@ public class RampPlayer : MonoBehaviour
             yield return null;
         }
         isRamping = false;
+        _playertricks.AddScoreAndRank();
         _playertricks.EnableTrick();
         StartCoroutine(RampCooldownTimer());
         //Debug.Log("Coroutine ends");

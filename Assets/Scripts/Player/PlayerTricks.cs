@@ -115,7 +115,7 @@ public class PlayerTricks : MonoBehaviour
         return _isDashing;
     }
 
-    private void AddScoreAndRank()
+    public void AddScoreAndRank()
     {
         if (isSnapping || isTaping || canTape)
         {
@@ -152,10 +152,7 @@ public class PlayerTricks : MonoBehaviour
         _isDashing = true;
         lastDashTime = Time.time;
 
-        //add score
-        //scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
-        //rankCalculator.IncreaseStylishPoints();
-        AddScoreAndRank();
+        //AddScoreAndRank();
 
         // Dash always in the current horizontal direction
         float horizontalDirection = transform.rotation.y == 0 ? 1 : -1;
@@ -207,10 +204,7 @@ public class PlayerTricks : MonoBehaviour
 
         if (_jumps != 0)
         {
-            //add score
-            //scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
-            //rankCalculator.IncreaseStylishPoints();
-            AddScoreAndRank();
+            //AddScoreAndRank();
 
             if (Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
 
@@ -237,7 +231,7 @@ public class PlayerTricks : MonoBehaviour
     private IEnumerator GroundPoundCoroutine()
     {
         _isPounding = true;
-        AddScoreAndRank();
+        //AddScoreAndRank();
 
         // Disable gravity during the dash
         Rb.gravityScale = 0;
@@ -267,6 +261,7 @@ public class PlayerTricks : MonoBehaviour
             spriteRenderer.color = trickColor;
             canTrick = false;
             Debug.Log("TrickMove");
+            AddScoreAndRank();
             StartCoroutine(RevertColorAfterTime());
         }
     }

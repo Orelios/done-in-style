@@ -8,6 +8,7 @@ public class DestructibleObjects : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out PlayerTricks playerTricks) && (playerTricks.IsDashing
             || playerTricks.IsPounding))
         {
+            collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
             collision.gameObject.GetComponent<PlayerTricks>().EnableTrick();
             TimeHandler.SlowDownTime();
             Destroy(gameObject);
@@ -18,7 +19,10 @@ public class DestructibleObjects : MonoBehaviour
         if (collision.gameObject.TryGetComponent(out PlayerTricks playerTricks) && (playerTricks.IsDashing 
             || playerTricks.IsPounding))
         {
-            collision.gameObject.GetComponent<PlayerTricks>().EnableTrick();
+            if (collision.gameObject.GetComponent<PlayerTricks>().canTrick == false)
+            {
+                collision.gameObject.GetComponent<PlayerTricks>().EnableTrick();
+            }
             TimeHandler.SlowDownTime();
             transform.GetChild(0).GetComponent<Collider2D>().enabled = false;
             Destroy(gameObject);

@@ -29,4 +29,9 @@ public class JumpPad : MonoBehaviour
         }
         //Debug.Log(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity.y);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
+    }
 }
