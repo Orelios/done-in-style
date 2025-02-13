@@ -4,6 +4,7 @@ public class JumpPad : MonoBehaviour
 {
     [SerializeField] private float BounceHeight;
     public bool hasTricked = false;
+    private bool _hasGivenScore = false;
 
     /*
     private void OnCollisionEnter2D(Collision2D collision)
@@ -33,6 +34,10 @@ public class JumpPad : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
+        if (!_hasGivenScore)
+        {
+            collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
+            _hasGivenScore = true;
+        }
     }
 }

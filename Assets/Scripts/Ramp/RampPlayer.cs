@@ -199,7 +199,11 @@ public class RampPlayer : MonoBehaviour
             yield return null;
         }
         isRamping = false;
-        _playertricks.AddScoreAndRank();
+        if (ramp.hasGivenScore == false)
+        {
+            _playertricks.AddScoreAndRank();
+            ramp.hasGivenScore = true;
+        }
         if (ramp.hasTricked != true)
         {
             _playertricks.EnableTrick(ramp.gameObject);
