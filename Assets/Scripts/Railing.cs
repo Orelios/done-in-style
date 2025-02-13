@@ -7,6 +7,7 @@ public class Railing : MonoBehaviour
     public List<Vector2> ColliderPoints = new();
     private EdgeCollider2D _collider;
     public bool hasTricked = false;
+    private bool _hasGivenScore = false;
 
     private void Awake()
     {
@@ -30,6 +31,11 @@ public class Railing : MonoBehaviour
             else
             {
                 Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+            }
+            if (!_hasGivenScore)
+            {
+                other.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
+                _hasGivenScore = true;
             }
             other.gameObject.GetComponent<PlayerTricks>().DisableCanTrick();
         }
