@@ -165,7 +165,7 @@ public class PlayerTricks : MonoBehaviour
         Rb.gravityScale = 0;
         Rb.linearVelocity = dashDirection * dashSpeed;
         dashLastVelocity = dashDirection * dashSpeed;
-        Debug.Log(Rb.linearVelocity);
+        //Debug.Log(Rb.linearVelocity);
 
         yield return new WaitForSeconds(dashDuration);
 
@@ -241,13 +241,13 @@ public class PlayerTricks : MonoBehaviour
 
         // Disable gravity during the dash
         Rb.gravityScale = 0;
-        Debug.Log("isPounding = " + _isPounding);
+        //Debug.Log("isPounding = " + _isPounding);
         while (_isPounding)
         {
             if (Input.GetKeyUp(KeyCode.D))
             {
                 _isPounding = false;
-                Debug.Log("isPounding = " + _isPounding);
+                //Debug.Log("isPounding = " + _isPounding);
             }
             //Rb.linearVelocity = new Vector2(0f, (-1f * _groundPoundSpeed));
             _playerMovement.Rb.linearVelocity = new Vector2(0f, (-1 * _groundPoundSpeed));
@@ -265,6 +265,8 @@ public class PlayerTricks : MonoBehaviour
         if (canTrick && spriteRenderer != null)
         {
             spriteRenderer.color = trickColor;
+            canTrick = false;
+            Debug.Log("TrickMove");
             StartCoroutine(RevertColorAfterTime());
         }
     }
@@ -280,11 +282,15 @@ public class PlayerTricks : MonoBehaviour
 
     public void EnableTrick()
     {
-        StartCoroutine(EnableTrickCoroutine());
+        if (!canTrick)
+        {
+            StartCoroutine(EnableTrickCoroutine());
+        }
     }
 
     private IEnumerator EnableTrickCoroutine()
     {
+        
         canTrick = true;
         spriteRenderer.color = enableTrickColor;
         yield return new WaitForSeconds(enableTrickDuration);
