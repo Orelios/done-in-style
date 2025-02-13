@@ -285,7 +285,12 @@ public class PlayerTricks : MonoBehaviour
     private IEnumerator EnableTrickCoroutine()
     {
         canTrick = true;
+        spriteRenderer.color = Color.blue;
         yield return new WaitForSeconds(enableTrickDuration);
+        if (spriteRenderer.color != trickColor)
+        {
+            spriteRenderer.color = startColor;
+        }
         canTrick = false;
     }
 }

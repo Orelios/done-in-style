@@ -17825,7 +17825,19 @@ MonoBehaviour:
     m_ActionId: a6e516b5-e897-457f-a8b4-6e4e9cab79e8
     m_ActionName: 'Player Controls/Move[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7630835473645370153}
+        m_TargetAssemblyTypeName: PlayerTricks, Assembly-CSharp
+        m_MethodName: Trick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 61cc162f-23e8-48b5-a143-b1d7b79f5cc6
     m_ActionName: 'Player Controls/Trick[/Keyboard/f]'
   - m_PersistentCalls:
@@ -18877,6 +18889,9 @@ MonoBehaviour:
   isTaping: 0
   canTape: 0
   _snapshot: {fileID: 0}
+  trickTime: 1
+  canTrick: 0
+  enableTrickDuration: 2
 --- !u!114 &7715389513549384340
 MonoBehaviour:
   m_ObjectHideFlags: 0
