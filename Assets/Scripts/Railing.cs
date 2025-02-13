@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class Railing : MonoBehaviour
     private EdgeCollider2D _collider;
     public bool hasTricked = false;
     private bool _hasGivenScore = false;
+    [SerializeField] private float maxScoredTime = 5f, scoredIntervals = 1f;
+    private PlayerTricks _playerTricks;
 
     private void Awake()
     {
@@ -23,21 +26,24 @@ public class Railing : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
         {
+            _playerTricks = other.gameObject.GetComponent<PlayerTricks>();
             if (Mathf.Abs(other.gameObject.GetComponent<PlayerMovement>().Rb.linearVelocityX) > playerRailGrind.MinimumSpeedToGrind)
             { 
                 Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
                 playerRailGrind.EnableRailing(this);
+                if (!_hasGivenScore)
+                {
+                    _playerTricks.AddScoreAndRank(); //Add once for entering
+                    StartCoroutine(ScoredTime()); //Add every scoreInterval
+                    _hasGivenScore = true;
+                }
             }
             else
             {
                 Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
             }
-            if (!_hasGivenScore)
-            {
-                other.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
-                _hasGivenScore = true;
-            }
-            other.gameObject.GetComponent<PlayerTricks>().DisableCanTrick();
+            
+            _playerTricks.DisableCanTrick();
         }
     }
 
@@ -48,11 +54,22 @@ public class Railing : MonoBehaviour
             if (playerRailGrind.IsOnRail)
             {
                 playerRailGrind.DisableRailing();
+                StopCoroutine(ScoredTime());
                 if (hasTricked != true)
                 {
-                    other.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
+                    _playerTricks.EnableTrick(gameObject);
                 }
             }
+        }
+    }
+
+    private IEnumerator ScoredTime()
+    {
+        float scoredTimeEnd = Time.time + maxScoredTime;
+        while (Time.time < scoredTimeEnd)
+        {
+            yield return new WaitForSeconds(scoredIntervals);
+            _playerTricks.AddScoreAndRank();
         }
     }
 }
