@@ -58,7 +58,17 @@ public class PlayerTricks : MonoBehaviour
     [HideInInspector] public bool isTaping = false;
     [HideInInspector] public bool canTape = false;
     [SerializeField] private SnapshotEffect _snapshot;
-    
+
+    [Header("Trick Move")]
+    [SerializeField] private float trickTime = 1f;
+    public bool canTrick = false;
+    [SerializeField] private float enableTrickDuration = 2f;
+    #region Temp Trick Animation
+    private SpriteRenderer spriteRenderer;
+    private Color startColor = Color.white;
+    private Color trickColor = Color.red;
+    #endregion
+
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
@@ -66,6 +76,14 @@ public class PlayerTricks : MonoBehaviour
         _snapshot = GameObject.Find("UI/Player/SnappingUI").GetComponent<SnapshotEffect>();
         _jumps = maxJumps;
         _player = GetComponent<RampPlayer>();
+
+        #region Temp Trick Animation
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = startColor;
+        }
+        #endregion
     }
 
     public void Trick(InputAction.CallbackContext context)
@@ -80,6 +98,9 @@ public class PlayerTricks : MonoBehaviour
                 break;
             case "d":
                 if (context.performed) { GroundPound(); }
+                break;
+            case "f":
+                if (context.performed) { TrickMove(); }
                 break;
             default:
                 Debug.LogWarning($"Mismatch! Control name {context.control.name} was not recognized");
@@ -236,5 +257,35 @@ public class PlayerTricks : MonoBehaviour
         Rb.gravityScale = _playerMovement.BaseGravity;
         lastPoundTime = Time.time;
         _isPounding = false;
+    }
+    
+    private void TrickMove()
+    {
+        if (canTrick && spriteRenderer != null)
+        {
+            spriteRenderer.color = trickColor;
+            StartCoroutine(RevertColorAfterTime());
+        }
+    }
+
+    private IEnumerator RevertColorAfterTime()
+    {
+        yield return new WaitForSeconds(trickTime);
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.color = startColor;
+        }
+    }
+
+    public void EnableTrick()
+    {
+        StartCoroutine(EnableTrickCoroutine());
+    }
+
+    private IEnumerator EnableTrickCoroutine()
+    {
+        canTrick = true;
+        yield return new WaitForSeconds(enableTrickDuration);
+        canTrick = false;
     }
 }
