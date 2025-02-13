@@ -315,4 +315,14 @@ public class PlayerTricks : MonoBehaviour
         }
         canTrick = false;
     }
+
+    public void DisableCanTrick()
+    {
+        canTrick = false;
+        StopCoroutine(EnableTrickCoroutine());
+        if (spriteRenderer.color != trickColor)
+        {
+            spriteRenderer.color = startColor;
+        }
+    }
 }

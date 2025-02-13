@@ -25,12 +25,13 @@ public class Railing : MonoBehaviour
             if (Mathf.Abs(other.gameObject.GetComponent<PlayerMovement>().Rb.linearVelocityX) > playerRailGrind.MinimumSpeedToGrind)
             { 
                 Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
-                playerRailGrind.EnableRailing(this);     
+                playerRailGrind.EnableRailing(this);
             }
             else
             {
                 Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
             }
+            other.gameObject.GetComponent<PlayerTricks>().DisableCanTrick();
         }
     }
 

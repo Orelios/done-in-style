@@ -23,10 +23,12 @@ public class JumpPad : MonoBehaviour
 
             collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity = 
                 Vector2.ClampMagnitude(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity, BounceHeight);
+            /*
             if (collision.gameObject.GetComponent<PlayerTricks>().canTrick == false && !hasTricked)
             {
                 collision.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
             }
+            */
             
         }
         //Debug.Log(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity.y);
@@ -39,5 +41,11 @@ public class JumpPad : MonoBehaviour
             collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
             _hasGivenScore = true;
         }
+        if (!hasTricked)
+        {
+            collision.gameObject.GetComponent<PlayerTricks>().DisableCanTrick();
+            collision.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
+        }
+        
     }
 }
