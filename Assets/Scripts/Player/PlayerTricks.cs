@@ -290,9 +290,15 @@ public class PlayerTricks : MonoBehaviour
 
     public void EnableTrick(GameObject gameObject)
     {
-        if (!canTrick)
-            _trickObject = gameObject;
+        if (gameObject.TryGetComponent<Ramp>(out _))
         {
+            _trickObject = gameObject;
+            StopCoroutine(EnableTrickCoroutine());
+            StartCoroutine(EnableTrickCoroutine());
+        }
+        else if (!canTrick)
+        {
+            _trickObject = gameObject;
             StartCoroutine(EnableTrickCoroutine());
         }
     }
