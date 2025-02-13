@@ -257,7 +257,7 @@ public class PlayerTricks : MonoBehaviour
     
     private void TrickMove()
     {
-        if (canTrick && spriteRenderer != null)
+        if (canTrick && _playerMovement.IsGrounded() != true && spriteRenderer != null)
         {
             spriteRenderer.color = trickColor;
             canTrick = false;
