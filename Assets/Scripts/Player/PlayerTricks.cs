@@ -67,6 +67,7 @@ public class PlayerTricks : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color startColor = Color.white;
     private Color trickColor = Color.red;
+    private Color enableTrickColor = Color.blue;
     #endregion
 
     private void Awake()
@@ -285,7 +286,7 @@ public class PlayerTricks : MonoBehaviour
     private IEnumerator EnableTrickCoroutine()
     {
         canTrick = true;
-        spriteRenderer.color = Color.blue;
+        spriteRenderer.color = enableTrickColor;
         yield return new WaitForSeconds(enableTrickDuration);
         if (spriteRenderer.color != trickColor)
         {
