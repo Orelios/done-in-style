@@ -6,6 +6,7 @@ public class Railing : MonoBehaviour
 {
     public List<Vector2> ColliderPoints = new();
     private EdgeCollider2D _collider;
+    public bool hasTricked = false;
 
     private void Awake()
     {
@@ -40,6 +41,10 @@ public class Railing : MonoBehaviour
             if (playerRailGrind.IsOnRail)
             {
                 playerRailGrind.DisableRailing();
+                if (hasTricked != true)
+                {
+                    other.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
+                }
             }
         }
     }

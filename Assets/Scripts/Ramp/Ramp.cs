@@ -3,6 +3,7 @@ using UnityEngine;
 public class Ramp : MonoBehaviour
 {
     public GameObject leftMarker, rightMarker;
+    public bool hasTricked = false;
     void Start()
     {
         

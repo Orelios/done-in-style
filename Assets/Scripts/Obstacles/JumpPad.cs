@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class JumpPad : MonoBehaviour
 {
-    [SerializeField] private float BounceHeight; 
+    [SerializeField] private float BounceHeight;
+    public bool hasTricked = false;
 
     /*
     private void OnCollisionEnter2D(Collision2D collision)
@@ -21,9 +22,9 @@ public class JumpPad : MonoBehaviour
 
             collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity = 
                 Vector2.ClampMagnitude(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity, BounceHeight);
-            if (collision.gameObject.GetComponent<PlayerTricks>().canTrick == false)
+            if (collision.gameObject.GetComponent<PlayerTricks>().canTrick == false && !hasTricked)
             {
-                collision.gameObject.GetComponent<PlayerTricks>().EnableTrick();
+                collision.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
             }
             
         }

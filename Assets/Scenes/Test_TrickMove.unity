@@ -5074,7 +5074,7 @@ Transform:
   m_GameObject: {fileID: 558358739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 71.3, y: 5.5, z: -10}
+  m_LocalPosition: {x: 125.6, y: 5.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -17638,7 +17638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grindingSpeedMultiplier: 1.5
   minimumSpeedToGrind: 5
-  heightOffset: 1
+  momentumDecay: {x: 0.345, y: 0.69}
   IsOnRail: 0
 --- !u!114 &417066593179080383
 MonoBehaviour:
@@ -18146,7 +18146,7 @@ Transform:
   m_GameObject: {fileID: 4992886128219656315}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71.3, y: 5.5, z: 0}
+  m_LocalPosition: {x: 125.6, y: 5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18540,7 +18540,7 @@ Transform:
   m_GameObject: {fileID: 511968297436822432}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 71.3, y: 5.5, z: -10}
+  m_LocalPosition: {x: 125.6, y: 5.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19111,6 +19111,7 @@ MonoBehaviour:
   _rampMomentumGravity: 0.01
   _rampSpeedStartMultiplier: 2
   _rampSpeedEndMultiplier: 3
+  ramp: {fileID: 0}
 --- !u!114 &8877816160859945760
 MonoBehaviour:
   m_ObjectHideFlags: 0
