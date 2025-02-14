@@ -24,6 +24,8 @@ public class RampPlayer : MonoBehaviour
     private PlayerConfigsSO _playerConfigsSO;
     private PlayerMovement _playerMovement;
     private PlayerTricks _playertricks;
+    //public bool hasTricked = false;
+    [HideInInspector] public Ramp ramp;
     void Start()
     {
 
@@ -58,7 +60,7 @@ public class RampPlayer : MonoBehaviour
         
         if ((other.CompareTag("RampLeft") || other.CompareTag("RampRight")) && !wasRecentlyOnRamp && !isRamping && hasExitedRamp)
         {
-            Ramp ramp = other.transform.parent.GetComponent<Ramp>();
+            ramp = other.transform.parent.GetComponent<Ramp>();
             rampLeft = ramp.leftMarker;
             rampRight = ramp.rightMarker;
 
@@ -197,8 +199,16 @@ public class RampPlayer : MonoBehaviour
             yield return null;
         }
         isRamping = false;
-        _playertricks.AddScoreAndRank();
-        _playertricks.EnableTrick();
+        if (ramp.hasGivenScore == false)
+        {
+            _playertricks.AddScoreAndRank();
+            ramp.hasGivenScore = true;
+        }
+        if (ramp.hasTricked != true)
+        {
+            _playertricks.EnableTrick(ramp.gameObject);
+        }
+        
         StartCoroutine(RampCooldownTimer());
         //Debug.Log("Coroutine ends");
     }
