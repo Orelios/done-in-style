@@ -1,32 +1,43 @@
+using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerRailGrind : MonoBehaviour
 {
-    [Header("Grinding Configs")]
+    [Header("Components")]
+    [SerializeField] private ScoreCalculator scoreCalculator;
+    [SerializeField] private RankCalculator rankCalculator;
+
+    [Header("Grinding Configs")] 
     [SerializeField] private float grindingSpeedMultiplier;
     [SerializeField] private float minimumSpeedToGrind;
     public float MinimumSpeedToGrind => minimumSpeedToGrind;
     [SerializeField] private Vector2 momentumDecay = new Vector2(0.345f, 0.69f);
     
+    [Header("Points Configs")]
+    [SerializeField] private int pointsPerSecond;
+    [SerializeField] private int maxTimeForPoints;
+    
+    [Space(15f)]
     public bool IsOnRail;
     private float _railDirection;
     private float _grindingSpeed;
     private Quaternion _rotationBeforeGrinding;
-    private SpriteRenderer _playerSprite;
-    
-    private Rigidbody2D _rb;
-    private Railing _railing;
+    private Player _player;
+    private Railing _currentRailing;
+    private Coroutine _scoreRoutine;
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _playerSprite = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
+        /*_rb = GetComponent<Rigidbody2D>();
+        _playerSprite = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();*/
+        _player = GetComponent<Player>();
     }
 
     private void FixedUpdate()
     {
-        if (IsOnRail && _railing is not null)
+        if (IsOnRail && _currentRailing is not null)
         {
             GrindRail();
         }
@@ -34,35 +45,42 @@ public class PlayerRailGrind : MonoBehaviour
 
     private void GrindRail()
     {
-        _rb.linearVelocity = new Vector2(_grindingSpeed, _rb.linearVelocity.y);
+        _player.Rigidbody.linearVelocity = new Vector2(_grindingSpeed, _player.Rigidbody.linearVelocity.y);
     }
-    
-    private IEnumerator DecayMomentum()
-    {
-        Vector2 lastVelocity = _rb.linearVelocity;
 
-        _rb.linearVelocity = new(lastVelocity.x > 0 ? lastVelocity.x - momentumDecay.x : lastVelocity.x + momentumDecay.x, lastVelocity.y - momentumDecay.y);
+    private IEnumerator DecayMomentumRoutine()
+    {
+        var  lastVelocity = _player.Rigidbody.linearVelocity;
+
+        _player.Rigidbody.linearVelocity = new(lastVelocity.x > 0 ? lastVelocity.x - momentumDecay.x : lastVelocity.x + momentumDecay.x, lastVelocity.y - momentumDecay.y);
         
         yield return null;
     }
 
-    public void EnableRailing(Railing railing)
+    public void EnableRailGrinding(Railing railing)
     {
-        _rotationBeforeGrinding = transform.rotation;
         IsOnRail = true;
-        _railing = railing;
-        _grindingSpeed = _rb.linearVelocityX * grindingSpeedMultiplier;
+        _currentRailing = railing;        
+        _rotationBeforeGrinding = transform.rotation;
         _railDirection = transform.rotation.y == 0 ? 1 : -1;
-        _playerSprite.gameObject.transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, Mathf.Approximately(_railDirection, 1) ? railing.transform.localEulerAngles.z : -railing.transform.localEulerAngles.z);
+        _grindingSpeed = _player.Rigidbody.linearVelocityX * grindingSpeedMultiplier;
+        
+        //TODO: Apply to other slopes, probably the points while railing too
+        _player.Sprite.gameObject.transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, Mathf.Approximately(_railDirection, 1) ? railing.transform.localEulerAngles.z : -railing.transform.localEulerAngles.z);
+        
+        if (railing.CanGeneratePoints)
+        {
+            _scoreRoutine = StartCoroutine(scoreCalculator.IncreaseScoreContinuousRoutine(pointsPerSecond, rankCalculator.CurrentStylishRank.ScoreMultiplier, maxTimeForPoints));
+        }
     }
 
-    public void DisableRailing()
+    public void DisableRailGrinding()
     {
-        _grindingSpeed = 0f;
-        _railDirection = 0f;
         IsOnRail = false;
-        _railing = null;
-        _playerSprite.gameObject.transform.rotation = _rotationBeforeGrinding;
-        StartCoroutine(DecayMomentum());
+        _grindingSpeed = 0f;
+        _railDirection = transform.rotation.y == 0 ? 1 : -1;
+        _player.Sprite.gameObject.transform.rotation = _rotationBeforeGrinding;
+        StopCoroutine(_scoreRoutine);
+        StartCoroutine(DecayMomentumRoutine());
     }
 }
