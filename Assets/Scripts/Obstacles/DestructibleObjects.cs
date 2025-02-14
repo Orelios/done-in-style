@@ -9,7 +9,7 @@ public class DestructibleObjects : MonoBehaviour
             || playerTricks.IsPounding))
         {
             collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
-            collision.gameObject.GetComponent<PlayerTricks>().EnableTrick();
+            collision.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
             TimeHandler.SlowDownTime();
             Destroy(gameObject);
         }
@@ -21,7 +21,7 @@ public class DestructibleObjects : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<PlayerTricks>().canTrick == false)
             {
-                collision.gameObject.GetComponent<PlayerTricks>().EnableTrick();
+                collision.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
             }
             TimeHandler.SlowDownTime();
             transform.GetChild(0).GetComponent<Collider2D>().enabled = false;

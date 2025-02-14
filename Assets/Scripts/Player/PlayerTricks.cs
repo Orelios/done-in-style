@@ -62,6 +62,7 @@ public class PlayerTricks : MonoBehaviour
     [SerializeField] private float trickTime = 1f;
     public bool canTrick = false;
     [SerializeField] private float enableTrickDuration = 2f;
+    private GameObject _trickObject;
     #region Temp Trick Animation
     private SpriteRenderer spriteRenderer;
     private Color startColor = Color.white;
@@ -255,11 +256,23 @@ public class PlayerTricks : MonoBehaviour
     
     private void TrickMove()
     {
-        if (canTrick && spriteRenderer != null)
+        if (canTrick && _playerMovement.IsGrounded() != true && spriteRenderer != null)
         {
             spriteRenderer.color = trickColor;
             canTrick = false;
-            Debug.Log("TrickMove");
+            if (_trickObject.TryGetComponent<Ramp>(out var ramp))
+            {
+                ramp.hasTricked = true;
+            }
+            else if (_trickObject.TryGetComponent<JumpPad>(out var jumpPad))
+            {
+                jumpPad.hasTricked = true;
+            }
+            else if (_trickObject.TryGetComponent<Railing>(out var railing))
+            {
+                railing.hasTricked = true;
+            }
+            //Debug.Log("TrickMove");
             AddScoreAndRank();
             StartCoroutine(RevertColorAfterTime());
         }
@@ -274,10 +287,17 @@ public class PlayerTricks : MonoBehaviour
         }
     }
 
-    public void EnableTrick()
+    public void EnableTrick(GameObject gameObject)
     {
-        if (!canTrick)
+        if (gameObject.TryGetComponent<Ramp>(out _))
         {
+            _trickObject = gameObject;
+            StopCoroutine(EnableTrickCoroutine());
+            StartCoroutine(EnableTrickCoroutine());
+        }
+        else if (!canTrick)
+        {
+            _trickObject = gameObject;
             StartCoroutine(EnableTrickCoroutine());
         }
     }
@@ -293,5 +313,15 @@ public class PlayerTricks : MonoBehaviour
             spriteRenderer.color = startColor;
         }
         canTrick = false;
+    }
+
+    public void DisableCanTrick()
+    {
+        canTrick = false;
+        StopCoroutine(EnableTrickCoroutine());
+        if (spriteRenderer.color != trickColor)
+        {
+            spriteRenderer.color = startColor;
+        }
     }
 }
