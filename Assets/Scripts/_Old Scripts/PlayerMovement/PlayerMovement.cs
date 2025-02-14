@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -75,6 +76,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxMovementSpeed;
     public float MaxMovementSpeed => baseSpeed;
     public float AppliedMaxMovementSpeed { get; private set; }
+    private Player _player;
+    private Quaternion _originalRotation;
 
     #endregion
     
@@ -83,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerTricks _playerTricks;
     private PlayerVelocitySM _playerVelocitySM;
     private RankCalculator _rankCalculator;
+    private Vector2 _groundChecker;
     #endregion
     
     private void Awake()
@@ -90,6 +94,9 @@ public class PlayerMovement : MonoBehaviour
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerTricks = GetComponent<PlayerTricks>();
         _rankCalculator = FindFirstObjectByType<RankCalculator>();
+        
+        _player = GetComponent<Player>();
+        _originalRotation = quaternion.identity;
 
         InitializeStateMachine();
     }
@@ -135,8 +142,29 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void RotatePlayer()
+    {
+        if (IsGrounded())
+        {
+            var contact = Physics2D.OverlapBox(GroundCheck.position, new(0.9f, 0.1f), 0f, GroundLayer);            
+            /*_player.Sprite.gameObject.transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, 
+                transform.localEulerAngles.y, 
+                Mathf.Approximately(transform.localEulerAngles.y, 0) ? contact.transform.localEulerAngles.z : -contact.transform.localEulerAngles.z);*/
+            transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, 
+                transform.localEulerAngles.y, 
+                contact.transform.localEulerAngles.z);
+        }
+        else
+        {
+            /*_player.Sprite.gameObject.transform.rotation = _originalRotation;*/
+            transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 0f);
+        }
+    }
+    
     private void FixedUpdate()
     {
+        RotatePlayer();
+        
         _playerVelocitySM.FixedUpdate();
         //Disables movement while dashing
         if (_playerTricks.IsDashing || _playerTricks.IsPounding) { return; }
