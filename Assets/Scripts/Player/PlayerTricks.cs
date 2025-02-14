@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerTricks : MonoBehaviour
 {
@@ -119,10 +118,10 @@ public class PlayerTricks : MonoBehaviour
     {
         if (isSnapping || isTaping || canTape)
         {
-            scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+            scoreCalculator.IncreaseScoreInstant(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
             rankCalculator.IncreaseStylishPoints();
             //Double score and rank
-            scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+            scoreCalculator.IncreaseScoreInstant(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
             rankCalculator.IncreaseStylishPoints();
             if (isSnapping)
             {
@@ -133,7 +132,7 @@ public class PlayerTricks : MonoBehaviour
         else
         {
             //if not Snapping or Taping, add score and rank only once
-            scoreCalculator.AddScore(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+            scoreCalculator.IncreaseScoreInstant(scorePerTrick, rankCalculator.CurrentStylishRank.ScoreMultiplier);
             rankCalculator.IncreaseStylishPoints();
         }
     }

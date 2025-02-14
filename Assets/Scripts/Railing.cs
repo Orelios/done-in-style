@@ -1,30 +1,26 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Railing : MonoBehaviour
 {
-    public List<Vector2> ColliderPoints = new();
-    private EdgeCollider2D _collider;
+    private Collider2D _collider;
+    public Collider2D Collider => _collider;
+    private bool _canGeneratePoints;
+    public bool CanGeneratePoints => _canGeneratePoints;
 
     private void Awake()
     {
-        _collider = GetComponent<EdgeCollider2D>();
-        
-        foreach (var points in _collider.points)
-        {
-            ColliderPoints.Add(points);
-        }
+        _collider = GetComponent<Collider2D>();
+        _canGeneratePoints = true;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player") && other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
+        if (other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
         {
-            if (Mathf.Abs(other.gameObject.GetComponent<PlayerMovement>().Rb.linearVelocityX) > playerRailGrind.MinimumSpeedToGrind)
+            if (Mathf.Abs(other.gameObject.GetComponent<PlayerMovement>().Rb.linearVelocityX) >= playerRailGrind.MinimumSpeedToGrind)
             { 
                 Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
-                playerRailGrind.EnableRailing(this);     
+                playerRailGrind.EnableRailGrinding(this);     
             }
             else
             {
@@ -35,11 +31,12 @@ public class Railing : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player") && other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
+        if (other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
         {
             if (playerRailGrind.IsOnRail)
             {
-                playerRailGrind.DisableRailing();
+                playerRailGrind.DisableRailGrinding();
+                _canGeneratePoints = false;
             }
         }
     }

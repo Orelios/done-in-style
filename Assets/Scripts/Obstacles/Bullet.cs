@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<TEMP_PlayerIFrames>() && !collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit)
         {
-            _scoreCalculator.DecreaseScore(damage);
+            _scoreCalculator.DecreaseScoreInstant(damage);
             _scoreCalculator.GetComponent<RankCalculator>().DecreaseStylishPoints();
             collision.gameObject.GetComponent<TEMP_PlayerIFrames>().PlayerHit();
         }

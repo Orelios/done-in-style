@@ -15,7 +15,7 @@ public class TEMP_DodgeTrap : MonoBehaviour
         {
             if (!collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit && !_playerPassed)
             {
-                _ScoreCalculator.AddScore(100,
+                _ScoreCalculator.IncreaseScoreInstant(100,
                     _ScoreCalculator.GetComponent<RankCalculator>().CurrentStylishRank.ScoreMultiplier);
 
                 _ScoreCalculator.GetComponent<RankCalculator>().IncreaseStylishPoints();

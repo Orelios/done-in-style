@@ -21,7 +21,7 @@ public class SpinTrap : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<TEMP_PlayerIFrames>() && !collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit)
         {
-            scoreCalculator.DecreaseScore(damage);
+            scoreCalculator.DecreaseScoreInstant(damage);
             scoreCalculator.GetComponent<RankCalculator>().DecreaseStylishPoints();
             collision.gameObject.GetComponent<TEMP_PlayerIFrames>().PlayerHit();
         }

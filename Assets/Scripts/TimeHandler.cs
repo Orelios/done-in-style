@@ -23,11 +23,11 @@ public class TimeHandler : MonoBehaviour
         _slowDownDuration = slowDownDuration;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        _elapsedTime += Time.deltaTime;
+        _elapsedTime += Time.fixedDeltaTime;
         
-        timerText.text = $"{Mathf.FloorToInt(_elapsedTime / 60f)} : {Mathf.FloorToInt(_elapsedTime % 60f):D2}.{Mathf.FloorToInt((_elapsedTime * 100f) % 100f):D2}";
+        timerText.text = $"{Mathf.FloorToInt(_elapsedTime / 60f * Time.fixedDeltaTime)}:{Mathf.FloorToInt(_elapsedTime % 60f):D2}.{Mathf.FloorToInt(_elapsedTime * 100f % 100f):D2}";
     }
 
     public static void SlowDownTime()

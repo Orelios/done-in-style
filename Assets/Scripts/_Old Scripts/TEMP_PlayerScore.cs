@@ -21,7 +21,7 @@ public class TEMP_PlayerScore : MonoBehaviour
     {
         if (context.started)
         {
-            scoreCalculator.AddScore(_scoreValue, rankCalculator.CurrentStylishRank.ScoreMultiplier);
+            scoreCalculator.IncreaseScoreInstant(_scoreValue, rankCalculator.CurrentStylishRank.ScoreMultiplier);
             rankCalculator.IncreaseStylishPoints();
         }
     }
