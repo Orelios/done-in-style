@@ -10,11 +10,12 @@ public class Railing : MonoBehaviour
     private bool _canGeneratePoints;
     public bool CanGeneratePoints => _canGeneratePoints;
 
-    public List<Vector2> ColliderPoints = new();
-    private EdgeCollider2D _collider;
+    /*public List<Vector2> ColliderPoints = new();
+    private EdgeCollider2D _collider;*/
+    
     public bool hasTricked = false;
-    private bool _hasGivenScore = false;
-    [SerializeField] private float maxScoredTime = 5f, scoredIntervals = 1f;
+    /*private bool _hasGivenScore = false;
+    [SerializeField] private float maxScoredTime = 5f, scoredIntervals = 1f;*/
     private PlayerTricks _playerTricks;
 
     private void Awake()
@@ -34,12 +35,12 @@ public class Railing : MonoBehaviour
                 Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
                 playerRailGrind.EnableRailGrinding(this);   
                 
-                if (!_hasGivenScore)
+                /*if (!_hasGivenScore)
                 {
                     _playerTricks.AddScoreAndRank(); //Add once for entering
                     StartCoroutine(ScoredTime()); //Add every scoreInterval
                     _hasGivenScore = true;
-                }
+                }*/
             }
             else
             {
@@ -58,9 +59,8 @@ public class Railing : MonoBehaviour
             {
                 playerRailGrind.DisableRailGrinding();
                 _canGeneratePoints = false;
-
-                playerRailGrind.DisableRailing();
-                StopCoroutine(ScoredTime());
+                
+                //StopCoroutine(ScoredTime());
                 if (hasTricked != true)
                 {
                     _playerTricks.EnableTrick(gameObject);
@@ -69,7 +69,7 @@ public class Railing : MonoBehaviour
         }
     }
 
-    private IEnumerator ScoredTime()
+    /*private IEnumerator ScoredTime()
     {
         float scoredTimeEnd = Time.time + maxScoredTime;
         while (Time.time < scoredTimeEnd)
@@ -77,5 +77,5 @@ public class Railing : MonoBehaviour
             yield return new WaitForSeconds(scoredIntervals);
             _playerTricks.AddScoreAndRank();
         }
-    }
+    }*/
 }

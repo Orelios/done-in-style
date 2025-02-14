@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using TMPro;
@@ -73,6 +74,24 @@ public class RankCalculator : MonoBehaviour
         if (CurrentStylishPoints > CurrentStylishRank.RequiredBreakthroughPoints)
         {
             IncreaseStylishRank();
+        }
+    }
+    
+    public IEnumerator IncreaseStylishPointsContinuousRoutine(int maximumTime, float frequencyForAdding = 1f)
+    {
+        for (int i = 0; i < maximumTime; i++)
+        {
+            CurrentStylishPoints++;
+            CurrentStylishPoints= Mathf.Clamp(CurrentStylishPoints, 0, maxStylishPoints);
+            stylishPointsText.text = $"{CurrentStylishPoints}" + $"<size=75>{(CurrentStylishPoints == maxStylishPoints ? "\nMAX" : "")}</size>";
+            _pointFalloffTimer = pointsFalloffTime;
+            
+            if (CurrentStylishPoints > CurrentStylishRank.RequiredBreakthroughPoints)
+            {
+                IncreaseStylishRank();
+            }
+            
+            yield return new WaitForSeconds(1 / frequencyForAdding);
         }
     }
 

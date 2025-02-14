@@ -25,7 +25,7 @@ public class PlayerTricks : MonoBehaviour
     private float lastDashTime;
     private Vector2 dashDirection;
 
-    private RampPlayer _player;
+    private RampPlayer _rampPlayer;
     private Vector2 dashLastVelocity;
     [SerializeField] private Vector2 _dashMomentumDecay = new Vector2(0.345f, 0.69f);
 
@@ -68,6 +68,8 @@ public class PlayerTricks : MonoBehaviour
     private Color startColor = Color.white;
     private Color trickColor = Color.red;
     private Color enableTrickColor = Color.blue;
+
+    private Player _player;
     #endregion
 
     private void Awake()
@@ -76,10 +78,12 @@ public class PlayerTricks : MonoBehaviour
         _playerInputManager = GetComponent<PlayerInputManager>();
         _snapshot = GameObject.Find("UI/Player/SnappingUI").GetComponent<SnapshotEffect>();
         _jumps = maxJumps;
-        _player = GetComponent<RampPlayer>();
+        _rampPlayer = GetComponent<RampPlayer>();
 
         #region Temp Trick Animation
-        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //_player = GetComponent<Player>();
+        spriteRenderer = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
             spriteRenderer.color = startColor;
@@ -178,7 +182,7 @@ public class PlayerTricks : MonoBehaviour
         _playerMovement.Rb.linearVelocity = dashLastVelocity;
         while (!Input.anyKeyDown)
         {
-            if (_player.IsColliding) { break; }
+            if (_rampPlayer.IsColliding) { break; }
             //dashLastVelocity = _playerMovement.Rb.linearVelocity.y;
             //_playerMovement.Rb.linearVelocity -= _dashMomentumDecay;
             Vector2 lastVelocity = _playerMovement.Rb.linearVelocity;
@@ -263,17 +267,19 @@ public class PlayerTricks : MonoBehaviour
             if (_trickObject.TryGetComponent<Ramp>(out var ramp))
             {
                 ramp.hasTricked = true;
+                AddScoreAndRank();
             }
             else if (_trickObject.TryGetComponent<JumpPad>(out var jumpPad))
             {
                 jumpPad.hasTricked = true;
+                AddScoreAndRank();
             }
             else if (_trickObject.TryGetComponent<Railing>(out var railing))
             {
                 railing.hasTricked = true;
             }
             //Debug.Log("TrickMove");
-            AddScoreAndRank();
+            
             StartCoroutine(RevertColorAfterTime());
         }
     }

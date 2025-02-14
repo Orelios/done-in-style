@@ -27,6 +27,7 @@ public class PlayerRailGrind : MonoBehaviour
     private Player _player;
     private Railing _currentRailing;
     private Coroutine _scoreRoutine;
+    private Coroutine _rankRoutine;
 
     private void Awake()
     {
@@ -71,6 +72,7 @@ public class PlayerRailGrind : MonoBehaviour
         if (railing.CanGeneratePoints)
         {
             _scoreRoutine = StartCoroutine(scoreCalculator.IncreaseScoreContinuousRoutine(pointsPerSecond, rankCalculator.CurrentStylishRank.ScoreMultiplier, maxTimeForPoints));
+            _rankRoutine = StartCoroutine(rankCalculator.IncreaseStylishPointsContinuousRoutine(maxTimeForPoints));
         }
     }
 
@@ -81,6 +83,7 @@ public class PlayerRailGrind : MonoBehaviour
         _railDirection = transform.rotation.y == 0 ? 1 : -1;
         _player.Sprite.gameObject.transform.rotation = _rotationBeforeGrinding;
         StopCoroutine(_scoreRoutine);
+        StopCoroutine(_rankRoutine);
         StartCoroutine(DecayMomentumRoutine());
     }
 }
