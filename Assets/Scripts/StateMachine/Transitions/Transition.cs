@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class NormalTransition : ITransition
+public class Transition : ITransition
 {
     public IState TargetState { get; }
     public IPredicate Condition { get; }
 
-    public NormalTransition(IState targetState, IPredicate condition)
+    public Transition(IState targetState, IPredicate condition)
     {
         TargetState = targetState;
         Condition = condition;

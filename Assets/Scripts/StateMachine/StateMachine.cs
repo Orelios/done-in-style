@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerVelocitySM
+public class StateMachine
 {
     private StateNode _currentStateNode;
     private Dictionary<Type, StateNode> _stateNodes = new();
+    private HashSet<ITransition> _anyTransitions = new();
 
     //check for any Transition to a new State; invoke the Update() function of the current State
     public void Update()
@@ -30,7 +31,6 @@ public class PlayerVelocitySM
     {
         _currentStateNode = _stateNodes[targetState.GetType()];
         _currentStateNode.State?.OnStateEnter();
-        
     }
 
     public IState GetCurrentState()
@@ -55,6 +55,14 @@ public class PlayerVelocitySM
 
     private ITransition GetTransition()
     {
+        foreach (var anyTransition in _anyTransitions)
+        {
+            if (anyTransition.Condition.Evaluate())
+            {
+                return anyTransition;
+            }
+        }
+        
         foreach (var transition in _currentStateNode.Transitions)
         {
             if (transition.Condition.Evaluate())
@@ -68,7 +76,12 @@ public class PlayerVelocitySM
 
     public void AddNormalTransition(IState fromState, IState targetState, IPredicate condition)
     {
-        GetOrAddStateNode(fromState).AddNormalTransition(GetOrAddStateNode(targetState).State, condition);
+        GetOrAddStateNode(fromState).AddTransition(GetOrAddStateNode(targetState).State, condition);
+    }
+
+    public void AddAnyTransition(IState targetState, IPredicate condition)
+    {
+        _anyTransitions.Add(new Transition(GetOrAddStateNode(targetState).State, condition));
     }
 
     //function to get a State Node; if value is null, creates a State Node instead
@@ -97,9 +110,9 @@ public class PlayerVelocitySM
             Transitions = new HashSet<ITransition>();
         }
 
-        public void AddNormalTransition(IState nextState, IPredicate condition)
+        public void AddTransition(IState nextState, IPredicate condition)
         {
-            Transitions.Add(new NormalTransition(nextState, condition));
+            Transitions.Add(new Transition(nextState, condition));
         }
     }
 }

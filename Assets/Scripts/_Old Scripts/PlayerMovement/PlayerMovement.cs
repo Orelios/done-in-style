@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
     #region Private Variables
     private PlayerInputManager _playerInputManager;
     private PlayerTricks _playerTricks;
-    private PlayerVelocitySM _playerVelocitySM;
+    private StateMachine _playerVelocitySM;
     private RankCalculator _rankCalculator;
     private Vector2 _groundChecker;
     #endregion
