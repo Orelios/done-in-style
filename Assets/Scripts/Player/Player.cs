@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     public PlayerInputManager InputManager => _playerInputManager;
     private PlayerMovement _playerMovement;
     public PlayerMovement Movement => _playerMovement;
+    private PlayerRailGrind _playerRailGrind;
+    public PlayerRailGrind RailGrind => _playerRailGrind;
 
     private StateMachine _playerVelocitySM;
     private StateMachine _playerActionSM;
@@ -30,6 +32,7 @@ public class Player : MonoBehaviour
         
         _playerInputManager = GetComponent<PlayerInputManager>();        
         _playerMovement = GetComponent<PlayerMovement>();
+        _playerRailGrind = GetComponent<PlayerRailGrind>();
     }
 
     private void Update()

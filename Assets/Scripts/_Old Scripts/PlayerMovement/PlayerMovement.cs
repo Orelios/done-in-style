@@ -255,6 +255,10 @@ public class PlayerMovement : MonoBehaviour
     #endregion
     private void Flip() //flips character where player is facing towards
     {
+        if (_player.RailGrind.IsOnRail)
+        {
+            return;
+        }
         /*IsFacingRight = !IsFacingRight;
         Vector3 localScale = transform.localScale;
         localScale.x *= -1;
