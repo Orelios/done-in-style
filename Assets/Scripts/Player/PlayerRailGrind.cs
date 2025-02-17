@@ -11,6 +11,7 @@ public class PlayerRailGrind : MonoBehaviour
 
     [Header("Grinding Configs")] 
     [SerializeField] private float grindingSpeedMultiplier;
+    [SerializeField] private float grindingSpeedClamp;
     [SerializeField] private float minimumSpeedToGrind;
     public float MinimumSpeedToGrind => minimumSpeedToGrind;
     [SerializeField] private Vector2 momentumDecay = new Vector2(0.345f, 0.69f);
@@ -46,6 +47,7 @@ public class PlayerRailGrind : MonoBehaviour
 
     private void GrindRail()
     {
+        _grindingSpeed = Mathf.Clamp(_grindingSpeed, float.MinValue, _player.Movement.MaxMovementSpeed * rankCalculator.CurrentStylishRank.MaxSpeedMultiplier * grindingSpeedClamp);
         _player.Rigidbody.linearVelocity = new Vector2(_grindingSpeed, _player.Rigidbody.linearVelocity.y);
     }
 
@@ -57,6 +59,7 @@ public class PlayerRailGrind : MonoBehaviour
         
         yield return null;
     }
+    
 
     public void EnableRailGrinding(Railing railing)
     {
@@ -64,9 +67,8 @@ public class PlayerRailGrind : MonoBehaviour
         _currentRailing = railing;        
         _rotationBeforeGrinding = transform.rotation;
         _railDirection = transform.rotation.y == 0 ? 1 : -1;
-        _grindingSpeed = _player.Rigidbody.linearVelocityX * grindingSpeedMultiplier;
+        _grindingSpeed = Mathf.Abs(_player.Rigidbody.linearVelocityX) * _railDirection * grindingSpeedMultiplier;
         
-        //TODO: Apply to other slopes, probably the points while railing too
         _player.Sprite.gameObject.transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, Mathf.Approximately(_railDirection, 1) ? railing.transform.localEulerAngles.z : -railing.transform.localEulerAngles.z);
         
         if (railing.CanGeneratePoints)
