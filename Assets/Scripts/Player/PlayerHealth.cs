@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]private int maxHealth;
+    public int MaxHealth { get => maxHealth; set => maxHealth = value;  }
     [SerializeField] private EndScreen endScreen; 
     [SerializeField] private TextMeshProUGUI playerHealthDisplay;
     private int _health;
