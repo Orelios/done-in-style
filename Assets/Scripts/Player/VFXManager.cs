@@ -6,16 +6,18 @@ public class VFXManager : MonoBehaviour
     private PlayerMovement _playerMovement;
     private PlayerInputManager _playerInputManager;
     private float movingSpeedVFX = 5f;
-    public GameObject moving, landing;
-    private ParticleSystem movingVFX, landingVFX;
-    private bool isWaitingToLand = false;
+    public GameObject moving, landing, jumping;
+    private ParticleSystem movingVFX, landingVFX, jumpingVFX;
+    [SerializeField] private bool isWaitingToLand = true, isWaitingToJump = false;
     void Start()
     {
         _playerMovement = transform.GetComponentInParent<PlayerMovement>();
         _playerInputManager = transform.GetComponentInParent<PlayerInputManager>();
         movingVFX = moving.GetComponent<ParticleSystem>();
         landingVFX = landing.GetComponent<ParticleSystem>();
+        jumpingVFX = jumping.GetComponent<ParticleSystem>();
         landingVFX.Stop();
+        jumpingVFX.Stop();
     }
 
     // Update is called once per frame
@@ -43,24 +45,56 @@ public class VFXManager : MonoBehaviour
         }
         #endregion
         //if (_playerInputManager.IsJumping)
-        if (!_playerMovement.IsGrounded() && !isWaitingToLand)
+        if (!_playerMovement.IsGrounded() && isWaitingToLand)
         {
-            isWaitingToLand = true;
+            //Debug.Log("onAir");
+            isWaitingToLand = false;
             StartCoroutine(DetectLanding());
         }
 
+        if (_playerMovement.IsGrounded() && !isWaitingToJump)
+        {
+            //Debug.Log("onGround");
+            isWaitingToJump = true;
+            StartCoroutine(DetectJump());
+            //Debug.Log("Detect Jump");
+        }
     }
 
     private IEnumerator DetectLanding()
     {
-        //yield return new WaitForSeconds(0.1f);
-        yield return null;
-        if (_playerMovement.IsGrounded())
+        //yield return null;
+        /*if (_playerMovement.IsGrounded())
         {
             landingVFX.Play();
+            isWaitingToLand = true;
+            Debug.Log("Landed");
+        }*/
+        while (!_playerMovement.IsGrounded())
+        {
+            yield return null;
         }
-        isWaitingToLand = false;
+        landingVFX.Play();
+        isWaitingToLand = true;
+        Debug.Log("Landed");
+    }
+
+    private IEnumerator DetectJump()
+    {
         //yield return null;
-        //yield return new WaitForSeconds(0.5f);
+        /*if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            jumpingVFX.Play();
+            isWaitingToJump = false;
+            Debug.Log("Jumped");
+        }
+        */
+        while (!Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            yield return null;
+        }
+        jumpingVFX.Play();
+        isWaitingToJump = false;
+        Debug.Log("Jumped");
     }
 }
