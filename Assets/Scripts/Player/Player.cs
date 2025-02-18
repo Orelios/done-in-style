@@ -67,6 +67,8 @@ public class Player : MonoBehaviour
         var fallingState = new FallingState(this);
         
         var dashingState = new DashingState(this);
+        var poundingState = new PoundingState(this);
+        var hurtState = new HurtState(this);
         
         NormalTransition(_playerActionSM, idlingState, skatingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) > 0.1f));
         NormalTransition(_playerActionSM, idlingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0f && !_playerMovement.IsGrounded()));
@@ -80,15 +82,22 @@ public class Player : MonoBehaviour
         
         NormalTransition(_playerActionSM, risingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0f));
         NormalTransition(_playerActionSM, risingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
+        NormalTransition(_playerActionSM, risingState, poundingState, new FuncPredicate(() => _playerTricks.IsPounding));
         
         NormalTransition(_playerActionSM, fallingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0f));
         NormalTransition(_playerActionSM, fallingState, idlingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) < 0.1f && _playerMovement.IsGrounded()));
         NormalTransition(_playerActionSM, fallingState, skatingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) > 0.1f && _playerMovement.IsGrounded()));
         NormalTransition(_playerActionSM, fallingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
+        NormalTransition(_playerActionSM, fallingState, poundingState, new FuncPredicate(() => _playerTricks.IsPounding));
         
         NormalTransition(_playerActionSM, dashingState, skatingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f));
         NormalTransition(_playerActionSM, dashingState, idlingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
+        NormalTransition(_playerActionSM, dashingState, risingState, new FuncPredicate(() => !_playerTricks.IsDashing &&  _playerRb.linearVelocityY > 0f));
         NormalTransition(_playerActionSM, dashingState, fallingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerRb.linearVelocityY < 0f));
+        NormalTransition(_playerActionSM, dashingState, poundingState, new FuncPredicate(() => !_playerTricks.IsDashing && !_playerMovement.IsGrounded()));
+        
+        NormalTransition(_playerActionSM, poundingState, idlingState, new FuncPredicate(() => !_playerTricks.IsPounding && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
+        NormalTransition(_playerActionSM, poundingState, skatingState, new FuncPredicate(() => !_playerTricks.IsPounding && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f));
         
         _playerActionSM.SetState(idlingState);
     }

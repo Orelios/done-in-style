@@ -11894,6 +11894,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Parallax BG
       objectReference: {fileID: 0}
+    - target: {fileID: 8777929423759993073, guid: 2f233b2d73babf943bf95404a58a72e0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9003015661183302518, guid: 2f233b2d73babf943bf95404a58a72e0, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -18168,12 +18172,18 @@ MonoBehaviour:
   velPower: 0.9
   frictionAmount: 0.2
   IsFacingRight: 1
-  jumpPower: 9
   coyoteTime: 0.2
   jumpBufferTime: 0.2
+  jumpHeight: 3
+  jumpTimeToApex: 0.3
+  jumpCutGravityMult: 2
+  jumpHangGravityMult: 0.5
+  jumpHangTimeThreshold: 1
+  jumpHangAccelerationMult: 1.1
+  jumpHangMaxSpeedMult: 1.3
   baseGravity: 3
   maxFallSpeed: 30
-  fallSpeedMultiplier: 2
+  fallGravityMult: 1.5
   showGizmos: 1
   maxMovementSpeed: 20
 --- !u!224 &6589605993216006445
