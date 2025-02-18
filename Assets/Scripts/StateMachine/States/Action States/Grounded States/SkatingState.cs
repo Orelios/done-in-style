@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class HorizontalMovementState : ActionState
+public class SkatingState : GroundedState
 {
-    public HorizontalMovementState(Player player) : base(player)
+    public SkatingState(Player player) : base(player)
     {
     }
 
