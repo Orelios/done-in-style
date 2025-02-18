@@ -286,7 +286,8 @@ public class PlayerMovement : MonoBehaviour
     #region Gravity
     private void Gravity()
     {
-        if (Rb.linearVelocity.y > 0 && Rb.linearVelocity.y < jumpHangTimeThreshold) // Jump Hang
+        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
+        if (!canJump && Rb.linearVelocity.y > 0 && Rb.linearVelocity.y < jumpHangTimeThreshold) // Jump Hang
         {
             Rb.gravityScale = _gravityScale * jumpHangGravityMult;
             //Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
