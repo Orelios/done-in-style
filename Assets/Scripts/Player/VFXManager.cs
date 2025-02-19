@@ -91,7 +91,7 @@ public class VFXManager : MonoBehaviour
             Debug.Log("Jumped");
         }
         */
-        while (!Input.GetKeyDown(KeyCode.UpArrow))
+        while (!Input.GetKeyDown(KeyCode.UpArrow) && _playerMovement.IsGrounded())
         {
             yield return null;
         }
