@@ -43,16 +43,36 @@ public class PlayerMovement : MonoBehaviour
 
     #region Jump
     [Header("Jump Configs")]
-    [Tooltip("Insert here the jump power of the Player; this is how high the Player can jump")]
-    [SerializeField]  private float jumpPower;
     [Tooltip("Insert here how long Coyote Time will run after the player goes off of a ledge; this is how long the Player can still jump after going off a ledge")]
     [SerializeField, Range(0.05f, 0.25f)] private float coyoteTime = 0.2f;
     [Tooltip("UNIMPLEMENTED: Insert here how long the Player's jump input will buffer; this is how long the Player's jump input is saved when in the air to help time the next jump when landing on the ground")]
     [SerializeField, Range(0.05f, 0.25f)]private float jumpBufferTime = 0.2f;
-    public float JumpPower { get => jumpPower; set => jumpPower = value; }
+
+    // Jump Settings
+    [SerializeField] private float jumpHeight;
+    [SerializeField] private float jumpTimeToApex;
+    private float _jumpForce;
+    // Jump Hang
+    [SerializeField] private float jumpCutGravityMult;
+    [SerializeField] private float jumpHangGravityMult;
+    [SerializeField] private float jumpHangTimeThreshold;
+    [SerializeField] private float jumpHangAccelerationMult;
+    [SerializeField] private float jumpHangMaxSpeedMult;
+
+    private float _lastGroundedTime = 0f;
     public float CoyoteTime { get => coyoteTime; set => coyoteTime = value; }
     public float JumpBufferTime { get => jumpBufferTime; set => jumpBufferTime = value; }
-    private float _lastGroundedTime = 0f;
+    public float JumpHeight { get => jumpHeight; set => jumpHeight = value; }
+    public float JumpTimeToApex { get => jumpTimeToApex; set => jumpTimeToApex = value; }
+    public float JumpForce { get => _jumpForce; set => _jumpForce = value; }
+    public float JumpCutGravityMult { get => jumpCutGravityMult; set => jumpCutGravityMult = value; }
+    public float JumpHangGravityMult { get => jumpHangGravityMult; set => jumpHangGravityMult = value; }
+    public float JumpHangTimeThreshold { get => jumpHangTimeThreshold; set => jumpHangTimeThreshold = value; }
+    public float JumpHangAccelerationMult { get => jumpHangAccelerationMult; set => jumpHangAccelerationMult = value; }
+    public float JumpHangMaxSpeedMult { get => jumpHangMaxSpeedMult; set => jumpHangMaxSpeedMult = value; }
+
+
+    private float _lastJumpTime;
     #endregion
 
     #region Gravity
@@ -61,11 +81,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float baseGravity;
     [Tooltip("Insert here the maximum falling speed the Player will have when falling down")]
     [SerializeField] private float maxFallSpeed;
-    [Tooltip("Insert here the fall speed multiplier when falling down; this is used to help reach the maximum falling speed faster")]
-    [SerializeField] private float fallSpeedMultiplier;
+
+    [SerializeField] private float fallGravityMult;
+    private float _gravityStrength;
+    private float _gravityScale;
     public float BaseGravity { get => baseGravity; set => baseGravity = value; }
     public float MaxFallSpeed { get => maxFallSpeed; set => maxFallSpeed = value; }
-    public float FallSpeedMultiplier { get => fallSpeedMultiplier; set => fallSpeedMultiplier = value; }
+    public float FallGravityMult { get => fallGravityMult; set => fallGravityMult = value; }
+    public float GravityStrenght { get => _gravityStrength; set => _gravityStrength = value; }
+    public float GravityScale { get => _gravityScale; set => _gravityScale = value; }
+
+
+
+
+    //public float maxFallSpeed;
     #endregion
 
     #region Others
@@ -84,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
     #region Private Variables
     private PlayerInputManager _playerInputManager;
     private PlayerTricks _playerTricks;
-    private StateMachine _playerVelocitySM;
     private RankCalculator _rankCalculator;
     private Vector2 _groundChecker;
     #endregion
@@ -97,40 +125,24 @@ public class PlayerMovement : MonoBehaviour
         
         _player = GetComponent<Player>();
         _originalRotation = quaternion.identity;
-
-        InitializeStateMachine();
+        
     }
 
-    //function to create the velocity State Machine and its States  
-    private void InitializeStateMachine()
+    //NEW JUMP STUFF
+    private void OnValidate()
     {
-        //create the State Machine
-        _playerVelocitySM = new();
+        // Calculate gravity strength using the formula (gravity = 2 * jumpHeight / timeToJumpApex^2) 
+        _gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
 
-        //declare and create the velocity States
-        var atRestState = new AtRestState(this);
-        var acceleratingState = new AcceleratingState(this);
-        var maxSpeedState = new MaxSpeedState(this);
-        
-        //create the Transitions between States
-        NormalTransition(atRestState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) > 0f));
-        NormalTransition(acceleratingState, maxSpeedState, new FuncPredicate(() => Mathf.Approximately(Mathf.Abs(AppliedMovementSpeed), maxMovementSpeed)));
-        NormalTransition(maxSpeedState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) < maxMovementSpeed));
-        NormalTransition(acceleratingState, atRestState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) == 0f));
-        
-        //assign the default State
-        _playerVelocitySM.SetState(atRestState);
-    }
+        // Calculate the rigidbody's gravity scale (ie: gravity strength relative to Unity's gravity value, see project settings/Physics2D)
+        _gravityScale = _gravityStrength / Physics2D.gravity.y;
 
-    //function to create Transitions between one State to another 
-    private void NormalTransition(IState fromState, IState nextState, IPredicate condition)
-    {
-        _playerVelocitySM.AddNormalTransition(fromState, nextState, condition);
+        // Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
+        _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
     }
 
     private void Update()
     {
-        _playerVelocitySM.Update();
         if (Rb.linearVelocityY < cameraHandler.YVelocityThreshold && !cameraHandler.IsPanningCoroutineActive)
         {
             cameraHandler.LerpCameraPanning(true);
@@ -144,15 +156,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotatePlayer()
     {
+            var contact = Physics2D.OverlapBox(GroundCheck.position, new(0.9f, 0.1f), 0f, GroundLayer);        
+        
         if (IsGrounded())
         {
-            var contact = Physics2D.OverlapBox(GroundCheck.position, new(0.9f, 0.1f), 0f, GroundLayer);            
             /*_player.Sprite.gameObject.transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, 
                 transform.localEulerAngles.y, 
                 Mathf.Approximately(transform.localEulerAngles.y, 0) ? contact.transform.localEulerAngles.z : -contact.transform.localEulerAngles.z);*/
+            
+            /*if (Mathf.Abs(currentTilt - previousTilt) > tiltThreshold)
+            {
+                transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, 
+                    transform.localEulerAngles.y, 
+                    contact.transform.localEulerAngles.z);
+                previousTilt = currentTilt;
+            }*/
+            
+            //var zTilt = Rb.linearVelocityY > 0 ? : ;
             transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, 
                 transform.localEulerAngles.y, 
-                contact.transform.localEulerAngles.z);
+                //Rb.linearVelocityY < 0 ? transform.localEulerAngles.y : -transform.localEulerAngles.y,
+                contact.transform.localEulerAngles.z * (IsFacingRight ? 1f : -1f));
         }
         else
         {
@@ -165,37 +189,41 @@ public class PlayerMovement : MonoBehaviour
     {
         RotatePlayer();
         
-        _playerVelocitySM.FixedUpdate();
         //Disables movement while dashing
+
         if (_playerTricks.IsDashing || _playerTricks.IsPounding) { return; }
 
-        if (GetComponent<RampPlayer>().isRamping)
-        {
-            //Jump();
-            return;
-        }
+        if (GetComponent<RampPlayer>().isRamping){return;}
 
+        HorizontalMovement(); 
+        Jump();
+        Gravity();
+    }
+
+    #region Horizontal Movement
+    public void HorizontalMovement()
+    {
         // Calculate target speed based on input
         float targetSpeed = _playerInputManager.HorizontalMovement * baseSpeed * _rankCalculator.CurrentStylishRank.MaxSpeedMultiplier;
         float speedDif = targetSpeed - Rb.linearVelocity.x;
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
 
-        AppliedMaxMovementSpeed = baseSpeed * _rankCalculator.CurrentStylishRank.MaxSpeedMultiplier;;
+        AppliedMaxMovementSpeed = baseSpeed * _rankCalculator.CurrentStylishRank.MaxSpeedMultiplier;
         AppliedAcceleration = accelRate * _rankCalculator.CurrentStylishRank.AccelerationMultiplier;
         AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * AppliedAcceleration, velPower);
         AppliedMovementSpeed = Mathf.Clamp(AppliedMovementSpeed, float.MinValue, AppliedMaxMovementSpeed);
-        AppliedMovementSpeed  *= Mathf.Sign(speedDif);
+        AppliedMovementSpeed *= Mathf.Sign(speedDif);
 
-        Rb.AddForce(AppliedMovementSpeed * Vector2.right); 
+        Rb.AddForce(AppliedMovementSpeed * Vector2.right);
 
         //Friction
-        if(_lastGroundedTime > 0 && Mathf.Abs(_playerInputManager.HorizontalMovement) < 0.01f)
+        if (_lastGroundedTime > 0 && Mathf.Abs(_playerInputManager.HorizontalMovement) < 0.01f)
         {
             float amount = Mathf.Min(Mathf.Abs(Rb.linearVelocity.x), Mathf.Abs(frictionAmount));
 
             amount *= Mathf.Sign(Rb.linearVelocity.x);
 
-            Rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse); 
+            Rb.AddForce(Vector2.right * -amount, ForceMode2D.Impulse);
         }
 
         switch (IsFacingRight)
@@ -206,14 +234,9 @@ public class PlayerMovement : MonoBehaviour
                 Flip();
                 break;
         }
-
-        //Handles the timer for coyote time
-        _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
-
-        Jump();
-        Gravity();
     }
-    
+    #endregion
+
     #region Jumping
     public bool IsGrounded()
     {
@@ -224,16 +247,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        //OPTIMIZE: validates if player can jump;
-        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
+        //Handles the timer for coyote time
+        _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
 
+        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
+        // Jump
         if (_playerInputManager.IsJumping && canJump)
         {
-            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, jumpPower);
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpForce);
         }
-        else if (!_playerInputManager.IsJumping)
+        else if (!_playerInputManager.IsJumping)// Jump Cut (increase gravity when the jump button is released early)
         {
-            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Rb.linearVelocity.y);
+            Rb.gravityScale = _gravityScale * jumpCutGravityMult;
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Max(Rb.linearVelocity.y, -maxFallSpeed));
         }
     }
     #endregion
@@ -241,15 +267,22 @@ public class PlayerMovement : MonoBehaviour
     #region Gravity
     private void Gravity()
     {
-        if (Rb.linearVelocity.y < 0)
+        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
+        if (!canJump && Rb.linearVelocity.y > 0 && Rb.linearVelocity.y < jumpHangTimeThreshold) // Jump Hang
         {
-            Rb.gravityScale = baseGravity * fallSpeedMultiplier;
-            Rb.linearVelocity = new Vector2(Rb.linearVelocityX, Mathf.Max(Rb.linearVelocity.y, -(maxFallSpeed - 
-                _playerTricks.FallingSpeedModifier)));
+            Rb.gravityScale = _gravityScale * jumpHangGravityMult;
+            //Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x * jumpHangAccelerationMult, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
         }
-        else
+        else if (Rb.linearVelocity.y < 0) // Player is falling
         {
-            Rb.gravityScale = baseGravity;
+            Rb.gravityScale = _gravityScale * fallGravityMult;
+
+            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Max(Rb.linearVelocity.y, -maxFallSpeed));
+        }
+        else //While grounded
+        {
+            Rb.gravityScale = _gravityScale;
         }
     }
     #endregion
