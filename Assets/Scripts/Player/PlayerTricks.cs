@@ -150,11 +150,12 @@ public class PlayerTricks : MonoBehaviour
         {
             StartCoroutine(DashCoroutine());
         }
-        Debug.Log("Skateboard");
+        //Debug.Log("Skateboard");
     }
 
     private IEnumerator DashCoroutine()
     {
+        _vfx.CallDashVFX();
         _isDashing = true;
         lastDashTime = Time.time;
 
@@ -173,6 +174,7 @@ public class PlayerTricks : MonoBehaviour
         yield return new WaitForSeconds(dashDuration);
 
         // End dash
+        _vfx.CallDashVFX();
         Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
         //Rb.linearVelocity = new(Rb.linearVelocityX / 2f, Rb.linearVelocityY / 2f); // Reset velocity
         StartCoroutine(PreserveMomentum());
