@@ -125,4 +125,9 @@ public class VFXManager : MonoBehaviour
     {
         doubleJumpVFX.Play();
     }
+
+    public void CallJumpingVFX()
+    {
+        jumpingVFX.Play();
+    }
 }
