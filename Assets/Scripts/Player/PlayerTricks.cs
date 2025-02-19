@@ -213,6 +213,7 @@ public class PlayerTricks : MonoBehaviour
         if (_jumps != 0)
         {
             //AddScoreAndRank();
+            _vfx.CallDoubleJumpVFX();
 
             if (Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
 
@@ -224,7 +225,7 @@ public class PlayerTricks : MonoBehaviour
 
             if(_jumps == 0) { _lastJumpTime = Time.time; }
         }
-        Debug.Log("PogoStick");
+        //Debug.Log("PogoStick");
     }
 
     private void GroundPound()

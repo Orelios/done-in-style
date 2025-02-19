@@ -6,8 +6,8 @@ public class VFXManager : MonoBehaviour
     private PlayerMovement _playerMovement;
     private PlayerInputManager _playerInputManager;
     private float movingSpeedVFX = 5f;
-    public GameObject moving, landing, jumping, hurt, groundPound, dash;
-    private ParticleSystem movingVFX, landingVFX, jumpingVFX, hurtVFX, groundPoundVFX, dashVFX;
+    public GameObject moving, landing, jumping, hurt, groundPound, dash, doubleJump;
+    private ParticleSystem movingVFX, landingVFX, jumpingVFX, hurtVFX, groundPoundVFX, dashVFX, doubleJumpVFX;
     [SerializeField] private bool isWaitingToLand = true, isWaitingToJump = false;
     void Start()
     {
@@ -19,11 +19,13 @@ public class VFXManager : MonoBehaviour
         hurtVFX = hurt.GetComponent<ParticleSystem>();
         groundPoundVFX = groundPound.GetComponent<ParticleSystem>();
         dashVFX = dash.GetComponent<ParticleSystem>();
+        doubleJumpVFX = doubleJump.GetComponent<ParticleSystem>();
         landingVFX.Stop();
         jumpingVFX.Stop();
         hurtVFX.Stop();
         groundPoundVFX.Stop();
         dashVFX.Stop();
+        doubleJumpVFX.Stop();
     }
 
     // Update is called once per frame
@@ -117,5 +119,10 @@ public class VFXManager : MonoBehaviour
     public void CallDashVFX()
     {
         dashVFX.Play();
+    }
+
+    public void CallDoubleJumpVFX()
+    {
+        doubleJumpVFX.Play();
     }
 }
