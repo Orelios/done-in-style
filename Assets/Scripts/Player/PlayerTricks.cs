@@ -35,6 +35,7 @@ public class PlayerTricks : MonoBehaviour
     [SerializeField] private float _groundPoundSpeed = 50f;
     public float poundCooldown = 1f;
     private float lastPoundTime;
+    private VFXManager _vfx;
     #region DO NOT DELETE
     [SerializeField] private float fallingSpeed;
     [SerializeField] private float slowFallTimer; 
@@ -79,6 +80,7 @@ public class PlayerTricks : MonoBehaviour
         _snapshot = GameObject.Find("UI/Player/SnappingUI").GetComponent<SnapshotEffect>();
         _jumps = maxJumps;
         _rampPlayer = GetComponent<RampPlayer>();
+        _vfx = GetComponentInChildren<VFXManager>();
 
         #region Temp Trick Animation
 
@@ -253,6 +255,7 @@ public class PlayerTricks : MonoBehaviour
         }
 
         // End GroundPound
+        _vfx.CallGroundPoundVFX();
         Rb.gravityScale = _playerMovement.BaseGravity;
         lastPoundTime = Time.time;
         _isPounding = false;
