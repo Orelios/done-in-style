@@ -5,14 +5,16 @@ public class VFXManager : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
     private PlayerInputManager _playerInputManager;
+    private PlayerRailGrind _rail;
     private float movingSpeedVFX = 5f;
-    public GameObject moving, landing, jumping, hurt, groundPound, dash, doubleJump;
-    private ParticleSystem movingVFX, landingVFX, jumpingVFX, hurtVFX, groundPoundVFX, dashVFX, doubleJumpVFX;
+    public GameObject moving, landing, jumping, hurt, groundPound, dash, doubleJump, rail;
+    private ParticleSystem movingVFX, landingVFX, jumpingVFX, hurtVFX, groundPoundVFX, dashVFX, doubleJumpVFX, railVFX;
     [SerializeField] private bool isWaitingToLand = true, isWaitingToJump = false;
     void Start()
     {
         _playerMovement = transform.GetComponentInParent<PlayerMovement>();
         _playerInputManager = transform.GetComponentInParent<PlayerInputManager>();
+        _rail = transform.GetComponentInParent<PlayerRailGrind>();
         movingVFX = moving.GetComponent<ParticleSystem>();
         landingVFX = landing.GetComponent<ParticleSystem>();
         jumpingVFX = jumping.GetComponent<ParticleSystem>();
@@ -20,12 +22,14 @@ public class VFXManager : MonoBehaviour
         groundPoundVFX = groundPound.GetComponent<ParticleSystem>();
         dashVFX = dash.GetComponent<ParticleSystem>();
         doubleJumpVFX = doubleJump.GetComponent<ParticleSystem>();
+        railVFX = rail.GetComponent<ParticleSystem>();
         landingVFX.Stop();
         jumpingVFX.Stop();
         hurtVFX.Stop();
         groundPoundVFX.Stop();
         dashVFX.Stop();
         doubleJumpVFX.Stop();
+        railVFX.Stop();
     }
 
     // Update is called once per frame
@@ -34,21 +38,31 @@ public class VFXManager : MonoBehaviour
         #region Moving
         //if (moving.activeSelf == false)
         //if (movingVFX.emission.enabled == false)
-        if (!movingVFX.isPlaying)
+        if (_rail.IsOnRail)
         {
-            if (Mathf.Abs(_playerMovement.Rb.linearVelocityX) >= movingSpeedVFX && _playerMovement.IsGrounded())
-            {
-                //moving.SetActive(true);
-                movingVFX.Play();
-            }
+            if (!railVFX.isPlaying) { railVFX.Play(); }
+            
         }
-        //else if (movingVFX.emission.enabled)
-        else if (movingVFX.isPlaying)
+        else
         {
-            if (Mathf.Abs(_playerMovement.Rb.linearVelocityX) < movingSpeedVFX || _playerMovement.IsGrounded() == false)
+            if (railVFX.isPlaying) { railVFX.Stop(); }
+
+            if (!movingVFX.isPlaying)
             {
-                //moving.SetActive(false);
-                movingVFX.Stop();
+                if (Mathf.Abs(_playerMovement.Rb.linearVelocityX) >= movingSpeedVFX && _playerMovement.IsGrounded())
+                {
+                    //moving.SetActive(true);
+                    movingVFX.Play();
+                }
+            }
+            //else if (movingVFX.emission.enabled)
+            else if (movingVFX.isPlaying)
+            {
+                if (Mathf.Abs(_playerMovement.Rb.linearVelocityX) < movingSpeedVFX || _playerMovement.IsGrounded() == false)
+                {
+                    //moving.SetActive(false);
+                    movingVFX.Stop();
+                }
             }
         }
         #endregion
