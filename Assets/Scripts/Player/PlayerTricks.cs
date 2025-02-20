@@ -63,7 +63,8 @@ public class PlayerTricks : MonoBehaviour
     [Header("Wall Ride")]
     [SerializeField] private float wallRidingGravity; 
     private bool _isWallRiding;
-    private bool _isPressingDown; 
+    private bool _isPressingDown;
+    private Wall _wall;
     public bool IsWallRiding { get => _isWallRiding; set => _isWallRiding = value; }
     public bool IsPressingDown { get => _isPressingDown; set => _isPressingDown = value; }
 
@@ -89,6 +90,7 @@ public class PlayerTricks : MonoBehaviour
         _jumps = maxJumps;
         _rampPlayer = GetComponent<RampPlayer>();
         //_vfx = GetComponentInChildren<VFXManager>();
+        _wall = GetComponent<Wall>();
 
 
         #region Temp Trick Animation
@@ -119,7 +121,7 @@ public class PlayerTricks : MonoBehaviour
                 if (context.performed) { TrickMove(); }
                 break;
             case "downArrow":
-                if (context.performed) { _isPressingDown = true; DoWallRide();}
+                if (context.performed) { _isPressingDown = true;}
                 else if (context.canceled) { _isPressingDown = false;}
                 break; 
             default:
@@ -288,14 +290,31 @@ public class PlayerTricks : MonoBehaviour
         if (_isWallRiding && _isPressingDown) 
         {
             _playerMovement.Rb.gravityScale = wallRidingGravity;
+
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x * _playerMovement.JumpHangAccelerationMult,
                 Mathf.Min(Rb.linearVelocity.y, _playerMovement.JumpHangMaxSpeedMult * _playerMovement.MaxFallSpeed));
 
-            Rb.linearVelocityX = Mathf.Clamp(Rb.linearVelocityX, -_playerMovement.AppliedMaxMovementSpeed * 2, _playerMovement.AppliedMaxMovementSpeed *2);
+            Rb.linearVelocityX = Mathf.Clamp(Rb.linearVelocityX, -_playerMovement.AppliedMaxMovementSpeed * 2,
+                _playerMovement.AppliedMaxMovementSpeed *2);
+
+            if (!_wall._hasGivenScore) { AddScoreAndRank();  _wall._hasGivenScore = true;  }
+            DisableCanTrick();
         }
 
-        if (!_isWallRiding) { _playerMovement.Rb.gravityScale = _playerMovement.GravityScale; }
+        if (!_isWallRiding) 
+        { 
+            _playerMovement.Rb.gravityScale = _playerMovement.GravityScale;
+
+            //if (!_wall.hasTricked) { EnableTrick(_wall.gameObject); }
+        }
     }
+
+    public void GetWall(Wall wall)
+    {
+        _wall = wall;
+    }
+
+    public void NullWall() {  _wall = null; }
     #region TrickMove
     private void TrickMove()
     {
@@ -317,8 +336,12 @@ public class PlayerTricks : MonoBehaviour
             {
                 railing.hasTricked = true;
             }
-            //Debug.Log("TrickMove");
-            
+            else if (_trickObject.TryGetComponent<Wall>(out var wall))
+            {
+                wall.hasTricked = true;
+                AddScoreAndRank();
+            }
+
             StartCoroutine(RevertColorAfterTime());
         }
     }
@@ -334,7 +357,7 @@ public class PlayerTricks : MonoBehaviour
 
     public void EnableTrick(GameObject gameObject)
     {
-        if (gameObject.TryGetComponent<Ramp>(out _))
+        if (gameObject.TryGetComponent<Ramp>(out _) || gameObject.TryGetComponent<Wall>(out _))
         {
             _trickObject = gameObject;
             StopCoroutine(EnableTrickCoroutine());

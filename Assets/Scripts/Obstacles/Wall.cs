@@ -3,11 +3,14 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
+    public bool hasTricked = false;
+    public bool _hasGivenScore = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.TryGetComponent<PlayerTricks>(out PlayerTricks playerTricks))
         {
-            collision.gameObject.GetComponent<PlayerTricks>().IsWallRiding = true;
+            playerTricks.IsWallRiding = true;
+            playerTricks.GetWall(this);
         }
     }
 
@@ -15,7 +18,9 @@ public class Wall : MonoBehaviour
     {
         if (collision.TryGetComponent<PlayerTricks>(out PlayerTricks playerTricks))
         {
-            collision.gameObject.GetComponent<PlayerTricks>().IsWallRiding = false;
+            playerTricks.IsWallRiding = false;
+            if (!hasTricked) { playerTricks.EnableTrick(gameObject); }
+            //playerTricks.NullWall();
         }
     }
 }

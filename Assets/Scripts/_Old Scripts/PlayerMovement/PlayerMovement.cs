@@ -294,10 +294,9 @@ public class PlayerMovement : MonoBehaviour
 
     #region Gravity
     private void Gravity()
-    {
-        _playerTricks.WallRiding(); 
+    { 
 
-        if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown) { return; }
+        if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown) { _playerTricks.WallRiding(); return; }
 
         if (Rb.linearVelocity.y < 0) // Player is falling
         {
