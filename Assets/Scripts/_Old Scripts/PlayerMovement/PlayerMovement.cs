@@ -214,7 +214,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (GetComponent<RampPlayer>().isRamping){return;}
 
-        HorizontalMovement(); 
+        HorizontalMovement();
+
         Jump();
         Gravity();
     }
@@ -266,6 +267,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
+        if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown) { return; }
         //Handles the timer for coyote time
         _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
 
@@ -280,20 +282,24 @@ public class PlayerMovement : MonoBehaviour
             Rb.gravityScale = _gravityScale * jumpCutGravityMult;
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Max(Rb.linearVelocity.y, -maxFallSpeed));
         }
-    }
-    #endregion
 
-    #region Gravity
-    private void Gravity()
-    {
-        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
         if (!canJump && Rb.linearVelocity.y > 0 && Rb.linearVelocity.y < jumpHangTimeThreshold) // Jump Hang
         {
             Rb.gravityScale = _gravityScale * jumpHangGravityMult;
             //Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x * jumpHangAccelerationMult, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
         }
-        else if (Rb.linearVelocity.y < 0) // Player is falling
+    }
+    #endregion
+
+    #region Gravity
+    private void Gravity()
+    {
+        _playerTricks.WallRiding(); 
+
+        if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown) { return; }
+
+        if (Rb.linearVelocity.y < 0) // Player is falling
         {
             Rb.gravityScale = _gravityScale * fallGravityMult;
 
