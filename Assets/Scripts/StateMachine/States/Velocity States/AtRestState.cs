@@ -6,7 +6,7 @@ public class AtRestState : VelocityState
     
     public override void OnStateEnter()
     {
-        Debug.Log("Entering AtRestState");
+        
     }
 
     public override void Update()

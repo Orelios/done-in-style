@@ -8,6 +8,6 @@ public class DashingState : SpecialState
 
     public override void OnStateEnter()
     {
-        //TODO: set dash animation here
+        PlayerAnimator.Play(PlayerDashingHash);
     }
 }

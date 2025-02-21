@@ -8,6 +8,6 @@ public class IdlingState : GroundedState
 
     public override void OnStateEnter()
     {
-        //TODO: set idle animation here
+        PlayerAnimator.Play(PlayerIdlingHash);
     }
 }

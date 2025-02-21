@@ -8,7 +8,7 @@ public class SkatingState : GroundedState
 
     public override void OnStateEnter()
     {
-        //TODO: set horizontal movement animation here
+        PlayerAnimator.Play(PlayerSkatingHash);
     }
 
     public override void FixedUpdate()

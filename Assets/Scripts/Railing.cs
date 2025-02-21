@@ -5,77 +5,98 @@ using UnityEngine;
 
 public class Railing : MonoBehaviour
 {
-    private Collider2D _collider;
-    public Collider2D Collider => _collider;
+    private Collider2D _railingCollider;
+    public Collider2D Collider => _railingCollider;
     private bool _canGeneratePoints;
     public bool CanGeneratePoints => _canGeneratePoints;
-
-    /*public List<Vector2> ColliderPoints = new();
-    private EdgeCollider2D _collider;*/
     
     public bool hasTricked = false;
-    /*private bool _hasGivenScore = false;
-    [SerializeField] private float maxScoredTime = 5f, scoredIntervals = 1f;*/
+    private bool _canRailGrind;
+    //private Collider2D _railingTrigger;
+    private Player _player;
     private PlayerTricks _playerTricks;
 
     private void Awake()
     {
-        _collider = GetComponent<Collider2D>();
+        _railingCollider = GetComponent<Collider2D>();
+        //_railingTrigger = transform.GetChild(0).GetComponent<Collider2D>();
         _canGeneratePoints = true;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
+        /*if (other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
         {
            _playerTricks = other.gameObject.GetComponent<PlayerTricks>();
            
-            if (Mathf.Abs(other.gameObject.GetComponent<PlayerMovement>().Rb.linearVelocityX) >= playerRailGrind.MinimumSpeedToGrind)
+            if (other.contacts[0].normal.y > 0 &&  Mathf.Abs(other.gameObject.GetComponent<PlayerMovement>().Rb.linearVelocityX) >= playerRailGrind.MinimumSpeedToGrind)
             { 
-                Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
                 playerRailGrind.EnableRailGrinding(this);   
-                
-                /*if (!_hasGivenScore)
-                {
-                    _playerTricks.AddScoreAndRank(); //Add once for entering
-                    StartCoroutine(ScoredTime()); //Add every scoreInterval
-                    _hasGivenScore = true;
-                }*/
             }
             else
             {
-                Physics2D.IgnoreCollision(other.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+                Physics2D.IgnoreCollision(other.collider, _railingCollider);
+                _canRail = false;
+                return;
             }
             
             _playerTricks.DisableCanTrick();
+        }*/
+
+        if (other.gameObject.TryGetComponent<Player>(out var player))
+        {
+            _player = player;
+            var contact = other.contacts[0];
+
+            if (contact.normal == Vector2.down && Mathf.Abs(_player.Rigidbody.linearVelocityX) >= _player.RailGrind.MinimumSpeedToGrind)
+            {
+                Debug.Log("surface hit on top and can grind!");
+                _canRailGrind = true;
+                _player.RailGrind.EnableRailGrinding(this);
+            }
+            else
+            {
+                _canRailGrind = false;
+                Debug.Log("nope");
+            }
+            
+            _player.Tricks.DisableCanTrick();
         }
     }
 
     private void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
+        /*if (other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
         {
+            Physics2D.IgnoreCollision(other.collider, _railingCollider, false);
+            _canRail = true;
+            
             if (playerRailGrind.IsOnRail)
             {
                 playerRailGrind.DisableRailGrinding();
                 _canGeneratePoints = false;
                 
-                //StopCoroutine(ScoredTime());
                 if (hasTricked != true)
                 {
                     _playerTricks.EnableTrick(gameObject);
                 }
             }
+        }*/
+        if (other.gameObject.TryGetComponent<Player>(out var player))
+        {
+            if (player.RailGrind.IsOnRail)
+            {
+                player.RailGrind.DisableRailGrinding();
+                _canGeneratePoints = false;
+            }
+            
+            if (hasTricked != true && _canRailGrind)
+            {
+                _player.Tricks.EnableTrick(gameObject);
+            }
+            
+            _canRailGrind = true;
+            _player = null;
         }
     }
-
-    /*private IEnumerator ScoredTime()
-    {
-        float scoredTimeEnd = Time.time + maxScoredTime;
-        while (Time.time < scoredTimeEnd)
-        {
-            yield return new WaitForSeconds(scoredIntervals);
-            _playerTricks.AddScoreAndRank();
-        }
-    }*/
 }
