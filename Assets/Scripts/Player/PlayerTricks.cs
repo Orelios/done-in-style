@@ -349,6 +349,7 @@ public class PlayerTricks : MonoBehaviour
             else if (_trickObject.TryGetComponent<Railing>(out var railing))
             {
                 railing.hasTricked = true;
+                AddScoreAndRank();
             }
             else if (_trickObject.TryGetComponent<Wall>(out var wall))
             {
