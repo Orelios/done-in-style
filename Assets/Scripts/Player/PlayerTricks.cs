@@ -82,6 +82,10 @@ public class PlayerTricks : MonoBehaviour
     private Player _player;
     #endregion
 
+    [Header("VFX")]
+    [SerializeField] private float jumpPadTimer = 0.2f;
+    public bool isOnJumpPad = false;
+
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
@@ -129,6 +133,7 @@ public class PlayerTricks : MonoBehaviour
                 break;
         }
     }
+
     #region Scoring
     public bool IsDoingTrick()
     {
@@ -159,6 +164,7 @@ public class PlayerTricks : MonoBehaviour
         }
     }
     #endregion
+
     #region Dash
     private void Dash() 
     {
@@ -221,6 +227,7 @@ public class PlayerTricks : MonoBehaviour
         //Debug.Log("Momentum ends");
     }
     #endregion
+
     #region DoubleJump
     private void DoubleJump() 
     {
@@ -245,6 +252,7 @@ public class PlayerTricks : MonoBehaviour
         //Debug.Log("PogoStick");
     }
     #endregion
+
     #region GroundPound
     private void GroundPound()
     {
@@ -282,6 +290,8 @@ public class PlayerTricks : MonoBehaviour
         _isPounding = false;
     }
     #endregion
+
+    #region WallRiding
     private void DoWallRide()
     {
         //WallRiding(); 
@@ -317,6 +327,8 @@ public class PlayerTricks : MonoBehaviour
     }
 
     public void NullWall() {  _wall = null; }
+    #endregion
+
     #region TrickMove
     private void TrickMove()
     {
@@ -393,6 +405,27 @@ public class PlayerTricks : MonoBehaviour
         {
             spriteRenderer.color = startColor;
         }
+    }
+    #endregion
+
+    #region SpringBoard
+    public void CallJumpPadTimer()
+    {
+        StopCoroutine(JumpPadTimer());
+        StartCoroutine(JumpPadTimer());
+    }
+    public IEnumerator JumpPadTimer()
+    {
+        /*
+        float time = Time.time;
+        while (Time.time < time + jumpPadTimer)
+        {
+            
+            yield return null;
+        }
+        */
+        yield return new WaitForSeconds(jumpPadTimer);
+        isOnJumpPad = false;
     }
     #endregion
 }
