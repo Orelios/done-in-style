@@ -65,7 +65,7 @@ public class MovingPlatform : MonoBehaviour
             && collision.gameObject.GetComponent<PlayerInputManager>().HorizontalMovement == 0)
         {
             collision.transform.SetParent(transform); // Attach player to platform when standing on it
-            Debug.Log("working");
+            //Debug.Log("working");
             //collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         }
         if(collision.gameObject.GetComponent<PlayerInputManager>().HorizontalMovement != 0)

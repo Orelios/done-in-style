@@ -36,7 +36,7 @@ public class PlayerTricks : MonoBehaviour
     [SerializeField] private float _groundPoundSpeed = 50f;
     public float poundCooldown = 1f;
     private float lastPoundTime;
-    //private VFXManager _vfx;
+    private VFXManager _vfx;
     #region DO NOT DELETE
     [SerializeField] private float fallingSpeed;
     [SerializeField] private float slowFallTimer; 
@@ -82,6 +82,10 @@ public class PlayerTricks : MonoBehaviour
     private Player _player;
     #endregion
 
+    [Header("VFX")]
+    [SerializeField] private float jumpPadTimer = 0.2f;
+    public bool isOnJumpPad = false;
+
     private void Awake()
     {
         _playerMovement = GetComponent<PlayerMovement>();
@@ -89,7 +93,7 @@ public class PlayerTricks : MonoBehaviour
         _snapshot = GameObject.Find("UI/Player/SnappingUI").GetComponent<SnapshotEffect>();
         _jumps = maxJumps;
         _rampPlayer = GetComponent<RampPlayer>();
-        //_vfx = GetComponentInChildren<VFXManager>();
+        _vfx = GetComponentInChildren<VFXManager>();
         _wall = GetComponent<Wall>();
 
 
@@ -129,6 +133,7 @@ public class PlayerTricks : MonoBehaviour
                 break;
         }
     }
+
     #region Scoring
     public bool IsDoingTrick()
     {
@@ -159,6 +164,7 @@ public class PlayerTricks : MonoBehaviour
         }
     }
     #endregion
+
     #region Dash
     private void Dash() 
     {
@@ -170,6 +176,7 @@ public class PlayerTricks : MonoBehaviour
 
     private IEnumerator DashCoroutine()
     {
+        _vfx.CallDashVFX();
         _isDashing = true;
         //_vfx.CallDashVFX();
         lastDashTime = Time.time;
@@ -189,7 +196,7 @@ public class PlayerTricks : MonoBehaviour
         yield return new WaitForSeconds(dashDuration);
 
         // End dash
-        //_vfx.CallDashVFX();
+        _vfx.CallDashVFX();
         Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
         //Rb.linearVelocity = new(Rb.linearVelocityX / 2f, Rb.linearVelocityY / 2f); // Reset velocity
         StartCoroutine(PreserveMomentum());
@@ -220,6 +227,7 @@ public class PlayerTricks : MonoBehaviour
         //Debug.Log("Momentum ends");
     }
     #endregion
+
     #region DoubleJump
     private void DoubleJump() 
     {
@@ -229,7 +237,8 @@ public class PlayerTricks : MonoBehaviour
         if (_jumps != 0)
         {
             //AddScoreAndRank();
-            //_vfx.CallDoubleJumpVFX();
+            _vfx.CallDoubleJumpVFX();
+
             if (Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
 
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, doubleJumpPower);
@@ -240,9 +249,10 @@ public class PlayerTricks : MonoBehaviour
 
             if(_jumps == 0) { _lastJumpTime = Time.time; }
         }
-        Debug.Log("PogoStick");
+        //Debug.Log("PogoStick");
     }
     #endregion
+
     #region GroundPound
     private void GroundPound()
     {
@@ -274,12 +284,14 @@ public class PlayerTricks : MonoBehaviour
         }
 
         // End GroundPound
-        //_vfx.CallGroundPoundVFX();
+        _vfx.CallGroundPoundVFX();
         Rb.gravityScale = _playerMovement.BaseGravity;
         lastPoundTime = Time.time;
         _isPounding = false;
     }
     #endregion
+
+    #region WallRiding
     private void DoWallRide()
     {
         //WallRiding(); 
@@ -315,6 +327,8 @@ public class PlayerTricks : MonoBehaviour
     }
 
     public void NullWall() {  _wall = null; }
+    #endregion
+
     #region TrickMove
     private void TrickMove()
     {
@@ -391,6 +405,27 @@ public class PlayerTricks : MonoBehaviour
         {
             spriteRenderer.color = startColor;
         }
+    }
+    #endregion
+
+    #region SpringBoard
+    public void CallJumpPadTimer()
+    {
+        StopCoroutine(JumpPadTimer());
+        StartCoroutine(JumpPadTimer());
+    }
+    public IEnumerator JumpPadTimer()
+    {
+        /*
+        float time = Time.time;
+        while (Time.time < time + jumpPadTimer)
+        {
+            
+            yield return null;
+        }
+        */
+        yield return new WaitForSeconds(jumpPadTimer);
+        isOnJumpPad = false;
     }
     #endregion
 }

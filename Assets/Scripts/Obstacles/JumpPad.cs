@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class JumpPad : MonoBehaviour
@@ -5,6 +6,9 @@ public class JumpPad : MonoBehaviour
     [SerializeField] private float BounceHeight;
     public bool hasTricked = false;
     private bool _hasGivenScore = false;
+    //public bool isOnJumpPad = false;
+    
+    private PlayerTricks _playerTricks;
 
     /*
     private void OnCollisionEnter2D(Collision2D collision)
@@ -17,6 +21,16 @@ public class JumpPad : MonoBehaviour
     */
     private void OnCollisionStay2D(Collision2D collision)
     {
+        if( collision.gameObject.TryGetComponent<PlayerTricks>(out var playerTricks))
+        {
+            if (!playerTricks.isOnJumpPad)
+            {
+                playerTricks.isOnJumpPad = true;
+                _playerTricks.CallJumpPadTimer();
+            }
+        }
+        
+
         if (collision.gameObject.GetComponent<PlayerMovement>())
         { 
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * BounceHeight, ForceMode2D.Impulse);
@@ -36,6 +50,16 @@ public class JumpPad : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.TryGetComponent<PlayerTricks>(out var playerTricks))
+        {
+            _playerTricks = playerTricks;
+            if (!playerTricks.isOnJumpPad)
+            {
+                playerTricks.isOnJumpPad = true;
+                _playerTricks.CallJumpPadTimer();
+            }
+        }
+
         if (!_hasGivenScore)
         {
             collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
@@ -48,4 +72,6 @@ public class JumpPad : MonoBehaviour
         }
         
     }
+
+    
 }
