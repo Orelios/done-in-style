@@ -7,6 +7,8 @@ public class RampPlayer : MonoBehaviour
     private GameObject rampRight;   // Right point of the ramp (starting point in the other direction)
 
     private bool isOnRamp = false, wasRecentlyOnRamp = false, isGoingUpRamp = false, hasExitedRamp = true;
+    public bool HasExitedRamp => hasExitedRamp;
+
     [HideInInspector] public bool isRamping = false;
     private bool isMovingRight = false;  // Indicates if the player is moving toward the right (RampRight)
 

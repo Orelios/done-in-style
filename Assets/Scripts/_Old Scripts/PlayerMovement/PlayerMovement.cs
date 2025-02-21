@@ -115,6 +115,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerTricks _playerTricks;
     private RankCalculator _rankCalculator;
     private Vector2 _groundChecker;
+    private RampPlayer _rampPlayer;
     #endregion
     
     private void Awake()
@@ -122,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerTricks = GetComponent<PlayerTricks>();
         _rankCalculator = FindFirstObjectByType<RankCalculator>();
+        _rampPlayer = GetComponent<RampPlayer>();
         
         _player = GetComponent<Player>();
         _originalRotation = quaternion.identity;
@@ -219,6 +221,8 @@ public class PlayerMovement : MonoBehaviour
         float speedDif = targetSpeed - Rb.linearVelocity.x;
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
 
+        //if (Mathf.Abs(targetSpeed) < 0.01f) { Rb.linearVelocity = new Vector2(0f, Rb.linearVelocityY); }
+
         AppliedMaxMovementSpeed = baseSpeed * _rankCalculator.CurrentStylishRank.MaxSpeedMultiplier;
         AppliedAcceleration = accelRate * _rankCalculator.CurrentStylishRank.AccelerationMultiplier;
         AppliedMovementSpeed = Mathf.Pow(Mathf.Abs(speedDif) * AppliedAcceleration, velPower);
@@ -313,6 +317,14 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = localScale;*/
         
         IsFacingRight = !IsFacingRight;
+        if (IsGrounded() && _rampPlayer.HasExitedRamp)
+        {
+            if ((IsFacingRight && (Rb.linearVelocityX < 0f)) || (!IsFacingRight && (Rb.linearVelocityX > 0f)))
+            {
+                Rb.linearVelocity = new Vector2(0f, Rb.linearVelocityY);
+            }
+        }
+
         Vector3 flipRotation = new(transform.rotation.x, IsFacingRight == true ? 0 : 180f, transform.rotation.z);
         transform.rotation = Quaternion.Euler(flipRotation);
     }
