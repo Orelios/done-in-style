@@ -2,6 +2,18 @@ using UnityEngine;
 
 public class DestructibleObjects : MonoBehaviour
 {
+    private Onomatopoeia _type;
+
+    private void Start()
+    {
+        _type = transform.parent.GetComponentInChildren<Onomatopoeia>();
+        #region Makes sure this Destructible Object is the one with a Canvas
+        if (_type == null)
+        {
+            Destroy(gameObject);
+        }
+        #endregion
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -9,9 +21,9 @@ public class DestructibleObjects : MonoBehaviour
             || playerTricks.IsPounding))
         {
             collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
-            //collision.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
             playerTricks.EnableTrickDestroyed();
             TimeHandler.SlowDownTime();
+            _type.StartTypingVFX();
             Destroy(gameObject);
         }
     }
@@ -22,11 +34,11 @@ public class DestructibleObjects : MonoBehaviour
         {
             if (collision.gameObject.GetComponent<PlayerTricks>().canTrick == false)
             {
-                //collision.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
                 playerTricks.EnableTrickDestroyed();
             }
             TimeHandler.SlowDownTime();
             transform.GetChild(0).GetComponent<Collider2D>().enabled = false;
+            _type.StartTypingVFX();
             Destroy(gameObject);
         }
     }
