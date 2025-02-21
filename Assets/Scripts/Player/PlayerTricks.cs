@@ -73,6 +73,7 @@ public class PlayerTricks : MonoBehaviour
     public bool canTrick = false;
     [SerializeField] private float enableTrickDuration = 2f;
     private GameObject _trickObject;
+    private bool _destroyedObject = false;
     #region Temp Trick Animation
     private SpriteRenderer spriteRenderer;
     private Color startColor = Color.white;
@@ -332,7 +333,15 @@ public class PlayerTricks : MonoBehaviour
     #region TrickMove
     private void TrickMove()
     {
-        if (canTrick && _playerMovement.IsGrounded() != true && spriteRenderer != null)
+        if (_destroyedObject && canTrick && _playerMovement.IsGrounded() != true && spriteRenderer != null)
+        {
+            _destroyedObject = false;
+            spriteRenderer.color = trickColor;
+            canTrick = false;
+            AddScoreAndRank();
+            StartCoroutine(RevertColorAfterTime());
+        }
+        else if (canTrick && _playerMovement.IsGrounded() != true && spriteRenderer != null)
         {
             spriteRenderer.color = trickColor;
             canTrick = false;
@@ -368,6 +377,13 @@ public class PlayerTricks : MonoBehaviour
         {
             spriteRenderer.color = startColor;
         }
+    }
+
+    public void EnableTrickDestroyed()
+    {
+        _destroyedObject = true;
+        StopCoroutine(EnableTrickCoroutine());
+        StartCoroutine(EnableTrickCoroutine());
     }
 
     public void EnableTrick(GameObject gameObject)
