@@ -21,8 +21,10 @@ public class Player : MonoBehaviour
     public PlayerTricks Tricks => _playerTricks;
     private PlayerRailGrind _playerRailGrind;
     public PlayerRailGrind RailGrind => _playerRailGrind;
-    private TEMP_PlayerIFrames _playerIFrames;
-    public TEMP_PlayerIFrames IFrames => _playerIFrames;
+    private PlayerHealth _playerHealth;
+    public PlayerHealth Health => _playerHealth;
+    private PlayerInvulnerability _playerInvulnerability;
+    public PlayerInvulnerability Invulnerability => _playerInvulnerability;
 
     private StateMachine _playerVelocitySM;
     private StateMachine _playerActionSM;
@@ -59,7 +61,8 @@ public class Player : MonoBehaviour
         _playerRb = GetComponent<Rigidbody2D>();
         _playerCollider = GetComponent<Collider2D>();
         _playerAnimator = transform.GetChild(0).GetComponent<Animator>();
-        _playerIFrames = GetComponent<TEMP_PlayerIFrames>();
+        _playerHealth = GetComponent<PlayerHealth>();
+        _playerInvulnerability = GetComponent<PlayerInvulnerability>();
         
         _playerInputManager = GetComponent<PlayerInputManager>();        
         _playerMovement = GetComponent<PlayerMovement>();
@@ -154,11 +157,11 @@ public class Player : MonoBehaviour
         #endregion
         
         #region Hurt State
-        AnyTransition(_playerActionSM, hurtState, new FuncPredicate(() => _playerIFrames.IsHit));
-        NormalTransition(_playerActionSM, hurtState, idlingState, new FuncPredicate(() => !_playerIFrames.IsHit && Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
-        NormalTransition(_playerActionSM, hurtState, skatingState, new FuncPredicate(() => !_playerIFrames.IsHit && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f));
-        NormalTransition(_playerActionSM, hurtState, risingState, new FuncPredicate(() => !_playerIFrames.IsHit && _playerRb.linearVelocityY > 0f));
-        NormalTransition(_playerActionSM, hurtState, risingState, new FuncPredicate(() => !_playerIFrames.IsHit && _playerRb.linearVelocityY < 0f));
+        AnyTransition(_playerActionSM, hurtState, new FuncPredicate(() => _playerInvulnerability.IsHit));
+        NormalTransition(_playerActionSM, hurtState, idlingState, new FuncPredicate(() => !_playerInvulnerability.IsHit && Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
+        NormalTransition(_playerActionSM, hurtState, skatingState, new FuncPredicate(() => !_playerInvulnerability.IsHit && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f));
+        NormalTransition(_playerActionSM, hurtState, risingState, new FuncPredicate(() => !_playerInvulnerability.IsHit && _playerRb.linearVelocityY > 0f));
+        NormalTransition(_playerActionSM, hurtState, risingState, new FuncPredicate(() => !_playerInvulnerability.IsHit && _playerRb.linearVelocityY < 0f));
         #endregion
         
         _playerActionSM.SetState(idlingState);

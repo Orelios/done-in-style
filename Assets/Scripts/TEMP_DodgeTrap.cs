@@ -11,9 +11,9 @@ public class TEMP_DodgeTrap : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<TEMP_PlayerIFrames>())
+        if (collision.gameObject.GetComponent<PlayerInvulnerability>())
         {
-            if (!collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit && !_playerPassed)
+            if (!collision.gameObject.GetComponent<PlayerInvulnerability>().IsHit && !_playerPassed)
             {
                 _ScoreCalculator.IncreaseScoreInstant(100,
                     _ScoreCalculator.GetComponent<RankCalculator>().CurrentStylishRank.ScoreMultiplier);
