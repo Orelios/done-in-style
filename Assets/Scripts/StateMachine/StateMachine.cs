@@ -5,6 +5,7 @@ using UnityEngine;
 public class StateMachine
 {
     private StateNode _currentStateNode;
+    public IState CurrentState => _currentStateNode.State;
     private Dictionary<Type, StateNode> _stateNodes = new();
     private HashSet<ITransition> _anyTransitions = new();
 

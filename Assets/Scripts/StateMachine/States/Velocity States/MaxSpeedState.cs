@@ -6,7 +6,7 @@ public class MaxSpeedState : VelocityState
     
     public override void OnStateEnter()
     {
-        Debug.Log("Entering MaxSpeedState");
+        
     }
 
     public override void Update()

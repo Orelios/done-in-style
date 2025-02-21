@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class ParallaxBackground : MonoBehaviour
@@ -8,6 +9,7 @@ public class ParallaxBackground : MonoBehaviour
     [SerializeField] private float parallaxEffectY; // The speed at which the background should move relative to the camera in the y-axis
     [SerializeField] private bool parallaxEnabledX;
     [SerializeField] private bool parallaxEnabledY;
+    [SerializeField] private float offSet = 1;
     void Start()
     {
         _startPosX = transform.position.x;
@@ -23,7 +25,6 @@ public class ParallaxBackground : MonoBehaviour
             // Calculate the distance the background moves based on the camera movement
             float distanceX = cam.transform.position.x * parallaxEffectX;
             float movementX = cam.transform.position.x * (1 - parallaxEffectX);
-            transform.position = new Vector3(_startPosX + distanceX, transform.position.y, transform.position.z);
 
             // If the background has reached the end of its length, adjust its position for infinite scrolling
             if (movementX > _startPosX + _lengthX)
@@ -34,6 +35,7 @@ public class ParallaxBackground : MonoBehaviour
             {
                 _startPosX -= _lengthX;
             }
+            transform.position = new Vector3(_startPosX + distanceX, offSet, transform.position.z);
         }
 
         if (parallaxEnabledY)
@@ -41,7 +43,6 @@ public class ParallaxBackground : MonoBehaviour
             // Calculate the distance the background moves based on the camera movement
             float distanceY = cam.transform.position.y * parallaxEffectY;
             float movementY = cam.transform.position.y * (1 - parallaxEffectY);
-            transform.position = new Vector3(transform.position.x, _startPosY + distanceY, transform.position.z);
 
             // If the background has reached the end of its length, adjust its position for infinite scrolling
             if (movementY > _startPosY + _lengthY)
@@ -52,7 +53,9 @@ public class ParallaxBackground : MonoBehaviour
             {
                 _startPosY -= _lengthY;
             }
+
+            transform.position = new Vector3(transform.position.x, (_startPosY + distanceY) + offSet, transform.position.z);
         }
-       
+
     }
 }

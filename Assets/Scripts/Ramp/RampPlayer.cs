@@ -26,6 +26,7 @@ public class RampPlayer : MonoBehaviour
     private PlayerTricks _playertricks;
     //public bool hasTricked = false;
     [HideInInspector] public Ramp ramp;
+    private VFXManager _vfx;
     void Start()
     {
 
@@ -38,6 +39,7 @@ public class RampPlayer : MonoBehaviour
         _playerMovement = GetComponent<PlayerMovement>();
         normSpeed = _playerMovement.BaseSpeed;
         rampSpeed = normSpeed * _rampSpeedEndMultiplier;
+        _vfx = GetComponentInChildren<VFXManager>();
     }
 
     // Update is called once per frame
@@ -86,6 +88,8 @@ public class RampPlayer : MonoBehaviour
         if (other.CompareTag("RampExit"))
         {
             hasExitedRamp = true;
+            //_vfx.CallJumpingVFX();
+            _vfx.CallGroundPoundVFX();
         }
     }
 

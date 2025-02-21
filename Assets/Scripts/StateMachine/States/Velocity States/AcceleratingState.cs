@@ -6,7 +6,7 @@ public class AcceleratingState : VelocityState
     
     public override void OnStateEnter()
     {
-        Debug.Log("Entering AcceleratingState");
+        
     }
 
     public override void Update()
