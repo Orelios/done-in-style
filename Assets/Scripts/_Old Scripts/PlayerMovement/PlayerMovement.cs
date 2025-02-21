@@ -113,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
     #region Private Variables
     private PlayerInputManager _playerInputManager;
     private PlayerTricks _playerTricks;
-    private StateMachine _playerVelocitySM;
     private RankCalculator _rankCalculator;
     private Vector2 _groundChecker;
     #endregion
@@ -126,8 +125,7 @@ public class PlayerMovement : MonoBehaviour
         
         _player = GetComponent<Player>();
         _originalRotation = quaternion.identity;
-
-        InitializeStateMachine();
+        
     }
 
     //NEW JUMP STUFF
@@ -143,36 +141,8 @@ public class PlayerMovement : MonoBehaviour
         _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
     }
 
-    //function to create the velocity State Machine and its States  
-    private void InitializeStateMachine()
-    {
-        //create the State Machine
-        _playerVelocitySM = new();
-
-        //declare and create the velocity States
-        var atRestState = new AtRestState(this);
-        var acceleratingState = new AcceleratingState(this);
-        var maxSpeedState = new MaxSpeedState(this);
-        
-        //create the Transitions between States
-        NormalTransition(atRestState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) > 0f));
-        NormalTransition(acceleratingState, maxSpeedState, new FuncPredicate(() => Mathf.Approximately(Mathf.Abs(AppliedMovementSpeed), maxMovementSpeed)));
-        NormalTransition(maxSpeedState, acceleratingState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) < maxMovementSpeed));
-        NormalTransition(acceleratingState, atRestState, new FuncPredicate(() => Mathf.Abs(AppliedMovementSpeed) == 0f));
-        
-        //assign the default State
-        _playerVelocitySM.SetState(atRestState);
-    }
-
-    //function to create Transitions between one State to another 
-    private void NormalTransition(IState fromState, IState nextState, IPredicate condition)
-    {
-        _playerVelocitySM.AddNormalTransition(fromState, nextState, condition);
-    }
-
     private void Update()
     {
-        _playerVelocitySM.Update();
         if (Rb.linearVelocityY < cameraHandler.YVelocityThreshold && !cameraHandler.IsPanningCoroutineActive)
         {
             cameraHandler.LerpCameraPanning(true);
@@ -186,15 +156,27 @@ public class PlayerMovement : MonoBehaviour
 
     private void RotatePlayer()
     {
+            var contact = Physics2D.OverlapBox(GroundCheck.position, new(0.9f, 0.1f), 0f, GroundLayer);        
+        
         if (IsGrounded())
         {
-            var contact = Physics2D.OverlapBox(GroundCheck.position, new(0.9f, 0.1f), 0f, GroundLayer);            
             /*_player.Sprite.gameObject.transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, 
                 transform.localEulerAngles.y, 
                 Mathf.Approximately(transform.localEulerAngles.y, 0) ? contact.transform.localEulerAngles.z : -contact.transform.localEulerAngles.z);*/
+            
+            /*if (Mathf.Abs(currentTilt - previousTilt) > tiltThreshold)
+            {
+                transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, 
+                    transform.localEulerAngles.y, 
+                    contact.transform.localEulerAngles.z);
+                previousTilt = currentTilt;
+            }*/
+            
+            //var zTilt = Rb.linearVelocityY > 0 ? : ;
             transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, 
                 transform.localEulerAngles.y, 
-                contact.transform.localEulerAngles.z);
+                //Rb.linearVelocityY < 0 ? transform.localEulerAngles.y : -transform.localEulerAngles.y,
+                contact.transform.localEulerAngles.z * (IsFacingRight ? 1f : -1f));
         }
         else
         {
@@ -207,14 +189,14 @@ public class PlayerMovement : MonoBehaviour
     {
         RotatePlayer();
         
-        _playerVelocitySM.FixedUpdate();
         //Disables movement while dashing
 
         if (_playerTricks.IsDashing || _playerTricks.IsPounding) { return; }
 
         if (GetComponent<RampPlayer>().isRamping){return;}
 
-        HorizontalMovement(); 
+        HorizontalMovement();
+
         Jump();
         Gravity();
     }
@@ -266,6 +248,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
+        if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown) { return; }
         //Handles the timer for coyote time
         _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
 
@@ -280,20 +263,23 @@ public class PlayerMovement : MonoBehaviour
             Rb.gravityScale = _gravityScale * jumpCutGravityMult;
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Max(Rb.linearVelocity.y, -maxFallSpeed));
         }
-    }
-    #endregion
 
-    #region Gravity
-    private void Gravity()
-    {
-        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
         if (!canJump && Rb.linearVelocity.y > 0 && Rb.linearVelocity.y < jumpHangTimeThreshold) // Jump Hang
         {
             Rb.gravityScale = _gravityScale * jumpHangGravityMult;
             //Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x * jumpHangAccelerationMult, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
         }
-        else if (Rb.linearVelocity.y < 0) // Player is falling
+    }
+    #endregion
+
+    #region Gravity
+    private void Gravity()
+    { 
+
+        if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown) { _playerTricks.WallRiding(); return; }
+
+        if (Rb.linearVelocity.y < 0) // Player is falling
         {
             Rb.gravityScale = _gravityScale * fallGravityMult;
 
