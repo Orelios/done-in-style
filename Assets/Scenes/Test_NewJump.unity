@@ -17848,6 +17848,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 558358739}
+    - target: {fileID: 6054288329551952009, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
+      propertyPath: offSet
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 6475303555615087752, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.5
