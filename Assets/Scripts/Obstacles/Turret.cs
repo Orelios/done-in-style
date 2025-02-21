@@ -33,11 +33,13 @@ public class Turret : MonoBehaviour
 
         if (hit)
         {
+            _lastShootTime += Time.deltaTime;
+            
             if (hit.collider.gameObject.GetComponent<PlayerInvulnerability>())
             {
                 transform.GetChild(0).GetComponent<Transform>().up = -_direction;
 
-                if (Time.time >= _lastShootTime + shootCooldown)
+                if (_lastShootTime >= shootCooldown)
                 {
                     Shoot();
                 }
@@ -52,7 +54,7 @@ public class Turret : MonoBehaviour
         bulletIns.GetComponent<Rigidbody2D>().AddForce(_direction * bulletSpeed);
         //Physics2D.IgnoreCollision(bulletIns.GetComponent<Collider2D>(), bullet.gameObject.GetComponent<Collider2D>());
         Destroy(bulletIns, bulletLifeSpan);
-        _lastShootTime = Time.time;
+        _lastShootTime = 0f;
     }
 
 }

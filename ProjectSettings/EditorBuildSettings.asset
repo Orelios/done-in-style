@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/old scenes/DemoLevel.unity
     guid: 7ec53e699f91c9b47a1c48de6f1a37da
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Use_This_Patrick_2.unity
     guid: c864eed3d765fe6429e722c4c58aebe4
+  - enabled: 1
+    path: Assets/Scenes/Test_Onomatopoeia.unity
+    guid: 0ca93f08961f4874a8e6f43466ffee36
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

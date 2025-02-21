@@ -126,10 +126,20 @@ public class PlayerMovement : MonoBehaviour
         _player = GetComponent<Player>();
         _originalRotation = quaternion.identity;
         
+        // Calculate gravity strength using the formula (gravity = 2 * jumpHeight / timeToJumpApex^2) 
+        _gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
+
+        // Calculate the rigidbody's gravity scale (ie: gravity strength relative to Unity's gravity value, see project settings/Physics2D)
+        _gravityScale = _gravityStrength / Physics2D.gravity.y;
+
+        // Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
+        _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
+        
     }
 
     //NEW JUMP STUFF
-    private void OnValidate()
+    //NOTE: OnValidate seems to work as an editor-only function, so better to set up the gravity calculations on Awake or Start
+    /*private void OnValidate()
     {
         // Calculate gravity strength using the formula (gravity = 2 * jumpHeight / timeToJumpApex^2) 
         _gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
@@ -139,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
         _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
-    }
+    }*/
 
     private void Update()
     {

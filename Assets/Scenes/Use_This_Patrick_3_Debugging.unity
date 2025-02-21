@@ -3320,11 +3320,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerRange: 10
   target: {fileID: 2873893606759120575}
-  shootCooldown: 2
+  shootCooldown: 5
   shootPoint: {fileID: 1398157968}
   bullet: {fileID: 128889013100235571, guid: d68d622b5102b22478ea5d8de569916d, type: 3}
   bulletSpeed: 50
-  bulletLifeSpan: 0
+  bulletLifeSpan: 2
   scoreCalculator: {fileID: 1399632911}
 --- !u!212 &421046715
 SpriteRenderer:
@@ -7814,11 +7814,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerRange: 10
   target: {fileID: 2873893606759120575}
-  shootCooldown: 2
+  shootCooldown: 5
   shootPoint: {fileID: 1287221789}
   bullet: {fileID: 128889013100235571, guid: d68d622b5102b22478ea5d8de569916d, type: 3}
   bulletSpeed: 50
-  bulletLifeSpan: 0
+  bulletLifeSpan: 2
   scoreCalculator: {fileID: 1399632911}
 --- !u!212 &979439966
 SpriteRenderer:
