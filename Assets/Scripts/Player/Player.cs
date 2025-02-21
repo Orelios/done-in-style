@@ -36,7 +36,10 @@ public class Player : MonoBehaviour
     public string IdlingAnimationName => idling;
     [SerializeField] private string skating;
     public string SkatingAnimationName => skating;
-    //[SerializeField] private string jumping;
+    [SerializeField] private string jumping;
+    public string JumpingAnimationName => jumping;
+    [SerializeField] private string blendTreeYVelocity;
+    public string BlendTreeYVelocityName => blendTreeYVelocity;
     [SerializeField] private string dashing;
     public string DashingAnimationName => dashing;
     [SerializeField] private string falling;
@@ -111,15 +114,17 @@ public class Player : MonoBehaviour
         NormalTransition(_playerActionSM, risingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0f));
         NormalTransition(_playerActionSM, risingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
         NormalTransition(_playerActionSM, risingState, poundingState, new FuncPredicate(() => _playerTricks.IsPounding));
+        NormalTransition(_playerActionSM, risingState, wallRidingState, new FuncPredicate(() => _playerTricks.IsWallRiding && _playerTricks.IsPressingDown));
         #endregion
         
         #region Falling State
         NormalTransition(_playerActionSM, fallingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0f));
         NormalTransition(_playerActionSM, fallingState, idlingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) < 0.1f && _playerMovement.IsGrounded()));
-        NormalTransition(_playerActionSM, fallingState, skatingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) > 0.1f && _playerMovement.IsGrounded()));
+        NormalTransition(_playerActionSM, fallingState, skatingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) > 0.1f && _playerMovement.IsGrounded() && !_playerRailGrind.IsOnRail));
         NormalTransition(_playerActionSM, fallingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
         NormalTransition(_playerActionSM, fallingState, poundingState, new FuncPredicate(() => _playerTricks.IsPounding));
-        NormalTransition(_playerActionSM, fallingState, grindingState, new FuncPredicate(() => _playerRailGrind.IsOnRail));
+        NormalTransition(_playerActionSM, fallingState, grindingState, new FuncPredicate(() =>_playerMovement.IsGrounded() && _playerRailGrind.IsOnRail));
+        NormalTransition(_playerActionSM, fallingState, wallRidingState, new FuncPredicate(() => _playerTricks.IsWallRiding && _playerTricks.IsPressingDown));
         #endregion
 
         #region Dashing State
@@ -145,7 +150,7 @@ public class Player : MonoBehaviour
         #endregion
         
         #region Wall Riding State
-        //set wall riding transitions here when available
+       NormalTransition(_playerActionSM, wallRidingState, fallingState, new FuncPredicate(() => (!_playerTricks.IsWallRiding || !_playerTricks.IsPressingDown) && _playerRb.linearVelocityY < 0f));
         #endregion
         
         #region Hurt State

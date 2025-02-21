@@ -8,6 +8,11 @@ public class RisingState : InAirState
 
     public override void OnStateEnter()
     {
-        base.OnStateEnter();
+        PlayerAnimator.Play(PlayerJumpingHash);
+    }
+
+    public override void Update()
+    {
+        PlayerAnimator.SetFloat(PlayerJumpYVelocity, Player.Rigidbody.linearVelocityY);
     }
 }
