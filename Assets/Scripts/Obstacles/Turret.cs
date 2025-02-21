@@ -33,7 +33,7 @@ public class Turret : MonoBehaviour
 
         if (hit)
         {
-            if (hit.collider.gameObject.GetComponent<TEMP_PlayerIFrames>())
+            if (hit.collider.gameObject.GetComponent<PlayerInvulnerability>())
             {
                 transform.GetChild(0).GetComponent<Transform>().up = -_direction;
 
@@ -47,7 +47,7 @@ public class Turret : MonoBehaviour
 
     private void Shoot()
     {
-        bullet.gameObject.GetComponent<Bullet>()._scoreCalculator = scoreCalculator;
+        //bullet.gameObject.GetComponent<Bullet>()._scoreCalculator = scoreCalculator;
         GameObject bulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
         bulletIns.GetComponent<Rigidbody2D>().AddForce(_direction * bulletSpeed);
         //Physics2D.IgnoreCollision(bulletIns.GetComponent<Collider2D>(), bullet.gameObject.GetComponent<Collider2D>());

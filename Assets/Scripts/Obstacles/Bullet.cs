@@ -3,21 +3,33 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [HideInInspector]public ScoreCalculator _scoreCalculator;
     [SerializeField] private int damage; 
 
+    private ScoreCalculator _scoreCalculator;
+    private RankCalculator _rankCalculator;
+
+    private void Awake()
+    {
+        _scoreCalculator = FindFirstObjectByType<ScoreCalculator>();
+        _rankCalculator = FindFirstObjectByType<RankCalculator>();
+    }
+
+    
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<TEMP_PlayerIFrames>() && !collision.gameObject.GetComponent<TEMP_PlayerIFrames>().IsHit)
+        /*if (collision.gameObject.GetComponent<PlayerInvulnerability>() && !collision.gameObject.GetComponent<PlayerInvulnerability>().IsHit)
         {
             _scoreCalculator.DecreaseScoreInstant(damage);
             _scoreCalculator.GetComponent<RankCalculator>().DecreaseStylishPoints();
-            collision.gameObject.GetComponent<TEMP_PlayerIFrames>().PlayerHit();
+            collision.gameObject.GetComponent<PlayerInvulnerability>().DamagePlayer();
+        }*/
+        
+        if (collision.gameObject.TryGetComponent<Player>(out var player) && !player.Invulnerability.IsInvulnerable)
+        {
+            _scoreCalculator.DecreaseScoreInstant(damage);
+            _rankCalculator.DecreaseStylishPoints();
+            player.Invulnerability.DamagePlayer();
         }
-
-        
-        if(!collision.gameObject.TryGetComponent<Bullet>(out Bullet bullet)) { Destroy(gameObject); }
-        
-
+        else if(!collision.gameObject.TryGetComponent<Bullet>(out _)) { Destroy(gameObject); }
     }
 }
