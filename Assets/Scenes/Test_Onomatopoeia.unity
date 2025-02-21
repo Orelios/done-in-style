@@ -18998,9 +18998,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b02cd44879666948b0264910f657948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hurtStateDuration: 0
-  invulnerabilityDuration: 0
+  hurtStateDuration: 1
+  invulnerabilityDuration: 5
   knockBackStrength: 0
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
+  _flickerDuration: 0.1
 --- !u!114 &8877816160859945758
 MonoBehaviour:
   m_ObjectHideFlags: 0
