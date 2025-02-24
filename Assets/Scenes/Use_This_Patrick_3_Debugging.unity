@@ -18243,6 +18243,10 @@ MonoBehaviour:
   canTape: 0
   _snapshot: {fileID: 0}
   wallRidingGravity: 2
+  baseColliderOffsetY: -0.02
+  baseColliderSizeY: 1.94
+  colliderOffsetY: -0.45
+  colliderSizeY: 0.97
   trickTime: 1
   canTrick: 0
   enableTrickDuration: 2

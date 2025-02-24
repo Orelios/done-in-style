@@ -71,6 +71,17 @@ public class PlayerTricks : MonoBehaviour
     public bool IsWallRiding { get => _isWallRiding; set => _isWallRiding = value; }
     public bool IsPressingDown { get => _isPressingDown; set => _isPressingDown = value; }
 
+    [Header("Sliding")]
+    [SerializeField] private float baseColliderOffsetY = -0.02f;
+    [SerializeField] private float baseColliderSizeY = 1.94f;
+    [SerializeField] private float colliderOffsetY;
+    [SerializeField] private float colliderSizeY; 
+    private bool _isSliding; 
+
+    public float ColliderOffsetY { get => colliderOffsetY; set => colliderOffsetY = value; }
+    public float ColliderSizeY { get => colliderSizeY; set => colliderSizeY = value; }
+    public bool IsSliding { get => _isSliding; set => _isSliding = value; }
+
     [Header("Trick Move")]
     [SerializeField] private float trickTime = 1f;
     public bool canTrick = false;
@@ -129,8 +140,16 @@ public class PlayerTricks : MonoBehaviour
                 if (context.performed) { TrickMove(); }
                 break;
             case "downArrow":
-                if (context.performed) { _isPressingDown = true;}
-                else if (context.canceled) { _isPressingDown = false;}
+                if (context.performed) 
+                {
+                    if (!_playerMovement.IsGrounded()) { _isPressingDown = true; }
+                    else if (_playerMovement.IsGrounded()) { _isSliding = true; Sliding(); }
+                }
+                else if (context.canceled) 
+                {
+                    if (!_playerMovement.IsGrounded()) { _isPressingDown = false; }
+                    else if (_playerMovement.IsGrounded()) { _isSliding = false; Sliding(); }
+                }
                 break; 
             default:
                 Debug.LogWarning($"Mismatch! Control name {context.control.name} was not recognized");
@@ -340,6 +359,25 @@ public class PlayerTricks : MonoBehaviour
     }
 
     public void NullWall() {  _wall = null; }
+    #endregion
+
+    #region Sliding
+    public void Sliding()
+    {
+        if (_playerMovement.IsGrounded() && _isSliding)
+        {
+            Rb.gravityScale = 0;
+            gameObject.GetComponent<CapsuleCollider2D>().offset = new Vector2(0, colliderOffsetY); 
+            gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2(1, colliderSizeY);
+            Rb.gravityScale = _playerMovement.GravityScale;
+        }
+
+        if (!_isSliding)
+        {
+            gameObject.GetComponent<CapsuleCollider2D>().offset = new Vector2(0, baseColliderOffsetY);
+            gameObject.GetComponent<CapsuleCollider2D>().size = new Vector2(1, baseColliderSizeY);
+        }
+    }
     #endregion
 
     #region TrickMove
