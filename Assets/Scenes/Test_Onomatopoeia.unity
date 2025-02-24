@@ -398,7 +398,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &42649581
 SpriteRenderer:
@@ -1347,7 +1346,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &132299368
 SpriteRenderer:
@@ -1634,7 +1632,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &170349186
 SpriteRenderer:
@@ -4428,7 +4425,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &529967739
 SpriteRenderer:
@@ -4814,7 +4810,7 @@ Transform:
   m_GameObject: {fileID: 558358739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.9, y: 0.5, z: -10}
+  m_LocalPosition: {x: 117.9, y: 2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -6012,7 +6008,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &681237865
 SpriteRenderer:
@@ -9171,7 +9166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5332121691666363632, guid: 41c97b06eac58944e9042873036a9e3c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.077385
+      value: 3.49
       objectReference: {fileID: 0}
     - target: {fileID: 5332121691666363632, guid: 41c97b06eac58944e9042873036a9e3c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10580,7 +10575,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &1308828993
 SpriteRenderer:
@@ -11143,7 +11137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &1362785807
 SpriteRenderer:
@@ -11397,7 +11390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &1386466624
 SpriteRenderer:
@@ -12683,7 +12675,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &1533029254
 SpriteRenderer:
@@ -13712,7 +13703,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &1719662794
 SpriteRenderer:
@@ -14209,7 +14199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &1753235632
 SpriteRenderer:
@@ -16084,7 +16073,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 10
-  scoreCalculator: {fileID: 1399632911}
   damage: 100
 --- !u!212 &1925213672
 SpriteRenderer:
@@ -18078,7 +18066,7 @@ Transform:
   m_GameObject: {fileID: 4992886128219656315}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.9, y: 0.5, z: 0}
+  m_LocalPosition: {x: 117.9, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18524,7 +18512,7 @@ Transform:
   m_GameObject: {fileID: 511968297436822432}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.9, y: 0.5, z: -10}
+  m_LocalPosition: {x: 117.9, y: 2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18813,7 +18801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5332121691666363632, guid: 41c97b06eac58944e9042873036a9e3c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.04
       objectReference: {fileID: 0}
     - target: {fileID: 5332121691666363632, guid: 41c97b06eac58944e9042873036a9e3c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18935,6 +18923,7 @@ MonoBehaviour:
   maxJumps: 2
   jumpCooldown: 2
   inBetweenJumpCooldown: 2
+  _canDetroyDuration: 0.5
   tapingDuration: 5
   isSnapping: 0
   isTaping: 0
@@ -19009,8 +18998,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b02cd44879666948b0264910f657948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInvincibilityTime: 2
-  knockbackStrength: 10
+  hurtStateDuration: 1
+  invulnerabilityDuration: 5
+  knockBackStrength: 0
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
+  _flickerDuration: 0.1
 --- !u!114 &8877816160859945758
 MonoBehaviour:
   m_ObjectHideFlags: 0

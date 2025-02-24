@@ -52,6 +52,9 @@ public class PlayerTricks : MonoBehaviour
     private float _lastJumpTime;
     private float _lastInBetweenJumpTime; 
     private float _jumps;
+    private bool _canDestroy = false;
+    public bool CanDestroy => _canDestroy;
+    [SerializeField] private float _canDetroyDuration = 0.5f;
 
     [Header("Snapping and Taping")]
     public float tapingDuration = 5f;
@@ -238,6 +241,8 @@ public class PlayerTricks : MonoBehaviour
         if (_jumps != 0)
         {
             //AddScoreAndRank();
+            StartCoroutine(DoubleJumpDestroy());
+
             _vfx.CallDoubleJumpVFX();
 
             if (Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
@@ -251,6 +256,13 @@ public class PlayerTricks : MonoBehaviour
             if(_jumps == 0) { _lastJumpTime = Time.time; }
         }
         //Debug.Log("PogoStick");
+    }
+
+    private IEnumerator DoubleJumpDestroy()
+    {
+        _canDestroy = true;
+        yield return new WaitForSeconds(_canDetroyDuration);
+        _canDestroy = false;
     }
     #endregion
 
@@ -272,7 +284,7 @@ public class PlayerTricks : MonoBehaviour
         // Disable gravity during the dash
         Rb.gravityScale = 0;
         //Debug.Log("isPounding = " + _isPounding);
-        while (_isPounding)
+        while (_isPounding && !_playerMovement.IsGrounded())
         {
             if (Input.GetKeyUp(KeyCode.D))
             {

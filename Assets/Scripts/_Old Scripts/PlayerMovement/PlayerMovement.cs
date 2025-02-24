@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float velPower;
     [Tooltip("Insert here the friction amount; this helps the deceleration to put the Player to a complete stop faster ")]
     [SerializeField] private float frictionAmount; 
+    [Tooltip("Insert the fake acceleration that handles how much momentum is retained when switching directions; the higher the value, the less momentum is retained")]
+    [SerializeField, Range(1f, 5f)] private float fakeAcceleration;
     public float BaseSpeed { get => baseSpeed; set => baseSpeed = value; }
     public float Acceleration { get => acceleration; set => acceleration = value; }
     public float Deceleration { get => deceleration; set => deceleration = value; }
@@ -115,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerTricks _playerTricks;
     private RankCalculator _rankCalculator;
     private Vector2 _groundChecker;
+    private RampPlayer _rampPlayer;
     #endregion
     
     private void Awake()
@@ -122,14 +125,25 @@ public class PlayerMovement : MonoBehaviour
         _playerInputManager = GetComponent<PlayerInputManager>();
         _playerTricks = GetComponent<PlayerTricks>();
         _rankCalculator = FindFirstObjectByType<RankCalculator>();
+        _rampPlayer = GetComponent<RampPlayer>();
         
         _player = GetComponent<Player>();
         _originalRotation = quaternion.identity;
         
+        // Calculate gravity strength using the formula (gravity = 2 * jumpHeight / timeToJumpApex^2) 
+        _gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
+
+        // Calculate the rigidbody's gravity scale (ie: gravity strength relative to Unity's gravity value, see project settings/Physics2D)
+        _gravityScale = _gravityStrength / Physics2D.gravity.y;
+
+        // Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
+        _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
+        
     }
 
     //NEW JUMP STUFF
-    private void OnValidate()
+    //NOTE: OnValidate seems to work as an editor-only function, so better to set up the gravity calculations on Awake or Start
+    /*private void OnValidate()
     {
         // Calculate gravity strength using the formula (gravity = 2 * jumpHeight / timeToJumpApex^2) 
         _gravityStrength = -(2 * jumpHeight) / (jumpTimeToApex * jumpTimeToApex);
@@ -139,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
         _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
-    }
+    }*/
 
     private void Update()
     {
@@ -208,6 +222,8 @@ public class PlayerMovement : MonoBehaviour
         float targetSpeed = _playerInputManager.HorizontalMovement * baseSpeed * _rankCalculator.CurrentStylishRank.MaxSpeedMultiplier;
         float speedDif = targetSpeed - Rb.linearVelocity.x;
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? acceleration : deceleration;
+
+        //if (Mathf.Abs(targetSpeed) < 0.01f) { Rb.linearVelocity = new Vector2(0f, Rb.linearVelocityY); }
 
         AppliedMaxMovementSpeed = baseSpeed * _rankCalculator.CurrentStylishRank.MaxSpeedMultiplier;
         AppliedAcceleration = accelRate * _rankCalculator.CurrentStylishRank.AccelerationMultiplier;
@@ -303,7 +319,15 @@ public class PlayerMovement : MonoBehaviour
         transform.localScale = localScale;*/
         
         IsFacingRight = !IsFacingRight;
-        Vector3 flipRotation = new(transform.rotation.x, IsFacingRight == true ? 0 : 180f, transform.rotation.z);
+        if (IsGrounded() && _rampPlayer.HasExitedRamp)
+        {
+            if ((IsFacingRight && (Rb.linearVelocityX < 0f)) || (!IsFacingRight && (Rb.linearVelocityX > 0f)))
+            {
+                Rb.linearVelocity = new Vector2(-Rb.linearVelocityX / fakeAcceleration, Rb.linearVelocityY);
+            }
+        }
+
+        Vector3 flipRotation = new(transform.rotation.x, IsFacingRight ? 0 : 180f, transform.rotation.z);
         transform.rotation = Quaternion.Euler(flipRotation);
     }
 

@@ -3320,11 +3320,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerRange: 10
   target: {fileID: 2873893606759120575}
-  shootCooldown: 2
+  shootCooldown: 5
   shootPoint: {fileID: 1398157968}
   bullet: {fileID: 128889013100235571, guid: d68d622b5102b22478ea5d8de569916d, type: 3}
   bulletSpeed: 50
-  bulletLifeSpan: 0
+  bulletLifeSpan: 2
   scoreCalculator: {fileID: 1399632911}
 --- !u!212 &421046715
 SpriteRenderer:
@@ -7336,6 +7336,10 @@ PrefabInstance:
       propertyPath: offSet
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4254365948139025098, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8014847392243521281, guid: 81d28c23a6f14c347a3c5ebfbcc012bc, type: 3}
     - target: {fileID: 6054288329551952009, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
       propertyPath: cam
       value: 
@@ -7384,6 +7388,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6616485093448216649, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8014847392243521281, guid: 81d28c23a6f14c347a3c5ebfbcc012bc, type: 3}
     - target: {fileID: 6796299427876462320, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
       propertyPath: cam
       value: 
@@ -7392,6 +7400,10 @@ PrefabInstance:
       propertyPath: offSet
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6965240543931397474, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8014847392243521281, guid: 81d28c23a6f14c347a3c5ebfbcc012bc, type: 3}
     - target: {fileID: 7577768579614379741, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
       propertyPath: m_Name
       value: Parallax
@@ -7814,11 +7826,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   towerRange: 10
   target: {fileID: 2873893606759120575}
-  shootCooldown: 2
+  shootCooldown: 5
   shootPoint: {fileID: 1287221789}
   bullet: {fileID: 128889013100235571, guid: d68d622b5102b22478ea5d8de569916d, type: 3}
   bulletSpeed: 50
-  bulletLifeSpan: 0
+  bulletLifeSpan: 2
   scoreCalculator: {fileID: 1399632911}
 --- !u!212 &979439966
 SpriteRenderer:
@@ -18480,6 +18492,7 @@ MonoBehaviour:
   deceleration: 7
   velPower: 0.9
   frictionAmount: 0.2
+  fakeAcceleration: 2
   IsFacingRight: 1
   coyoteTime: 0.2
   jumpBufferTime: 0.2
@@ -18773,6 +18786,7 @@ MonoBehaviour:
   maxJumps: 2
   jumpCooldown: 2
   inBetweenJumpCooldown: 2
+  _canDetroyDuration: 0.5
   tapingDuration: 5
   isSnapping: 0
   isTaping: 0
@@ -18850,6 +18864,7 @@ MonoBehaviour:
   hurtStateDuration: 0.3
   invulnerabilityDuration: 2
   knockBackStrength: 10
+  _flickerDuration: 0.1
 --- !u!114 &8877816160859945758
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class DestructibleObjects : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out PlayerTricks playerTricks) && (playerTricks.IsDashing
-            || playerTricks.IsPounding))
+            || playerTricks.IsPounding || playerTricks.CanDestroy))
         {
             collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
             playerTricks.EnableTrickDestroyed();
@@ -30,7 +30,7 @@ public class DestructibleObjects : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out PlayerTricks playerTricks) && (playerTricks.IsDashing 
-            || playerTricks.IsPounding))
+            || playerTricks.IsPounding || playerTricks.CanDestroy))
         {
             if (collision.gameObject.GetComponent<PlayerTricks>().canTrick == false)
             {
