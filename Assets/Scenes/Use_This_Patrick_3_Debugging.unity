@@ -7336,6 +7336,10 @@ PrefabInstance:
       propertyPath: offSet
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 4254365948139025098, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8014847392243521281, guid: 81d28c23a6f14c347a3c5ebfbcc012bc, type: 3}
     - target: {fileID: 6054288329551952009, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
       propertyPath: cam
       value: 
@@ -7384,6 +7388,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6616485093448216649, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8014847392243521281, guid: 81d28c23a6f14c347a3c5ebfbcc012bc, type: 3}
     - target: {fileID: 6796299427876462320, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
       propertyPath: cam
       value: 
@@ -7392,6 +7400,10 @@ PrefabInstance:
       propertyPath: offSet
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6965240543931397474, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8014847392243521281, guid: 81d28c23a6f14c347a3c5ebfbcc012bc, type: 3}
     - target: {fileID: 7577768579614379741, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
       propertyPath: m_Name
       value: Parallax
