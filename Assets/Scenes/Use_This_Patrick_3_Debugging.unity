@@ -17223,6 +17223,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1669975813639523558, guid: 7265dfb954dcade408bf71140965ba09, type: 3}
   m_PrefabInstance: {fileID: 6996327393084583642}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2730435778093826809
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 832864462042611026, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 180.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 832864462042611026, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 832864462042611026, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 832864462042611026, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 832864462042611026, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 832864462042611026, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 832864462042611026, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 832864462042611026, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 832864462042611026, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 832864462042611026, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8247126522600239658, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: m_Name
+      value: Spin Trap Spike Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 8916385643404463038, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
+      propertyPath: scoreCalculator
+      value: 
+      objectReference: {fileID: 1399632911}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 34d287d92c616e743a5b928c742bcbb5, type: 3}
 --- !u!224 &2806522522195389670
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17350,7 +17411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9148485075052098416, guid: f4068b19c7b2fd34b8e337c158d8fd10, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.76
+      value: 7.35
       objectReference: {fileID: 0}
     - target: {fileID: 9148485075052098416, guid: f4068b19c7b2fd34b8e337c158d8fd10, type: 3}
       propertyPath: m_LocalPosition.z
@@ -18462,3 +18523,4 @@ SceneRoots:
   - {fileID: 1654584203}
   - {fileID: 5037100623332666383}
   - {fileID: 4490056284593825557}
+  - {fileID: 2730435778093826809}
