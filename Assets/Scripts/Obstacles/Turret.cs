@@ -45,12 +45,16 @@ public class Turret : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            _lastShootTime = 0f;
+        }
     }
 
     private void Shoot()
     {
         //bullet.gameObject.GetComponent<Bullet>()._scoreCalculator = scoreCalculator;
-        GameObject bulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
+        var bulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
         bulletIns.GetComponent<Rigidbody2D>().AddForce(_direction * bulletSpeed);
         //Physics2D.IgnoreCollision(bulletIns.GetComponent<Collider2D>(), bullet.gameObject.GetComponent<Collider2D>());
         Destroy(bulletIns, bulletLifeSpan);
