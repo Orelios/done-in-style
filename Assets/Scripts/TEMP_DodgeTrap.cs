@@ -3,6 +3,7 @@ using UnityEngine;
 public class TEMP_DodgeTrap : MonoBehaviour
 {
     [SerializeField]private ScoreCalculator _ScoreCalculator;
+    [SerializeField] private int scoreIncrease = 100; 
     private bool _playerPassed;
 
     private void Awake()
@@ -11,16 +12,18 @@ public class TEMP_DodgeTrap : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerInvulnerability>())
+        if (collision.TryGetComponent<PlayerInvulnerability>(out PlayerInvulnerability playerInvulnerability))
         {
-            if (!collision.gameObject.GetComponent<PlayerInvulnerability>().IsHit && !_playerPassed)
+            if (!playerInvulnerability.IsHit && !_playerPassed)
             {
-                _ScoreCalculator.IncreaseScoreInstant(100,
+                _ScoreCalculator.IncreaseScoreInstant(scoreIncrease,
                     _ScoreCalculator.GetComponent<RankCalculator>().CurrentStylishRank.ScoreMultiplier);
 
                 _ScoreCalculator.GetComponent<RankCalculator>().IncreaseStylishPoints();
 
                 _playerPassed = true;
+
+                gameObject.SetActive(false);
             }
         }
         
