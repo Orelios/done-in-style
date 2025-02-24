@@ -91,7 +91,7 @@ public class RampPlayer : MonoBehaviour
         {
             hasExitedRamp = true;
             //_vfx.CallJumpingVFX();
-            _vfx.CallGroundPoundVFX();
+            _vfx.CallGroundPoundLandVFX();
         }
     }
 

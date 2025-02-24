@@ -9,8 +9,8 @@ public class VFXManager : MonoBehaviour
     private PlayerRailGrind _rail;
     private JumpPad _jumpPad;
     private float movingSpeedVFX = 5f;
-    public GameObject moving, landing, jumping, springBoard, hurt, groundPound, dash, doubleJump, rail, wallRiding;
-    private ParticleSystem movingVFX, landingVFX, jumpingVFX, springBoardVFX, hurtVFX, groundPoundVFX, dashVFX, doubleJumpVFX, railVFX, wallRidingVFX;
+    public GameObject moving, landing, jumping, springBoard, hurt, groundPoundLand, groundPoundDive, dash, doubleJump, rail, wallRiding;
+    private ParticleSystem movingVFX, landingVFX, jumpingVFX, springBoardVFX, hurtVFX, groundPoundLandVFX, groundPoundDiveVFX, dashVFX, doubleJumpVFX, railVFX, wallRidingVFX;
     [SerializeField] private bool isWaitingToLand = true, isWaitingToJump = false;
     void Start()
     {
@@ -25,7 +25,8 @@ public class VFXManager : MonoBehaviour
         jumpingVFX = jumping.GetComponent<ParticleSystem>();
         springBoardVFX = springBoard.GetComponent<ParticleSystem>();
         hurtVFX = hurt.GetComponent<ParticleSystem>();
-        groundPoundVFX = groundPound.GetComponent<ParticleSystem>();
+        groundPoundLandVFX = groundPoundLand.GetComponent<ParticleSystem>();
+        groundPoundDiveVFX = groundPoundDive.GetComponent<ParticleSystem>();
         dashVFX = dash.GetComponent<ParticleSystem>();
         doubleJumpVFX = doubleJump.GetComponent<ParticleSystem>();
         railVFX = rail.GetComponent<ParticleSystem>();
@@ -35,7 +36,8 @@ public class VFXManager : MonoBehaviour
         jumpingVFX.Stop();
         springBoardVFX.Stop();
         hurtVFX.Stop();
-        groundPoundVFX.Stop();
+        groundPoundLandVFX.Stop();
+        groundPoundDiveVFX.Stop();
         dashVFX.Stop();
         doubleJumpVFX.Stop();
         railVFX.Stop();
@@ -137,9 +139,14 @@ public class VFXManager : MonoBehaviour
         hurtVFX.Play();
     }
 
-    public void CallGroundPoundVFX()
+    public void CallGroundPoundLandVFX()
     {
-        groundPoundVFX.Play();
+        groundPoundLandVFX.Play();
+    }
+
+    public void CallGroundPoundDiveVFX()
+    {
+        groundPoundDiveVFX.Play();
     }
 
     public void CallDashVFX()
