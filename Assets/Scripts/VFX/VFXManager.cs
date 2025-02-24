@@ -11,7 +11,7 @@ public class VFXManager : MonoBehaviour
     private float movingSpeedVFX = 5f;
     public GameObject moving, landing, jumping, springBoard, hurt, groundPoundLand, groundPoundDive, dash, doubleJump, rail, wallRiding;
     private ParticleSystem movingVFX, landingVFX, jumpingVFX, springBoardVFX, hurtVFX, groundPoundLandVFX, groundPoundDiveVFX, dashVFX, doubleJumpVFX, railVFX, wallRidingVFX;
-    [SerializeField] private bool isWaitingToLand = true, isWaitingToJump = false;
+    [SerializeField] private bool isWaitingToLand = true, isWaitingToJump = false, isOnRailOrSpringboard = false;
     void Start()
     {
         _playerMovement = transform.GetComponentInParent<PlayerMovement>();
@@ -85,6 +85,8 @@ public class VFXManager : MonoBehaviour
         }
     }
 
+
+    #region Ground and Jump
     private void GroundAndJumpCheckers()
     {
         if (!_playerMovement.IsGrounded() && isWaitingToLand)
@@ -109,7 +111,10 @@ public class VFXManager : MonoBehaviour
         {
             yield return null;
         }
-        landingVFX.Play();
+        if (!isOnRailOrSpringboard)
+        {
+            landingVFX.Play();
+        }
         isWaitingToLand = true;
         //Debug.Log("Landed");
     }
@@ -133,7 +138,27 @@ public class VFXManager : MonoBehaviour
             //Debug.Log("Jumped");
         }
     }
+    #endregion
 
+    #region Colliders
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Rail") || collision.gameObject.CompareTag("Springboard"))
+        {
+            isOnRailOrSpringboard = true;
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Rail") || collision.gameObject.CompareTag("Springboard"))
+        {
+            isOnRailOrSpringboard = false;
+        }
+    }
+    #endregion
+
+    #region Call Functions
     public void CallHurtVFX()
     {
         hurtVFX.Play();
@@ -163,4 +188,11 @@ public class VFXManager : MonoBehaviour
     {
         jumpingVFX.Play();
     }
+
+    public void SetOnRailOrSpringboard(bool b)
+    {
+        isOnRailOrSpringboard = b;
+    }
+
+    #endregion
 }
