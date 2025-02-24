@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float velPower;
     [Tooltip("Insert here the friction amount; this helps the deceleration to put the Player to a complete stop faster ")]
     [SerializeField] private float frictionAmount; 
+    [Tooltip("Insert the fake acceleration that handles how much momentum is retained when switching directions; the higher the value, the less momentum is retained")]
+    [SerializeField, Range(1f, 5f)] private float fakeAcceleration;
     public float BaseSpeed { get => baseSpeed; set => baseSpeed = value; }
     public float Acceleration { get => acceleration; set => acceleration = value; }
     public float Deceleration { get => deceleration; set => deceleration = value; }
@@ -321,11 +323,11 @@ public class PlayerMovement : MonoBehaviour
         {
             if ((IsFacingRight && (Rb.linearVelocityX < 0f)) || (!IsFacingRight && (Rb.linearVelocityX > 0f)))
             {
-                Rb.linearVelocity = new Vector2(0f, Rb.linearVelocityY);
+                Rb.linearVelocity = new Vector2(-Rb.linearVelocityX / fakeAcceleration, Rb.linearVelocityY);
             }
         }
 
-        Vector3 flipRotation = new(transform.rotation.x, IsFacingRight == true ? 0 : 180f, transform.rotation.z);
+        Vector3 flipRotation = new(transform.rotation.x, IsFacingRight ? 0 : 180f, transform.rotation.z);
         transform.rotation = Quaternion.Euler(flipRotation);
     }
 

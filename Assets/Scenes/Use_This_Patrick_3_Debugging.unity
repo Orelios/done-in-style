@@ -18480,6 +18480,7 @@ MonoBehaviour:
   deceleration: 7
   velPower: 0.9
   frictionAmount: 0.2
+  fakeAcceleration: 2
   IsFacingRight: 1
   coyoteTime: 0.2
   jumpBufferTime: 0.2
@@ -18773,6 +18774,7 @@ MonoBehaviour:
   maxJumps: 2
   jumpCooldown: 2
   inBetweenJumpCooldown: 2
+  _canDetroyDuration: 0.5
   tapingDuration: 5
   isSnapping: 0
   isTaping: 0
@@ -18850,6 +18852,7 @@ MonoBehaviour:
   hurtStateDuration: 0.3
   invulnerabilityDuration: 2
   knockBackStrength: 10
+  _flickerDuration: 0.1
 --- !u!114 &8877816160859945758
 MonoBehaviour:
   m_ObjectHideFlags: 0
