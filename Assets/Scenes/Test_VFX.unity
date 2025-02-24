@@ -5028,6 +5028,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &575303136
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5366,6 +5367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &609506268
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6936,6 +6938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &855267306
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7028,6 +7031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &868716498
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7396,6 +7400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Parallax
       objectReference: {fileID: 0}
+    - target: {fileID: 8731530189791673535, guid: aa19f768cc81a474b81fd16c228d9e19, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 558358739}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8442,6 +8450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &1023767646
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8709,6 +8718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &1074453393
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8888,6 +8898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &1100528817
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10371,6 +10382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &1288985823
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -12316,6 +12328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &1495195916
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13311,6 +13324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &1626781115
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13873,6 +13887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &1729083163
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14777,6 +14792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &1807565401
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15765,6 +15781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 1399632911}
+  scoreIncrease: 100
 --- !u!61 &1896611111
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18769,6 +18786,10 @@ MonoBehaviour:
   canTape: 0
   _snapshot: {fileID: 0}
   wallRidingGravity: 2
+  baseColliderOffsetY: -0.02
+  baseColliderSizeY: 1.94
+  colliderOffsetY: 0
+  colliderSizeY: 0
   trickTime: 1
   canTrick: 0
   enableTrickDuration: 2
