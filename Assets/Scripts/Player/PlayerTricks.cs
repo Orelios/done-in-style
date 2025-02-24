@@ -284,7 +284,7 @@ public class PlayerTricks : MonoBehaviour
         // Disable gravity during the dash
         Rb.gravityScale = 0;
         //Debug.Log("isPounding = " + _isPounding);
-        while (_isPounding)
+        while (_isPounding && !_playerMovement.IsGrounded())
         {
             if (Input.GetKeyUp(KeyCode.D))
             {
