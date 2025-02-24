@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 683287708130734811}
   - component: {fileID: 415214021673293887}
   m_Layer: 6
-  m_Name: Jump Pad
-  m_TagString: Untagged
+  m_Name: Springboard
+  m_TagString: Springboard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.796076, y: -3.39, z: 0}
-  m_LocalScale: {x: 3.25, y: 0.3, z: 1}
+  m_LocalScale: {x: 4.43308, y: 0.34, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -148,3 +148,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BounceHeight: 20
+  hasTricked: 0

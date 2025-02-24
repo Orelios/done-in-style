@@ -11,6 +11,7 @@ TagManager:
   - RampSurface
   - RampExit
   - RailingInteraction
+  - Springboard
   layers:
   - Default
   - TransparentFX
