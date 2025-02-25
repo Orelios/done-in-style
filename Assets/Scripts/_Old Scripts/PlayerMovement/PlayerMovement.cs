@@ -273,6 +273,8 @@ public class PlayerMovement : MonoBehaviour
         if (_playerInputManager.IsJumping && canJump)
         {
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpForce);
+
+            _playerTricks.IsSliding = false;
         }
         else if (!_playerInputManager.IsJumping)// Jump Cut (increase gravity when the jump button is released early)
         {
