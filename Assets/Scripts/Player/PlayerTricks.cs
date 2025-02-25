@@ -298,6 +298,7 @@ public class PlayerTricks : MonoBehaviour
     private IEnumerator GroundPoundCoroutine()
     {
         _isPounding = true;
+        _vfx.CallGroundPoundDiveVFX();
         //AddScoreAndRank();
 
         // Disable gravity during the dash
@@ -316,7 +317,7 @@ public class PlayerTricks : MonoBehaviour
         }
 
         // End GroundPound
-        _vfx.CallGroundPoundVFX();
+        _vfx.CallGroundPoundLandVFX();
         Rb.gravityScale = _playerMovement.BaseGravity;
         lastPoundTime = Time.time;
         _isPounding = false;

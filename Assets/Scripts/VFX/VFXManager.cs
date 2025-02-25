@@ -9,9 +9,9 @@ public class VFXManager : MonoBehaviour
     private PlayerRailGrind _rail;
     private JumpPad _jumpPad;
     private float movingSpeedVFX = 5f;
-    public GameObject moving, landing, jumping, springBoard, hurt, groundPound, dash, doubleJump, rail, wallRiding;
-    private ParticleSystem movingVFX, landingVFX, jumpingVFX, springBoardVFX, hurtVFX, groundPoundVFX, dashVFX, doubleJumpVFX, railVFX, wallRidingVFX;
-    [SerializeField] private bool isWaitingToLand = true, isWaitingToJump = false;
+    public GameObject moving, landing, jumping, springBoard, hurt, groundPoundLand, groundPoundDive, dash, doubleJump, rail, wallRiding;
+    private ParticleSystem movingVFX, landingVFX, jumpingVFX, springBoardVFX, hurtVFX, groundPoundLandVFX, groundPoundDiveVFX, dashVFX, doubleJumpVFX, railVFX, wallRidingVFX;
+    [SerializeField] private bool isWaitingToLand = true, isWaitingToJump = false, isOnRailOrSpringboard = false;
     void Start()
     {
         _playerMovement = transform.GetComponentInParent<PlayerMovement>();
@@ -25,7 +25,8 @@ public class VFXManager : MonoBehaviour
         jumpingVFX = jumping.GetComponent<ParticleSystem>();
         springBoardVFX = springBoard.GetComponent<ParticleSystem>();
         hurtVFX = hurt.GetComponent<ParticleSystem>();
-        groundPoundVFX = groundPound.GetComponent<ParticleSystem>();
+        groundPoundLandVFX = groundPoundLand.GetComponent<ParticleSystem>();
+        groundPoundDiveVFX = groundPoundDive.GetComponent<ParticleSystem>();
         dashVFX = dash.GetComponent<ParticleSystem>();
         doubleJumpVFX = doubleJump.GetComponent<ParticleSystem>();
         railVFX = rail.GetComponent<ParticleSystem>();
@@ -35,7 +36,8 @@ public class VFXManager : MonoBehaviour
         jumpingVFX.Stop();
         springBoardVFX.Stop();
         hurtVFX.Stop();
-        groundPoundVFX.Stop();
+        groundPoundLandVFX.Stop();
+        groundPoundDiveVFX.Stop();
         dashVFX.Stop();
         doubleJumpVFX.Stop();
         railVFX.Stop();
@@ -83,6 +85,8 @@ public class VFXManager : MonoBehaviour
         }
     }
 
+
+    #region Ground and Jump
     private void GroundAndJumpCheckers()
     {
         if (!_playerMovement.IsGrounded() && isWaitingToLand)
@@ -107,7 +111,10 @@ public class VFXManager : MonoBehaviour
         {
             yield return null;
         }
-        landingVFX.Play();
+        if (!isOnRailOrSpringboard)
+        {
+            landingVFX.Play();
+        }
         isWaitingToLand = true;
         //Debug.Log("Landed");
     }
@@ -131,15 +138,40 @@ public class VFXManager : MonoBehaviour
             //Debug.Log("Jumped");
         }
     }
+    #endregion
 
+    #region Colliders
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Rail") || collision.gameObject.CompareTag("Springboard"))
+        {
+            isOnRailOrSpringboard = true;
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Rail") || collision.gameObject.CompareTag("Springboard"))
+        {
+            isOnRailOrSpringboard = false;
+        }
+    }
+    #endregion
+
+    #region Call Functions
     public void CallHurtVFX()
     {
         hurtVFX.Play();
     }
 
-    public void CallGroundPoundVFX()
+    public void CallGroundPoundLandVFX()
     {
-        groundPoundVFX.Play();
+        groundPoundLandVFX.Play();
+    }
+
+    public void CallGroundPoundDiveVFX()
+    {
+        groundPoundDiveVFX.Play();
     }
 
     public void CallDashVFX()
@@ -156,4 +188,11 @@ public class VFXManager : MonoBehaviour
     {
         jumpingVFX.Play();
     }
+
+    public void SetOnRailOrSpringboard(bool b)
+    {
+        isOnRailOrSpringboard = b;
+    }
+
+    #endregion
 }
