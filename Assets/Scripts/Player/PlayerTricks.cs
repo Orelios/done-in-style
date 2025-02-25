@@ -110,6 +110,8 @@ public class PlayerTricks : MonoBehaviour
         _rampPlayer = GetComponent<RampPlayer>();
         _vfx = GetComponentInChildren<VFXManager>();
         _wall = GetComponent<Wall>();
+        
+        _player = GetComponent<Player>();
 
 
         #region Temp Trick Animation
@@ -143,7 +145,7 @@ public class PlayerTricks : MonoBehaviour
                 if (context.performed) 
                 {
                     if (!_playerMovement.IsGrounded()) { _isPressingDown = true; }
-                    else if (_playerMovement.IsGrounded()) { _isSliding = true; Sliding(); }
+                    else if (_playerMovement.IsGrounded() && !_player.RailGrind.IsOnRail) { _isSliding = true; Sliding(); }
                 }
                 else if (context.canceled) 
                 {

@@ -1,4 +1,5 @@
 using System;
+using UnityEditor;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -54,8 +55,8 @@ public class Player : MonoBehaviour
     public string WallRidingAnimationName => wallRiding;
     [SerializeField] private string hurt;
     public string HurtAnimationName => hurt;
-
-    private void Awake()
+    
+    private void Start()
     {
         _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         _playerRb = GetComponent<Rigidbody2D>();
@@ -104,6 +105,7 @@ public class Player : MonoBehaviour
         NormalTransition(_playerActionSM, idlingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0f && !_playerMovement.IsGrounded()));
         NormalTransition(_playerActionSM, idlingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0f && !_playerMovement.IsGrounded()));
         NormalTransition(_playerActionSM, idlingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
+        NormalTransition(_playerActionSM, idlingState, slidingState, new FuncPredicate(() => _playerTricks.IsSliding));
         #endregion
         
         #region Skating State
@@ -111,6 +113,7 @@ public class Player : MonoBehaviour
         NormalTransition(_playerActionSM, skatingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0f && !_playerMovement.IsGrounded()));
         NormalTransition(_playerActionSM, skatingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0f && !_playerMovement.IsGrounded()));
         NormalTransition(_playerActionSM, skatingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
+        NormalTransition(_playerActionSM, skatingState, slidingState, new FuncPredicate(() => _playerTricks.IsSliding));
         #endregion
         
         #region Rising State
@@ -145,7 +148,9 @@ public class Player : MonoBehaviour
         #endregion
 
         #region Sliding State
-        //set sliding state animations here
+        NormalTransition(_playerActionSM, slidingState, idlingState, new FuncPredicate(() => !_playerTricks.IsSliding && Mathf.Abs(_playerMovement.Rb.linearVelocityX) < 0f));
+        NormalTransition(_playerActionSM, slidingState, skatingState, new FuncPredicate(() => !_playerTricks.IsSliding && Mathf.Abs(_playerMovement.Rb.linearVelocityX) >0f));
+        NormalTransition(_playerActionSM, slidingState, risingState, new FuncPredicate(() => !_playerTricks.IsSliding && _playerMovement.Rb.linearVelocityY > 0f));
         #endregion
 
         #region Grinding State
