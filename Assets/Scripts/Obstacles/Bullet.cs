@@ -30,6 +30,8 @@ public class Bullet : MonoBehaviour
             _rankCalculator.DecreaseStylishPoints();
             player.Invulnerability.DamagePlayer();
         }
-        else if(!collision.gameObject.TryGetComponent<Bullet>(out _)) { Destroy(gameObject); }
+        
+        Destroy(gameObject);
+        //else if(!collision.gameObject.TryGetComponent<Bullet>(out _)) { Destroy(gameObject); }
     }
 }
