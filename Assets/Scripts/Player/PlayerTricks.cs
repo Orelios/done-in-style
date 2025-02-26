@@ -114,7 +114,8 @@ public class PlayerTricks : MonoBehaviour
         
         _player = GetComponent<Player>();
 
-
+        lastDashTime = Time.time - dashCooldown;
+        lastPoundTime = Time.time - poundCooldown; 
         #region Temp Trick Animation
 
         //_player = GetComponent<Player>();
@@ -124,6 +125,8 @@ public class PlayerTricks : MonoBehaviour
             spriteRenderer.color = startColor;
         }
         #endregion
+
+
     }
 
     public void Trick(InputAction.CallbackContext context)
