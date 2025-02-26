@@ -234,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
         Rb.AddForce(AppliedMovementSpeed * Vector2.right);
 
         //Friction
-        if (IsGrounded() || _lastGroundedTime > 0 && Mathf.Abs(_playerInputManager.HorizontalMovement) < 0.01f)
+        if (_lastGroundedTime > 0 && Mathf.Abs(_playerInputManager.HorizontalMovement) < 0.01f)
         {
             float amount = Mathf.Min(Mathf.Abs(Rb.linearVelocity.x), Mathf.Abs(frictionAmount));
 
