@@ -139,7 +139,7 @@ public class PlayerTricks : MonoBehaviour
             case "d":
                 if (context.performed) { GroundPound(); }
                 break;
-            case "f":
+            case "space":
                 if (context.performed) { TrickMove(); }
                 break;
             case "downArrow":
