@@ -43,7 +43,7 @@ public class Onomatopoeia : MonoBehaviour
                 image.sprite = Letters[i];
                 StartCoroutine(AnimateSize(children[i], image));
             }
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSecondsRealtime(typingSpeed);
         }
 
         yield return new WaitForSeconds(disableTime);
@@ -67,7 +67,7 @@ public class Onomatopoeia : MonoBehaviour
         while (elapsedTime < enlargeTime)
         {
             child.localScale = Vector3.Lerp(smallSize, originalSize, elapsedTime / enlargeTime);
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
         child.localScale = originalSize;
