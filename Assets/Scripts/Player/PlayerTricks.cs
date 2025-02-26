@@ -225,7 +225,7 @@ public class PlayerTricks : MonoBehaviour
         Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
         //Rb.linearVelocity = new(Rb.linearVelocityX / 2f, Rb.linearVelocityY / 2f); // Reset velocity
         StartCoroutine(PreserveMomentum());
-        //_isDashing = false;
+        _isDashing = false;
     }
 
     IEnumerator PreserveMomentum()
@@ -248,7 +248,9 @@ public class PlayerTricks : MonoBehaviour
 
             yield return null;
         }
-        _isDashing = false;
+        //_isDashing = false;
+        //spriteRenderer.color = trickColor;
+        //StartCoroutine(RevertColorAfterTime());
         //Debug.Log("Momentum ends");
     }
     #endregion
