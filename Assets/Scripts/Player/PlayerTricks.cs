@@ -34,6 +34,7 @@ public class PlayerTricks : MonoBehaviour
     private bool _isPounding = false;
     public bool IsPounding => _isPounding;
     [SerializeField] private float _groundPoundSpeed = 50f;
+    [SerializeField, Range(0.1f, 1f)] private float momentumRetainFactor; 
     public float poundCooldown = 1f;
     private float lastPoundTime;
     private VFXManager _vfx;
@@ -301,6 +302,7 @@ public class PlayerTricks : MonoBehaviour
 
     private IEnumerator GroundPoundCoroutine()
     {
+        var velocityX = Rb.linearVelocityX;
         _isPounding = true;
         _vfx.CallGroundPoundDiveVFX();
         //AddScoreAndRank();
@@ -323,6 +325,7 @@ public class PlayerTricks : MonoBehaviour
         // End GroundPound
         _vfx.CallGroundPoundLandVFX();
         Rb.gravityScale = _playerMovement.BaseGravity;
+        Rb.linearVelocity = new Vector2(velocityX * momentumRetainFactor, Rb.linearVelocityY);
         lastPoundTime = Time.time;
         _isPounding = false;
     }

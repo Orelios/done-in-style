@@ -4810,7 +4810,7 @@ Transform:
   m_GameObject: {fileID: 558358739}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.16, y: 1.3, z: -10}
+  m_LocalPosition: {x: 37.9, y: 1.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -17978,7 +17978,7 @@ Transform:
   m_GameObject: {fileID: 4992886128219656315}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 33.16, y: 1.3, z: 0}
+  m_LocalPosition: {x: 37.9, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18424,7 +18424,7 @@ Transform:
   m_GameObject: {fileID: 511968297436822432}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.16, y: 1.3, z: -10}
+  m_LocalPosition: {x: 37.9, y: 1.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -18772,6 +18772,7 @@ MonoBehaviour:
   dashCooldown: 1
   _dashMomentumDecay: {x: 0.345, y: 0.69}
   _groundPoundSpeed: 50
+  momentumRetainFactor: 0.5
   poundCooldown: 1
   fallingSpeed: 0
   slowFallTimer: 0
@@ -18858,9 +18859,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b02cd44879666948b0264910f657948, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hurtStateDuration: 0
-  invulnerabilityDuration: 5
-  knockBackStrength: 0
+  hurtStateDuration: 0.25
+  invulnerabilityDuration: 2
+  knockBackStrength: 10
   _flickerDuration: 0.1
 --- !u!114 &8877816160859945758
 MonoBehaviour:
