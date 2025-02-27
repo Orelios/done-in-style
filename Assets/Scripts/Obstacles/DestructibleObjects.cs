@@ -10,7 +10,7 @@ public class DestructibleObjects : MonoBehaviour
         #region Makes sure this Destructible Object is the one with a Canvas
         if (!transform.parent.TryGetComponent<OnomatopoeiaManager>(out _))
         {
-            Destroy(gameObject);
+            Destroy(gameObject);  
         }
         #endregion
         _type = transform.GetComponentInParent<OnomatopoeiaManager>().onomatopoeia.GetComponent<Onomatopoeia>();
@@ -25,6 +25,8 @@ public class DestructibleObjects : MonoBehaviour
             playerTricks.EnableTrickDestroyed();
             TimeHandler.SlowDownTime();
             _type.StartTypingVFX();
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.Slowmo, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.BreakObstacle, this.transform.position);
             Destroy(gameObject);
         }
     }
@@ -40,6 +42,8 @@ public class DestructibleObjects : MonoBehaviour
             TimeHandler.SlowDownTime();
             transform.GetChild(0).GetComponent<Collider2D>().enabled = false;
             _type.StartTypingVFX();
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.Slowmo, this.transform.position);
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.BreakObstacle, this.transform.position);
             Destroy(gameObject);
         }
     }

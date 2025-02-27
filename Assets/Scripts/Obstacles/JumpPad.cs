@@ -50,6 +50,8 @@ public class JumpPad : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.SpringBoard, this.transform.position);
+
         if (collision.gameObject.TryGetComponent<PlayerTricks>(out var playerTricks))
         {
             _playerTricks = playerTricks;
