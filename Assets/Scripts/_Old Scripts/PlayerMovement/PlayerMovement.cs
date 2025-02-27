@@ -3,7 +3,7 @@ using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using FMOD.Studio; 
 public class PlayerMovement : MonoBehaviour
 {
     #region Components
@@ -110,6 +110,10 @@ public class PlayerMovement : MonoBehaviour
     private Player _player;
     private Quaternion _originalRotation;
 
+    //Audio
+    private EventInstance _playerSkatingGround;
+    private EventInstance _playerSkatingAir; 
+
     #endregion
     
     #region Private Variables
@@ -138,7 +142,10 @@ public class PlayerMovement : MonoBehaviour
 
         // Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
         _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
-        
+
+        _playerSkatingGround = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkating);
+        _playerSkatingAir = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkatingAir);
+
     }
 
     //NEW JUMP STUFF
@@ -202,7 +209,6 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         RotatePlayer();
-        
         //Disables movement while dashing
 
         if (_playerTricks.IsDashing || _playerTricks.IsPounding) { return; }
@@ -210,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
         if (GetComponent<RampPlayer>().isRamping){return;}
 
         HorizontalMovement();
-
+        
         Jump();
         Gravity();
     }
@@ -251,6 +257,8 @@ public class PlayerMovement : MonoBehaviour
                 Flip();
                 break;
         }
+
+        playerMovementSound();
     }
     #endregion
 
@@ -275,6 +283,7 @@ public class PlayerMovement : MonoBehaviour
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpForce);
 
             _playerTricks.IsSliding = false;
+            
         }
         else if (!_playerInputManager.IsJumping)// Jump Cut (increase gravity when the jump button is released early)
         {
@@ -342,5 +351,48 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(GroundCheck.position, new(0.9f, 0.1f));
+    }
+
+    public void playJumpSound()
+    {
+        if (_playerInputManager.IsJumping)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerJump, this.transform.position);
+        } 
+    }
+
+    private void playerMovementSound()
+    {
+        if(Rb.linearVelocityX != 0 && IsGrounded())
+        {
+            PLAYBACK_STATE playbackState;
+            _playerSkatingGround.getPlaybackState(out playbackState);
+
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                _playerSkatingGround.start();
+            }
+
+        }
+        else if (Rb.linearVelocityX == 0 || !IsGrounded())
+        {
+            _playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
+        }
+
+        if (Rb.linearVelocityX != 0 && !IsGrounded())
+        {
+            PLAYBACK_STATE playbackState;
+            _playerSkatingAir.getPlaybackState(out playbackState);
+
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                _playerSkatingAir.start();
+            }
+
+        }
+        else if (Rb.linearVelocityX == 0 || IsGrounded())
+        {
+            _playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
+        }
     }
 }

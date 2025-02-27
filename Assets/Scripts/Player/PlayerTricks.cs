@@ -114,7 +114,8 @@ public class PlayerTricks : MonoBehaviour
         
         _player = GetComponent<Player>();
 
-
+        lastDashTime = Time.time - dashCooldown;
+        lastPoundTime = Time.time - poundCooldown; 
         #region Temp Trick Animation
 
         //_player = GetComponent<Player>();
@@ -124,6 +125,8 @@ public class PlayerTricks : MonoBehaviour
             spriteRenderer.color = startColor;
         }
         #endregion
+
+
     }
 
     public void Trick(InputAction.CallbackContext context)
@@ -197,6 +200,7 @@ public class PlayerTricks : MonoBehaviour
         if (Time.time >= lastDashTime + dashCooldown)
         {
             StartCoroutine(DashCoroutine());
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerDash, this.transform.position);
         }
     }
 
@@ -278,6 +282,8 @@ public class PlayerTricks : MonoBehaviour
             _lastInBetweenJumpTime = Time.time; 
 
             if(_jumps == 0) { _lastJumpTime = Time.time; }
+
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerJump, this.transform.position);
         }
         //Debug.Log("PogoStick");
     }
@@ -295,6 +301,7 @@ public class PlayerTricks : MonoBehaviour
     {
         if ((Time.time >= lastPoundTime + poundCooldown) && !_playerMovement.IsGrounded())
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerGroundPound, this.transform.position);
             StartCoroutine(GroundPoundCoroutine());
         }
         
@@ -391,6 +398,7 @@ public class PlayerTricks : MonoBehaviour
     #region TrickMove
     private void TrickMove()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
         if (_destroyedObject && canTrick && _playerMovement.IsGrounded() != true && spriteRenderer != null)
         {
             _destroyedObject = false;
