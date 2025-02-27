@@ -7,13 +7,13 @@ public class DestructibleObjects : MonoBehaviour
 
     private void Start()
     {
-        _type = transform.parent.GetComponentInChildren<Onomatopoeia>();
         #region Makes sure this Destructible Object is the one with a Canvas
-        if (_type == null)
+        if (!transform.parent.TryGetComponent<OnomatopoeiaManager>(out _))
         {
             Destroy(gameObject);
         }
         #endregion
+        _type = transform.GetComponentInParent<OnomatopoeiaManager>().onomatopoeia.GetComponent<Onomatopoeia>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
