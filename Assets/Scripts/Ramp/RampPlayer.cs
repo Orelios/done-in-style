@@ -6,6 +6,8 @@ public class RampPlayer : MonoBehaviour
     private GameObject rampLeft;    // Left point of the ramp (starting point in one direction)
     private GameObject rampRight;   // Right point of the ramp (starting point in the other direction)
 
+    private Vector2 startPosition, endPosition;
+
     private bool isOnRamp = false, wasRecentlyOnRamp = false, isGoingUpRamp = false, hasExitedRamp = true;
     public bool HasExitedRamp => hasExitedRamp;
 
@@ -64,6 +66,16 @@ public class RampPlayer : MonoBehaviour
         
         if ((other.CompareTag("RampLeft") || other.CompareTag("RampRight")) && !wasRecentlyOnRamp && !isRamping && hasExitedRamp)
         {
+            /*
+            if (other.transform.parent.TryGetComponent<Ramp>(out var varRamp))
+            {
+                ramp = varRamp;
+            }
+            if (other.transform.parent.TryGetComponent<RampRail>(out var varRampRail))
+            {
+                ramp = varRampRail;
+            }
+            */
             ramp = other.transform.parent.GetComponent<Ramp>();
             rampLeft = ramp.leftMarker;
             rampRight = ramp.rightMarker;
@@ -131,8 +143,19 @@ public class RampPlayer : MonoBehaviour
         isGoingUpRamp = false;
 
         // Define the start and end points based on direction
-        Vector2 startPosition = isMovingRight ? rampLeft.transform.position : rampRight.transform.position;
-        Vector2 endPosition = isMovingRight ? rampRight.transform.position : rampLeft.transform.position;
+        //Vector2 startPosition = isMovingRight ? rampLeft.transform.position : rampRight.transform.position;
+        //Vector2 endPosition = isMovingRight ? rampRight.transform.position : rampLeft.transform.position;
+
+        if (ramp.isRampRail)
+        {
+            startPosition = isMovingRight ? ramp.leftTarget.transform.position : ramp.rightTarget.transform.position;
+            endPosition = isMovingRight ? ramp.rightTarget.transform.position : ramp.leftTarget.transform.position;
+        }
+        else if (!ramp.isRampRail)
+        {
+            startPosition = isMovingRight ? rampLeft.transform.position : rampRight.transform.position;
+            endPosition = isMovingRight ? rampRight.transform.position : rampLeft.transform.position;
+        }
 
         // Calculate the full length of the ramp
         float journeyLength = Vector2.Distance(startPosition, endPosition);
