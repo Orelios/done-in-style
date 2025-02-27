@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e7f1071c2711b4fbc1cdffca988284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ColliderPoints: []
+  hasTricked: 0
 --- !u!251 &4499512352036260372
 PlatformEffector2D:
   m_ObjectHideFlags: 0
