@@ -111,8 +111,8 @@ public class PlayerMovement : MonoBehaviour
     private Quaternion _originalRotation;
 
     //Audio
-    private EventInstance _playerSkatingGround;
-    private EventInstance _playerSkatingAir; 
+    public EventInstance _playerSkatingGround;
+    public EventInstance _playerSkatingAir; 
 
     #endregion
     
@@ -371,12 +371,14 @@ public class PlayerMovement : MonoBehaviour
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
                 _playerSkatingGround.start();
+          
             }
 
         }
-        else if (Rb.linearVelocityX == 0 || !IsGrounded())
+        else if (Rb.linearVelocityX == 0 || !IsGrounded() || !_playerTricks.IsWallRiding)
         {
             _playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
+
         }
 
         if (Rb.linearVelocityX != 0 && !IsGrounded())
@@ -390,7 +392,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
         }
-        else if (Rb.linearVelocityX == 0 || IsGrounded())
+        else if (Rb.linearVelocityX == 0 || IsGrounded() || !_playerTricks.IsWallRiding)
         {
             _playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
         }

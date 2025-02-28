@@ -13961,6 +13961,13 @@ MonoBehaviour:
       Data3: -324574543
       Data4: -733374095
     Path: event:/PlayerEvents/PlayerLand
+  playerLandingWallRide:
+    Guid:
+      Data1: 1130388528
+      Data2: 1161464034
+      Data3: -5470572
+      Data4: 1250698317
+    Path: event:/PlayerEvents/PlayerHeavyLand
   playerStep:
     Guid:
       Data1: -1016770919
@@ -13982,6 +13989,13 @@ MonoBehaviour:
       Data3: 662046105
       Data4: 1199446961
     Path: event:/PlayerEvents/PlayerMovementAir
+  playerSkatingWallRide:
+    Guid:
+      Data1: -168516687
+      Data2: 1268149215
+      Data3: -826148983
+      Data4: 909587870
+    Path: event:/PlayerEvents/PlayerMovementWallRide
   playerRailGrinding:
     Guid:
       Data1: -565302153
@@ -13995,14 +14009,21 @@ MonoBehaviour:
       Data2: 1130331831
       Data3: 333183164
       Data4: 23236201
-    Path: event:/PlayerTrick
+    Path: event:/PlayerEvents/PlayerTrick
   playerGroundPound:
     Guid:
       Data1: -1938756838
       Data2: 1118048324
       Data3: 897285255
       Data4: -1784665945
-    Path: event:/PlayerGroundPound
+    Path: event:/PlayerEvents/PlayerGroundPound
+  playerHurt:
+    Guid:
+      Data1: -1600171346
+      Data2: 1135213457
+      Data3: -1515583317
+      Data4: -1393008088
+    Path: event:/PlayerEvents/PlayerHurt
   slowmo:
     Guid:
       Data1: -1028316372
@@ -14024,6 +14045,13 @@ MonoBehaviour:
       Data3: 189744294
       Data4: 760958186
     Path: event:/EnvironmentEvents/SpringboardJump
+  healthPickup:
+    Guid:
+      Data1: 1851662654
+      Data2: 1202354850
+      Data3: 221693571
+      Data4: 1773985672
+    Path: event:/EnvironmentEvents/HealthPickUp
 --- !u!1001 &1795072418
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17350,6 +17378,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: PlayerTricks, Assembly-CSharp
         m_MethodName: Trick
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7630835473645370153}
+        m_TargetAssemblyTypeName: PlayerTricks, Assembly-CSharp
+        m_MethodName: PlayWallRideLanding
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
