@@ -158,6 +158,7 @@ public class PlayerTricks : MonoBehaviour
                 }
                 else if (context.canceled) 
                 {
+                    _playerSkatingWallRide.stop(STOP_MODE.ALLOWFADEOUT);
                     if (!_playerMovement.IsGrounded()) { _isPressingDown = false; }
                     else if (_playerMovement.IsGrounded()) { _isSliding = false; Sliding(); }
                 }
@@ -357,13 +358,13 @@ public class PlayerTricks : MonoBehaviour
             _playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
             _playerMovement._playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
 
-            //PLAYBACK_STATE playbackState;
-            //_playerSkatingWallRide.getPlaybackState(out playbackState);
+            PLAYBACK_STATE playbackState;
+            _playerSkatingWallRide.getPlaybackState(out playbackState);
 
-            //if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-            //{
-            //    _playerSkatingWallRide.start();
-            //}
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                _playerSkatingWallRide.start();
+            }
 
             _playerMovement.Rb.gravityScale = wallRidingGravity;
 
