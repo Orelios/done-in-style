@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 
     private ScoreCalculator _scoreCalculator;
     private RankCalculator _rankCalculator;
+    [SerializeField] private float rps = 60;
 
     private void Awake()
     {
@@ -14,7 +15,12 @@ public class Bullet : MonoBehaviour
         _rankCalculator = FindFirstObjectByType<RankCalculator>();
     }
 
-    
+    private void Update()
+    {
+        transform.Rotate(0, 0, rps * Time.deltaTime); //rotates rps degrees per second around z axis
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         /*if (collision.gameObject.GetComponent<PlayerInvulnerability>() && !collision.gameObject.GetComponent<PlayerInvulnerability>().IsHit)
