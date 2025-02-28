@@ -16,18 +16,28 @@ public class TimeHandler : MonoBehaviour
     private static float _percentageForSmoothingToStart;
 
     private float _elapsedTime;
+    public float ElapsedTimeInLevel =>  _elapsedTime;
+
+    private bool _shouldTimerRun;
+    
     private void Awake()
     {
         Time.timeScale = _originalTimeScale;
         _slowDownFactor = slowDownFactor;
         _slowDownDuration = slowDownDuration;
+        
+        //Only for testing purposes
+        _shouldTimerRun = true;
     }
 
     private void FixedUpdate()
     {
-        _elapsedTime += Time.fixedDeltaTime;
+        if (_shouldTimerRun)
+        {
+            _elapsedTime += Time.fixedDeltaTime;
         
-        timerText.text = $"{Mathf.FloorToInt(_elapsedTime / 60f * Time.fixedDeltaTime)}:{Mathf.FloorToInt(_elapsedTime % 60f):D2}.{Mathf.FloorToInt(_elapsedTime * 100f % 100f):D2}";
+            timerText.text = $"{Mathf.FloorToInt(_elapsedTime / 60f * Time.fixedDeltaTime)}:{Mathf.FloorToInt(_elapsedTime % 60f):D2}.{Mathf.FloorToInt(_elapsedTime * 100f % 100f):D2}";
+        }
     }
 
     public static void SlowDownTime()
@@ -58,5 +68,15 @@ public class TimeHandler : MonoBehaviour
         
         Time.timeScale = _originalTimeScale;
         Time.fixedDeltaTime = 0.02f;
+    }
+
+    public void StartTimer()
+    {
+        _shouldTimerRun = true;
+    }
+    
+    public void EndTimer()
+    {
+        _shouldTimerRun = false;
     }
 }

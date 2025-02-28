@@ -18,6 +18,7 @@ public class RankCalculator : MonoBehaviour
     [SerializeField] private TextMeshProUGUI stylishRankText;
     [SerializeField] private TextMeshProUGUI  stylishPointsText;
     public int CurrentStylishPoints { get; private set; }
+    public int HighestStylishPoints { get; private set; }
 
     [Header(("Falloff Timer Configs"))]
     [SerializeField] private float pointsFalloffTime;
@@ -67,6 +68,10 @@ public class RankCalculator : MonoBehaviour
     {
         CurrentStylishPoints++;
         CurrentStylishPoints= Mathf.Clamp(CurrentStylishPoints, 0, maxStylishPoints);
+        if (CurrentStylishPoints >= HighestStylishPoints)
+        {
+            HighestStylishPoints = CurrentStylishPoints;
+        }
         //string is shown as the value of current stylish points and a new line with the text MAX with font size of 75 if current stylish points is max
         stylishPointsText.text = $"{CurrentStylishPoints}" + $"<size=75>{(CurrentStylishPoints == maxStylishPoints ? "\nMAX" : "")}</size>";
         _pointFalloffTimer = pointsFalloffTime;

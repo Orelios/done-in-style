@@ -20,14 +20,14 @@ public class ScoreCalculator : MonoBehaviour
     public void ResetScore()
     {
         _currentScore = 0;
-        scoreText.text = $"{_currentScore : 00000}";
+        scoreText.text = $"{_currentScore : 000000}";
     }
 
     //instantly adds score based on score value and rank multiplier, and updates score counter UI
     public void IncreaseScoreInstant(int scoreValueToAdd, float scoreMultiplier)
     {
         _currentScore += Mathf.RoundToInt(scoreValueToAdd * scoreMultiplier);
-        scoreText.text = $"{_currentScore : 00000}";
+        scoreText.text = $"{_currentScore : 000000}";
     }
 
     //instantly reduces score based on scare value and updates score counter UI
@@ -35,7 +35,7 @@ public class ScoreCalculator : MonoBehaviour
     {
         if(_currentScore != 0) {
             _currentScore -= scoreValueToRemove;
-            scoreText.text = $"{_currentScore: 00000}";
+            scoreText.text = $"{_currentScore: 000000}";
         }
     }
 
@@ -45,10 +45,21 @@ public class ScoreCalculator : MonoBehaviour
         for (int i = 0; i < maximumTime; i++)
         {
             _currentScore += Mathf.RoundToInt(scoreValueToAdd * scoreMultiplier);
-            scoreText.text = $"{_currentScore: 00000}";
+            scoreText.text = $"{_currentScore: 000000}";
             yield return new WaitForSeconds(1 / frequencyForAdding);
         }
     }
     
-    //TODO: make a dedicated function that updates score counter UI just in case it needs extra flair like animation/effects
+    public void AddExtraScoreBasedOnTime(float time)
+    {
+        _currentScore += time switch
+        {
+            < 3f * 60f => 10000,
+            < 3.5f * 60f => 8000,
+            < 4f * 60f => 6000,
+            < 4.5f * 60f => 4000,
+            < 5f * 60f => 2000,
+            _ => 0
+        };
+    }
 }
