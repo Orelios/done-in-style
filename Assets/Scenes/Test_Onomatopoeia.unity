@@ -7940,7 +7940,7 @@ MonoBehaviour:
   shootPoint: {fileID: 1287221789}
   bullet: {fileID: 128889013100235571, guid: d68d622b5102b22478ea5d8de569916d, type: 3}
   bulletSpeed: 50
-  bulletLifeSpan: 0
+  bulletLifeSpan: 3
   scoreCalculator: {fileID: 1399632911}
 --- !u!212 &979439966
 SpriteRenderer:
