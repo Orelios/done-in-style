@@ -56,14 +56,20 @@ public class RampPlayer : MonoBehaviour
     // When the player enters a ramp trigger (RampLeft or RampRight), determine the direction of movement
     void OnTriggerEnter2D(Collider2D other)
     {
-        
+
         /*
         if (other.gameObject.CompareTag("Player") && other.gameObject.GetComponent<PlayerGearSwapper>().CurrentGearEquipped.DaredevilGearType == EDaredevilGearType.Skateboard)
         {
             //ramp shenangaingis
         }
         */
-        
+
+        //Player landing sfx
+        if (_playerMovement.IsGrounded())
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerLanding, _playerMovement.transform.position);
+        }
+
         if ((other.CompareTag("RampLeft") || other.CompareTag("RampRight")) && !wasRecentlyOnRamp && !isRamping && hasExitedRamp)
         {
             /*
@@ -105,6 +111,9 @@ public class RampPlayer : MonoBehaviour
             //_vfx.CallJumpingVFX();
             _vfx.CallGroundPoundLandVFX();
         }
+
+       
+        
     }
 
     private void OnTriggerStay2D(Collider2D other)

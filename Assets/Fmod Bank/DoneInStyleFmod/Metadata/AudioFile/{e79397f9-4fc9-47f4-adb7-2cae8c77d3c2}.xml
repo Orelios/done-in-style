@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{e79397f9-4fc9-47f4-adb7-2cae8c77d3c2}">
+		<property name="assetPath">
+			<value>Player/Player_Move_Loop.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>25.103673469387754</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1528deb6-1a0a-458a-bbb8-c8601f7e97fc}</destination>
+		</relationship>
+	</object>
+</objects>

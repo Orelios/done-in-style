@@ -2,11 +2,14 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
+using FMOD.Studio;
 
 public class PlayerTricks : MonoBehaviour
 {
     private PlayerMovement _playerMovement;
     private PlayerInputManager _playerInputManager;
+
+    public EventInstance _playerSkatingWallRide;
 
     [Header("Components")]
     public Rigidbody2D Rb;
@@ -114,7 +117,10 @@ public class PlayerTricks : MonoBehaviour
         
         _player = GetComponent<Player>();
 
+        lastDashTime = Time.time - dashCooldown;
+        lastPoundTime = Time.time - poundCooldown;
 
+        _playerSkatingWallRide = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkatingWallRide);
         #region Temp Trick Animation
 
         //_player = GetComponent<Player>();
@@ -124,6 +130,8 @@ public class PlayerTricks : MonoBehaviour
             spriteRenderer.color = startColor;
         }
         #endregion
+
+
     }
 
     public void Trick(InputAction.CallbackContext context)
@@ -150,6 +158,7 @@ public class PlayerTricks : MonoBehaviour
                 }
                 else if (context.canceled) 
                 {
+                    _playerSkatingWallRide.stop(STOP_MODE.ALLOWFADEOUT);
                     if (!_playerMovement.IsGrounded()) { _isPressingDown = false; }
                     else if (_playerMovement.IsGrounded()) { _isSliding = false; Sliding(); }
                 }
@@ -197,6 +206,7 @@ public class PlayerTricks : MonoBehaviour
         if (Time.time >= lastDashTime + dashCooldown)
         {
             StartCoroutine(DashCoroutine());
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerDash, this.transform.position);
         }
     }
 
@@ -278,6 +288,8 @@ public class PlayerTricks : MonoBehaviour
             _lastInBetweenJumpTime = Time.time; 
 
             if(_jumps == 0) { _lastJumpTime = Time.time; }
+
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerJump, this.transform.position);
         }
         //Debug.Log("PogoStick");
     }
@@ -295,6 +307,7 @@ public class PlayerTricks : MonoBehaviour
     {
         if ((Time.time >= lastPoundTime + poundCooldown) && !_playerMovement.IsGrounded())
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerGroundPound, this.transform.position);
             StartCoroutine(GroundPoundCoroutine());
         }
         
@@ -341,6 +354,18 @@ public class PlayerTricks : MonoBehaviour
     {
         if (_isWallRiding && _isPressingDown) 
         {
+
+            _playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
+            _playerMovement._playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
+
+            PLAYBACK_STATE playbackState;
+            _playerSkatingWallRide.getPlaybackState(out playbackState);
+
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                _playerSkatingWallRide.start();
+            }
+
             _playerMovement.Rb.gravityScale = wallRidingGravity;
 
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x * _playerMovement.JumpHangAccelerationMult,
@@ -354,11 +379,17 @@ public class PlayerTricks : MonoBehaviour
         }
 
         if (!_isWallRiding) 
-        { 
+        {
+            Debug.Log("I should stop." + _playerSkatingWallRide.ToString());
+            _playerSkatingWallRide.stop(STOP_MODE.ALLOWFADEOUT);
             _playerMovement.Rb.gravityScale = _playerMovement.GravityScale;
-
             //if (!_wall.hasTricked) { EnableTrick(_wall.gameObject); }
         }
+    }
+
+    public void PlayWallRideLanding()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerLanding, this.transform.position);
     }
 
     public void GetWall(Wall wall)
@@ -405,21 +436,25 @@ public class PlayerTricks : MonoBehaviour
             canTrick = false;
             if (_trickObject.TryGetComponent<Ramp>(out var ramp))
             {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
                 ramp.hasTricked = true;
                 AddScoreAndRank();
             }
             else if (_trickObject.TryGetComponent<JumpPad>(out var jumpPad))
             {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
                 jumpPad.hasTricked = true;
                 AddScoreAndRank();
             }
             else if (_trickObject.TryGetComponent<Railing>(out var railing))
             {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
                 railing.hasTricked = true;
                 AddScoreAndRank();
             }
             else if (_trickObject.TryGetComponent<Wall>(out var wall))
             {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
                 wall.hasTricked = true;
                 AddScoreAndRank();
             }
