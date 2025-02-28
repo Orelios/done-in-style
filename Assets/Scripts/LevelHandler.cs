@@ -30,6 +30,7 @@ public class LevelHandler : MonoBehaviour
     
     public void EndLevel()
     {
+        //TODO: disable player control here
         _isLevelRunning = false;
         _isLevelFinished = true;
         _timeHandler.EndTimer();

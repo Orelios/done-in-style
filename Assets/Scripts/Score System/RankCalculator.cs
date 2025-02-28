@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using TMPro;
 using UnityEngine;
 
@@ -26,13 +25,7 @@ public class RankCalculator : MonoBehaviour
 
     private void Start()
     {
-        defaultStylishRank = stylishRanksList[0];
-        CurrentStylishRank = defaultStylishRank;
-        _currentStylishRankIndex = stylishRanksList.IndexOf(defaultStylishRank);
-        stylishRankText.text = $"{CurrentStylishRank.RankName}";
-        CurrentStylishPoints = 0;
-        stylishPointsText.text = $"{CurrentStylishPoints}";
-        _pointFalloffTimer = pointsFalloffTime;
+        ResetRankAndPoints();
     }
 
     private void Update()
@@ -43,6 +36,18 @@ public class RankCalculator : MonoBehaviour
         {
             DecreaseStylishPoints();
         }
+    }
+
+    //resets the necessary variables while updating the UI accordingly
+    public void ResetRankAndPoints()
+    {
+        defaultStylishRank = stylishRanksList[0];
+        CurrentStylishRank = defaultStylishRank;
+        _currentStylishRankIndex = stylishRanksList.IndexOf(defaultStylishRank);
+        stylishRankText.text = $"{CurrentStylishRank.RankName}";
+        CurrentStylishPoints = 0;
+        stylishPointsText.text = $"{CurrentStylishPoints}";
+        _pointFalloffTimer = pointsFalloffTime;
     }
 
     //increments rank, clamps rank value between the lowest and highest rank index, and updates rank UI

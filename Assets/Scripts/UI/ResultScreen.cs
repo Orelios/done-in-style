@@ -9,7 +9,7 @@ public class ResultScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI maxComboText;
     [SerializeField] private TextMeshProUGUI rankText;
 
-    public void ShowResultScreen(int finalScore, float timeElapsed, int maxStylishPoints)
+    public void ShowResultScreen(int finalScore, float timeElapsed, int highestStylishPoints)
     {
         //show the screen elements
         foreach (var element in screenElements)
@@ -17,9 +17,10 @@ public class ResultScreen : MonoBehaviour
             element.SetActive(true);
         }
         
-        scoreText.text = $"score {GetScoreText(finalScore)}";
-        timeText.text = $"time {GetTimeText(timeElapsed)}";
-        maxComboText.text = $"max combo {GetMaxComboText(maxStylishPoints)}";
+        //show player stats
+        scoreText.text = $"{GetScoreText(finalScore)}";
+        timeText.text = $"{GetTimeText(timeElapsed)}";
+        maxComboText.text = $"{GetMaxComboText(highestStylishPoints)}";
         rankText.text = $"RANK {GetRankText(finalScore)}";
     }
     
@@ -32,25 +33,19 @@ public class ResultScreen : MonoBehaviour
         }
     }
 
-    private string GetScoreText(int score)
-    {
-        return $"<b><size=80>{score:000000}</size></b>";
-    }
+    //get the score the player got when clearing the level
+    private string GetScoreText(int score) => $"{score:000000}";
     
-    private string GetTimeText(float timeElapsed)
-    {
-        return $"<b><size=80>{Mathf.FloorToInt(timeElapsed / 60):D2}:{Mathf.FloorToInt(timeElapsed % 60):D2}.{Mathf.FloorToInt(timeElapsed * 100 % 100):D2}</size></b>";
-    }
+    //get the time the player took in clearing the level
+    private string GetTimeText(float timeElapsed) => $"{Mathf.FloorToInt(timeElapsed / 60):D2}:{Mathf.FloorToInt(timeElapsed % 60):D2}.{Mathf.FloorToInt(timeElapsed * 100 % 100):D2}";
     
-    private string GetMaxComboText(int maxStylishPoints)
-    {
-        return $"<b><size=80>{maxStylishPoints}</size></b>";
-    }
+    //get the max combo based on the player's highest accumulated stylish points
+    private string GetMaxComboText(int maxStylishPoints) => $"{maxStylishPoints}";
     
     //get the final rank based on player's final score
     private string GetRankText(int score)
     {
-        //the rank letter is formatted to have a font size of 200 and is bold
+        //the text is formatted to have a font size of 200 and is bold
         return score switch
         {
             > 30000 => "<size=200><b>S</b></size>",
