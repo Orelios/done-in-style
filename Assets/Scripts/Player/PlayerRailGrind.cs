@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
-
+using FMOD.Studio; 
 public class PlayerRailGrind : MonoBehaviour
 {
     [Header("Components")]
@@ -30,11 +30,14 @@ public class PlayerRailGrind : MonoBehaviour
     private Coroutine _scoreRoutine;
     private Coroutine _rankRoutine;
 
+    //Audio
+    private EventInstance _playerRailGrinding; 
     private void Awake()
     {
         /*_rb = GetComponent<Rigidbody2D>();
         _playerSprite = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();*/
         _player = GetComponent<Player>();
+        _playerRailGrinding = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerRailGrinding);
     }
 
     private void FixedUpdate()
@@ -69,6 +72,14 @@ public class PlayerRailGrind : MonoBehaviour
         _railDirection = transform.rotation.y == 0 ? 1 : -1;
         _grindingSpeed = Mathf.Abs(_player.Rigidbody.linearVelocityX) * _railDirection * grindingSpeedMultiplier;
         
+        PLAYBACK_STATE playbackState;
+        _playerRailGrinding.getPlaybackState(out playbackState);
+
+        if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+        {
+            _playerRailGrinding.start();
+        }
+
         _player.Sprite.gameObject.transform.rotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, Mathf.Approximately(_railDirection, 1) ? railing.transform.localEulerAngles.z : -railing.transform.localEulerAngles.z);
         
         if (railing.CanGeneratePoints)
@@ -81,6 +92,7 @@ public class PlayerRailGrind : MonoBehaviour
     public void DisableRailGrinding()
     {
         IsOnRail = false;
+        _playerRailGrinding.stop(STOP_MODE.ALLOWFADEOUT);
         _grindingSpeed = 0f;
         _railDirection = transform.rotation.y == 0 ? 1 : -1;
         _player.Sprite.gameObject.transform.rotation = _rotationBeforeGrinding;
