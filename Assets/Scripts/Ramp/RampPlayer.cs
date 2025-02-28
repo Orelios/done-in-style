@@ -64,11 +64,7 @@ public class RampPlayer : MonoBehaviour
         }
         */
 
-        //Player landing sfx
-        if (_playerMovement.IsGrounded())
-        {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerLanding, _playerMovement.transform.position);
-        }
+        
 
         if ((other.CompareTag("RampLeft") || other.CompareTag("RampRight")) && !wasRecentlyOnRamp && !isRamping && hasExitedRamp)
         {
@@ -150,6 +146,12 @@ public class RampPlayer : MonoBehaviour
     IEnumerator IncreaseSpeedOnRamp()
     {
         isGoingUpRamp = false;
+
+        //Player landing sfx
+        if (_playerMovement.IsGrounded())
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerLanding, _playerMovement.transform.position);
+        }
 
         // Define the start and end points based on direction
         //Vector2 startPosition = isMovingRight ? rampLeft.transform.position : rampRight.transform.position;

@@ -427,6 +427,7 @@ public class PlayerTricks : MonoBehaviour
             _destroyedObject = false;
             spriteRenderer.color = trickColor;
             canTrick = false;
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
             AddScoreAndRank();
             StartCoroutine(RevertColorAfterTime());
         }
