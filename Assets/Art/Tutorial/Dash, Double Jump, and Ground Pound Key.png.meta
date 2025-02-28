@@ -184,7 +184,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Dash, Double Jump, and Ground Pound Key_0: 7514948682999282087
+      Dash, Double Jump, and Ground Pound Key_1: -5588185868660059723
+      Dash, Double Jump, and Ground Pound Key_2: 7798816148939848254
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

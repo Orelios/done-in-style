@@ -651,10 +651,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 82e20fc2ea830854e989524a2ad4ddf5, type: 3}
   - {fileID: 21300000, guid: ef25c867493dd49449f5771efe20d97b, type: 3}
   - {fileID: 21300000, guid: b61a9a532a67dfe4e8086c3b84158436, type: 3}
-  typingSpeed: 0.25
-  enlargeTime: 0.5
+  typingSpeed: 0.1
+  enlargeTime: 0.25
   smallScaleFactor: 0.5
-  disableTime: 3
+  disableTime: 1.5
 --- !u!1 &3037962267503346346
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,10 +833,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 39d17e7f70a83fc49b0d293217b7f8a3, type: 3}
   - {fileID: 21300000, guid: 87bc73534fd03a843b388c9da49df064, type: 3}
   - {fileID: 21300000, guid: 956b2506c01999d4faa6ed9c6ccb476e, type: 3}
-  typingSpeed: 0.25
-  enlargeTime: 0.5
+  typingSpeed: 0.1
+  enlargeTime: 0.25
   smallScaleFactor: 0.5
-  disableTime: 3
+  disableTime: 1.5
 --- !u!1 &4423840331871925074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,10 +1863,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e058f3ab409b3204890e71776f78b2ba, type: 3}
   - {fileID: 21300000, guid: 4e8e0eca6867f164d90903c933dd1382, type: 3}
   - {fileID: 21300000, guid: c550ac1490cd1a54ea620676951e7858, type: 3}
-  typingSpeed: 0.25
-  enlargeTime: 0.5
+  typingSpeed: 0.1
+  enlargeTime: 0.25
   smallScaleFactor: 0.5
-  disableTime: 3
+  disableTime: 1.5
 --- !u!1001 &946849527243652585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1878,6 +1878,10 @@ PrefabInstance:
     - target: {fileID: 1023503293085441, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: m_Name
       value: Destructible object
+      objectReference: {fileID: 0}
+    - target: {fileID: 1023503293085441, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8374161095482758642, guid: 4c46132f9f4bf3749a5b8e7acfb60074, type: 3}
       propertyPath: m_LocalPosition.x
