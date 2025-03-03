@@ -168,19 +168,6 @@ public class PlayerMovement : MonoBehaviour
         _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
     }*/
 
-    private void Update()
-    {
-        if (Rb.linearVelocityY < cameraHandler.YVelocityThreshold && !cameraHandler.IsPanningCoroutineActive)
-        {
-            cameraHandler.LerpCameraPanning(true);
-        }
-
-        if (Rb.linearVelocityY >= 0 && !cameraHandler.IsPanningCoroutineActive)
-        {
-            cameraHandler.LerpCameraPanning(false);
-        }
-    }
-
     private void RotatePlayer()
     {
             var contact = Physics2D.OverlapBox(GroundCheck.position, new(0.9f, 0.1f), 0f, GroundLayer);        
