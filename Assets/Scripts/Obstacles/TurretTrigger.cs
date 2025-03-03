@@ -4,7 +4,6 @@ using UnityEngine;
 public class TurretTrigger : MonoBehaviour
 {
     [SerializeField] private TurretVariant[] turretVariant;
-    [SerializeField] private float shootCooldown; 
     private bool _canShoot;
 
     private void Awake()
@@ -19,17 +18,8 @@ public class TurretTrigger : MonoBehaviour
             {
                 turretVariant[x].Shoot();
             }
-            StartCoroutine(ShootCooldown());
+            _canShoot = false; 
         }
        
-    }
-
-    private IEnumerator ShootCooldown()
-    {
-        _canShoot = false;
-
-        yield return new WaitForSeconds(shootCooldown);
-
-        _canShoot = true; 
     }
 }
