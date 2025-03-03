@@ -143,9 +143,15 @@ public class PlayerMovement : MonoBehaviour
         // Calculate jumpForce using the formula (initialJumpVelocity = gravity * timeToJumpApex)
         _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
 
+        /*_playerSkatingGround = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkating);
+        _playerSkatingAir = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkatingAir);*/
+
+    }
+
+    private void Start()
+    {
         _playerSkatingGround = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkating);
         _playerSkatingAir = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkatingAir);
-
     }
 
     //NEW JUMP STUFF

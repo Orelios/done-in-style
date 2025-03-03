@@ -1,0 +1,203 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3121468641527559223
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7362272696038685275}
+  - component: {fileID: 3818893168309686654}
+  m_Layer: 0
+  m_Name: FMOD events
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7362272696038685275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3121468641527559223}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2569493925922306671}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3818893168309686654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3121468641527559223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae835dcfb2ebc9148951ead49af19022, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerJump:
+    Guid:
+      Data1: 278411334
+      Data2: 1310301016
+      Data3: -149243463
+      Data4: 205591975
+    Path: event:/PlayerEvents/PlayerJump
+  playerDash:
+    Guid:
+      Data1: -346041977
+      Data2: 1122696709
+      Data3: -1177155918
+      Data4: -1919661391
+    Path: event:/PlayerEvents/PlayerDash
+  playerLanding:
+    Guid:
+      Data1: -1844085923
+      Data2: 1126495570
+      Data3: -324574543
+      Data4: -733374095
+    Path: event:/PlayerEvents/PlayerLand
+  playerLandingWallRide:
+    Guid:
+      Data1: 1130388528
+      Data2: 1161464034
+      Data3: -5470572
+      Data4: 1250698317
+    Path: event:/PlayerEvents/PlayerHeavyLand
+  playerStep:
+    Guid:
+      Data1: -1016770919
+      Data2: 1276193825
+      Data3: -1564496238
+      Data4: 841564962
+    Path: event:/PlayerEvents/PlayerStep
+  playerSkating:
+    Guid:
+      Data1: 669208362
+      Data2: 1230321783
+      Data3: 932368288
+      Data4: -1659290070
+    Path: event:/PlayerEvents/PlayerMovementGround
+  playerSkatingAir:
+    Guid:
+      Data1: 545633021
+      Data2: 1234095981
+      Data3: 662046105
+      Data4: 1199446961
+    Path: event:/PlayerEvents/PlayerMovementAir
+  playerSkatingWallRide:
+    Guid:
+      Data1: -168516687
+      Data2: 1268149215
+      Data3: -826148983
+      Data4: 909587870
+    Path: event:/PlayerEvents/PlayerMovementWallRide
+  playerRailGrinding:
+    Guid:
+      Data1: -565302153
+      Data2: 1137512719
+      Data3: 336901042
+      Data4: -242973926
+    Path: event:/PlayerEvents/PlayerMovementRail
+  playerTrick:
+    Guid:
+      Data1: 715019262
+      Data2: 1130331831
+      Data3: 333183164
+      Data4: 23236201
+    Path: event:/PlayerEvents/PlayerTrick
+  playerGroundPound:
+    Guid:
+      Data1: -1938756838
+      Data2: 1118048324
+      Data3: 897285255
+      Data4: -1784665945
+    Path: event:/PlayerEvents/PlayerGroundPound
+  playerHurt:
+    Guid:
+      Data1: -1600171346
+      Data2: 1135213457
+      Data3: -1515583317
+      Data4: -1393008088
+    Path: event:/PlayerEvents/PlayerHurt
+  slowmo:
+    Guid:
+      Data1: -1028316372
+      Data2: 1289159708
+      Data3: -567077446
+      Data4: -2099044134
+    Path: event:/PlayerEvents/PlayerSlowMo
+  breakObstacle:
+    Guid:
+      Data1: 1779250886
+      Data2: 1114003117
+      Data3: -1075018606
+      Data4: -645832166
+    Path: event:/EnvironmentEvents/WoodBreak
+  springBoard:
+    Guid:
+      Data1: 1878678389
+      Data2: 1147265553
+      Data3: 189744294
+      Data4: 760958186
+    Path: event:/EnvironmentEvents/SpringboardJump
+  healthPickup:
+    Guid:
+      Data1: 1851662654
+      Data2: 1202354850
+      Data3: 221693571
+      Data4: 1773985672
+    Path: event:/EnvironmentEvents/HealthPickUp
+--- !u!1 &9045434382394425780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2569493925922306671}
+  - component: {fileID: 6948669770924764111}
+  m_Layer: 0
+  m_Name: SFX Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2569493925922306671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045434382394425780}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 165.57257, y: -7.8948073, z: -0.06398548}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7362272696038685275}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6948669770924764111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9045434382394425780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838b360694a4a4d40a2ab9a9bb86c397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

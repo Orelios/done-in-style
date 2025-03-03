@@ -37,6 +37,11 @@ public class PlayerRailGrind : MonoBehaviour
         /*_rb = GetComponent<Rigidbody2D>();
         _playerSprite = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();*/
         _player = GetComponent<Player>();
+        /*_playerRailGrinding = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerRailGrinding);*/
+    }
+
+    private void Start()
+    {
         _playerRailGrinding = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerRailGrinding);
     }
 
