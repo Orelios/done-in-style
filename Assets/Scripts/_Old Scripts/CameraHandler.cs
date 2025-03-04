@@ -1,55 +1,52 @@
 using System;
 using System.Collections;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraHandler : MonoBehaviour
 {
     [Header("Components")]
-    [Tooltip("Attach here the Camera used to follow the Player; must be a Cinemachine Position Composer")]
-    [SerializeField] private CinemachinePositionComposer cameraFollowingPlayer;
-    [Tooltip("Attach here the PlayerMovement script from the Player")]
-    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private CinemachineCamera cameraFollowingPlayer;
+    [SerializeField] private Player player;
     
-    [Header("Camera Configs")]
-    [Tooltip("Insert here the Camera offset when the Player is currently grounded")]
-    [SerializeField] private Vector3 groundedCameraOffset;
-    [Tooltip("Insert here the Camera offset when the Player is currently falling")]
-    [SerializeField] private Vector3 fallingCameraOffset;
-    [Tooltip("Insert here how long the Camera pans in between the offset values")]
-    [SerializeField] private float offsetPanTime;
-    [Tooltip("Insert here the minimum Y Velocity before the camera starts to pan; set as negative to denote falling")]
-    [SerializeField]  private float yVelocityThreshold;
-    public float YVelocityThreshold {get => yVelocityThreshold;  set => yVelocityThreshold = value;}
+    [Header("Camera Zoom Configs")] 
+    [SerializeField] private float maxZoomIn;
+    [SerializeField] private float maxZoomOut;
+    [SerializeField] private float zoomOutSpeed;
+    [SerializeField] private float zoomInSpeed;
+    [SerializeField] private float idleTimeThreshold;
     
-    public bool IsPanningCoroutineActive { get; private set; }
+    private float _targetZoom;
+    private float _currentZoom;
+    private float _smoothing;
+    private float _idleTime;
+    private bool _isMoving;
 
-    public void LerpCameraPanning(bool isPlayerFalling)
+    private void OnEnable()
     {
-        StartCoroutine(LerpCameraPanningRoutine(isPlayerFalling));
+        _currentZoom = cameraFollowingPlayer.Lens.OrthographicSize;
     }
 
-    private IEnumerator LerpCameraPanningRoutine(bool isPlayerFalling)
+    private void Update()
     {
-        IsPanningCoroutineActive = true;
-
-        float startingYOffset = cameraFollowingPlayer.TargetOffset.y;
-        float endingYOffset = 0;
-
-        endingYOffset = isPlayerFalling ? fallingCameraOffset.y : groundedCameraOffset.y;
+        _isMoving = Mathf.Abs(player.Movement.Rb.linearVelocityX) > 0.1f;
+        _idleTime = _isMoving ? 0f : _idleTime += Time.deltaTime;
         
-        float elapsedTime = 0;
-        while (elapsedTime < offsetPanTime)
-        {
-            elapsedTime += Time.deltaTime;
-            
-            float panning = Mathf.Lerp(startingYOffset, endingYOffset, (elapsedTime / offsetPanTime));
-            cameraFollowingPlayer.TargetOffset = new Vector3(cameraFollowingPlayer.TargetOffset.x, panning, cameraFollowingPlayer.TargetOffset.z);
-            
-            yield return null;
-        }
-        
-        IsPanningCoroutineActive = false;
+        _currentZoom = _idleTime >= idleTimeThreshold ? ZoomIn() : ZoomOut(_isMoving);
+        cameraFollowingPlayer.Lens.OrthographicSize = _currentZoom;
+        /*_targetZoom = _isMoving ? maxZoomOut : baseZoom;
+        _currentZoom = Mathf.SmoothDamp(_currentZoom, _targetZoom, ref _smoothing, _isMoving ? zoomOutSpeed : zoomInSpeed);
+        cameraFollowingPlayer.Lens.OrthographicSize = _currentZoom;*/
+    }
+
+    private float ZoomIn()
+    {
+        return Mathf.SmoothDamp(_currentZoom, maxZoomIn, ref _smoothing, zoomInSpeed);
+    }
+    
+    private float ZoomOut(bool isMoving)
+    {
+        var targetZoom = isMoving ? maxZoomOut : _currentZoom;
+        return Mathf.SmoothDamp(_currentZoom, targetZoom, ref _smoothing, zoomOutSpeed);
     }
 }

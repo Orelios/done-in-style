@@ -38,19 +38,6 @@ public class New_PlayerMovement : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        if (_rb.linearVelocityY < cameraHandler.YVelocityThreshold && !cameraHandler.IsPanningCoroutineActive)
-        {
-            cameraHandler.LerpCameraPanning(true);
-        }
-
-        if (_rb.linearVelocityY >= 0 && !cameraHandler.IsPanningCoroutineActive)
-        {
-            cameraHandler.LerpCameraPanning(false);
-        }
-    }
-
     private void FixedUpdate()
     {
         //Disables movement while dashing
