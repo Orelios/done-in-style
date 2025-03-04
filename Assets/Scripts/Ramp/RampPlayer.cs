@@ -243,6 +243,10 @@ public class RampPlayer : MonoBehaviour
         {
             _playertricks.AddScoreAndRank();
             ramp.hasGivenScore = true;
+            if (ramp.graffiti != null)
+            {
+                ramp.graffiti.StartGraffiti();
+            }
         }
         if (ramp.hasTricked != true)
         {

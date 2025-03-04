@@ -374,7 +374,15 @@ public class PlayerTricks : MonoBehaviour
             Rb.linearVelocityX = Mathf.Clamp(Rb.linearVelocityX, -_playerMovement.AppliedMaxMovementSpeed * 2,
                 _playerMovement.AppliedMaxMovementSpeed *2);
 
-            if (!_wall._hasGivenScore) { AddScoreAndRank();  _wall._hasGivenScore = true;  }
+            if (!_wall._hasGivenScore)
+            {
+                AddScoreAndRank();
+                _wall._hasGivenScore = true;
+                if (_wall.graffiti != null)
+                {
+                    _wall.graffiti.StartGraffiti();
+                }
+            }
             DisableCanTrick();
         }
 
