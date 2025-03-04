@@ -48,7 +48,7 @@ public class Railing : MonoBehaviour
             _player = player;
             var contact = other.contacts[0];
 
-            if (contact.normal == Vector2.down && Mathf.Abs(_player.Rigidbody.linearVelocityX) >= _player.RailGrind.MinimumSpeedToGrind)
+            if (contact.normal == Vector2.down )
             {
                 Debug.Log("surface hit on top and can grind!");
                 _canRailGrind = true;
