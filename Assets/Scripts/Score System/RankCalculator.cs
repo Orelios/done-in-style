@@ -11,7 +11,8 @@ public class RankCalculator : MonoBehaviour
     [SerializeField] private List<StylishRankSO> stylishRanksList = new();
     [SerializeField] private StylishRankSO defaultStylishRank;
     public StylishRankSO CurrentStylishRank {get; private set;}
-    private int _currentStylishRankIndex;
+    [SerializeField] private int _currentStylishRankIndex;
+    public int CurrentStylishRankIndex => _currentStylishRankIndex;
 
     [Header("Stylish Points Configs")] 
     [SerializeField] private int maxStylishPoints;
