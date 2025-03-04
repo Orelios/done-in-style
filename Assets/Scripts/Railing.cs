@@ -15,6 +15,7 @@ public class Railing : MonoBehaviour
     //private Collider2D _railingTrigger;
     private Player _player;
     private PlayerTricks _playerTricks;
+    public Graffiti graffiti;
 
     private void Awake()
     {
@@ -88,6 +89,10 @@ public class Railing : MonoBehaviour
             {
                 player.RailGrind.DisableRailGrinding();
                 _canGeneratePoints = false;
+                if (graffiti != null)
+                {
+                    graffiti.StartGraffiti();
+                }
             }
             
             if (hasTricked != true && _canRailGrind)

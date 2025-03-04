@@ -8,6 +8,7 @@ public class JumpPad : MonoBehaviour
     [SerializeField] private float maxHeight;
     public bool hasTricked = false;
     private bool _hasGivenScore = false;
+    public Graffiti graffiti;
     //public bool isOnJumpPad = false;
     
     private PlayerTricks _playerTricks;
@@ -64,6 +65,10 @@ public class JumpPad : MonoBehaviour
         {
             collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
             _hasGivenScore = true;
+            if (graffiti != null)
+            {
+                graffiti.StartGraffiti();
+            }
         }
         if (!hasTricked)
         {

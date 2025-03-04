@@ -6,6 +6,7 @@ public class Ramp : MonoBehaviour
     public bool isRampRail = false;
     public bool hasTricked = false;
     public bool hasGivenScore = false;
+    public Graffiti graffiti;
     void Start()
     {
         
