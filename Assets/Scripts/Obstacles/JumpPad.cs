@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class JumpPad : MonoBehaviour
 {
-    [SerializeField] private float BounceHeight;
+    [SerializeField] private float bounceHeightX;
+    [SerializeField] private float bounceHeightY;
+    [SerializeField] private float maxHeight;
     public bool hasTricked = false;
     private bool _hasGivenScore = false;
     //public bool isOnJumpPad = false;
@@ -32,17 +34,13 @@ public class JumpPad : MonoBehaviour
         
 
         if (collision.gameObject.GetComponent<PlayerMovement>())
-        { 
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * BounceHeight, ForceMode2D.Impulse);
+        {
+            //collision.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * BounceHeight, ForceMode2D.Impulse);
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForceX(bounceHeightX, ForceMode2D.Impulse);
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForceY(bounceHeightY, ForceMode2D.Impulse);
 
-            collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity = 
-                Vector2.ClampMagnitude(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity, BounceHeight);
-            /*
-            if (collision.gameObject.GetComponent<PlayerTricks>().canTrick == false && !hasTricked)
-            {
-                collision.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
-            }
-            */
+            collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity =
+                Vector2.ClampMagnitude(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity, maxHeight);
             
         }
         //Debug.Log(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity.y);
