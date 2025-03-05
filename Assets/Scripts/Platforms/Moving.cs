@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-public class Moving : MonoBehaviour
+public class Moving : MonoBehaviour, ITriggerable
 {
     /*// Editable variables in Inspector
     [SerializeField] private Vector2 targetPos;  // Target position to move towards
@@ -118,6 +118,8 @@ public class Moving : MonoBehaviour
     [SerializeField] private float delayBeforeMoving;
     
     private int _currentPointIndex;
+    private float _nextMoveTime;
+    private bool _shouldMove;
     private bool _isMoving;
 
     private void Start()
@@ -130,27 +132,67 @@ public class Moving : MonoBehaviour
 
     private void Update()
     {
-        if (!_isMoving)
+        /*if (!_isMoving && _shouldMove)
         {
             StartCoroutine(MoveRoutine());
+        }*/
+
+        if (_shouldMove && !_isMoving)
+        {
+            StartMovement();
+        }
+
+        if (_isMoving)
+        {
+            Move();
         }
     }
 
-    private IEnumerator MoveRoutine()
+    /*private IEnumerator MoveRoutine()
     {
-        _isMoving = true;
-        var targetPosition = new Vector3(TravelPoints[_currentPointIndex].position.x, TravelPoints[_currentPointIndex].position.y, transform.position.z);
-
-        while (Vector3.Distance(objectToMove.transform.position, targetPosition) > 0.1f)
+        if (_shouldMove)
         {
-            objectToMove.transform.transform.position = Vector3.MoveTowards(objectToMove.transform.position, targetPosition, moveSpeed * Time.deltaTime);
-            yield return null;
+            _isMoving = true;
+            var targetPosition = new Vector3(TravelPoints[_currentPointIndex].position.x,
+                TravelPoints[_currentPointIndex].position.y, transform.position.z);
+
+            while (Vector3.Distance(objectToMove.transform.position, targetPosition) > 0.1f)
+            {
+                objectToMove.transform.transform.position = Vector3.MoveTowards(objectToMove.transform.position,
+                    targetPosition, moveSpeed * Time.deltaTime);
+                yield return null;
+            }
+
+            yield return new WaitForSeconds(delayBeforeMoving);
+
+            _currentPointIndex = (_currentPointIndex + 1) % TravelPoints.Count;
+            _isMoving = false;
         }
-        
-        yield return new WaitForSeconds(delayBeforeMoving);
-        
-        _currentPointIndex = (_currentPointIndex + 1) % TravelPoints.Count;
-        _isMoving = false;
+    }*/
+
+    private void StartMovement()
+    {
+        if (Time.time >= _nextMoveTime)
+        {
+            _isMoving = true;
+        }
+    }
+
+    private void Move()
+    {
+        if (_isMoving)
+        {
+            var targetPosition = new Vector3(TravelPoints[_currentPointIndex].position.x, TravelPoints[_currentPointIndex].position.y, objectToMove.transform.position.z);
+            
+            objectToMove.transform.position = Vector3.MoveTowards(objectToMove.transform.position, targetPosition, moveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(objectToMove.transform.position, targetPosition) <= 0.1f)
+            {
+                _currentPointIndex = (_currentPointIndex + 1) % TravelPoints.Count;
+                _nextMoveTime = Time.time + delayBeforeMoving;
+                _isMoving = false;
+            }
+        }
     }
 
     //Create a new travel point, set its position as the platform's, set it as a child of the platform, and include its Transform in the list of travel points 
@@ -166,6 +208,17 @@ public class Moving : MonoBehaviour
         };
         
         TravelPoints.Add(newTravelPoint.transform);
+    }
+
+    public void DoTrigger()
+    {
+        _shouldMove = true;
+    }
+
+    public void StopTrigger()
+    {
+        _shouldMove = false;
+        _isMoving = false;
     }
 }
 
