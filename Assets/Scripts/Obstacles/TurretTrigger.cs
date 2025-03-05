@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TurretTrigger : MonoBehaviour
@@ -20,6 +21,5 @@ public class TurretTrigger : MonoBehaviour
             }
             _canShoot = false; 
         }
-       
     }
 }

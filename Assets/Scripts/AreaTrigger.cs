@@ -16,17 +16,23 @@ public class AreaTrigger : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        foreach (var triggerable in _objectsToTrigger)
+        if (other.CompareTag("Player"))
         {
-            triggerable.DoTrigger();
+            foreach (var triggerable in _objectsToTrigger)
+            {
+                triggerable.DoTrigger();
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        foreach (var triggerable in _objectsToTrigger)
+        if (other.CompareTag("Player"))
         {
-            triggerable.StopTrigger();
+            foreach (var triggerable in _objectsToTrigger)
+            {
+                triggerable.StopTrigger();
+            }
         }
     }
 }

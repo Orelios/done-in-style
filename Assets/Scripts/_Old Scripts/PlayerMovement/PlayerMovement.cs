@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float Deceleration { get => deceleration; set => deceleration = value; }
     public float VelPower { get => velPower; set => velPower = value; }
     public float FrictionAmount { get => frictionAmount; set => frictionAmount = value; }
-    public float AppliedMovementSpeed { get; private set; }
+    public float AppliedMovementSpeed { get;  set; }
     public float AppliedAcceleration { get; private set; }
     public bool IsFacingRight = true;
     private Vector2 _velocity; 

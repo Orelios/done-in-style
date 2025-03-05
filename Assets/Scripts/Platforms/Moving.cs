@@ -124,10 +124,7 @@ public class Moving : MonoBehaviour, ITriggerable
 
     private void Start()
     {
-        if (TravelPoints.Count < 2)
-        {
-            Debug.LogError($"{name} requires at least 2 travel points.");
-        }
+        
     }
 
     private void Update()
