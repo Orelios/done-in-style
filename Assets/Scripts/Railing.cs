@@ -15,6 +15,7 @@ public class Railing : MonoBehaviour
     //private Collider2D _railingTrigger;
     private Player _player;
     private PlayerTricks _playerTricks;
+    public Graffiti graffiti;
 
     private void Awake()
     {

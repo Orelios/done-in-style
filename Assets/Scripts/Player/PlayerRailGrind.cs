@@ -91,6 +91,10 @@ public class PlayerRailGrind : MonoBehaviour
         {
             _scoreRoutine = StartCoroutine(scoreCalculator.IncreaseScoreContinuousRoutine(pointsPerSecond, rankCalculator.CurrentStylishRank.ScoreMultiplier, maxTimeForPoints));
             _rankRoutine = StartCoroutine(rankCalculator.IncreaseStylishPointsContinuousRoutine(maxTimeForPoints));
+            if (railing.graffiti != null)
+            {
+                railing.graffiti.StartGraffiti();
+            }
         }
     }
 

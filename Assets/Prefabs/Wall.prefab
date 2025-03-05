@@ -103,6 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasTricked: 0
   _hasGivenScore: 0
+  graffiti: {fileID: 0}
 --- !u!61 &3094349311857612665
 BoxCollider2D:
   m_ObjectHideFlags: 0

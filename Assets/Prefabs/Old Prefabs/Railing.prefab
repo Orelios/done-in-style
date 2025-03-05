@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasTricked: 0
+  graffiti: {fileID: 0}
 --- !u!251 &4499512352036260372
 PlatformEffector2D:
   m_ObjectHideFlags: 0

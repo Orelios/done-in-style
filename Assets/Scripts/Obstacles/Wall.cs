@@ -5,6 +5,7 @@ public class Wall : MonoBehaviour
 {
     public bool hasTricked = false;
     public bool _hasGivenScore = false;
+    public Graffiti graffiti;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.TryGetComponent<PlayerTricks>(out PlayerTricks playerTricks))
