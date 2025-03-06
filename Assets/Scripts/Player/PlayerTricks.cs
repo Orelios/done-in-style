@@ -145,7 +145,7 @@ public class PlayerTricks : MonoBehaviour
             case "upArrow":
                 if (context.performed) { DoubleJump(); }
                 break;
-            case "d":
+            case "s":
                 if (context.performed) { GroundPound(); }
                 break;
             case "space":
