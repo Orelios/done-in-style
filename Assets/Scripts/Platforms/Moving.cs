@@ -205,6 +205,8 @@ public class Moving : MonoBehaviour, ITriggerable
         };
         
         TravelPoints.Add(newTravelPoint.transform);
+        
+        EditorUtility.SetDirty(this);
     }
 
     public void DoTrigger()
