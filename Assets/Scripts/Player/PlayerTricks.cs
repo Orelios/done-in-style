@@ -136,12 +136,13 @@ public class PlayerTricks : MonoBehaviour
 
     public void Trick(InputAction.CallbackContext context)
     {
+        Debug.Log(context.control.name);
         switch (context.control.name)
         {
             case "a":
                 if (context.performed) { Dash(); }
                 break;
-            case "s":
+            case "upArrow":
                 if (context.performed) { DoubleJump(); }
                 break;
             case "d":
@@ -269,29 +270,23 @@ public class PlayerTricks : MonoBehaviour
     #region DoubleJump
     private void DoubleJump() 
     {
-        if (Time.time < _lastJumpTime + jumpCooldown) { return; }
-        else if(_jumps == 0) { _jumps = maxJumps; }
-
-        if (_jumps != 0)
+        if (!_playerMovement.IsGrounded())
         {
+            if (Time.time < _lastJumpTime + jumpCooldown) { return; }
+
             //AddScoreAndRank();
             StartCoroutine(DoubleJumpDestroy());
 
             _vfx.CallDoubleJumpVFX();
 
-            if (Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
-
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, doubleJumpPower);
 
-            _jumps--;
-
-            _lastInBetweenJumpTime = Time.time; 
-
-            if(_jumps == 0) { _lastJumpTime = Time.time; }
+            _lastJumpTime = Time.time;
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerJump, this.transform.position);
+            //Debug.Log("PogoStick");
         }
-        //Debug.Log("PogoStick");
+
     }
 
     private IEnumerator DoubleJumpDestroy()
