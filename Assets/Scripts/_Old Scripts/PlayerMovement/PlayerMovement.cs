@@ -290,6 +290,8 @@ public class PlayerMovement : MonoBehaviour
             //Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x * jumpHangAccelerationMult, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
         }
+
+        PlayJumpSound();
     }
     #endregion
 
@@ -346,9 +348,9 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireCube(GroundCheck.position, new(0.9f, 0.1f));
     }
 
-    public void playJumpSound()
+    public void PlayJumpSound()
     {
-        if (_playerInputManager.IsJumping)
+        if (_playerInputManager.IsJumping && IsGrounded())
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerJump, this.transform.position);
         } 
