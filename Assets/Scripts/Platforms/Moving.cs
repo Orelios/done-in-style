@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 public class Moving : MonoBehaviour, ITriggerable
@@ -206,7 +208,9 @@ public class Moving : MonoBehaviour, ITriggerable
         
         TravelPoints.Add(newTravelPoint.transform);
         
+        #if UNITY_EDITOR
         EditorUtility.SetDirty(this);
+        #endif
     }
 
     public void DoTrigger()
@@ -221,6 +225,7 @@ public class Moving : MonoBehaviour, ITriggerable
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(Moving))]
 public class MovingPlatformEditor : Editor
 {
@@ -257,3 +262,4 @@ public class MovingPlatformEditor : Editor
         }
     }
 }
+#endif  
