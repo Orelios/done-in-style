@@ -5,11 +5,14 @@ using UnityEngine;
 
 public class MoveToPoints : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 10f;
+    //[SerializeField] private float startSpeed = 10f;
     [SerializeField] private List<GameObject> movePoints = new List<GameObject>();
     private Vector2 targetPos;
     private PlayerMovement _playerMovement;
     private int index;
+    private float startSpeed, elapsedTime, moveSpeed;
+    [SerializeField] private float maxSpeed, accelerationDuration = 1f;
+    [SerializeField] private bool isMovingToTarget = false;
 
     private void Start()
     {
@@ -26,18 +29,27 @@ public class MoveToPoints : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             _playerMovement = other.gameObject.GetComponent<PlayerMovement>();
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            SetSpeed();
+            DetrmineTargetPoint();
+            StartCoroutine(MoveToTarget());
+            elapsedTime = 0;
         }
-        TargetNextPoint();
-        StartCoroutine(MoveToTarget());
     }
 
-    public void TargetNextPoint()
+    public void SetSpeed()
+    {
+        startSpeed = _playerMovement.Rb.linearVelocityX;
+        moveSpeed = startSpeed;
+        elapsedTime = 0;
+    }
+
+    public void DetrmineTargetPoint()
     {
         if (_playerMovement.IsFacingRight)
         {
@@ -53,7 +65,7 @@ public class MoveToPoints : MonoBehaviour
         }
         else if (!_playerMovement.IsFacingRight)
         {
-            for (int i = movePoints.Count-1; i >= 0; i--)
+            for (int i = movePoints.Count - 1; i >= 0; i--)
             {
                 if (movePoints[i].transform.position.x < _playerMovement.transform.position.x)
                 {
@@ -66,22 +78,84 @@ public class MoveToPoints : MonoBehaviour
 
     }
 
+    public void TargetNextPoint(int i)
+    {
+        if (!isMovingToTarget)
+        {
+            SetSpeed();
+        }
+
+        if (_playerMovement.IsFacingRight)
+        {
+            if (i >= movePoints.Count - 1)
+            {
+                //end of list, no next target
+                StopAllCoroutines();
+                isMovingToTarget = false;
+                _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+            }
+            else
+            {
+                StopAllCoroutines();
+                isMovingToTarget = false;
+                targetPos = movePoints[i + 1].transform.position;
+                StartCoroutine(MoveToTarget());
+            }
+        }
+        else if (!_playerMovement.IsFacingRight)
+        {
+            if (i <= 0)
+            {
+                //start of list, no next target
+                StopAllCoroutines();
+                isMovingToTarget = false;
+                _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+            }
+            else
+            {
+                StopAllCoroutines();
+                isMovingToTarget = false;
+                targetPos = movePoints[i - 1].transform.position;
+                StartCoroutine(MoveToTarget());
+            }
+        }
+
+    }
+
     private IEnumerator MoveToTarget()
     {
-        while ((Vector2)_playerMovement.transform.position != targetPos)
+        isMovingToTarget = true;
+        Vector2 currentTarget = targetPos;
+        while (_playerMovement.transform.position.x != currentTarget.x)
         {
-            _playerMovement.transform.position = Vector2.MoveTowards(_playerMovement.transform.position, targetPos, moveSpeed);
+            _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            _playerMovement.Rb.linearVelocityY = 0;
+
+            moveSpeed = Mathf.Lerp(startSpeed, maxSpeed, elapsedTime / accelerationDuration);
+            if (elapsedTime < accelerationDuration)
+            {
+                elapsedTime += Time.deltaTime;
+            }
+            else if (elapsedTime >= accelerationDuration)
+            {
+                elapsedTime = accelerationDuration;
+            }
+            
+            _playerMovement.transform.position = Vector2.MoveTowards(_playerMovement.transform.position, currentTarget, moveSpeed * Time.fixedDeltaTime);
             yield return null;
         }
+        isMovingToTarget = false;
+        /* not used because task of choosing next target is based on int parameter passed by MovePoint child
         if ((_playerMovement.IsFacingRight && index < movePoints.Count-1) || (!_playerMovement.IsFacingRight && index <= 0))
         {
-            TargetNextPoint();
+            //TargetNextPoint();
         }
         else
         {
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
             Debug.Log("end reached");
         }
+        */
     }
 
 }

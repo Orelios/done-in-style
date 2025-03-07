@@ -12,7 +12,8 @@ public class MovePoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GetComponentInParent<MoveToPoints>().TargetNextPoint();
+            GetComponentInParent<MoveToPoints>().TargetNextPoint(index);
+            //GetComponentInParent<MoveToPoints>().SetSpeed();
         }
     }
 }
