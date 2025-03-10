@@ -133,10 +133,9 @@ public class PlayerTricks : MonoBehaviour
 
 
     }
-
+    /*
     public void Trick(InputAction.CallbackContext context)
     {
-        Debug.Log(context.control.name);
         switch (context.control.name)
         {
             case "a":
@@ -169,7 +168,44 @@ public class PlayerTricks : MonoBehaviour
                 break;
         }
     }
+    */
+    #region Tricks
+    public void DashInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) { Dash(); }
+    }
 
+    public void DoubleJumpInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) { DoubleJump(); }
+    }
+    public void GroundPoundInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) { GroundPound(); }
+    }
+    public void TrickMoveInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) { TrickMove(); }
+    }
+    public void WallRideInput(InputAction.CallbackContext context)
+    {
+        if (context.performed){if (!_playerMovement.IsGrounded()) { _isPressingDown = true; }}
+
+        if (context.canceled)
+        {
+            _playerSkatingWallRide.stop(STOP_MODE.ALLOWFADEOUT);
+            if (!_playerMovement.IsGrounded()) { _isPressingDown = false; }
+        }
+    }
+    public void SlidingInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) {if (_playerMovement.IsGrounded() && !_player.RailGrind.IsOnRail) 
+            { _isSliding = true; Sliding(); }}
+
+        if (context.canceled){if (_playerMovement.IsGrounded()) 
+            { _isSliding = false; Sliding(); }}
+    }
+    #endregion
     #region Scoring
     public bool IsDoingTrick()
     {
