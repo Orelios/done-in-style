@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Ramp : MonoBehaviour
 {
-    public GameObject leftMarker, rightMarker, leftTarget, rightTarget;
+    public GameObject leftMarker, rightMarker, leftTarget, rightTarget, midLeft, midRight;
     public bool isRampRail = false;
     public bool hasTricked = false;
     public bool hasGivenScore = false;
