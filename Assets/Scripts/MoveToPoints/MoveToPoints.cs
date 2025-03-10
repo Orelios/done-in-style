@@ -13,6 +13,7 @@ public class MoveToPoints : MonoBehaviour
     private float startSpeed, elapsedTime, moveSpeed;
     [SerializeField] private float maxSpeed, accelerationDuration = 1f;
     [SerializeField] private bool isMovingToTarget = false;
+    //[SerializeField] private bool localIsFacingRight = true;
 
     private void Start()
     {
@@ -27,14 +28,33 @@ public class MoveToPoints : MonoBehaviour
             }
             i++;
         }
+        _playerMovement = GameObject.Find("/Player").GetComponent<PlayerMovement>();
+    }
+    
+    private void Update()
+    {
+        /*
+        if (isMovingToTarget)
+        {
+            if (localIsFacingRight != _playerMovement.IsFacingRight)
+            {
+                localIsFacingRight = _playerMovement.IsFacingRight;
+            }
+        }
+        */
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            StopAllCoroutines();
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && !isMovingToTarget)
         {
             _playerMovement = other.gameObject.GetComponent<PlayerMovement>();
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            //localIsFacingRight = _playerMovement.IsFacingRight;
             SetSpeed();
             DetrmineTargetPoint();
             StartCoroutine(MoveToTarget());
@@ -130,6 +150,7 @@ public class MoveToPoints : MonoBehaviour
         {
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
             _playerMovement.Rb.linearVelocityY = 0;
+            _playerMovement.Rb.linearVelocityX = 0;
 
             moveSpeed = Mathf.Lerp(startSpeed, maxSpeed, elapsedTime / accelerationDuration);
             if (elapsedTime < accelerationDuration)
