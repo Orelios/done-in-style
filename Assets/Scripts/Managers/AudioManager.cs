@@ -20,8 +20,8 @@ public class AudioManager : MonoBehaviour
         instance = this;
 
         MasterBus = RuntimeManager.GetBus("bus:/");
-        SFXBus = RuntimeManager.GetBus("bus:/Music");
-        BGMusicBus = RuntimeManager.GetBus("bus:/SFX");
+        SFXBus = RuntimeManager.GetBus("bus:/SFX");
+        BGMusicBus = RuntimeManager.GetBus("bus:/Music");
     }
 
     private void Update()

@@ -87,6 +87,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Sliding",
+                    "type": "Button",
+                    "id": "2cc08b5f-b4d2-439c-95cf-1068b03dd2fc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Settings",
                     "type": "Button",
                     "id": "c7d33504-d896-4b45-9ac6-e13a031cd843",
@@ -215,6 +224,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "WallRide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7d8b057e-e322-43f1-830e-9ebec18812e5",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Sliding",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
