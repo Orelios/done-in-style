@@ -9,14 +9,14 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private EndScreen endScreen; 
     [SerializeField] private TextMeshProUGUI playerHealthDisplay;
     private VFXManager _vfx;
-    private int _health;
-    public int Health { get => _health; set => _health = value; }
+    private int _currentHealth;
+    public int CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
     private PlayerMovement playerMovement;
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        _health = maxHealth;
-        playerHealthDisplay.text = $"Health: {_health: 0}";
+        _currentHealth = maxHealth;
+        playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         _vfx = GetComponentInChildren<VFXManager>();
     }
 
@@ -24,12 +24,12 @@ public class PlayerHealth : MonoBehaviour
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerHurt, this.transform.position);
         _vfx.CallHurtVFX();
-        if(_health != 0) 
+        if(_currentHealth != 0) 
         { 
-            _health -= 1;
-            playerHealthDisplay.text = $"Health: {_health: 0}";
+            _currentHealth -= 1;
+            playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         } 
-        if(_health <= 0) 
+        if(_currentHealth <= 0) 
         {
             playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
             playerMovement._playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
@@ -39,10 +39,10 @@ public class PlayerHealth : MonoBehaviour
     }
     public void IncreaseHealth() 
     { 
-        if (_health != 0) 
+        if (_currentHealth != 0) 
         { 
-            _health += 1;
-            playerHealthDisplay.text = $"Health: {_health: 0}";
+            _currentHealth += 1;
+            playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         } 
     }
 }
