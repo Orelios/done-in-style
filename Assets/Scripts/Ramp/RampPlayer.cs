@@ -11,12 +11,12 @@ public class RampPlayer : MonoBehaviour
     private bool isOnRamp = false, wasRecentlyOnRamp = false, isGoingUpRamp = false, hasExitedRamp = true;
     public bool HasExitedRamp => hasExitedRamp;
 
-    [HideInInspector] public bool isRamping = false;
+    [HideInInspector] public bool isRamping = false, isMidRamping = false;
     private bool isMovingRight = false;  // Indicates if the player is moving toward the right (RampRight)
 
     private float _rampCooldownTimer, _rampCooldownDuration = 1f;
 
-    [SerializeField] private float _rampMomentumGravity = .01f, _rampSpeedStartMultiplier = 2f, _rampSpeedEndMultiplier = 3f;
+    [SerializeField] private float _rampMomentumGravity = .01f, _rampSpeedStartMultiplier = 2f, _rampSpeedEndMultiplier = 3f, rampSpeedMidMultiplier = 1.5f;
 
     private Vector2 _rampLastVelocity;
 
@@ -24,7 +24,7 @@ public class RampPlayer : MonoBehaviour
     public bool IsColliding => _isColliding;
 
     float normSpeed;
-    float rampSpeed;    
+    float rampSpeed, midRampSpeed, targetSpeed;    
     private PlayerConfigsSO _playerConfigsSO;
     private PlayerMovement _playerMovement;
     private PlayerTricks _playertricks;
@@ -51,6 +51,8 @@ public class RampPlayer : MonoBehaviour
     {
         normSpeed = _playerMovement.BaseSpeed;
         rampSpeed = normSpeed * _rampSpeedEndMultiplier;
+        midRampSpeed = normSpeed * rampSpeedMidMultiplier;
+
     }
 
     // When the player enters a ramp trigger (RampLeft or RampRight), determine the direction of movement
@@ -92,6 +94,30 @@ public class RampPlayer : MonoBehaviour
             {
                 // Player is starting at RampRight, moving toward RampLeft
                 isMovingRight = false;
+            }
+            StartCoroutine(IncreaseSpeedOnRamp());
+        }
+
+        if (((other.CompareTag("MidLeft") && _playerMovement.IsFacingRight == false) ||
+                (other.CompareTag("MidRight") && _playerMovement.IsFacingRight)) &&
+                !isRamping)
+        {
+            
+            isMidRamping = true;
+            ramp = other.transform.parent.GetComponent<Ramp>();
+            rampLeft = ramp.leftMarker;
+            rampRight = ramp.rightMarker;
+
+            wasRecentlyOnRamp = true;
+            if (other.CompareTag("MidLeft"))
+            {
+                // Player is starting at MidLeft, moving toward RampLeft
+                isMovingRight = false;
+            }
+            else if (other.CompareTag("MidRight"))
+            {
+                // Player is starting at MidRight, moving toward RampRight
+                isMovingRight = true;
             }
             StartCoroutine(IncreaseSpeedOnRamp());
         }
@@ -157,14 +183,22 @@ public class RampPlayer : MonoBehaviour
         //Vector2 startPosition = isMovingRight ? rampLeft.transform.position : rampRight.transform.position;
         //Vector2 endPosition = isMovingRight ? rampRight.transform.position : rampLeft.transform.position;
 
-        if (ramp.isRampRail)
+        if (!isMidRamping)
         {
-            startPosition = isMovingRight ? ramp.leftTarget.transform.position : ramp.rightTarget.transform.position;
-            endPosition = isMovingRight ? ramp.rightTarget.transform.position : ramp.leftTarget.transform.position;
+            if (ramp.isRampRail)
+            {
+                startPosition = isMovingRight ? ramp.leftTarget.transform.position : ramp.rightTarget.transform.position;
+                endPosition = isMovingRight ? ramp.rightTarget.transform.position : ramp.leftTarget.transform.position;
+            }
+            else if (!ramp.isRampRail)
+            {
+                startPosition = isMovingRight ? rampLeft.transform.position : rampRight.transform.position;
+                endPosition = isMovingRight ? rampRight.transform.position : rampLeft.transform.position;
+            }
         }
-        else if (!ramp.isRampRail)
+        else if (isMidRamping)
         {
-            startPosition = isMovingRight ? rampLeft.transform.position : rampRight.transform.position;
+            startPosition = isMovingRight ? ramp.midRight.transform.position : ramp.midLeft.transform.position;
             endPosition = isMovingRight ? rampRight.transform.position : rampLeft.transform.position;
         }
 
@@ -203,7 +237,14 @@ public class RampPlayer : MonoBehaviour
             float progress = Mathf.InverseLerp(journeyLength, 0, distanceToTarget);
 
             // Calculate the desired speed based on how far along the ramp the player is
-            float targetSpeed = Mathf.Lerp((normSpeed * _rampSpeedStartMultiplier), rampSpeed, progress);
+            if (isMidRamping)
+            {
+                targetSpeed = Mathf.Lerp((normSpeed * _rampSpeedStartMultiplier), midRampSpeed, progress);
+            }
+            else if (!isMidRamping)
+            {
+                targetSpeed = Mathf.Lerp((normSpeed * _rampSpeedStartMultiplier), rampSpeed, progress);
+            }
 
             // Apply the calculated speed to the player's velocity (on the x and y axes of the ramp)
             Vector2 targetVelocity = new Vector2(targetSpeed * (isMovingRight ? 1 : -1), _playerMovement.Rb.linearVelocity.y);
@@ -219,7 +260,10 @@ public class RampPlayer : MonoBehaviour
                 rampLeft = null;
                 rampRight = null;
                 StartCoroutine(RampCooldownTimer());
-                StartCoroutine(RampPreserveMomentum());
+                if (!isMidRamping)
+                {
+                    StartCoroutine(RampPreserveMomentum());
+                }
                 break;
             }
             else if (!isMovingRight && Vector2.Distance(transform.position, rampLeft.transform.position) < 1f)
@@ -231,7 +275,10 @@ public class RampPlayer : MonoBehaviour
                 rampLeft = null;
                 rampRight = null;
                 StartCoroutine(RampCooldownTimer());
-                StartCoroutine(RampPreserveMomentum());
+                if (!isMidRamping)
+                {
+                    StartCoroutine(RampPreserveMomentum());
+                }
                 break;
             }
 
@@ -239,6 +286,7 @@ public class RampPlayer : MonoBehaviour
             yield return null;
         }
         isRamping = false;
+        isMidRamping = false;
         if (ramp.hasGivenScore == false)
         {
             _playertricks.AddScoreAndRank();
