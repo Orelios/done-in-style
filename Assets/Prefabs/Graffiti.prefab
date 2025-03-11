@@ -87,7 +87,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6438152376202181162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,8 +117,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 317bc28d094fea441b6c8e76a4988aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalImg: {fileID: 21300000, guid: eb9e6fe61720da94d99b5e68b94131f9, type: 3}
-  replacementImg: {fileID: 168319711240533016, guid: 59254078846e7814f9eaec6f1fb905d0, type: 3}
+  originalImgs:
+  - {fileID: 21300000, guid: 965e3fc4d4643e941a40decaaf763cef, type: 3}
+  - {fileID: 21300000, guid: a6b91da8eea8cd94ab74cc56e1c06c11, type: 3}
+  - {fileID: 21300000, guid: f1e0e5d1971ad5842a598dd53ca1a8ef, type: 3}
+  replacementImgs:
+  - {fileID: 21300000, guid: 33a003da37795d2498b8734119e1e5f0, type: 3}
+  - {fileID: 21300000, guid: 30294518aa3698448a855a9491fba559, type: 3}
   origObj: {fileID: 6257840972824555182}
   replacementObj: {fileID: 3928496436423247126}
   particle: {fileID: 3702526451929805820}
@@ -1435,8 +1440,8 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.72327036, g: 0, b: 0.03924759, a: 1}
-        key1: {r: 1, g: 0.043137256, b: 0, a: 1}
+        key0: {r: 0.7960785, g: 0.3137255, b: 0.28627452, a: 1}
+        key1: {r: 0.9607844, g: 0.7176471, b: 0.47058827, a: 1}
         key2: {r: 0.8235294, g: 0.8235294, b: 0.8156863, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
