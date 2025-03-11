@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Use_This_Patrick_6.unity
-    guid: 05298a2088880fe48b70444fc0570c17
+    path: Assets/Scenes/Prototype_Level_1.unity
+    guid: 9e10da4b933b2764580a3aedc2bbaa36
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
