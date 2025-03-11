@@ -11,6 +11,7 @@ public class Wall : MonoBehaviour
         if(collision.TryGetComponent<PlayerTricks>(out PlayerTricks playerTricks))
         {
             playerTricks.IsWallRiding = true;
+            playerTricks.CanDoubleJump();
             playerTricks.GetWall(this);
         }
     }
@@ -20,7 +21,7 @@ public class Wall : MonoBehaviour
         if (collision.TryGetComponent<PlayerTricks>(out PlayerTricks playerTricks))
         {
             playerTricks.IsWallRiding = false;
-            playerTricks.IsPressingDown = false; 
+            playerTricks._playerSkatingWallRide.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             if (!hasTricked) { playerTricks.EnableTrick(gameObject); }
             //playerTricks.NullWall();
         }
