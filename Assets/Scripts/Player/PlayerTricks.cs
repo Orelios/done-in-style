@@ -333,7 +333,10 @@ public class PlayerTricks : MonoBehaviour
         _isWallRiding = false; 
         yield return new WaitForSeconds(_canDetroyDuration);
         _canDestroy = false;
-        _isWallRiding = true;
+        if (_wall._canWallRide)
+        {
+            _isWallRiding = true;
+        }
     }
     #endregion
 
