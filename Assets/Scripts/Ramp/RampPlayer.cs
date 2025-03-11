@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RampPlayer : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class RampPlayer : MonoBehaviour
     private PlayerConfigsSO _playerConfigsSO;
     private PlayerMovement _playerMovement;
     private PlayerTricks _playertricks;
+    private PlayerInputManager _playerInputManager;
     //public bool hasTricked = false;
     [HideInInspector] public Ramp ramp;
     private VFXManager _vfx;
@@ -41,6 +43,7 @@ public class RampPlayer : MonoBehaviour
         //_playerConfigsSO = GetComponent<PlayerConfigsSO>();
         _playertricks = GetComponent<PlayerTricks>();
         _playerMovement = GetComponent<PlayerMovement>();
+        _playerInputManager = GetComponent<PlayerInputManager>();
         normSpeed = _playerMovement.BaseSpeed;
         rampSpeed = normSpeed * _rampSpeedEndMultiplier;
         _vfx = GetComponentInChildren<VFXManager>();
@@ -287,6 +290,16 @@ public class RampPlayer : MonoBehaviour
         }
         isRamping = false;
         isMidRamping = false;
+
+        switch (_playerMovement.IsFacingRight)
+        {
+            //Flips player sprite to the direction they are heading to 
+            case false when _playerInputManager.HorizontalMovement > 0f:
+            case true when _playerInputManager.HorizontalMovement < 0f:
+                _playerMovement.Flip();
+                break;
+        }
+
         if (ramp.hasGivenScore == false)
         {
             _playertricks.AddScoreAndRank();
