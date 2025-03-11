@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,6 +11,21 @@ public class PlayerInputManager : MonoBehaviour
 
     //Player Jump
     public bool IsJumping { get; private set; }
+
+    [SerializeField] private InputActionAsset playerControls;
+    
+    [SerializeField] private string gameplayActionMapName;
+    [SerializeField] private string userInterfaceActionMapName;
+    
+    private InputActionMap _gameplayActionMap;
+    private InputActionMap _userInterfaceActionMap;
+
+    private void Awake()
+    {
+        _gameplayActionMap = playerControls.FindActionMap(gameplayActionMapName);
+        _userInterfaceActionMap = playerControls.FindActionMap(userInterfaceActionMapName);
+    }
+
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.started) { IsJumping = true; }
@@ -22,5 +38,33 @@ public class PlayerInputManager : MonoBehaviour
         {
             //next dialogue line
         }
+    }
+
+    public void EnableGameplayControls(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            EnableGameplayControls();
+        }
+    }
+
+    public void EnableGameplayControls()
+    {
+        _gameplayActionMap.Enable();
+        _userInterfaceActionMap.Disable();
+    }
+
+    public void EnableUserInterfaceControls(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            EnableUserInterfaceControls();
+        }
+    }
+    
+    public void EnableUserInterfaceControls()
+    {
+        _gameplayActionMap.Disable();
+        _userInterfaceActionMap.Enable();
     }
 }
