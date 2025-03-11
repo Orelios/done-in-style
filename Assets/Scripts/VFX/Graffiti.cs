@@ -53,7 +53,7 @@ public class Graffiti : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
 
-            origColor.a = 1f - alpha;
+            //origColor.a = 1f - alpha;
             replaceColor.a = alpha;
 
             origImage.color = origColor;
