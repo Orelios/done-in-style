@@ -35,7 +35,7 @@ public class Onomatopoeia : MonoBehaviour
             children[i].GetComponent<Image>().color = imageColor;
         }
 
-        for (int i = 0; i < children.Length && i < Letters.Count; i++)
+        for (int i = 0; i < children.Length; i++)
         {
             Image image = children[i].GetComponent<Image>();
             if (image != null)
