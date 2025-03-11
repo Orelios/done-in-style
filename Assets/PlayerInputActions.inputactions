@@ -78,15 +78,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "WallRide",
-                    "type": "Button",
-                    "id": "1aabb87a-da9f-4bab-bdcd-785ba7ed5dac",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Sliding",
                     "type": "Button",
                     "id": "2cc08b5f-b4d2-439c-95cf-1068b03dd2fc",
@@ -208,22 +199,11 @@
                 {
                     "name": "",
                     "id": "aa36ed00-6b6c-49e2-9709-5941819d9437",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GroundPound",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "aa7fc060-29fa-4921-a4eb-d17fefabbd3d",
                     "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "WallRide",
+                    "action": "GroundPound",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
