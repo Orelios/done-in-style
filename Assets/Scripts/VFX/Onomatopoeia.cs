@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class Onomatopoeia : MonoBehaviour
 {
     [SerializeField] private List<Sprite> Letters = new List<Sprite>();
-    [SerializeField] private float typingSpeed = 0.25f;
-    [SerializeField] private float enlargeTime = 0.5f;
+    [SerializeField] private float typingSpeed = 0.1f;
+    [SerializeField] private float enlargeTime = 0.25f, enlargeBGTime = 0.75f;
     [SerializeField] private float smallScaleFactor = 0.5f;
-    [SerializeField] private float disableTime = 3.0f;
+    [SerializeField] private float disableTime = 1.5f;
     
     private void Start()
     {
@@ -41,7 +41,14 @@ public class Onomatopoeia : MonoBehaviour
             if (image != null)
             {
                 image.sprite = Letters[i];
-                StartCoroutine(AnimateSize(children[i], image));
+                if (i == 0)
+                {
+                    StartCoroutine(AnimateBG(children[i], image));
+                }
+                else
+                {
+                    StartCoroutine(AnimateSize(children[i], image));
+                }
             }
             yield return new WaitForSecondsRealtime(typingSpeed);
         }
@@ -67,6 +74,25 @@ public class Onomatopoeia : MonoBehaviour
         while (elapsedTime < enlargeTime)
         {
             child.localScale = Vector3.Lerp(smallSize, originalSize, elapsedTime / enlargeTime);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        child.localScale = originalSize;
+    }
+    private IEnumerator AnimateBG(Transform child, Image image)
+    {
+        Vector3 originalSize = child.localScale;
+        Vector3 smallSize = originalSize * smallScaleFactor;
+        float elapsedTime = 0f;
+
+        Color imageColor = image.color;
+        imageColor.a = 1f;
+        image.color = imageColor;
+
+        child.localScale = smallSize;
+        while (elapsedTime < enlargeBGTime)
+        {
+            child.localScale = Vector3.Lerp(smallSize, originalSize, elapsedTime / enlargeBGTime);
             elapsedTime += Time.unscaledDeltaTime;
             yield return null;
         }
