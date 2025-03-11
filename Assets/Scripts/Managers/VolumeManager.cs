@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class VolumeSlider : MonoBehaviour
         volumeSlider = GetComponent<Slider>();
     }
 
-    private void Update()
+    private void OnEnable()
     {
         switch (volumeType)
         {
@@ -41,6 +42,25 @@ public class VolumeSlider : MonoBehaviour
                 break;
         }
     }
+
+    /*private void Update()
+    {
+        switch (volumeType)
+        {
+            case VolumeType.MASTER:
+                volumeSlider.value = AudioManager.instance.MasterVolume;
+                break;
+            case VolumeType.MUSIC:
+                volumeSlider.value = AudioManager.instance.BGMusicVolume;
+                break;
+            case VolumeType.SFX:
+                volumeSlider.value = AudioManager.instance.SFXVolume;
+                break;
+            default:
+                Debug.LogWarning("Volume Type not supported: " + volumeType);
+                break;
+        }
+    }*/
 
     public void OnSliderValueChanged()
     {
