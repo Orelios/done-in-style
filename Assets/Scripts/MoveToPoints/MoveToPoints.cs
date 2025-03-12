@@ -54,6 +54,7 @@ public class MoveToPoints : MonoBehaviour
         {
             _playerMovement = other.gameObject.GetComponent<PlayerMovement>();
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
             //localIsFacingRight = _playerMovement.IsFacingRight;
             SetSpeed();
             DetrmineTargetPoint();
@@ -78,6 +79,7 @@ public class MoveToPoints : MonoBehaviour
                 if (movePoints[i].transform.position.x > _playerMovement.transform.position.x)
                 {
                     targetPos = movePoints[i].transform.position;
+                    Debug.Log(movePoints[i].gameObject.name);
                     index = i;
                     break;
                 }
@@ -90,6 +92,7 @@ public class MoveToPoints : MonoBehaviour
                 if (movePoints[i].transform.position.x < _playerMovement.transform.position.x)
                 {
                     targetPos = movePoints[i].transform.position;
+                    Debug.Log(movePoints[i].gameObject.name + " reversed");
                     index = i;
                     break;
                 }
@@ -100,6 +103,7 @@ public class MoveToPoints : MonoBehaviour
 
     public void TargetNextPoint(int i)
     {
+        _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         if (!isMovingToTarget)
         {
             SetSpeed();
@@ -113,12 +117,15 @@ public class MoveToPoints : MonoBehaviour
                 StopAllCoroutines();
                 isMovingToTarget = false;
                 _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+                _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                Debug.Log(" end");
             }
             else
             {
                 StopAllCoroutines();
                 isMovingToTarget = false;
                 targetPos = movePoints[i + 1].transform.position;
+                Debug.Log(movePoints[i].gameObject.name);
                 StartCoroutine(MoveToTarget());
             }
         }
@@ -130,12 +137,15 @@ public class MoveToPoints : MonoBehaviour
                 StopAllCoroutines();
                 isMovingToTarget = false;
                 _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+                _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                Debug.Log(" end");
             }
             else
             {
                 StopAllCoroutines();
                 isMovingToTarget = false;
                 targetPos = movePoints[i - 1].transform.position;
+                Debug.Log(movePoints[i].gameObject.name + " reversed");
                 StartCoroutine(MoveToTarget());
             }
         }
@@ -177,6 +187,32 @@ public class MoveToPoints : MonoBehaviour
             Debug.Log("end reached");
         }
         */
+    }
+    
+    private Coroutine movementCoroutine;
+    
+    public void MoveToTarget(Vector2 target)
+    {
+        StopTargetedMovement();
+        movementCoroutine = StartCoroutine(MoveToTargetCoroutine(target));
+    }
+
+    public void StopTargetedMovement()
+    {
+        if (movementCoroutine != null)
+        {
+            StopCoroutine(movementCoroutine);
+            movementCoroutine = null;
+        }
+    }
+
+    IEnumerator MoveToTargetCoroutine(Vector2 target)
+    {
+        // do your logic here
+
+        // at the end of the coroutine:
+        movementCoroutine = null;
+        yield return null;
     }
 
 }
