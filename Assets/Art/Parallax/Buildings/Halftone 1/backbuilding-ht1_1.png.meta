@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 786cb6181e50fb246bc0b3acad7946fd
+guid: be7b6d01efb591243b2c83e39912f079
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6997157849988108206
-    second: buildings_3_0
+      213: -7190230721724272183
+    second: backbuilding-ht1_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,17 +96,43 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: buildings_3_0
+      name: backbuilding-ht1_1_0
       rect:
         serializedVersion: 2
-        x: 2597
-        y: 2079
-        width: 600
-        height: 1466
+        x: 138
+        y: 2074
+        width: 2058
+        height: 580
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eaf80e5fdf5ea1160800000000000000
-      internalID: 6997157849988108206
+      spriteID: 9c1368a014b273c90800000000000000
+      internalID: -7190230721724272183
       vertices: []
       indices: 
       edges: []
@@ -125,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      buildings_3_0: 6997157849988108206
+      backbuilding-ht1_1_0: -7190230721724272183
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
