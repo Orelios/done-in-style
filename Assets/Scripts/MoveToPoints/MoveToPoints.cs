@@ -57,8 +57,8 @@ public class MoveToPoints : MonoBehaviour
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
             //localIsFacingRight = _playerMovement.IsFacingRight;
             SetSpeed();
-            DetrmineTargetPoint();
-            StartCoroutine(MoveToTarget());
+            DetrmineTargetPoint(); // also starts movementCoroutine
+            //StartCoroutine(MoveToTarget());
             elapsedTime = 0;
         }
     }
@@ -79,8 +79,9 @@ public class MoveToPoints : MonoBehaviour
                 if (movePoints[i].transform.position.x > _playerMovement.transform.position.x)
                 {
                     targetPos = movePoints[i].transform.position;
-                    Debug.Log(movePoints[i].gameObject.name);
+                    Debug.Log("Initial Target: " + movePoints[i].gameObject.name);
                     index = i;
+                    MoveToTarget(targetPos);
                     break;
                 }
             }
@@ -92,8 +93,9 @@ public class MoveToPoints : MonoBehaviour
                 if (movePoints[i].transform.position.x < _playerMovement.transform.position.x)
                 {
                     targetPos = movePoints[i].transform.position;
-                    Debug.Log(movePoints[i].gameObject.name + " reversed");
+                    Debug.Log("Initial Target: " + movePoints[i].gameObject.name + " reversed");
                     index = i;
+                    MoveToTarget(targetPos);
                     break;
                 }
             }
@@ -114,19 +116,22 @@ public class MoveToPoints : MonoBehaviour
             if (i >= movePoints.Count - 1)
             {
                 //end of list, no next target
-                StopAllCoroutines();
-                isMovingToTarget = false;
+                //StopAllCoroutines();
+                StopTargetedMovement();
+                //isMovingToTarget = false;
                 _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
                 _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
                 Debug.Log(" end");
             }
             else
             {
-                StopAllCoroutines();
-                isMovingToTarget = false;
+                //StopAllCoroutines();
+                StopTargetedMovement();
+                //isMovingToTarget = false;
                 targetPos = movePoints[i + 1].transform.position;
-                Debug.Log(movePoints[i].gameObject.name);
-                StartCoroutine(MoveToTarget());
+                Debug.Log(movePoints[i + 1].gameObject.name);
+                //StartCoroutine(MoveToTarget());
+                MoveToTarget(targetPos);
             }
         }
         else if (!_playerMovement.IsFacingRight)
@@ -134,24 +139,28 @@ public class MoveToPoints : MonoBehaviour
             if (i <= 0)
             {
                 //start of list, no next target
-                StopAllCoroutines();
-                isMovingToTarget = false;
+                //StopAllCoroutines();
+                StopTargetedMovement();
+                //isMovingToTarget = false;
                 _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
                 _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                Debug.Log(" end");
+                Debug.Log(" reversed end");
             }
             else
             {
-                StopAllCoroutines();
-                isMovingToTarget = false;
+                //StopAllCoroutines();
+                StopTargetedMovement();
+                //isMovingToTarget = false;
                 targetPos = movePoints[i - 1].transform.position;
-                Debug.Log(movePoints[i].gameObject.name + " reversed");
-                StartCoroutine(MoveToTarget());
+                Debug.Log(movePoints[i - 1].gameObject.name + " reversed");
+                //StartCoroutine(MoveToTarget());
+                MoveToTarget(targetPos);
             }
         }
 
     }
 
+    /*
     private IEnumerator MoveToTarget()
     {
         isMovingToTarget = true;
@@ -176,7 +185,7 @@ public class MoveToPoints : MonoBehaviour
             yield return null;
         }
         isMovingToTarget = false;
-        /* not used because task of choosing next target is based on int parameter passed by MovePoint child
+         not used because task of choosing next target is based on int parameter passed by MovePoint child
         if ((_playerMovement.IsFacingRight && index < movePoints.Count-1) || (!_playerMovement.IsFacingRight && index <= 0))
         {
             //TargetNextPoint();
@@ -186,9 +195,10 @@ public class MoveToPoints : MonoBehaviour
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
             Debug.Log("end reached");
         }
-        */
+        
     }
-    
+    */
+
     private Coroutine movementCoroutine;
     
     public void MoveToTarget(Vector2 target)
@@ -203,12 +213,34 @@ public class MoveToPoints : MonoBehaviour
         {
             StopCoroutine(movementCoroutine);
             movementCoroutine = null;
+            isMovingToTarget = false;
         }
     }
 
     IEnumerator MoveToTargetCoroutine(Vector2 target)
     {
         // do your logic here
+        isMovingToTarget = true;
+        while (_playerMovement.transform.position.x != targetPos.x)
+        {
+            _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
+            _playerMovement.Rb.linearVelocityY = 0;
+            _playerMovement.Rb.linearVelocityX = 0;
+
+            moveSpeed = Mathf.Lerp(startSpeed, maxSpeed, elapsedTime / accelerationDuration);
+            if (elapsedTime < accelerationDuration)
+            {
+                elapsedTime += Time.deltaTime;
+            }
+            else if (elapsedTime >= accelerationDuration)
+            {
+                elapsedTime = accelerationDuration;
+            }
+
+            _playerMovement.transform.position = Vector2.MoveTowards(_playerMovement.transform.position, targetPos, moveSpeed * Time.fixedDeltaTime);
+            yield return null;
+        }
+        isMovingToTarget = false;
 
         // at the end of the coroutine:
         movementCoroutine = null;
