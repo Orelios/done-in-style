@@ -55,18 +55,30 @@ public class MoveToPoints : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player") && !_playerMovement.isMovingToTargetPoint)
         {
             _playerMovement = other.gameObject.GetComponent<PlayerMovement>();
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
             MakeKinematic();
+            Debug.Log("Kinematic due to OnTriggerStay");
             //localIsFacingRight = _playerMovement.IsFacingRight;
             SetSpeed();
             DetrmineTargetPoint(); // also starts movementCoroutine
             //StartCoroutine(MoveToTarget());
             elapsedTime = 0;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player") && !_playerMovement.isMovingToTargetPoint)
+        {
+            StopTargetedMovement();
+            _playerMovement.isMovingToTargetPoint = false;
+            MakeDynamic();
+            _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
     }
 
@@ -116,7 +128,7 @@ public class MoveToPoints : MonoBehaviour
 
     public void TargetNextPoint(int i)
     {
-        MakeKinematic();
+        //MakeKinematic();
         if (!_playerMovement.isMovingToTargetPoint) //happens only when colliding with points instead of edge collider (first time only)
         {
             SetSpeed();
@@ -131,7 +143,11 @@ public class MoveToPoints : MonoBehaviour
                 _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
                 MakeDynamic();
                 StartMomentum();
-                //Debug.Log(" end");
+                if (_playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic)
+                {
+                    MakeDynamic();
+                }
+                Debug.Log(" end");
             }
             else
             {
@@ -139,7 +155,7 @@ public class MoveToPoints : MonoBehaviour
                 ZeroPlayerPhysics();
 
                 targetPos = movePoints[i + 1].transform.position;
-                //Debug.Log(movePoints[i + 1].gameObject.name);
+                Debug.Log(movePoints[i + 1].gameObject.name);
                 MoveToTarget(targetPos);
             }
         }
@@ -152,14 +168,18 @@ public class MoveToPoints : MonoBehaviour
                 _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
                 MakeDynamic();
                 StartMomentum();
-                //Debug.Log(" reversed end");
+                if (_playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic)
+                {
+                    MakeDynamic();
+                }
+                Debug.Log(" reversed end");
             }
             else
             {
                 StopTargetedMovement();
                 ZeroPlayerPhysics();
                 targetPos = movePoints[i - 1].transform.position;
-                //Debug.Log(movePoints[i - 1].gameObject.name + " reversed");
+                Debug.Log(movePoints[i - 1].gameObject.name + " reversed");
                 MoveToTarget(targetPos);
             }
         }
@@ -182,14 +202,20 @@ public class MoveToPoints : MonoBehaviour
 
     public void MakeKinematic()
     {
-        _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        //Debug.Log("Kinematic");
+        if (_playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Dynamic)
+        {
+            _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            Debug.Log("Kinematic");
+        }
     }
 
     public void MakeDynamic()
     {
-        _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        //Debug.Log("Dynamic");
+        if (_playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic)
+        {
+            _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            Debug.Log("Dynamic");
+        }
     }
 
     /*
