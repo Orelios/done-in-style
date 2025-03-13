@@ -99,6 +99,11 @@ public class PlayerMovement : MonoBehaviour
     //public float maxFallSpeed;
     #endregion
 
+    #region MoveToTarget
+    [Header("MoveToTarget")]
+    public bool isMovingToTargetPoint = false;
+    #endregion
+
     #region Others
     [Header("Debug Configs")]
     [SerializeField] private bool showGizmos = false;
@@ -204,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
         RotatePlayer();
         //Disables movement while dashing
 
-        if (_playerTricks.IsDashing || _playerTricks.IsPounding) { return; }
+        if (_playerTricks.IsDashing || _playerTricks.IsPounding || isMovingToTargetPoint) { return; }
 
         if (GetComponent<RampPlayer>().isRamping){return;}
 

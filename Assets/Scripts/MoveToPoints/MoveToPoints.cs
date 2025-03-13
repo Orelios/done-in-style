@@ -9,10 +9,12 @@ public class MoveToPoints : MonoBehaviour
     [SerializeField] private List<GameObject> movePoints = new List<GameObject>();
     private Vector2 targetPos;
     private PlayerMovement _playerMovement;
+    private RampPlayer _rampPlayer;
+    private PlayerTricks _playerTricks;
     private int index;
     private float startSpeed, elapsedTime, calculatedSpeed, actualSpeed;
     [SerializeField] private float maxSpeed = 20, accelerationDuration = 1f, speedDivider = 0.01f;
-    [SerializeField] private bool isMovingToTarget = false;
+    //[SerializeField] private bool isMovingToTargetPoint = false;
     //[SerializeField] private bool localIsFacingRight = true;
 
     private void Start()
@@ -29,12 +31,13 @@ public class MoveToPoints : MonoBehaviour
             i++;
         }
         _playerMovement = GameObject.Find("/Player").GetComponent<PlayerMovement>();
+        _rampPlayer = _playerMovement.GetComponent<RampPlayer>();
     }
     
     private void Update()
     {
         /*
-        if (isMovingToTarget)
+        if (isMovingToTargetPoint)
         {
             if (localIsFacingRight != _playerMovement.IsFacingRight)
             {
@@ -44,17 +47,21 @@ public class MoveToPoints : MonoBehaviour
         */
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            StopAllCoroutines();
+            StopTargetedMovement();
+            _playerMovement.isMovingToTargetPoint = false;
+            MakeDynamic();
+            _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
+            //_playerMovement.Jump();
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") && !isMovingToTarget)
+        if (other.gameObject.CompareTag("Player") && !_playerMovement.isMovingToTargetPoint)
         {
             _playerMovement = other.gameObject.GetComponent<PlayerMovement>();
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-            _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            MakeKinematic();
             //localIsFacingRight = _playerMovement.IsFacingRight;
             SetSpeed();
             DetrmineTargetPoint(); // also starts movementCoroutine
@@ -66,7 +73,7 @@ public class MoveToPoints : MonoBehaviour
     public void SetSpeed()
     {
         startSpeed = Math.Abs(_playerMovement.Rb.linearVelocityX);
-        Debug.Log("startSpeed = " + startSpeed);
+        //Debug.Log("startSpeed = " + startSpeed);
         //calculatedSpeed = startSpeed;
         elapsedTime = 0;
     }
@@ -81,7 +88,7 @@ public class MoveToPoints : MonoBehaviour
                 {
                     ZeroPlayerPhysics();
                     targetPos = movePoints[i].transform.position;
-                    Debug.Log("Initial Target: " + movePoints[i].gameObject.name);
+                    //Debug.Log("Initial Target: " + movePoints[i].gameObject.name);
                     index = i;
                     MoveToTarget(targetPos);
                     break;
@@ -97,7 +104,7 @@ public class MoveToPoints : MonoBehaviour
                     ZeroPlayerPhysics();
                     //_playerMovement.transform.position = movePoints[i].transform.position;
                     targetPos = movePoints[i].transform.position;
-                    Debug.Log("Initial Target: " + movePoints[i].gameObject.name + " reversed");
+                    //Debug.Log("Initial Target: " + movePoints[i].gameObject.name + " reversed");
                     index = i;
                     MoveToTarget(targetPos);
                     break;
@@ -109,8 +116,8 @@ public class MoveToPoints : MonoBehaviour
 
     public void TargetNextPoint(int i)
     {
-        _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        if (!isMovingToTarget) //happens only when colliding with points instead of edge collider (first time only)
+        MakeKinematic();
+        if (!_playerMovement.isMovingToTargetPoint) //happens only when colliding with points instead of edge collider (first time only)
         {
             SetSpeed();
         }
@@ -120,24 +127,19 @@ public class MoveToPoints : MonoBehaviour
             if (i >= movePoints.Count - 1)
             {
                 //end of list, no next target
-                //StopAllCoroutines();
                 StopTargetedMovement();
-                //isMovingToTarget = false;
                 _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
-                _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                Debug.Log(" end");
+                MakeDynamic();
+                StartMomentum();
+                //Debug.Log(" end");
             }
             else
             {
-                //StopAllCoroutines();
                 StopTargetedMovement();
-                //isMovingToTarget = false;
-
                 ZeroPlayerPhysics();
 
                 targetPos = movePoints[i + 1].transform.position;
-                Debug.Log(movePoints[i + 1].gameObject.name);
-                //StartCoroutine(MoveToTarget());
+                //Debug.Log(movePoints[i + 1].gameObject.name);
                 MoveToTarget(targetPos);
             }
         }
@@ -146,33 +148,25 @@ public class MoveToPoints : MonoBehaviour
             if (i <= 0)
             {
                 //start of list, no next target
-                //StopAllCoroutines();
                 StopTargetedMovement();
-                //isMovingToTarget = false;
                 _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
-                _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                Debug.Log(" reversed end");
+                MakeDynamic();
+                StartMomentum();
+                //Debug.Log(" reversed end");
             }
             else
             {
-                //StopAllCoroutines();
                 StopTargetedMovement();
-                //isMovingToTarget = false;
-
-                //_playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 0;
-                //_playerMovement.Rb.linearVelocityY = 0;
-                //_playerMovement.Rb.linearVelocityX = 0;
                 ZeroPlayerPhysics();
-
-
                 targetPos = movePoints[i - 1].transform.position;
-                Debug.Log(movePoints[i - 1].gameObject.name + " reversed");
-                //StartCoroutine(MoveToTarget());
+                //Debug.Log(movePoints[i - 1].gameObject.name + " reversed");
                 MoveToTarget(targetPos);
             }
         }
 
     }
+
+    
 
     public void TeleportToPoint(int i)
     {
@@ -186,10 +180,22 @@ public class MoveToPoints : MonoBehaviour
         //_playerMovement.Rb.linearVelocityX = 0;
     }
 
+    public void MakeKinematic()
+    {
+        _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        //Debug.Log("Kinematic");
+    }
+
+    public void MakeDynamic()
+    {
+        _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        //Debug.Log("Dynamic");
+    }
+
     /*
     private IEnumerator MoveToTarget()
     {
-        isMovingToTarget = true;
+        isMovingToTargetPoint = true;
         Vector2 currentTarget = targetPos;
         while (_playerMovement.transform.position.x != currentTarget.x)
         {
@@ -210,7 +216,7 @@ public class MoveToPoints : MonoBehaviour
             _playerMovement.transform.position = Vector2.MoveTowards(_playerMovement.transform.position, currentTarget, calculatedSpeed * Time.fixedDeltaTime);
             yield return null;
         }
-        isMovingToTarget = false;
+        isMovingToTargetPoint = false;
          not used because task of choosing next target is based on int parameter passed by MovePoint child
         if ((_playerMovement.IsFacingRight && index < movePoints.Count-1) || (!_playerMovement.IsFacingRight && index <= 0))
         {
@@ -225,7 +231,7 @@ public class MoveToPoints : MonoBehaviour
     }
     */
 
-    private Coroutine movementCoroutine;
+    private Coroutine movementCoroutine, momentumCoroutine;
     
     public void MoveToTarget(Vector2 target)
     {
@@ -239,20 +245,20 @@ public class MoveToPoints : MonoBehaviour
         {
             StopCoroutine(movementCoroutine);
             movementCoroutine = null;
-            isMovingToTarget = false;
+            _playerMovement.isMovingToTargetPoint = false;
         }
     }
 
     IEnumerator MoveToTargetCoroutine(Vector2 target)
     {
         // do your logic here
-        isMovingToTarget = true;
+        _playerMovement.isMovingToTargetPoint = true;
         while (_playerMovement.transform.position.x != targetPos.x)
         {
             ZeroPlayerPhysics();
 
             calculatedSpeed = Mathf.Lerp(startSpeed, maxSpeed, elapsedTime / accelerationDuration);
-            Debug.Log("calculatedSpeed = " +  calculatedSpeed);
+            //Debug.Log("calculatedSpeed = " +  calculatedSpeed);
             actualSpeed = calculatedSpeed * speedDivider;
             if (elapsedTime < accelerationDuration)
             {
@@ -266,11 +272,49 @@ public class MoveToPoints : MonoBehaviour
             _playerMovement.transform.position = Vector2.MoveTowards(_playerMovement.transform.position, targetPos, actualSpeed);
             yield return null;
         }
-        //isMovingToTarget = false;
+        //isMovingToTargetPoint = false;
 
         // at the end of the coroutine:
         movementCoroutine = null;
         yield return null;
     }
 
+    public void StartMomentum()
+    {
+        //Debug.Log("momentum next line");
+        //momentumCoroutine = StartCoroutine(PreserveMomentum());
+        //Debug.Log("momentum called");
+    }
+
+    public void StopMomentum()
+    {
+        if (momentumCoroutine != null)
+        {
+            StopCoroutine(momentumCoroutine);
+            momentumCoroutine = null;
+        }
+    }
+
+    IEnumerator PreserveMomentum()
+    {
+        //_playerMovement.Rb.linearVelocityX = actualSpeed;
+        Debug.Log("momentum started");
+        while (!Input.anyKeyDown)
+        {
+            if (_rampPlayer.IsColliding) { break; }
+            //dashLastVelocity = _playerMovement.Rb.linearVelocity.y;
+            //_playerMovement.Rb.linearVelocity -= _dashMomentumDecay;
+            Vector2 lastVelocity = new Vector2(actualSpeed, 0f);
+            if (lastVelocity.x > 0)
+            {
+                _playerMovement.Rb.linearVelocity = new Vector2(lastVelocity.x - _playerTricks.DashMomentumDecay.x, lastVelocity.y - _playerTricks.DashMomentumDecay.y);
+            }
+            else
+            {
+                _playerMovement.Rb.linearVelocity = new Vector2(lastVelocity.x + _playerTricks.DashMomentumDecay.x, lastVelocity.y - _playerTricks.DashMomentumDecay.y);
+            }
+
+            yield return null;
+        }
+    }
 }

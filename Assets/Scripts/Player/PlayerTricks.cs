@@ -32,6 +32,7 @@ public class PlayerTricks : MonoBehaviour
     private RampPlayer _rampPlayer;
     private Vector2 dashLastVelocity;
     [SerializeField] private Vector2 _dashMomentumDecay = new Vector2(0.345f, 0.69f);
+    [HideInInspector] public Vector2 DashMomentumDecay => _dashMomentumDecay;
 
     [Header("Ground Pound")]
     private bool _isPounding = false;
