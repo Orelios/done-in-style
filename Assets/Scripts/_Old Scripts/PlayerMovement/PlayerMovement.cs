@@ -364,17 +364,22 @@ public class PlayerMovement : MonoBehaviour
         {
             PLAYBACK_STATE playbackState;
             _playerSkatingGround.getPlaybackState(out playbackState);
+            //_playerSkatingGround.start();
 
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
                 _playerSkatingGround.start();
-          
             }
-
+            else if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
+            {
+                _playerSkatingGround.setPaused(false);
+            }
+            
+            
         }
         else if (Rb.linearVelocityX == 0 || !IsGrounded() || !_playerTricks.IsWallRiding)
         {
-            _playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
+            _playerSkatingGround.setPaused(true);
 
         }
 
@@ -387,11 +392,16 @@ public class PlayerMovement : MonoBehaviour
             {
                 _playerSkatingAir.start();
             }
+            else if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
+            {
+                _playerSkatingAir.setPaused(false);
+
+            }
 
         }
         else if (Rb.linearVelocityX == 0 || IsGrounded() || !_playerTricks.IsWallRiding)
         {
-            _playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
+            _playerSkatingAir.setPaused(true);
         }
     }
 }
