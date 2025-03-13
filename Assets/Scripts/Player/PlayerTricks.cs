@@ -395,6 +395,11 @@ public class PlayerTricks : MonoBehaviour
             PLAYBACK_STATE playbackState;
             _playerSkatingWallRide.getPlaybackState(out playbackState);
 
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.groundIntensity, 0);
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.airIntensity, 0);
+
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.wallIntensity, 1);
+
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
                 //_playerSkatingWallRide.start();
@@ -428,7 +433,8 @@ public class PlayerTricks : MonoBehaviour
         if (!_isWallRiding) 
         {
             Debug.Log("I should stop." + _playerSkatingWallRide.ToString());
-            _playerSkatingWallRide.setPaused(true);
+            //_playerSkatingWallRide.setPaused(true);
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.wallIntensity, 0);
             _playerMovement.Rb.gravityScale = _playerMovement.GravityScale;
             //if (!_wall.hasTricked) { EnableTrick(_wall.gameObject); }
         }

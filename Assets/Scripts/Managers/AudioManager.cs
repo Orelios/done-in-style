@@ -12,16 +12,23 @@ public class AudioManager : MonoBehaviour
     private Bus MasterBus;
     private Bus SFXBus;
     private Bus BGMusicBus;
+
+    private FMODEvents _FMODEvents;
+
+    public EventInstance playerAmbienceEventInstance;
     public static AudioManager instance { get; private set; }
 
     private void Awake()
     {
-        if(instance != null) { Debug.LogError("found more than one audio manager"); }
+        if (instance != null) { Debug.LogError("found more than one audio manager"); }
         instance = this;
 
         MasterBus = RuntimeManager.GetBus("bus:/");
         SFXBus = RuntimeManager.GetBus("bus:/SFX");
         BGMusicBus = RuntimeManager.GetBus("bus:/Music");
+
+        _FMODEvents = GetComponent<FMODEvents>();
+
     }
 
     private void Update()

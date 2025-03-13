@@ -16,6 +16,7 @@ public class FMODEvents : MonoBehaviour
     [SerializeField] private EventReference playerTrick;
     [SerializeField] private EventReference playerGroundPound;
     [SerializeField] private EventReference playerHurt;
+    [SerializeField] private EventReference playerMovement;
     public EventReference PlayerJump { get => playerJump; set => playerJump = value; }
     public EventReference PlayerDash { get => playerDash; set => playerDash = value; }
     public EventReference PlayerLanding { get => playerLanding; set => playerLanding = value; }
@@ -28,6 +29,7 @@ public class FMODEvents : MonoBehaviour
     public EventReference PlayerTrick { get => playerTrick; set => playerTrick = value; }
     public EventReference PlayerGroundPound { get => playerGroundPound; set => playerGroundPound = value; }
     public EventReference PlayerHurt { get => playerHurt; set => playerHurt = value; }
+    public EventReference PlayerMovement { get => playerMovement; set => playerMovement = value; }
 
     [field: Header("Environment SFX")]
     [SerializeField] private EventReference slowmo;
