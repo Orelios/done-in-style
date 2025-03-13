@@ -15,6 +15,7 @@ public class Wall : MonoBehaviour
             _canWallRide = true;
             playerTricks.CanDoubleJump();
             playerTricks.GetWall(this);
+            
         }
     }
 

@@ -389,19 +389,19 @@ public class PlayerTricks : MonoBehaviour
         if (_isWallRiding) 
         {
 
-            _playerMovement._playerSkatingGround.setPaused(true);
-            _playerMovement._playerSkatingAir.setPaused(true);
+            //_playerMovement._playerSkatingGround.setPaused(true);
+            //_playerMovement._playerSkatingAir.setPaused(true);
 
             PLAYBACK_STATE playbackState;
             _playerSkatingWallRide.getPlaybackState(out playbackState);
 
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
-                _playerSkatingWallRide.start();
+                //_playerSkatingWallRide.start();
             }
             else if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
             {
-                _playerSkatingWallRide.setPaused(false);
+                //_playerSkatingWallRide.setPaused(false);
 
             }
 

@@ -357,7 +357,7 @@ public class PlayerMovement : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerJump, this.transform.position);
         } 
     }
-
+    
     private void playerMovementSound()
     {
         if(Rb.linearVelocityX != 0 && IsGrounded())
@@ -368,18 +368,18 @@ public class PlayerMovement : MonoBehaviour
 
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
-                _playerSkatingGround.start();
+                //_playerSkatingGround.start();
             }
             else if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
             {
-                _playerSkatingGround.setPaused(false);
+                //_playerSkatingGround.setPaused(false);
             }
             
             
         }
         else if (Rb.linearVelocityX == 0 || !IsGrounded() || !_playerTricks.IsWallRiding)
         {
-            _playerSkatingGround.setPaused(true);
+            //_playerSkatingGround.setPaused(true);
 
         }
 
@@ -390,11 +390,11 @@ public class PlayerMovement : MonoBehaviour
 
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
-                _playerSkatingAir.start();
+                //_playerSkatingAir.start();
             }
             else if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
             {
-                _playerSkatingAir.setPaused(false);
+                //_playerSkatingAir.setPaused(false);
 
             }
 
