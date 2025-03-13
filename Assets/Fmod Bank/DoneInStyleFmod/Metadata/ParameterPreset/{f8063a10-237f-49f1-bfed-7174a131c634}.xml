@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{f8063a10-237f-49f1-bfed-7174a131c634}">
+		<property name="name">
+			<value>wall_intensity</value>
+		</property>
+		<relationship name="folder">
+			<destination>{3835e739-31e9-43ab-a885-090be81515c9}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{6dea411f-5998-4a7c-86ae-cef85551f4bd}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{6dea411f-5998-4a7c-86ae-cef85551f4bd}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.29999998211860657</value>
+		</property>
+	</object>
+</objects>
