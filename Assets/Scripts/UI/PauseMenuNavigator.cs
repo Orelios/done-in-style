@@ -86,6 +86,14 @@ public class PauseMenuNavigator : MonoBehaviour
     
     public void OpenSettingsVideo()
     {
+        foreach (var section in settingsSections)
+        {
+            section.SetActive(false);
+        }
+        
+        settingsSections.FirstOrDefault(videoSettings => videoSettings.name == videoSettingsHash)?.SetActive(true);
+        
+        _eventSystem.SetSelectedGameObject(videoSettingsDefaultSelected);
         _currentlyLookingAt = EMenuLookingAt.VideoSettings;
     }
     
