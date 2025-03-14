@@ -397,18 +397,7 @@ public class PlayerTricks : MonoBehaviour
 
             _playerMovement._playerMovement.setParameterByName(_playerMovement.groundIntensity, 0);
             _playerMovement._playerMovement.setParameterByName(_playerMovement.airIntensity, 0);
-
             _playerMovement._playerMovement.setParameterByName(_playerMovement.wallIntensity, 1);
-
-            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-            {
-                //_playerSkatingWallRide.start();
-            }
-            else if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
-            {
-                //_playerSkatingWallRide.setPaused(false);
-
-            }
 
             _playerMovement.Rb.gravityScale = wallRidingGravity;
 
@@ -430,14 +419,7 @@ public class PlayerTricks : MonoBehaviour
             DisableCanTrick();
         }
 
-        if (!_isWallRiding) 
-        {
-            Debug.Log("I should stop." + _playerSkatingWallRide.ToString());
-            //_playerSkatingWallRide.setPaused(true);
-            _playerMovement._playerMovement.setParameterByName(_playerMovement.wallIntensity, 0);
-            _playerMovement.Rb.gravityScale = _playerMovement.GravityScale;
-            //if (!_wall.hasTricked) { EnableTrick(_wall.gameObject); }
-        }
+        
     }
 
     public void PlayWallRideLanding()
@@ -450,7 +432,17 @@ public class PlayerTricks : MonoBehaviour
         _wall = wall;
     }
 
-    public void NullWall() {  _wall = null; }
+    public void ResetWallRideValues() 
+    {  
+        if (!_isWallRiding)
+        {
+            Debug.Log("I should stop." + _playerSkatingWallRide.ToString());
+            //_playerSkatingWallRide.setPaused(true);
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.wallIntensity, 0);
+            _playerMovement.Rb.gravityScale = _playerMovement.GravityScale;
+            //if (!_wall.hasTricked) { EnableTrick(_wall.gameObject); }
+        }
+    }
     #endregion
 
     #region Sliding
