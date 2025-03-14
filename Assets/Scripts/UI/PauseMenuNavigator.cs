@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -115,6 +116,19 @@ public class PauseMenuNavigator : MonoBehaviour
         _currentlyLookingAt = EMenuLookingAt.SelectedKey;
     }
 
+    public void OpenConfirmation()
+    {
+        foreach (var section in interfaceSections)
+        {
+            section.SetActive(false);   
+        }
+        
+        interfaceSections.FirstOrDefault(confirmation => confirmation.name == confirmationInterfaceHash)?.SetActive(true);
+        
+        _eventSystem.SetSelectedGameObject(confirmationDefaultSelected);
+        _currentlyLookingAt = EMenuLookingAt.Confirmation;
+    }
+
     public void Back()
     {
         switch (_currentlyLookingAt)
@@ -124,6 +138,7 @@ public class PauseMenuNavigator : MonoBehaviour
                 FindFirstObjectByType<GameStateHandler>().ResumeGame();
                 break;
             case EMenuLookingAt.SettingsDirectory:
+            case EMenuLookingAt.Confirmation:
                 OpenMainInterface();
                 break;
             case EMenuLookingAt.AudioSettings:
@@ -159,5 +174,6 @@ public enum EMenuLookingAt
     SelectedAudio,
     VideoSettings,
     ControlsSettings,
-    SelectedKey
+    SelectedKey,
+    Confirmation
 }
