@@ -12,6 +12,8 @@ TagManager:
   - RampExit
   - RailingInteraction
   - Springboard
+  - MidRight
+  - MidLeft
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Ground
   - Player
   - Bullet
-  - 
+  - target1
   - 
   - 
   - 
