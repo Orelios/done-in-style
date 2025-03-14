@@ -24,6 +24,10 @@ public class Railing : MonoBehaviour
         _canGeneratePoints = true;
     }
 
+    //checks if the player is the one colliding with the rail
+    //checks if the player landed on top of the rail
+    //if both checks return true, call PlayerRailGrind to start grinding the rail
+    //checks if the player can use this particular rail to generate some score
     private void OnCollisionEnter2D(Collision2D other)
     {
         /*if (other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
@@ -65,6 +69,8 @@ public class Railing : MonoBehaviour
         }
     }
 
+    //resets necessary variable values
+    //canGeneratePoints will now be set to false to stop score generation on future interactions with this specific rail
     private void OnCollisionExit2D(Collision2D other)
     {
         /*if (other.gameObject.TryGetComponent<PlayerRailGrind>(out var playerRailGrind))
