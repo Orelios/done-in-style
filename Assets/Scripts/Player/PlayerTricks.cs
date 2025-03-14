@@ -56,6 +56,8 @@ public class PlayerTricks : MonoBehaviour
     private float _lastJumpTime;
     private float _lastInBetweenJumpTime; 
     private float _jumps;
+
+    [SerializeField] private bool canDoubleJump; 
     private bool _canDestroy = false;
     public bool CanDestroy => _canDestroy;
     [SerializeField] private float _canDetroyDuration = 0.5f;
@@ -70,10 +72,8 @@ public class PlayerTricks : MonoBehaviour
     [Header("Wall Ride")]
     [SerializeField] private float wallRidingGravity; 
     private bool _isWallRiding;
-    private bool _isPressingDown;
     private Wall _wall;
     public bool IsWallRiding { get => _isWallRiding; set => _isWallRiding = value; }
-    public bool IsPressingDown { get => _isPressingDown; set => _isPressingDown = value; }
 
     [Header("Sliding")]
     [SerializeField] private float baseColliderOffsetY = -0.02f;
@@ -111,6 +111,7 @@ public class PlayerTricks : MonoBehaviour
         _playerInputManager = GetComponent<PlayerInputManager>();
         _snapshot = GameObject.Find("UI/Player/SnappingUI").GetComponent<SnapshotEffect>();
         _jumps = maxJumps;
+        canDoubleJump = true; 
         _rampPlayer = GetComponent<RampPlayer>();
         _vfx = GetComponentInChildren<VFXManager>();
         _wall = GetComponent<Wall>();
@@ -187,16 +188,6 @@ public class PlayerTricks : MonoBehaviour
     {
         if (context.performed) { TrickMove(); }
     }
-    public void WallRideInput(InputAction.CallbackContext context)
-    {
-        if (context.performed){if (!_playerMovement.IsGrounded()) { _isPressingDown = true; }}
-
-        if (context.canceled)
-        {
-            _playerSkatingWallRide.stop(STOP_MODE.ALLOWFADEOUT);
-            if (!_playerMovement.IsGrounded()) { _isPressingDown = false; }
-        }
-    }
     public void SlidingInput(InputAction.CallbackContext context)
     {
         if (context.performed) {if (_playerMovement.IsGrounded() && !_player.RailGrind.IsOnRail) 
@@ -254,7 +245,14 @@ public class PlayerTricks : MonoBehaviour
         //_vfx.CallDashVFX();
         lastDashTime = Time.time;
 
-        //AddScoreAndRank();
+        switch (_playerMovement.IsFacingRight)
+        {
+            //Flips player sprite to the direction they are heading to 
+            case false when _playerInputManager.HorizontalMovement > 0f:
+            case true when _playerInputManager.HorizontalMovement < 0f:
+                _playerMovement.Flip();
+                break;
+        }
 
         // Dash always in the current horizontal direction
         float horizontalDirection = transform.rotation.y == 0 ? 1 : -1;
@@ -306,9 +304,9 @@ public class PlayerTricks : MonoBehaviour
     #region DoubleJump
     private void DoubleJump() 
     {
-        if (!_playerMovement.IsGrounded())
+        if (!_playerMovement.IsGrounded() || IsWallRiding)
         {
-            if (Time.time < _lastJumpTime + jumpCooldown) { return; }
+            if (!canDoubleJump) { return; }
 
             //AddScoreAndRank();
             StartCoroutine(DoubleJumpDestroy());
@@ -317,19 +315,28 @@ public class PlayerTricks : MonoBehaviour
 
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, doubleJumpPower);
 
-            _lastJumpTime = Time.time;
-
+            canDoubleJump = false; 
+           
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerJump, this.transform.position);
             //Debug.Log("PogoStick");
         }
+    }
 
+    public void CanDoubleJump()
+    {
+        canDoubleJump = true;
     }
 
     private IEnumerator DoubleJumpDestroy()
     {
         _canDestroy = true;
+        _isWallRiding = false; 
         yield return new WaitForSeconds(_canDetroyDuration);
         _canDestroy = false;
+        if (_wall._canWallRide)
+        {
+            _isWallRiding = true;
+        }
     }
     #endregion
 
@@ -376,14 +383,10 @@ public class PlayerTricks : MonoBehaviour
     #endregion
 
     #region WallRiding
-    private void DoWallRide()
-    {
-        //WallRiding(); 
-    }
 
     public void WallRiding()
     {
-        if (_isWallRiding && _isPressingDown) 
+        if (_isWallRiding) 
         {
 
             _playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);

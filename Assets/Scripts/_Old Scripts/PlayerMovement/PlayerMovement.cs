@@ -208,6 +208,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (GetComponent<RampPlayer>().isRamping){return;}
 
+        if (IsGrounded()) { _playerTricks.CanDoubleJump(); }
+
         HorizontalMovement();
         
         Jump();
@@ -265,7 +267,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown) { return; }
+        if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy) { return; }
         //Handles the timer for coyote time
         _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
 
@@ -299,7 +301,7 @@ public class PlayerMovement : MonoBehaviour
     private void Gravity()
     { 
 
-        if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown) { _playerTricks.WallRiding(); return; }
+        if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy) { _playerTricks.WallRiding(); return; }
 
         if (Rb.linearVelocity.y < 0) // Player is falling
         {
@@ -313,7 +315,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     #endregion
-    private void Flip() //flips character where player is facing towards
+    public void Flip() //flips character where player is facing towards
     {
         if (_player.RailGrind.IsOnRail)
         {
