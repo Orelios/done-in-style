@@ -49,7 +49,7 @@ public class PauseMenuNavigator : MonoBehaviour
         interfaceSections.FirstOrDefault(main => main.name == mainInterfaceHash)?.SetActive(true);
         interfaceSections.FirstOrDefault(main => main.name == mainInterfaceHash)?.transform.GetChild(0).gameObject.SetActive(true);
         
-        _eventSystem.SetSelectedGameObject(mainDefaultSelected);
+       // _eventSystem.SetSelectedGameObject(mainDefaultSelected);
         _currentlyLookingAt = EMenuLookingAt.MainInterface;
     }
 
@@ -68,7 +68,7 @@ public class PauseMenuNavigator : MonoBehaviour
         interfaceSections.FirstOrDefault(settings => settings.name == settingsInterfaceHash)?.SetActive(true);
         settingsSections.FirstOrDefault(directory => directory.name == settingsDirectoryHash)?.SetActive(true);
         
-        _eventSystem.SetSelectedGameObject(settingsDirectoryDefaultSelected);
+        //_eventSystem.SetSelectedGameObject(settingsDirectoryDefaultSelected);
         _currentlyLookingAt = EMenuLookingAt.SettingsDirectory;
     }
 
@@ -81,7 +81,7 @@ public class PauseMenuNavigator : MonoBehaviour
         
         settingsSections.FirstOrDefault(audioSettings => audioSettings.name == audioSettingsHash)?.SetActive(true);
         
-        _eventSystem.SetSelectedGameObject(audioSettingsDefaultSelected);
+        //_eventSystem.SetSelectedGameObject(audioSettingsDefaultSelected);
         _currentlyLookingAt = EMenuLookingAt.AudioSettings;
     }
     
@@ -94,7 +94,7 @@ public class PauseMenuNavigator : MonoBehaviour
         
         settingsSections.FirstOrDefault(videoSettings => videoSettings.name == videoSettingsHash)?.SetActive(true);
         
-        _eventSystem.SetSelectedGameObject(videoSettingsDefaultSelected);
+        //_eventSystem.SetSelectedGameObject(videoSettingsDefaultSelected);
         _currentlyLookingAt = EMenuLookingAt.VideoSettings;
     }
     
@@ -107,13 +107,8 @@ public class PauseMenuNavigator : MonoBehaviour
         
         settingsSections.FirstOrDefault(controlsSettings => controlsSettings.name == controlsSettingsHash)?.SetActive(true);
         
-        _eventSystem.SetSelectedGameObject(controlsSettingsDefaultSelected);
+        //_eventSystem.SetSelectedGameObject(controlsSettingsDefaultSelected);
         _currentlyLookingAt = EMenuLookingAt.ControlsSettings;
-    }
-
-    public void SelectKey()
-    {
-        _currentlyLookingAt = EMenuLookingAt.SelectedKey;
     }
 
     public void OpenConfirmation()
@@ -125,7 +120,7 @@ public class PauseMenuNavigator : MonoBehaviour
         
         interfaceSections.FirstOrDefault(confirmation => confirmation.name == confirmationInterfaceHash)?.SetActive(true);
         
-        _eventSystem.SetSelectedGameObject(confirmationDefaultSelected);
+        //_eventSystem.SetSelectedGameObject(confirmationDefaultSelected);
         _currentlyLookingAt = EMenuLookingAt.Confirmation;
     }
 
@@ -171,9 +166,7 @@ public enum EMenuLookingAt
     MainInterface,
     SettingsDirectory,
     AudioSettings,
-    SelectedAudio,
     VideoSettings,
     ControlsSettings,
-    SelectedKey,
     Confirmation
 }
