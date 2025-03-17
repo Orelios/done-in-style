@@ -456,7 +456,7 @@ public class PlayerTricks : MonoBehaviour
                 jumpPad.hasTricked = true;
                 AddScoreAndRank();
             }
-            else if (_trickObject.TryGetComponent<Railing>(out var railing))
+            else if (_trickObject.TryGetComponent<MoveToPoints>(out var railing))
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
                 railing.hasTricked = true;

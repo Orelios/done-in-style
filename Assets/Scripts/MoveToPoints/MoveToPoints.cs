@@ -16,6 +16,10 @@ public class MoveToPoints : MonoBehaviour
     [SerializeField] private float maxSpeed = 20, accelerationDuration = 1f, speedDivider = 0.01f;
     //[SerializeField] private bool isMovingToTargetPoint = false;
     //[SerializeField] private bool localIsFacingRight = true;
+    public bool hasTricked = false;
+    public bool hasGivenScore = false;
+    public Graffiti graffiti;
+    private bool hasAppliedGraffiti = false;
 
     private void Start()
     {
@@ -80,6 +84,38 @@ public class MoveToPoints : MonoBehaviour
             MakeDynamic();
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
         }
+        ApplyGraffiti();
+        CheckTrickMove();
+    }
+
+    public void GiveScore()
+    {
+        if (!hasGivenScore)
+        {
+            _playerMovement.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
+            hasGivenScore = true;
+        }
+    }
+
+    public void ApplyGraffiti()
+    {
+        if (!hasAppliedGraffiti)
+        {
+            if (graffiti != null)
+            {
+                graffiti.StartGraffiti();
+            }
+            hasAppliedGraffiti = true;
+        }
+    }
+
+    public void CheckTrickMove()
+    {
+        if (!hasTricked)
+        {
+            _playerMovement.gameObject.GetComponent<PlayerTricks>().DisableCanTrick();
+            _playerMovement.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
+        }
     }
 
     public void SetSpeed()
@@ -92,6 +128,7 @@ public class MoveToPoints : MonoBehaviour
 
     public void DetrmineTargetPoint()
     {
+        GiveScore();
         if (_playerMovement.IsFacingRight)
         {
             for (int i = 0; i < movePoints.Count; i++)
@@ -129,6 +166,7 @@ public class MoveToPoints : MonoBehaviour
     public void TargetNextPoint(int i)
     {
         //MakeKinematic();
+        GiveScore(); //will only give score once
         if (!_playerMovement.isMovingToTargetPoint) //happens only when colliding with points instead of edge collider (first time only)
         {
             SetSpeed();
@@ -147,7 +185,9 @@ public class MoveToPoints : MonoBehaviour
                 {
                     MakeDynamic();
                 }
-                Debug.Log(" end");
+                ApplyGraffiti();
+                CheckTrickMove();
+                //Debug.Log(" end");
             }
             else
             {
@@ -172,7 +212,9 @@ public class MoveToPoints : MonoBehaviour
                 {
                     MakeDynamic();
                 }
-                Debug.Log(" reversed end");
+                ApplyGraffiti();
+                CheckTrickMove();
+                //Debug.Log(" reversed end");
             }
             else
             {
