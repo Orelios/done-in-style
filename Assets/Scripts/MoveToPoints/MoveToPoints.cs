@@ -21,6 +21,8 @@ public class MoveToPoints : MonoBehaviour
     public Graffiti graffiti;
     private bool hasAppliedGraffiti = false;
 
+    //[SerializeField] private VFXManager _vfx;
+
     private void Start()
     {
         int i = 0;
@@ -36,6 +38,7 @@ public class MoveToPoints : MonoBehaviour
         }
         _playerMovement = GameObject.Find("/Player").GetComponent<PlayerMovement>();
         _rampPlayer = _playerMovement.GetComponent<RampPlayer>();
+        //_vfx = _playerMovement.gameObject.GetComponentInChildren<VFXManager>();
     }
     
     private void Update()
@@ -86,6 +89,7 @@ public class MoveToPoints : MonoBehaviour
         }
         ApplyGraffiti();
         CheckTrickMove();
+        //_vfx.StopRailVFX();
     }
 
     public void GiveScore()
@@ -129,6 +133,7 @@ public class MoveToPoints : MonoBehaviour
     public void DetrmineTargetPoint()
     {
         GiveScore();
+        //_vfx.StartRailVFX();
         if (_playerMovement.IsFacingRight)
         {
             for (int i = 0; i < movePoints.Count; i++)
@@ -165,8 +170,9 @@ public class MoveToPoints : MonoBehaviour
 
     public void TargetNextPoint(int i)
     {
-        //MakeKinematic();
         GiveScore(); //will only give score once
+        //_vfx.StartRailVFX(); // will only play if not already playing
+
         if (!_playerMovement.isMovingToTargetPoint) //happens only when colliding with points instead of edge collider (first time only)
         {
             SetSpeed();
@@ -187,6 +193,7 @@ public class MoveToPoints : MonoBehaviour
                 }
                 ApplyGraffiti();
                 CheckTrickMove();
+                //_vfx.StopRailVFX();
                 //Debug.Log(" end");
             }
             else
@@ -214,6 +221,7 @@ public class MoveToPoints : MonoBehaviour
                 }
                 ApplyGraffiti();
                 CheckTrickMove();
+                //_vfx.StopRailVFX();
                 //Debug.Log(" reversed end");
             }
             else

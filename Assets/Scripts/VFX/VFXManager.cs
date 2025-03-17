@@ -53,15 +53,17 @@ public class VFXManager : MonoBehaviour
 
     private void MovementUpdate()
     {
-        if (_rail.IsOnRail)
+        if (_playerMovement.isMovingToTargetPoint)
         {
             if (!railVFX.isPlaying) { railVFX.Play(); }
             if (wallRidingVFX.isPlaying) { wallRidingVFX.Stop(); }
+            if (movingVFX.isPlaying) { movingVFX.Stop(); }
         }
         else if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown)
         {
             if (!wallRidingVFX.isPlaying) {  wallRidingVFX.Play(); }
             if (railVFX.isPlaying) { railVFX.Stop(); }
+            if (movingVFX.isPlaying) { movingVFX.Stop(); }
         }
         else
         {
@@ -192,6 +194,19 @@ public class VFXManager : MonoBehaviour
     public void SetOnRailOrSpringboard(bool b)
     {
         isOnRailOrSpringboard = b;
+    }
+
+    public void StartRailVFX()
+    {
+        if (railVFX.isPlaying == false)
+        {
+            //railVFX.Play();
+        }
+    }
+
+    public void StopRailVFX()
+    {
+        //railVFX.Stop();
     }
 
     #endregion
