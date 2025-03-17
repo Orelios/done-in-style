@@ -5,6 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class PauseMenuNavigator : MonoBehaviour
 {
@@ -39,6 +40,34 @@ public class PauseMenuNavigator : MonoBehaviour
         _eventSystem = EventSystem.current;
     }
 
+    public void Select()
+    {
+        if (_eventSystem.currentSelectedGameObject == null)
+        {
+            switch (_currentlyLookingAt)
+            {
+                case EMenuLookingAt.MainInterface:
+                    _eventSystem.SetSelectedGameObject(mainDefaultSelected);
+                    break;
+                case EMenuLookingAt.SettingsDirectory:
+                    _eventSystem.SetSelectedGameObject(settingsDirectoryDefaultSelected);
+                    break;
+                case EMenuLookingAt.AudioSettings:
+                    _eventSystem.SetSelectedGameObject(audioSettingsDefaultSelected);
+                    break;
+                case EMenuLookingAt.VideoSettings:
+                    _eventSystem.SetSelectedGameObject(videoSettingsDefaultSelected);
+                    break;
+                case EMenuLookingAt.ControlsSettings:
+                    _eventSystem.SetSelectedGameObject(controlsSettingsDefaultSelected);
+                    break;
+                case EMenuLookingAt.Confirmation:
+                    _eventSystem.SetSelectedGameObject(confirmationDefaultSelected);
+                    break;
+            }
+        }
+    }
+
     public void OpenMainInterface()
     {
         foreach (var section in interfaceSections)
@@ -49,7 +78,7 @@ public class PauseMenuNavigator : MonoBehaviour
         interfaceSections.FirstOrDefault(main => main.name == mainInterfaceHash)?.SetActive(true);
         interfaceSections.FirstOrDefault(main => main.name == mainInterfaceHash)?.transform.GetChild(0).gameObject.SetActive(true);
         
-       // _eventSystem.SetSelectedGameObject(mainDefaultSelected);
+        _eventSystem.SetSelectedGameObject(null);
         _currentlyLookingAt = EMenuLookingAt.MainInterface;
     }
 
@@ -68,7 +97,7 @@ public class PauseMenuNavigator : MonoBehaviour
         interfaceSections.FirstOrDefault(settings => settings.name == settingsInterfaceHash)?.SetActive(true);
         settingsSections.FirstOrDefault(directory => directory.name == settingsDirectoryHash)?.SetActive(true);
         
-        //_eventSystem.SetSelectedGameObject(settingsDirectoryDefaultSelected);
+        _eventSystem.SetSelectedGameObject(null);
         _currentlyLookingAt = EMenuLookingAt.SettingsDirectory;
     }
 
@@ -81,7 +110,7 @@ public class PauseMenuNavigator : MonoBehaviour
         
         settingsSections.FirstOrDefault(audioSettings => audioSettings.name == audioSettingsHash)?.SetActive(true);
         
-        //_eventSystem.SetSelectedGameObject(audioSettingsDefaultSelected);
+        _eventSystem.SetSelectedGameObject(null);
         _currentlyLookingAt = EMenuLookingAt.AudioSettings;
     }
     
@@ -94,7 +123,7 @@ public class PauseMenuNavigator : MonoBehaviour
         
         settingsSections.FirstOrDefault(videoSettings => videoSettings.name == videoSettingsHash)?.SetActive(true);
         
-        //_eventSystem.SetSelectedGameObject(videoSettingsDefaultSelected);
+        _eventSystem.SetSelectedGameObject(null);
         _currentlyLookingAt = EMenuLookingAt.VideoSettings;
     }
     
@@ -107,7 +136,7 @@ public class PauseMenuNavigator : MonoBehaviour
         
         settingsSections.FirstOrDefault(controlsSettings => controlsSettings.name == controlsSettingsHash)?.SetActive(true);
         
-        //_eventSystem.SetSelectedGameObject(controlsSettingsDefaultSelected);
+        _eventSystem.SetSelectedGameObject(null);
         _currentlyLookingAt = EMenuLookingAt.ControlsSettings;
     }
 
@@ -120,7 +149,7 @@ public class PauseMenuNavigator : MonoBehaviour
         
         interfaceSections.FirstOrDefault(confirmation => confirmation.name == confirmationInterfaceHash)?.SetActive(true);
         
-        //_eventSystem.SetSelectedGameObject(confirmationDefaultSelected);
+        _eventSystem.SetSelectedGameObject(null);
         _currentlyLookingAt = EMenuLookingAt.Confirmation;
     }
 
