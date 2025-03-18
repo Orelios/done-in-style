@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float Deceleration { get => deceleration; set => deceleration = value; }
     public float VelPower { get => velPower; set => velPower = value; }
     public float FrictionAmount { get => frictionAmount; set => frictionAmount = value; }
-    public float AppliedMovementSpeed { get; private set; }
+    public float AppliedMovementSpeed { get;  set; }
     public float AppliedAcceleration { get; private set; }
     public bool IsFacingRight = true;
     private Vector2 _velocity; 
@@ -213,6 +213,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (GetComponent<RampPlayer>().isRamping){return;}
 
+        if (IsGrounded()) { _playerTricks.CanDoubleJump(); }
+
         HorizontalMovement();
         
         Jump();
@@ -270,7 +272,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown) { return; }
+        if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy) { return; }
         //Handles the timer for coyote time
         _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
 
@@ -295,6 +297,8 @@ public class PlayerMovement : MonoBehaviour
             //Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x * jumpHangAccelerationMult, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
         }
+
+        PlayJumpSound();
     }
     #endregion
 
@@ -302,7 +306,7 @@ public class PlayerMovement : MonoBehaviour
     private void Gravity()
     { 
 
-        if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown) { _playerTricks.WallRiding(); return; }
+        if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy) { _playerTricks.WallRiding(); return; }
 
         if (Rb.linearVelocity.y < 0) // Player is falling
         {
@@ -316,7 +320,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     #endregion
-    private void Flip() //flips character where player is facing towards
+    public void Flip() //flips character where player is facing towards
     {
         if (_player.RailGrind.IsOnRail)
         {
@@ -351,9 +355,9 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireCube(GroundCheck.position, new(0.9f, 0.1f));
     }
 
-    public void playJumpSound()
+    public void PlayJumpSound()
     {
-        if (_playerInputManager.IsJumping)
+        if (_playerInputManager.IsJumping && IsGrounded())
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerJump, this.transform.position);
         } 

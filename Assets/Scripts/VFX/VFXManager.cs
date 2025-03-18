@@ -62,7 +62,7 @@ public class VFXManager : MonoBehaviour
             if (wallRidingVFX.isPlaying) { wallRidingVFX.Stop(); }
             if (movingVFX.isPlaying) { movingVFX.Stop(); }
         }
-        else if (_playerTricks.IsWallRiding && _playerTricks.IsPressingDown)
+        else if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy)
         {
             if (!wallRidingVFX.isPlaying) {  wallRidingVFX.Play(); }
             if (railVFX.isPlaying) { railVFX.Stop(); }

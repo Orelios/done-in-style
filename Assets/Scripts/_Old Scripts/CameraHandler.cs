@@ -29,10 +29,23 @@ public class CameraHandler : MonoBehaviour
 
     private void Update()
     {
-        _isMoving = Mathf.Abs(player.Movement.Rb.linearVelocityX) > 0.1f;
+        _isMoving = Mathf.Abs(player.Movement.Rb.linearVelocityX) > 0.1f || Mathf.Abs(player.Movement.Rb.linearVelocityY) > 0.1f;
         _idleTime = _isMoving ? 0f : _idleTime += Time.deltaTime;
         
         _currentZoom = _idleTime >= idleTimeThreshold ? ZoomIn() : ZoomOut(_isMoving);
+
+        /*_isMoving = Mathf.Abs(player.Movement.Rb.linearVelocityX) > 0.1f ;
+        _idleTime = _isMoving || Mathf.Abs(player.Movement.Rb.linearVelocityY) > 0.1f ? 0f : _idleTime += Time.deltaTime;
+        
+        if (_idleTime >= idleTimeThreshold)
+        {
+            _currentZoom = ZoomIn();
+        }
+        else if(_isMoving)
+        {
+            _currentZoom = ZoomOut(_isMoving);
+        }*/
+        
         cameraFollowingPlayer.Lens.OrthographicSize = _currentZoom;
         /*_targetZoom = _isMoving ? maxZoomOut : baseZoom;
         _currentZoom = Mathf.SmoothDamp(_currentZoom, _targetZoom, ref _smoothing, _isMoving ? zoomOutSpeed : zoomInSpeed);

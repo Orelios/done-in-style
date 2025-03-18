@@ -57,6 +57,8 @@ public class PlayerTricks : MonoBehaviour
     private float _lastJumpTime;
     private float _lastInBetweenJumpTime; 
     private float _jumps;
+
+    [SerializeField] private bool canDoubleJump; 
     private bool _canDestroy = false;
     public bool CanDestroy => _canDestroy;
     [SerializeField] private float _canDetroyDuration = 0.5f;
@@ -71,10 +73,8 @@ public class PlayerTricks : MonoBehaviour
     [Header("Wall Ride")]
     [SerializeField] private float wallRidingGravity; 
     private bool _isWallRiding;
-    private bool _isPressingDown;
     private Wall _wall;
     public bool IsWallRiding { get => _isWallRiding; set => _isWallRiding = value; }
-    public bool IsPressingDown { get => _isPressingDown; set => _isPressingDown = value; }
 
     [Header("Sliding")]
     [SerializeField] private float baseColliderOffsetY = -0.02f;
@@ -112,6 +112,7 @@ public class PlayerTricks : MonoBehaviour
         _playerInputManager = GetComponent<PlayerInputManager>();
         _snapshot = GameObject.Find("UI/Player/SnappingUI").GetComponent<SnapshotEffect>();
         _jumps = maxJumps;
+        canDoubleJump = true; 
         _rampPlayer = GetComponent<RampPlayer>();
         _vfx = GetComponentInChildren<VFXManager>();
         _wall = GetComponent<Wall>();
@@ -134,7 +135,7 @@ public class PlayerTricks : MonoBehaviour
 
 
     }
-
+    /*
     public void Trick(InputAction.CallbackContext context)
     {
         switch (context.control.name)
@@ -142,10 +143,10 @@ public class PlayerTricks : MonoBehaviour
             case "a":
                 if (context.performed) { Dash(); }
                 break;
-            case "s":
+            case "upArrow":
                 if (context.performed) { DoubleJump(); }
                 break;
-            case "d":
+            case "s":
                 if (context.performed) { GroundPound(); }
                 break;
             case "space":
@@ -169,7 +170,34 @@ public class PlayerTricks : MonoBehaviour
                 break;
         }
     }
+    */
+    #region Tricks
+    public void DashInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) { Dash(); }
+    }
 
+    public void DoubleJumpInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) { DoubleJump(); }
+    }
+    public void GroundPoundInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) { GroundPound(); }
+    }
+    public void TrickMoveInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) { TrickMove(); }
+    }
+    public void SlidingInput(InputAction.CallbackContext context)
+    {
+        if (context.performed) {if (_playerMovement.IsGrounded() && !_player.RailGrind.IsOnRail) 
+            { _isSliding = true; Sliding(); }}
+
+        if (context.canceled){if (_playerMovement.IsGrounded()) 
+            { _isSliding = false; Sliding(); }}
+    }
+    #endregion
     #region Scoring
     public bool IsDoingTrick()
     {
@@ -218,7 +246,14 @@ public class PlayerTricks : MonoBehaviour
         //_vfx.CallDashVFX();
         lastDashTime = Time.time;
 
-        //AddScoreAndRank();
+        switch (_playerMovement.IsFacingRight)
+        {
+            //Flips player sprite to the direction they are heading to 
+            case false when _playerInputManager.HorizontalMovement > 0f:
+            case true when _playerInputManager.HorizontalMovement < 0f:
+                _playerMovement.Flip();
+                break;
+        }
 
         // Dash always in the current horizontal direction
         float horizontalDirection = transform.rotation.y == 0 ? 1 : -1;
@@ -270,36 +305,39 @@ public class PlayerTricks : MonoBehaviour
     #region DoubleJump
     private void DoubleJump() 
     {
-        if (Time.time < _lastJumpTime + jumpCooldown) { return; }
-        else if(_jumps == 0) { _jumps = maxJumps; }
-
-        if (_jumps != 0)
+        if (!_playerMovement.IsGrounded() || IsWallRiding)
         {
+            if (!canDoubleJump) { return; }
+
             //AddScoreAndRank();
             StartCoroutine(DoubleJumpDestroy());
 
             _vfx.CallDoubleJumpVFX();
 
-            if (Time.time >= _lastInBetweenJumpTime + inBetweenJumpCooldown) { _jumps = maxJumps; }
-
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, doubleJumpPower);
 
-            _jumps--;
-
-            _lastInBetweenJumpTime = Time.time; 
-
-            if(_jumps == 0) { _lastJumpTime = Time.time; }
-
+            canDoubleJump = false; 
+           
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerJump, this.transform.position);
+            //Debug.Log("PogoStick");
         }
-        //Debug.Log("PogoStick");
+    }
+
+    public void CanDoubleJump()
+    {
+        canDoubleJump = true;
     }
 
     private IEnumerator DoubleJumpDestroy()
     {
         _canDestroy = true;
+        _isWallRiding = false; 
         yield return new WaitForSeconds(_canDetroyDuration);
         _canDestroy = false;
+        if (_wall._canWallRide)
+        {
+            _isWallRiding = true;
+        }
     }
     #endregion
 
@@ -346,14 +384,10 @@ public class PlayerTricks : MonoBehaviour
     #endregion
 
     #region WallRiding
-    private void DoWallRide()
-    {
-        //WallRiding(); 
-    }
 
     public void WallRiding()
     {
-        if (_isWallRiding && _isPressingDown) 
+        if (_isWallRiding) 
         {
 
             _playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);

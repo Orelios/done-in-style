@@ -53,12 +53,15 @@ public class PlayerRailGrind : MonoBehaviour
         }
     }
 
+    //clamps the grinding speed for when the player's grinding the rail (doesnt't work)
+    //movement is done by setting the Rigidbody2D.LinearVelocity
     private void GrindRail()
     {
         _grindingSpeed = Mathf.Clamp(_grindingSpeed, float.MinValue, _player.Movement.MaxMovementSpeed * rankCalculator.CurrentStylishRank.MaxSpeedMultiplier * grindingSpeedClamp);
         _player.Rigidbody.linearVelocity = new Vector2(_grindingSpeed, _player.Rigidbody.linearVelocity.y);
     }
 
+    //slows down the player when exiting rails
     private IEnumerator DecayMomentumRoutine()
     {
         var  lastVelocity = _player.Rigidbody.linearVelocity;
@@ -68,7 +71,11 @@ public class PlayerRailGrind : MonoBehaviour
         yield return null;
     }
     
-
+  //assigns values to the necessary variables such as the player's grinding speed and rotation,
+  //adjust the player sprite's rotation based on current rail's angle,
+  //determines the direction of railing based player's direction when landing on rails
+  // calculates grinding speed by getting the absolute value of the player's current Rigidbody2D.LinearVelocityX and multiplying it with the direction and a speed multiplier
+  //and starts continuous score generation
     public void EnableRailGrinding(Railing railing)
     {
         IsOnRail = true;
@@ -98,6 +105,9 @@ public class PlayerRailGrind : MonoBehaviour
         }
     }
 
+    //resets value of necessary variables,
+    //resets player's rotation, stops continuous score generation,
+    //and starts to slowly decay the player's current speed
     public void DisableRailGrinding()
     {
         IsOnRail = false;

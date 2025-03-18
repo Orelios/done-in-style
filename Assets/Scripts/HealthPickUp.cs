@@ -6,7 +6,7 @@ public class HealthPickUp : MonoBehaviour
     {
         if(collision.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
         {
-            if(collision.GetComponent<PlayerHealth>().Health != collision.GetComponent<PlayerHealth>().MaxHealth) 
+            if(collision.GetComponent<PlayerHealth>().CurrentHealth != collision.GetComponent<PlayerHealth>().MaxHealth) 
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.HealthPickup, this.transform.position);
                 collision.GetComponent<PlayerHealth>().IncreaseHealth();

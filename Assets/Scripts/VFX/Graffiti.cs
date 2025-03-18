@@ -1,11 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Graffiti : MonoBehaviour
 {
-    public Sprite originalImg;
-    public Sprite replacementImg;
+    public List<Sprite> originalImgs = new List<Sprite>();
+    public List<Sprite> replacementImgs = new List<Sprite>();
     public GameObject origObj;
     public GameObject replacementObj;
     public GameObject particle;
@@ -23,8 +24,8 @@ public class Graffiti : MonoBehaviour
         {
             replacementObj = transform.GetChild(1).gameObject;
         }
-        origObj.GetComponent<Image>().sprite = originalImg;
-        replacementObj.GetComponent<Image>().sprite = replacementImg;
+        origObj.GetComponent<Image>().sprite = originalImgs[Random.Range(0, originalImgs.Count)];
+        replacementObj.GetComponent<Image>().sprite = replacementImgs[Random.Range(0, replacementImgs.Count)];
         particleVFX = particle.GetComponent<ParticleSystem>();
         particleVFX.Stop();
         //StartGraffiti();
@@ -52,7 +53,7 @@ public class Graffiti : MonoBehaviour
             elapsedTime += Time.deltaTime;
             float alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
 
-            origColor.a = 1f - alpha;
+            //origColor.a = 1f - alpha;
             replaceColor.a = alpha;
 
             origImage.color = origColor;
