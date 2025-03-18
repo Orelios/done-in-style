@@ -53,9 +53,12 @@ public class VFXManager : MonoBehaviour
 
     private void MovementUpdate()
     {
+        //Debug.Log("isMovingToTargetPoint = " + _playerMovement.isMovingToTargetPoint);
         if (_playerMovement.isMovingToTargetPoint)
         {
+            //Debug.Log("first if");
             if (!railVFX.isPlaying) { railVFX.Play(); }
+            //if (railVFX.isPlaying) { Debug.Log("rail is playing"); }
             if (wallRidingVFX.isPlaying) { wallRidingVFX.Stop(); }
             if (movingVFX.isPlaying) { movingVFX.Stop(); }
         }
@@ -67,6 +70,7 @@ public class VFXManager : MonoBehaviour
         }
         else
         {
+            //Debug.Log("else statement");
             if (railVFX.isPlaying) { railVFX.Stop(); }
             if (wallRidingVFX.isPlaying) { wallRidingVFX.Stop(); }
 

@@ -12,8 +12,8 @@ public class MoveToPoints : MonoBehaviour
     private RampPlayer _rampPlayer;
     private PlayerTricks _playerTricks;
     private int index;
-    private float startSpeed, elapsedTime, calculatedSpeed, actualSpeed;
-    [SerializeField] private float maxSpeed = 20, accelerationDuration = 1f, speedDivider = 0.01f, lastRailTime, railCooldownTime = 0.5f;
+    private float startSpeed, elapsedTime, calculatedSpeed, actualSpeed, lastRailTime;
+    [SerializeField] private float maxSpeed = 20, accelerationDuration = 1f, speedDivider = 0.01f, railCooldownTime = 0.5f;
     //[SerializeField] private bool isMovingToTargetPoint = false;
     //[SerializeField] private bool localIsFacingRight = true;
     public bool hasTricked = false;
@@ -61,6 +61,7 @@ public class MoveToPoints : MonoBehaviour
             _playerMovement.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1;
             StartMomentum();
             //_playerMovement.Jump();
+            _playerMovement.isMovingToTargetPoint = false;
         }
     }
 
@@ -201,6 +202,7 @@ public class MoveToPoints : MonoBehaviour
                 ApplyGraffiti();
                 CheckTrickMove();
                 //_vfx.StopRailVFX();
+                _playerMovement.isMovingToTargetPoint = false;
                 lastRailTime = Time.time;
                 Debug.Log(" end");
             }
@@ -231,9 +233,10 @@ public class MoveToPoints : MonoBehaviour
                 ApplyGraffiti();
                 CheckTrickMove();
                 //_vfx.StopRailVFX();
+                _playerMovement.isMovingToTargetPoint = false;
                 lastRailTime = Time.time;
                 Debug.Log(" reversed end");
-                TeleportToPoint(i); 
+                //TeleportToPoint(i); 
             }
             else
             {
@@ -332,7 +335,7 @@ public class MoveToPoints : MonoBehaviour
         {
             StopCoroutine(movementCoroutine);
             movementCoroutine = null;
-            _playerMovement.isMovingToTargetPoint = false;
+            //_playerMovement.isMovingToTargetPoint = false;
         }
     }
 
@@ -386,12 +389,12 @@ public class MoveToPoints : MonoBehaviour
     {
         //_playerMovement.Rb.linearVelocityX = actualSpeed;
         //Debug.Log("momentum started");
-        while (!Input.anyKeyDown)
+        while (!Input.anyKeyDown || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (_rampPlayer.IsColliding) { break; }
             //dashLastVelocity = _playerMovement.Rb.linearVelocity.y;
             //_playerMovement.Rb.linearVelocity -= _dashMomentumDecay;
-            Vector2 lastVelocity = new Vector2(calculatedSpeed, 0f);
+            Vector2 lastVelocity = new Vector2(calculatedSpeed, _playerMovement.Rb.linearVelocityY);
             if (_playerMovement.IsFacingRight)
             {
                 _playerMovement.Rb.linearVelocity = new Vector2(lastVelocity.x - _playerTricks.DashMomentumDecay.x, lastVelocity.y - _playerTricks.DashMomentumDecay.y);
@@ -403,7 +406,7 @@ public class MoveToPoints : MonoBehaviour
             //Debug.LogWarning("lastVelicity = " + lastVelocity);
             //Debug.LogWarning("actualSpeed = " + actualSpeed);
             //Debug.LogWarning("calculatedSpeed = " + calculatedSpeed);
-            Debug.Log("velocity = " + _playerMovement.Rb.linearVelocity);
+            //Debug.Log("velocity = " + _playerMovement.Rb.linearVelocity);
             yield return null;
         }
         //Debug.Log("momentum ends");
