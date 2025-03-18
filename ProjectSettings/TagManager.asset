@@ -12,6 +12,8 @@ TagManager:
   - RampExit
   - RailingInteraction
   - Springboard
+  - MidRight
+  - MidLeft
   layers:
   - Default
   - TransparentFX

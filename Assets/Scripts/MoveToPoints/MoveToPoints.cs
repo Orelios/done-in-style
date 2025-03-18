@@ -53,7 +53,7 @@ public class MoveToPoints : MonoBehaviour
             }
         }
         */
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && _playerMovement.gameObject.GetComponent<Rigidbody2D>().bodyType == RigidbodyType2D.Kinematic)
         {
             StopTargetedMovement();
             _playerMovement.isMovingToTargetPoint = false;

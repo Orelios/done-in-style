@@ -10,7 +10,7 @@ public class MovePoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && index != 0 && index != 1)
         {
             //GetComponentInParent<MoveToPoints>().TeleportToPoint(index);
             GetComponentInParent<MoveToPoints>().TargetNextPoint(index);
