@@ -159,7 +159,7 @@ public class PauseMenuNavigator : MonoBehaviour
         {
             case EMenuLookingAt.MainInterface:
                 CloseAllInterfaces();
-                FindFirstObjectByType<GameStateHandler>().ResumeGame();
+                GameStateHandler.Instance.ResumeGame();
                 break;
             case EMenuLookingAt.SettingsDirectory:
             case EMenuLookingAt.Confirmation:
