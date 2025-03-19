@@ -8,11 +8,7 @@ public class GameOverState : GameState
 
     public override void OnStateEnter()
     {
-        SetGameTimeScale(0f);
-    }
-
-    public override void OnStateExit()
-    {
-        SetGameTimeScale(1f);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }
