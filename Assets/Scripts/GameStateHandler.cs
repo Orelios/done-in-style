@@ -44,6 +44,7 @@ public class GameStateHandler : MonoBehaviour
         InitializeStateMachine();
         
         SetState(_gameplayState);
+        //StartTitleScreen();
     }
 
     private void Update()
@@ -82,6 +83,17 @@ public class GameStateHandler : MonoBehaviour
     private void NormalTransition(StateMachine stateMachine, IState currentState, IState nextState, IPredicate condition) => stateMachine.AddNormalTransition(currentState, nextState, condition);
     private void AnyTransition(StateMachine stateMachine, IState nextState, IPredicate condition) => stateMachine.AddAnyTransition(nextState, condition);
 
+    private void ReferenceGuard()
+    {
+        if (_player != null && _pauseMenuNavigator != null)
+        {
+            return;
+        }
+        
+        _player = FindFirstObjectByType<Player>();
+        _pauseMenuNavigator = FindFirstObjectByType<PauseMenuNavigator>();
+    }
+    
     public void SetState(IState state)
     {
         _stateMachine.SetState(state);
@@ -101,6 +113,8 @@ public class GameStateHandler : MonoBehaviour
     
     public void StartGameplay()
     {
+        ReferenceGuard();
+        
         _isGameplay = true;
         _isTitleScreen = false;
         FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
@@ -108,6 +122,8 @@ public class GameStateHandler : MonoBehaviour
     
     public void PauseGame()
     { 
+        ReferenceGuard();
+        
         _isGamePaused = true;
         _isGameplay = false;
         _pauseMenuNavigator.OpenMainInterface();
@@ -115,6 +131,8 @@ public class GameStateHandler : MonoBehaviour
     }
     public void ResumeGame()
     { 
+        ReferenceGuard();
+        
         _isGamePaused = false;
         _isGameplay = true;
         FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
