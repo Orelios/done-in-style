@@ -40,11 +40,11 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
 
-    public void EnableGameplayControls(InputAction.CallbackContext context)
+    public void OnPause(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
-            EnableGameplayControls();
+            EnableUserInterfaceControls();
         }
     }
 
@@ -54,11 +54,11 @@ public class PlayerInputManager : MonoBehaviour
         _userInterfaceActionMap.Disable();
     }
 
-    public void EnableUserInterfaceControls(InputAction.CallbackContext context)
+    public void OnBack(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
-            EnableUserInterfaceControls();
+            FindFirstObjectByType<PauseMenuNavigator>().Back();
         }
     }
     

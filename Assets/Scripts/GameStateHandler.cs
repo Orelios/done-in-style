@@ -58,13 +58,13 @@ public class GameStateHandler : MonoBehaviour
     public void PauseGame()
     { 
         _isGamePaused = true;
-        _pauseMenuNavigator.PauseGame();
+        _pauseMenuNavigator.OpenMainInterface();
         
     }
     public void ResumeGame()
     { 
         _isGamePaused = false;
-        _pauseMenuNavigator.ResumeGame();
+        FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
     }
 
     public void RestartLevel()
