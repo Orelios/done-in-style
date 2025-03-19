@@ -84,6 +84,18 @@ public class GameStateHandler : MonoBehaviour
     {
         _stateMachine.SetState(state);
     }
+
+    public void StartTitleScreen()
+    {
+        _isGameplay = false; 
+        _isGamePaused = false; 
+        _isGameOver = false; 
+        _isGameWon = false; 
+        _isTitleScreen = true;
+    
+    SetState(_titleScreenState);
+    FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
+    }
     
     public void StartGameplay()
     {
