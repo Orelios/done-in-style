@@ -42,9 +42,9 @@ public class GameStateHandler : MonoBehaviour
         _player = FindFirstObjectByType<Player>();
         _pauseMenuNavigator = FindFirstObjectByType<PauseMenuNavigator>();
         InitializeStateMachine();
-        
-        SetState(_gameplayState);
-        //StartTitleScreen();
+
+        //SetState(_gameplayState);
+        StartTitleScreen();
     }
 
     private void Update()
@@ -141,5 +141,11 @@ public class GameStateHandler : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void AssignValues(Player player, PauseMenuNavigator pauseMenuNavigator)
+    {
+        _player = player;
+        _pauseMenuNavigator = pauseMenuNavigator;
     }
 }
