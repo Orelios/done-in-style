@@ -38,6 +38,7 @@ public class GameStateHandler : MonoBehaviour
         var pausedState = new PausedState(_player);
         var gameOverState = new GameOverState(_player);
         var levelResultState = new LevelResultState(_player);
+        var titleScreenState = new TitleScreenState(_player);
         
         NormalTransition(_stateMachine, gameplayState, gameOverState, new FuncPredicate(()=> _player.Health.CurrentHealth < 0));
         NormalTransition(_stateMachine, gameplayState, pausedState, new FuncPredicate(()=> _isGamePaused));

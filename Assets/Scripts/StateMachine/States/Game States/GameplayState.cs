@@ -11,10 +11,4 @@ public class GameplayState : GameState
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-    public override void OnStateExit()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
 }

@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rankType: 2
   rankName: COOKING!
+  rankNameSprite: {fileID: -6631579728014629369, guid: 3a567702c4736ab4e82069502c7debc2, type: 3}
   scoreMultiplier: 2.5
+  scoreMultiplierBaseSprite: {fileID: 21300000, guid: 57b5c437633e9f44891482d768233c03, type: 3}
+  scoreMultiplierOutlineSprite: {fileID: -4731949910265545670, guid: 833f3f18cc2420c4fa973dce826cedc7, type: 3}
+  scoreMultiplierFillColor: {r: 0.34901962, g: 0.9960785, b: 0.37647063, a: 1}
   requiredBreakthroughPoints: 12
   accelerationMultiplier: 1.4
   maxSpeedMultiplier: 1.4
