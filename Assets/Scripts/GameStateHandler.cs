@@ -33,8 +33,10 @@ public class GameStateHandler : MonoBehaviour
         {
             _instance = this;
         }
+        
+        DontDestroyOnLoad(gameObject);
     }
-
+    
     private void Start()
     {
         _player = FindFirstObjectByType<Player>();
