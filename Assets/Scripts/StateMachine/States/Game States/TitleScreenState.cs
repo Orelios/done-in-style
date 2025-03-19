@@ -10,5 +10,6 @@ public class TitleScreenState : GameState
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        Object.FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
     }
 }
