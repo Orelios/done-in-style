@@ -422,7 +422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8723722366135640840, guid: 0c24463c2e6b35c48aec119662508494, type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 40
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8723722366135640840, guid: 0c24463c2e6b35c48aec119662508494, type: 3}
       propertyPath: ColorModule.gradient.maxGradient.ctime1
