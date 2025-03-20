@@ -20,16 +20,6 @@ public class RailsParent : MonoBehaviour
     [SerializeField] private int pointsPerSecond;
     [SerializeField] private int maxTimeForPoints;
 
-    
-    public void GiveScore()
-    {
-        if (!hasGivenScore)
-        {
-            _playerTricks.AddScoreAndRank();
-            hasGivenScore = true;
-        }
-    }
-
     public void ApplyGraffiti()
     {
         if (!hasAppliedGraffiti)
@@ -54,17 +44,18 @@ public class RailsParent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!hasGivenScore)
-        {
-            _scoreRoutine = StartCoroutine(scoreCalculator.IncreaseScoreContinuousRoutine(pointsPerSecond, rankCalculator.CurrentStylishRank.ScoreMultiplier, maxTimeForPoints));
-            _rankRoutine = StartCoroutine(rankCalculator.IncreaseStylishPointsContinuousRoutine(maxTimeForPoints));
-            
-        }
-        
         if (collision.gameObject.TryGetComponent<PlayerTricks>(out var playerTricks))
         {
             _playerTricks = playerTricks;
             _playerTricks.DisableCanTrick();
+            
+            if (!hasGivenScore)
+            {
+                _scoreRoutine = StartCoroutine(scoreCalculator.IncreaseScoreContinuousRoutine(pointsPerSecond, rankCalculator.CurrentStylishRank.ScoreMultiplier, maxTimeForPoints));
+                _rankRoutine = StartCoroutine(rankCalculator.IncreaseStylishPointsContinuousRoutine(maxTimeForPoints));
+                _playerTricks.AddScoreAndRank();
+                hasGivenScore = true;
+            }
         }
     }
 
