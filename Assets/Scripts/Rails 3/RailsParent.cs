@@ -19,6 +19,8 @@ public class RailsParent : MonoBehaviour
     [Header("Points Configs")]
     [SerializeField] private int pointsPerSecond;
     [SerializeField] private int maxTimeForPoints;
+
+    
     public void GiveScore()
     {
         if (!hasGivenScore)

@@ -12,7 +12,6 @@ public class PlayerRailing : MonoBehaviour
     private PlayerMovement _playerMovement;
     private float _speedOnEnter;
 
-
     public bool IsMovingOnRail { get => _IsmovingOnRail; set => _IsmovingOnRail = value; }
     public float SpeedRequirement { get => speedRequirement; set => speedRequirement = value; }
 
