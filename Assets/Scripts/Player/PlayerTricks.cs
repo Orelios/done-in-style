@@ -190,7 +190,7 @@ public class PlayerTricks : MonoBehaviour
     }
     public void SlidingInput(InputAction.CallbackContext context)
     {
-        if (context.performed) {if (_playerMovement.IsGrounded() && !_player.RailGrind.IsOnRail) 
+        if (context.performed) {if (_playerMovement.IsGrounded() && !_player.Railing.IsMovingOnRail)
             { _isSliding = true; Sliding(); }}
 
         if (context.canceled){if (_playerMovement.IsGrounded()) 

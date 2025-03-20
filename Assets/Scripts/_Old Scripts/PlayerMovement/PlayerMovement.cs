@@ -319,7 +319,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
     public void Flip() //flips character where player is facing towards
     {
-        if (_player.RailGrind.IsOnRail)
+        if (_player.Railing.IsMovingOnRail)
         {
             return;
         }
