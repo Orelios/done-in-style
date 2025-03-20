@@ -56,7 +56,7 @@ public class PlayerInputManager : MonoBehaviour
 
     public void OnBack(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.started && GameStateHandler.Instance.ScreenType != EScreenType.TitleScreen)
         {
             FindFirstObjectByType<PauseMenuNavigator>().Back();
         }

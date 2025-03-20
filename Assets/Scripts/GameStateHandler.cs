@@ -7,6 +7,9 @@ public class GameStateHandler : MonoBehaviour
     private static GameStateHandler _instance;
     public static GameStateHandler Instance => _instance;
 
+    [SerializeField] private EScreenType screenType;
+    public EScreenType ScreenType => screenType;
+    
     private Player _player;
     private PauseMenuNavigator _pauseMenuNavigator;
     private StateMachine _stateMachine;
@@ -18,7 +21,7 @@ public class GameStateHandler : MonoBehaviour
     private bool _isGameplay;
     private bool _isGamePaused;
     private bool _isGameOver;
-    private bool _isGameWon;
+    private bool _isResultScreen;
     private bool _isTitleScreen;
 
     public Type CurrentGameState => _stateMachine.GetCurrentState().GetType();
@@ -34,7 +37,7 @@ public class GameStateHandler : MonoBehaviour
             _instance = this;
         }
         
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     
     private void Start()
@@ -44,7 +47,8 @@ public class GameStateHandler : MonoBehaviour
         InitializeStateMachine();
 
         //SetState(_gameplayState);
-        StartTitleScreen();
+        //StartTitleScreen();
+        SetState();
     }
 
     private void Update()
@@ -82,21 +86,35 @@ public class GameStateHandler : MonoBehaviour
     
     private void NormalTransition(StateMachine stateMachine, IState currentState, IState nextState, IPredicate condition) => stateMachine.AddNormalTransition(currentState, nextState, condition);
     private void AnyTransition(StateMachine stateMachine, IState nextState, IPredicate condition) => stateMachine.AddAnyTransition(nextState, condition);
-
-    private void ReferenceGuard()
+    
+    private void SetState()
     {
-        if (_player != null && _pauseMenuNavigator != null)
+        _isGameplay = false; 
+        _isGamePaused = false; 
+        _isGameOver = false; 
+        _isResultScreen = false; 
+        _isTitleScreen = true;
+        
+        switch (screenType)
         {
-            return;
+            case EScreenType.TitleScreen:
+                _stateMachine.SetState(_titleScreenState);
+                _isTitleScreen = true;
+                FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
+                break;
+            case EScreenType.Gameplay:
+                _stateMachine.SetState(_gameplayState);
+                _isGameplay = true;
+                FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
+                break;
+            case EScreenType.ResultsScreen:
+                _stateMachine.SetState(_levelResultState);
+                _isResultScreen = true;
+                FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
+                break;
         }
         
-        _player = FindFirstObjectByType<Player>();
-        _pauseMenuNavigator = FindFirstObjectByType<PauseMenuNavigator>();
-    }
-    
-    public void SetState(IState state)
-    {
-        _stateMachine.SetState(state);
+        Debug.Log($"Current Screen: {screenType}\n Current State: {CurrentGameState}");
     }
 
     public void StartTitleScreen()
@@ -104,17 +122,15 @@ public class GameStateHandler : MonoBehaviour
         _isGameplay = false; 
         _isGamePaused = false; 
         _isGameOver = false; 
-        _isGameWon = false; 
+        _isResultScreen = false; 
         _isTitleScreen = true;
     
-    SetState(_titleScreenState);
+    //SetState(_titleScreenState);
     FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
     }
     
     public void StartGameplay()
     {
-        ReferenceGuard();
-        
         _isGameplay = true;
         _isTitleScreen = false;
         FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
@@ -122,8 +138,6 @@ public class GameStateHandler : MonoBehaviour
     
     public void PauseGame()
     { 
-        ReferenceGuard();
-        
         _isGamePaused = true;
         _isGameplay = false;
         _pauseMenuNavigator.OpenMainInterface();
@@ -131,8 +145,6 @@ public class GameStateHandler : MonoBehaviour
     }
     public void ResumeGame()
     { 
-        ReferenceGuard();
-        
         _isGamePaused = false;
         _isGameplay = true;
         FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
@@ -148,4 +160,11 @@ public class GameStateHandler : MonoBehaviour
         _player = player;
         _pauseMenuNavigator = pauseMenuNavigator;
     }
+}
+
+public enum EScreenType
+{
+    TitleScreen,
+    Gameplay,
+    ResultsScreen
 }

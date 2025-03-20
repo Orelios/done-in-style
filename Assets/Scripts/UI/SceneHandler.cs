@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
@@ -30,7 +31,7 @@ public class SceneHandler : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
         SceneManager.sceneLoaded += OnEnableScene;
     }
@@ -42,5 +43,5 @@ public class SceneHandler : MonoBehaviour
         _pauseMenuNavigator = FindFirstObjectByType<PauseMenuNavigator>();
         _gameStateHandler.AssignValues(_player, _pauseMenuNavigator);
         Debug.Log("OnEnableScene called");
-    }
+    }*/
 }
