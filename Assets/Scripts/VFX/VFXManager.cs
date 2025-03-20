@@ -57,6 +57,7 @@ public class VFXManager : MonoBehaviour
         {
             if (!railVFX.isPlaying) { railVFX.Play(); }
             if (wallRidingVFX.isPlaying) { wallRidingVFX.Stop(); }
+            if (movingVFX.isPlaying) { movingVFX.Stop(); }
         }
         else if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy)
         {
