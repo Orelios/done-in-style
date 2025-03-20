@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class RailsParent : MonoBehaviour
 {
@@ -45,30 +46,31 @@ public class RailsParent : MonoBehaviour
         {
             _playerTricks.DisableCanTrick();
             _playerTricks.EnableTrick(gameObject);
-            hasTricked = true;
+            //hasTricked = true;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
         if (!hasGivenScore)
         {
             _scoreRoutine = StartCoroutine(scoreCalculator.IncreaseScoreContinuousRoutine(pointsPerSecond, rankCalculator.CurrentStylishRank.ScoreMultiplier, maxTimeForPoints));
-            //_rankRoutine = StartCoroutine(rankCalculator.IncreaseStylishPointsContinuousRoutine(maxTimeForPoints));
+            _rankRoutine = StartCoroutine(rankCalculator.IncreaseStylishPointsContinuousRoutine(maxTimeForPoints));
             
         }
         
         if (collision.gameObject.TryGetComponent<PlayerTricks>(out var playerTricks))
         {
             _playerTricks = playerTricks;
-
+            _playerTricks.DisableCanTrick();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        StopAllCoroutines();
+        //StopAllCoroutines();
+        StopCoroutine(_scoreRoutine);
+        StopCoroutine(_rankRoutine);
         ApplyGraffiti();
         CheckTrickMove();
     }
