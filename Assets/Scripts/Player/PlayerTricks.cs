@@ -96,7 +96,7 @@ public class PlayerTricks : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color startColor = Color.white;
     private Color trickColor = Color.red;
-    private Color enableTrickColor = Color.blue;
+    private Color enableTrickColor = Color.white;
 
     private Player _player;
     #endregion
