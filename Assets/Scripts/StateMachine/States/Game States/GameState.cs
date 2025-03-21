@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameState : BaseState
 {
-    public GameState(Player player) : base(player)
+    public GameState(GameStateHandler handler, Player player) : base(handler, player)
     {
     }
 
