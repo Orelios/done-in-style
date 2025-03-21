@@ -353,12 +353,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalImgs:
-  - {fileID: 21300000, guid: 965e3fc4d4643e941a40decaaf763cef, type: 3}
-  - {fileID: 21300000, guid: a6b91da8eea8cd94ab74cc56e1c06c11, type: 3}
-  - {fileID: 21300000, guid: f1e0e5d1971ad5842a598dd53ca1a8ef, type: 3}
+  - {fileID: -575749432303804277, guid: d76e7d2a4c53b3e4688f519d7c27a0b4, type: 3}
+  - {fileID: 6240855831359520883, guid: ca6e075b47e1f2a47b9c2cfaab30713b, type: 3}
+  - {fileID: -756135660642574822, guid: f5abb1c225bc15c438bddb8b9df64f38, type: 3}
   replacementImgs:
-  - {fileID: 21300000, guid: 33a003da37795d2498b8734119e1e5f0, type: 3}
-  - {fileID: 21300000, guid: 30294518aa3698448a855a9491fba559, type: 3}
+  - {fileID: 4842685561860637112, guid: 1378a814f0a5fb049a4b1fb0c6a9b5e9, type: 3}
+  - {fileID: 6867462649617324787, guid: 947ba5a9d335d524aa2553666a2350ae, type: 3}
   origObj: {fileID: 4466767534251956617}
   replacementObj: {fileID: 8609329583149318116}
   particle: {fileID: 5793535383252086054}
