@@ -96,7 +96,7 @@ public class PlayerTricks : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color startColor = Color.white;
     private Color trickColor = Color.red;
-    private Color enableTrickColor = Color.blue;
+    private Color enableTrickColor = Color.white;
 
     private Player _player;
     #endregion
@@ -190,7 +190,7 @@ public class PlayerTricks : MonoBehaviour
     }
     public void SlidingInput(InputAction.CallbackContext context)
     {
-        if (context.performed) {if (_playerMovement.IsGrounded() && !_player.RailGrind.IsOnRail) 
+        if (context.performed) {if (_playerMovement.IsGrounded() && !_player.Railing.IsMovingOnRail)
             { _isSliding = true; Sliding(); }}
 
         if (context.canceled){if (_playerMovement.IsGrounded()) 
@@ -489,7 +489,7 @@ public class PlayerTricks : MonoBehaviour
                 jumpPad.hasTricked = true;
                 AddScoreAndRank();
             }
-            else if (_trickObject.TryGetComponent<Railing>(out var railing))
+            else if (_trickObject.TryGetComponent<RailsParent>(out var railing))
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
                 railing.hasTricked = true;
