@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rankType: 3
   rankName: BALLIN'!
+  rankNameSprite: {fileID: -8990929726961601171, guid: 8bc4ac36af1b6df4e8125cb174813871, type: 3}
   scoreMultiplier: 3
+  scoreMultiplierBaseSprite: {fileID: 21300000, guid: 0c042ecabe6cc4b4c91ecd3fbd67586d, type: 3}
+  scoreMultiplierOutlineSprite: {fileID: -7134176955024161918, guid: 59d8487b8c6389140ba4df215cdbbf16, type: 3}
+  scoreMultiplierFillColor: {r: 0.24705884, g: 0.75294125, b: 0.7843138, a: 1}
   requiredBreakthroughPoints: 18
   accelerationMultiplier: 1.6
   maxSpeedMultiplier: 1.6

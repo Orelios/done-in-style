@@ -8,6 +8,8 @@ public class PausedState : GameState
 
     public override void OnStateEnter()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         SetGameTimeScale(0f);
     }
 

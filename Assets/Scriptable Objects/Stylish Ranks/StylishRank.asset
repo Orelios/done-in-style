@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rankType: 5
   rankName: STYLISH!
+  rankNameSprite: {fileID: 5092450268666468916, guid: 546d4fd26cced3a4d85719e79d78ff6e, type: 3}
   scoreMultiplier: 5
+  scoreMultiplierBaseSprite: {fileID: 21300000, guid: 04f7e40fab1cc164d96cfea59c104a5c, type: 3}
+  scoreMultiplierOutlineSprite: {fileID: -4786142718808624615, guid: 4e4069d7d7d86664485a221c177fa39d, type: 3}
+  scoreMultiplierFillColor: {r: 0.9960785, g: 0.82745105, b: 0.4901961, a: 1}
   requiredBreakthroughPoints: 999
   accelerationMultiplier: 2
   maxSpeedMultiplier: 2
