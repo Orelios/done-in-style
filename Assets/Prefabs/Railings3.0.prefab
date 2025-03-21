@@ -545,7 +545,7 @@ MonoBehaviour:
   scoreCalculator: {fileID: 0}
   rankCalculator: {fileID: 0}
   pointsPerSecond: 100
-  maxTimeForPoints: 10
+  maxTimeForPoints: 2
 --- !u!1 &7244584378434361002
 GameObject:
   m_ObjectHideFlags: 0

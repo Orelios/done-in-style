@@ -27,7 +27,7 @@ public class PlayerRailing : MonoBehaviour
         if (_IsmovingOnRail)
         {
             // Accelerate towards max speed
-            _speedOnEnter = Mathf.MoveTowards(_speedOnEnter, maxSpeed, acceleration * Time.fixedDeltaTime);
+            _speedOnEnter = Mathf.MoveTowards(_speedOnEnter, maxSpeed, acceleration);
 
         }
 
