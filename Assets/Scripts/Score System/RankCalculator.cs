@@ -43,6 +43,11 @@ public class RankCalculator : MonoBehaviour
         {
             DecreaseStylishPoints();
         }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            IncreaseStylishPoints();
+        }
     }
 
     //increments rank, clamps rank value between the lowest and highest rank index, and updates rank UI
@@ -52,6 +57,22 @@ public class RankCalculator : MonoBehaviour
         _currentStylishRankIndex = Mathf.Clamp(_currentStylishRankIndex, 0, stylishRanksList.Count - 1);
         CurrentStylishRank = stylishRanksList[_currentStylishRankIndex];
         stylishRankText.text = $"{CurrentStylishRank.RankName}";
+
+        switch (_currentStylishRankIndex - 1)
+        {
+            case 1:
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.VOXCookin, this.transform.position);
+                break;
+            case 2:
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.VOXBallin, this.transform.position);
+                break;
+            case 3:
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.VOXAwesome, this.transform.position);
+                break;
+            case 4:
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.VOXStylish, this.transform.position);
+                break;
+        }
     }
 
     //decrements rank, clamps rank value between the lowest and highest rank index, and updates rank UI

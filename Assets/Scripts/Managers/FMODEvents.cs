@@ -3,6 +3,14 @@ using FMODUnity;
 
 public class FMODEvents : MonoBehaviour
 {
+    [field: Header("BGM")]
+    [SerializeField] private EventReference skateParkMusic1;
+    public EventReference SkateParkMusic1 { get => skateParkMusic1; set => skateParkMusic1 = value; }
+
+    [field: Header("Ambience")]
+    [SerializeField] private EventReference skateParkAmbience;
+    public EventReference SkateParkAmbience { get => skateParkAmbience; set => skateParkAmbience = value; }
+
     [field: Header("Player SFX")]
     [SerializeField] private EventReference playerJump; 
     [SerializeField] private EventReference playerDash;
@@ -36,10 +44,24 @@ public class FMODEvents : MonoBehaviour
     [SerializeField] private EventReference breakObstacle;
     [SerializeField] private EventReference springBoard;
     [SerializeField] private EventReference healthPickup;
+    [SerializeField] private EventReference tmShoot;
+    [SerializeField] private EventReference cameraRecording;
     public EventReference Slowmo { get => slowmo; set => slowmo = value; }
     public EventReference BreakObstacle { get => breakObstacle; set => breakObstacle = value; }
     public EventReference SpringBoard { get => springBoard; set => springBoard = value; }
     public EventReference HealthPickup { get => healthPickup; set => healthPickup = value; }
+    public EventReference TMShoot { get => tmShoot; set => tmShoot = value; }
+    public EventReference CameraRecording { get => cameraRecording; set => cameraRecording = value; }
+
+    [field: Header("Score SFX")]
+    [SerializeField] private EventReference voxCookin;
+    [SerializeField] private EventReference voxBallin;
+    [SerializeField] private EventReference voxAwesome;
+    [SerializeField] private EventReference voxStylish;
+    public EventReference VOXCookin { get => voxCookin; set => voxCookin = value; }
+    public EventReference VOXBallin { get => voxBallin; set => voxBallin = value; }
+    public EventReference VOXAwesome { get => voxAwesome; set => voxAwesome = value; }
+    public EventReference VOXStylish { get => voxStylish; set => voxStylish = value; }
 
     public static FMODEvents instance { get; private set; }
 

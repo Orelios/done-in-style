@@ -44,6 +44,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae835dcfb2ebc9148951ead49af19022, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skateParkMusic1:
+    Guid:
+      Data1: -363659262
+      Data2: 1195369568
+      Data3: -1829132876
+      Data4: 855701355
+    Path: event:/MusicEvents/SkateParkMusic1
+  skateParkAmbience:
+    Guid:
+      Data1: -586501438
+      Data2: 1263349677
+      Data3: 1542616731
+      Data4: -1597972497
+    Path: event:/AmbienceEvents/SkateParkAmbience
   playerJump:
     Guid:
       Data1: 278411334
@@ -95,10 +109,10 @@ MonoBehaviour:
     Path: event:/PlayerEvents/PlayerMovementAir
   playerSkatingWallRide:
     Guid:
-      Data1: -168516687
-      Data2: 1268149215
-      Data3: -826148983
-      Data4: 909587870
+      Data1: -62908778
+      Data2: 1249879994
+      Data3: -936303960
+      Data4: 1901725042
     Path: event:/PlayerEvents/PlayerMovementWallRide
   playerRailGrinding:
     Guid:
@@ -128,6 +142,13 @@ MonoBehaviour:
       Data3: -1515583317
       Data4: -1393008088
     Path: event:/PlayerEvents/PlayerHurt
+  playerMovement:
+    Guid:
+      Data1: 263132860
+      Data2: 1333792470
+      Data3: -304203073
+      Data4: 1034993261
+    Path: event:/PlayerMovementSystem
   slowmo:
     Guid:
       Data1: -1028316372
@@ -151,11 +172,53 @@ MonoBehaviour:
     Path: event:/EnvironmentEvents/SpringboardJump
   healthPickup:
     Guid:
-      Data1: 1851662654
-      Data2: 1202354850
-      Data3: 221693571
-      Data4: 1773985672
-    Path: event:/EnvironmentEvents/HealthPickUp
+      Data1: 1485640785
+      Data2: 1106439676
+      Data3: -2076397646
+      Data4: -489608283
+    Path: event:/EnvironmentEvents/BandagePickup
+  tmShoot:
+    Guid:
+      Data1: -363659262
+      Data2: 1195369568
+      Data3: -1829132876
+      Data4: 855701355
+    Path: event:/MusicEvents/SkateParkMusic1
+  cameraRecording:
+    Guid:
+      Data1: -1147511812
+      Data2: 1075424885
+      Data3: 806773172
+      Data4: 1513238179
+    Path: event:/EnvironmentEvents/CameraRecording
+  voxCookin:
+    Guid:
+      Data1: -273431211
+      Data2: 1188648580
+      Data3: -404642163
+      Data4: 593423199
+    Path: event:/ComboEvents/LoserToCookin
+  voxBallin:
+    Guid:
+      Data1: -1804028030
+      Data2: 1340978773
+      Data3: 1696869262
+      Data4: 138580415
+    Path: event:/ComboEvents/CookinToBallin
+  voxAwesome:
+    Guid:
+      Data1: -2105171841
+      Data2: 1303650479
+      Data3: -496269422
+      Data4: -1115796502
+    Path: event:/ComboEvents/BallinToAwesome
+  voxStylish:
+    Guid:
+      Data1: -1629831392
+      Data2: 1221980428
+      Data3: -471688277
+      Data4: -522339441
+    Path: event:/ComboEvents/AwesomeToStylish
 --- !u!1 &9045434382394425780
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,3 +264,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 838b360694a4a4d40a2ab9a9bb86c397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MasterVolume: 1
+  SFXVolume: 1
+  BGMusicVolume: 1

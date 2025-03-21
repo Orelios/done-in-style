@@ -5,7 +5,7 @@
 			<value>TM_Whirling</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{5e9d539a-24f5-4bfc-a818-a01335c13d99}</destination>
@@ -103,6 +103,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{fec0cc92-2262-459c-9796-a4edce0c0c35}">
+		<property name="volume">
+			<value>-11.5</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -140,9 +143,18 @@
 	<object class="MixerBusEffectChain" id="{37eb6ab6-4b29-49b7-99da-9ec9c43078d8}">
 		<relationship name="effects">
 			<destination>{b90920dc-357d-45fb-8efc-fd3cbcf56a72}</destination>
+			<destination>{3993b93f-d7fa-429b-b7ac-a2ceab80d9d9}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{f5fe261d-15c9-496d-893a-514d60a2c3cd}" />
 	<object class="MixerBusFader" id="{c7f0b5c5-8b4f-49af-8908-b9f7bbb77911}" />
 	<object class="MixerBusFader" id="{b90920dc-357d-45fb-8efc-fd3cbcf56a72}" />
+	<object class="SpatialiserEffect" id="{3993b93f-d7fa-429b-b7ac-a2ceab80d9d9}">
+		<property name="distanceRolloffType">
+			<value>1</value>
+		</property>
+		<property name="overrideRange">
+			<value>true</value>
+		</property>
+	</object>
 </objects>
