@@ -27,12 +27,12 @@ public class PlayerRailing : MonoBehaviour
         if (_IsmovingOnRail)
         {
             // Accelerate towards max speed
-            _currentSpeed = Mathf.MoveTowards(_currentSpeed, maxSpeed, acceleration * Time.fixedDeltaTime);
+            _speedOnEnter = Mathf.MoveTowards(_speedOnEnter, maxSpeed, acceleration * Time.fixedDeltaTime);
 
         }
 
         // Apply velocity in the direction the player is facing
-        _playerMovement.Rb.linearVelocity = transform.right * _currentSpeed;
+        _playerMovement.Rb.linearVelocity = transform.right * _speedOnEnter;
         /*
         else
         {
@@ -41,5 +41,10 @@ public class PlayerRailing : MonoBehaviour
         }
         */
 
+    }
+
+    public void ApplyOnenterSpeed(float speedOnEnter)
+    {
+        _speedOnEnter = speedOnEnter; 
     }
 }

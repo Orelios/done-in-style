@@ -52,6 +52,11 @@ public class RailsParent : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.TryGetComponent<PlayerRailing>(out var playerRailing))
+        {
+            playerRailing.ApplyOnenterSpeed(collision.gameObject.GetComponent<PlayerMovement>().Rb.linearVelocityX);
+        }
+
         if (collision.gameObject.TryGetComponent<PlayerTricks>(out var playerTricks))
         {
             _playerTricks = playerTricks;
