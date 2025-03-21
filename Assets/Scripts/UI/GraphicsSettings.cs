@@ -10,10 +10,16 @@ public class GraphicsSettings : MonoBehaviour
     private List<Resolution> filteredResolutions;
 
     private float currentRefreshRate;
-    private int currentResolutionIndex = 0;
+    private int currentResolutionIndex = 0, savedResolutionIndex, savedWidth, savedHeight;
 
     void Start()
     {
+        if (PlayerPrefs.HasKey("resWidth") && PlayerPrefs.HasKey("resHeight"))
+        {
+            savedWidth = PlayerPrefs.GetInt("resWidth");
+            savedHeight = PlayerPrefs.GetInt("resHeight");
+        }
+
         resolutions = Screen.resolutions;
         filteredResolutions = new List<Resolution>();
 
@@ -44,17 +50,39 @@ public class GraphicsSettings : MonoBehaviour
             {
                 currentResolutionIndex = i;
             }
+
+            if (filteredResolutions[i].width == savedWidth && filteredResolutions[i].height == savedHeight && (float)filteredResolutions[i].refreshRateRatio.value == currentRefreshRate)
+            {
+                savedResolutionIndex = i;
+            }
         }
 
         resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex = 0;
-        resolutionDropdown.RefreshShownValue();
-        SetResolution(currentResolutionIndex);
+
+        
+
+        
+        //SetResolution(currentResolutionIndex);
+
+        if (PlayerPrefs.HasKey("resWidth") && PlayerPrefs.HasKey("resHeight"))
+        {
+            resolutionDropdown.value = savedResolutionIndex;
+            resolutionDropdown.RefreshShownValue();
+            Screen.SetResolution(savedWidth, savedHeight, true);
+        }
+        else
+        {
+            resolutionDropdown.value = currentResolutionIndex;
+            resolutionDropdown.RefreshShownValue();
+            SetResolution(currentResolutionIndex);
+        }
     }
 
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = filteredResolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, true);
+        PlayerPrefs.SetInt("resWidth", resolution.width);
+        PlayerPrefs.SetInt("resHeight", resolution.height);
     }
 }
