@@ -4,20 +4,12 @@ using UnityEngine;
 
 public class ResultsDisplayer : MonoBehaviour
 {
-    [SerializeField] private IntEventChannel scoreEventChannel;
-    [SerializeField] private FloatEventChannel timeEventChannel;
-
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI timeText;
 
-    private void Start()
-    {
-        ShowScoreResult(12345);
-        ShowTimeResult(169.420f);
-    }
-
     public void ShowScoreResult(int score)
     {
+        Debug.Log(score);
         scoreText.text = $"SCORE: <size=100>{score:n0}</size>";
     }
 
