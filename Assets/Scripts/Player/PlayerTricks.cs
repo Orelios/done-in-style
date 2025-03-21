@@ -389,16 +389,15 @@ public class PlayerTricks : MonoBehaviour
         if (_isWallRiding) 
         {
 
-            _playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
-            _playerMovement._playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
+            //_playerMovement._playerSkatingGround.setPaused(true);
+            //_playerMovement._playerSkatingAir.setPaused(true);
 
             PLAYBACK_STATE playbackState;
             _playerSkatingWallRide.getPlaybackState(out playbackState);
 
-            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-            {
-                _playerSkatingWallRide.start();
-            }
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.groundIntensity, 0);
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.airIntensity, 0);
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.wallIntensity, 1);
 
             _playerMovement.Rb.gravityScale = wallRidingGravity;
 
@@ -420,13 +419,7 @@ public class PlayerTricks : MonoBehaviour
             DisableCanTrick();
         }
 
-        if (!_isWallRiding) 
-        {
-            Debug.Log("I should stop." + _playerSkatingWallRide.ToString());
-            _playerSkatingWallRide.stop(STOP_MODE.ALLOWFADEOUT);
-            _playerMovement.Rb.gravityScale = _playerMovement.GravityScale;
-            //if (!_wall.hasTricked) { EnableTrick(_wall.gameObject); }
-        }
+        
     }
 
     public void PlayWallRideLanding()
@@ -439,7 +432,17 @@ public class PlayerTricks : MonoBehaviour
         _wall = wall;
     }
 
-    public void NullWall() {  _wall = null; }
+    public void ResetWallRideValues() 
+    {  
+        if (!_isWallRiding)
+        {
+            Debug.Log("I should stop." + _playerSkatingWallRide.ToString());
+            //_playerSkatingWallRide.setPaused(true);
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.wallIntensity, 0);
+            _playerMovement.Rb.gravityScale = _playerMovement.GravityScale;
+            //if (!_wall.hasTricked) { EnableTrick(_wall.gameObject); }
+        }
+    }
     #endregion
 
     #region Sliding

@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 5724612179336765715}
   - component: {fileID: 8506451915751097081}
   - component: {fileID: 124782314367409991}
+  - component: {fileID: 1895125367870313278}
   m_Layer: 0
   m_Name: Turret variant
   m_TagString: Untagged
@@ -256,4 +257,36 @@ MonoBehaviour:
   bullet: {fileID: 128889013100235571, guid: d68d622b5102b22478ea5d8de569916d, type: 3}
   bulletSpeed: 700
   bulletLifeSpan: 3
+  canShootAgain: 0
   scoreCalculator: {fileID: 0}
+--- !u!114 &1895125367870313278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8636918173773611720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 242471021
+      Data2: 1080971056
+      Data3: 1332776113
+      Data4: -690544727
+    Path: event:/EnvironmentEvents/TM_Whirling
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 10

@@ -57,6 +57,7 @@ public class Taping : MonoBehaviour
 
     IEnumerator StartTaping()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.CameraRecording, this.transform.position);
         _playerTricks.isTaping = true;
         yield return new WaitForSeconds(_playerTricks.tapingDuration);
         _playerTricks.isTaping = false;

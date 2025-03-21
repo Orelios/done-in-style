@@ -59,6 +59,22 @@ public class RankCalculator : MonoBehaviour
        // stylishRankText.text = $"{CurrentStylishRank.RankName}";
        displayUpdater.UpdateRankDisplay(CurrentStylishRank);
        displayUpdater.SetNewSliderLimits(stylishRanksList[_currentStylishRankIndex - 1].RequiredBreakthroughPoints,  stylishRanksList[_currentStylishRankIndex].RequiredBreakthroughPoints);
+
+        switch (_currentStylishRankIndex - 1)
+        {
+            case 1:
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.VOXCookin, this.transform.position);
+                break;
+            case 2:
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.VOXBallin, this.transform.position);
+                break;
+            case 3:
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.VOXAwesome, this.transform.position);
+                break;
+            case 4:
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.VOXStylish, this.transform.position);
+                break;
+        }
     }
 
     //decrements rank, clamps rank value between the lowest and highest rank index, and updates rank UI

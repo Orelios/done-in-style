@@ -112,10 +112,15 @@ public class PlayerMovement : MonoBehaviour
 
     //Audio
     public EventInstance _playerSkatingGround;
-    public EventInstance _playerSkatingAir; 
+    public EventInstance _playerSkatingAir;
+    public EventInstance _playerMovement;
+
+    [NonSerialized] public string groundIntensity;
+    [NonSerialized] public string airIntensity;
+    [NonSerialized] public string wallIntensity;
 
     #endregion
-    
+
     #region Private Variables
     private PlayerInputManager _playerInputManager;
     private PlayerTricks _playerTricks;
@@ -152,6 +157,12 @@ public class PlayerMovement : MonoBehaviour
     {
         _playerSkatingGround = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkating);
         _playerSkatingAir = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkatingAir);
+        _playerMovement = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerMovement);
+        _playerMovement.start();
+
+        groundIntensity = "ground_intensity";
+        airIntensity = "air_intensity";
+        wallIntensity = "wall_intensity";
     }
 
     //NEW JUMP STUFF
@@ -357,25 +368,32 @@ public class PlayerMovement : MonoBehaviour
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerJump, this.transform.position);
         } 
     }
-
+    
     private void playerMovementSound()
     {
         if(Rb.linearVelocityX != 0 && IsGrounded())
         {
             PLAYBACK_STATE playbackState;
-            _playerSkatingGround.getPlaybackState(out playbackState);
+            _playerMovement.getPlaybackState(out playbackState);
+            //_playerSkatingGround.start();
 
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
-                _playerSkatingGround.start();
-          
+                //_playerSkatingGround.start();
             }
-
+            else if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
+            {
+                //_playerSkatingGround.setPaused(false);
+                _playerMovement.setParameterByName(groundIntensity, 1);
+                Debug.Log("Set Parameter");
+            }
+            
+            
         }
         else if (Rb.linearVelocityX == 0 || !IsGrounded() || !_playerTricks.IsWallRiding)
         {
-            _playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
-
+            //_playerSkatingGround.setPaused(true);
+            _playerMovement.setParameterByName(groundIntensity, 0);
         }
 
         if (Rb.linearVelocityX != 0 && !IsGrounded())
@@ -383,15 +401,22 @@ public class PlayerMovement : MonoBehaviour
             PLAYBACK_STATE playbackState;
             _playerSkatingAir.getPlaybackState(out playbackState);
 
+            _playerMovement.setParameterByName(airIntensity, 1);
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
-                _playerSkatingAir.start();
+                //_playerSkatingAir.start();
+            }
+            else if (playbackState.Equals(PLAYBACK_STATE.PLAYING))
+            {
+                //_playerSkatingAir.setPaused(false);
+
             }
 
         }
         else if (Rb.linearVelocityX == 0 || IsGrounded() || !_playerTricks.IsWallRiding)
         {
-            _playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
+            _playerMovement.setParameterByName(airIntensity, 0);
+            //_playerSkatingAir.setPaused(true);
         }
     }
 }
