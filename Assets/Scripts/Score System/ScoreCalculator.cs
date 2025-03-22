@@ -12,6 +12,7 @@ public class ScoreCalculator : MonoBehaviour
     private void OnEnable()
     {
         ResetScore();
+        ResultsData.Reset();
     }
 
     //resets player score to zero
@@ -61,6 +62,8 @@ public class ScoreCalculator : MonoBehaviour
             _ => 0
         };
         
+        ResultsData.RecordScore(_currentScore);
+        ResultsData.RecordTime(timeElapsed);
         scoreEventChannel.Invoke(_currentScore);
     }
 }
