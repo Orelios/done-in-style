@@ -26,8 +26,8 @@ public class EndScreen : MonoBehaviour
         else 
         { 
             transform.GetChild(0).gameObject.SetActive(false);
-            playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
-            playerMovement._playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
+            //playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
+            //playerMovement._playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
             Time.timeScale = 1;
         }
 

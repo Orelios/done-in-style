@@ -154,6 +154,8 @@ MonoBehaviour:
   restartPointRight: {fileID: 2982232842745022243}
   restartPointLeft: {fileID: 8328874879709901732}
   closestRespawnPoint: {fileID: 8043132614794054576}
+  damage: 100
+  decreasePoints: 3
 --- !u!1 &2691250627676745703
 GameObject:
   m_ObjectHideFlags: 0

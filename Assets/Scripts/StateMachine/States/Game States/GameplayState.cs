@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameplayState : GameState
 {
-    public GameplayState(Player player) : base(player)
+    public GameplayState(GameStateHandler handler, Player player) : base(handler, player)
     {
     }
 
@@ -10,5 +10,12 @@ public class GameplayState : GameState
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        GameStateHandler.IsGameplay = true;
+        Player.InputManager.EnableGameplayControls();
+    }
+
+    public override void OnStateExit()
+    {
+        GameStateHandler.IsGameplay = false;
     }
 }

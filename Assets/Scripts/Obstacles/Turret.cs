@@ -1,4 +1,5 @@
 using UnityEngine;
+using FMOD.Studio;
 
 public class Turret : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class Turret : MonoBehaviour
 
     private void Shoot()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.TMShoot, this.transform.position);
         //bullet.gameObject.GetComponent<Bullet>()._scoreCalculator = scoreCalculator;
         var bulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
         bulletIns.GetComponent<Rigidbody2D>().AddForce(_direction * bulletSpeed);

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{f96cdd6d-f193-4281-a396-0815e3401863}">
+		<property name="assetPath">
+			<value>Environment/CameraRecordingShort.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.8546938775510204</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{1528deb6-1a0a-458a-bbb8-c8601f7e97fc}</destination>
+		</relationship>
+	</object>
+</objects>
