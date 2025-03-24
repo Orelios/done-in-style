@@ -280,6 +280,8 @@ public class PlayerTricks : MonoBehaviour
         while (!Input.anyKeyDown)
         {
             if (_rampPlayer.IsColliding) { break; }
+            if (_playerMovement.IsGrounded()) { break; }
+            if (IsWallRiding) { break; }
             //dashLastVelocity = _playerMovement.Rb.linearVelocity.y;
             //_playerMovement.Rb.linearVelocity -= _dashMomentumDecay;
             Vector2 lastVelocity = _playerMovement.Rb.linearVelocity;
