@@ -5,4 +5,10 @@ public class GameplayState : GameState
     public GameplayState(Player player) : base(player)
     {
     }
+
+    public override void OnStateEnter()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 }
