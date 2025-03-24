@@ -14,9 +14,6 @@ public class TurretVariant : MonoBehaviour, ITriggerable
     [SerializeField] private float bulletLifeSpan;
     [SerializeField] private bool canShootAgain;
 
-    [Header("Components")]
-    [SerializeField] private ScoreCalculator scoreCalculator;
-
     private bool _shouldShoot = true;
     private float _timeElapsed;
 
