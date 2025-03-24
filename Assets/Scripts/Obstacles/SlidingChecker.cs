@@ -4,6 +4,19 @@ public class SlidingChecker : MonoBehaviour
 {
     [SerializeField] private Transform restartPointRight, restartPointLeft;
     [SerializeField] private Transform closestRespawnPoint;
+    [SerializeField] private int damage;
+    [SerializeField] private int decreasePoints;
+
+    private ScoreCalculator _scoreCalculator;
+    private RankCalculator _rankCalculator;
+
+
+    private void Awake()
+    {
+        _scoreCalculator = FindFirstObjectByType<ScoreCalculator>();
+        _rankCalculator = FindFirstObjectByType<RankCalculator>();
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         float distanceLeft = Vector2.Distance(collision.gameObject.transform.position, restartPointLeft.transform.position); 
@@ -17,6 +30,13 @@ public class SlidingChecker : MonoBehaviour
             {
                 collision.gameObject.transform.position = closestRespawnPoint.transform.position;
                 collision.transform.gameObject.GetComponent<PlayerInvulnerability>().DamagePlayer();
+            }
+
+            if (collision.gameObject.TryGetComponent<Player>(out var player) && !player.Invulnerability.IsInvulnerable)
+            {
+                _scoreCalculator.DecreaseScoreInstant(damage);
+                _rankCalculator.DecreaseStylishPoints(decreasePoints);
+                player.Invulnerability.DamagePlayer();
             }
         }
     }

@@ -6,7 +6,8 @@ public class Spikes : MonoBehaviour
     [Header("Components")]
     [SerializeField] private float BounceHeight;
     [SerializeField] private int damage;
-    
+    [SerializeField] private int decreasePoints;
+
     private ScoreCalculator _scoreCalculator;
     private RankCalculator _rankCalculator;
 
@@ -28,7 +29,7 @@ public class Spikes : MonoBehaviour
         if (collision.gameObject.TryGetComponent<Player>(out var player) && !player.Invulnerability.IsInvulnerable)
         {
             _scoreCalculator.DecreaseScoreInstant(damage);
-            _rankCalculator.DecreaseStylishPoints();
+            _rankCalculator.DecreaseStylishPoints(decreasePoints);
             player.Invulnerability.DamagePlayer();
         }
     }

@@ -11,6 +11,7 @@ public class SpinTrap : MonoBehaviour
     [Header("Damage Components")]
     [SerializeField] private ScoreCalculator scoreCalculator;
     [SerializeField] private int damage;
+    [SerializeField] private int decreasePoints;
     private float _rotZ; 
     
     private ScoreCalculator _scoreCalculator;
@@ -39,7 +40,7 @@ public class SpinTrap : MonoBehaviour
         if (collision.gameObject.TryGetComponent<Player>(out var player) && !player.Invulnerability.IsInvulnerable)
         {
             _scoreCalculator.DecreaseScoreInstant(damage);
-            _rankCalculator.DecreaseStylishPoints();
+            _rankCalculator.DecreaseStylishPoints(decreasePoints);
             player.Invulnerability.DamagePlayer();
         }
     }
