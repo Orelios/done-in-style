@@ -19,21 +19,24 @@ public class TurretVariant : MonoBehaviour, ITriggerable
     public void Shoot()
     {
         var bulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
-        bulletIns.GetComponent<Rigidbody2D>().AddForce(new Vector2(bulletSpeed, 0));
+        bulletIns.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
         Destroy(bulletIns, bulletLifeSpan);
-        _shouldShoot = canShootAgain;        
+        _shouldShoot = canShootAgain;
     }
 
     public void DoTrigger()
-    {
-        //Shoot();
-    }
-
-    public void StopTrigger()
     {
         if (_shouldShoot)
         {
             Shoot();
         }
+    }
+
+    public void StopTrigger()
+    {
+        /*if (_shouldShoot)
+        {
+            Shoot();
+        }*/
     }
 }
