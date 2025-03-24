@@ -23,6 +23,9 @@ public class RankCalculator : MonoBehaviour
     [Header(("Falloff Timer Configs"))]
     [SerializeField] private float pointsFalloffTime;
     private float _pointFalloffTimer;
+    
+    [Header("Display")]
+    [SerializeField] private RankDisplayUpdater displayUpdater;
 
     private void Start()
     {
@@ -33,6 +36,8 @@ public class RankCalculator : MonoBehaviour
         CurrentStylishPoints = 0;
         stylishPointsText.text = $"{CurrentStylishPoints}";
         _pointFalloffTimer = pointsFalloffTime;
+        displayUpdater.UpdateRankDisplay(CurrentStylishRank);
+        displayUpdater.SetNewSliderLimits(0,  stylishRanksList[_currentStylishRankIndex].RequiredBreakthroughPoints);
     }
 
     private void Update()
@@ -51,7 +56,9 @@ public class RankCalculator : MonoBehaviour
         _currentStylishRankIndex++;
         _currentStylishRankIndex = Mathf.Clamp(_currentStylishRankIndex, 0, stylishRanksList.Count - 1);
         CurrentStylishRank = stylishRanksList[_currentStylishRankIndex];
-        stylishRankText.text = $"{CurrentStylishRank.RankName}";
+       // stylishRankText.text = $"{CurrentStylishRank.RankName}";
+       displayUpdater.UpdateRankDisplay(CurrentStylishRank);
+       displayUpdater.SetNewSliderLimits(stylishRanksList[_currentStylishRankIndex - 1].RequiredBreakthroughPoints,  stylishRanksList[_currentStylishRankIndex].RequiredBreakthroughPoints);
     }
 
     //decrements rank, clamps rank value between the lowest and highest rank index, and updates rank UI
@@ -60,7 +67,9 @@ public class RankCalculator : MonoBehaviour
         _currentStylishRankIndex--;
         _currentStylishRankIndex = Mathf.Clamp(_currentStylishRankIndex, 0, stylishRanksList.Count - 1);
         CurrentStylishRank = stylishRanksList[_currentStylishRankIndex]; 
-        stylishRankText.text = $"{CurrentStylishRank.RankName}";
+        //stylishRankText.text = $"{CurrentStylishRank.RankName}";
+        displayUpdater.UpdateRankDisplay(CurrentStylishRank);
+        displayUpdater.SetNewSliderLimits(stylishRanksList[Mathf.Min(_currentStylishRankIndex - 1, 0)].RequiredBreakthroughPoints,  stylishRanksList[_currentStylishRankIndex].RequiredBreakthroughPoints);
     }
 
     //increments points, clamps points value between the lowest and highest points breakthrough, resets falloff timer, and updates points UI
@@ -69,7 +78,8 @@ public class RankCalculator : MonoBehaviour
         CurrentStylishPoints++;
         CurrentStylishPoints= Mathf.Clamp(CurrentStylishPoints, 0, maxStylishPoints);
         //string is shown as the value of current stylish points and a new line with the text MAX with font size of 75 if current stylish points is max
-        stylishPointsText.text = $"{CurrentStylishPoints}" + $"<size=75>{(CurrentStylishPoints == maxStylishPoints ? "\nMAX" : "")}</size>";
+        //stylishPointsText.text = $"{CurrentStylishPoints}" + $"<size=75>{(CurrentStylishPoints == maxStylishPoints ? "\nMAX" : "")}</size>";
+        displayUpdater.UpdateSliderValue(CurrentStylishPoints);
         _pointFalloffTimer = pointsFalloffTime;
         
         if (CurrentStylishPoints > CurrentStylishRank.RequiredBreakthroughPoints)
@@ -84,8 +94,9 @@ public class RankCalculator : MonoBehaviour
         {
             CurrentStylishPoints++;
             CurrentStylishPoints= Mathf.Clamp(CurrentStylishPoints, 0, maxStylishPoints);
-            stylishPointsText.text = $"{CurrentStylishPoints}" + $"<size=75>{(CurrentStylishPoints == maxStylishPoints ? "\nMAX" : "")}</size>";
+            //stylishPointsText.text = $"{CurrentStylishPoints}" + $"<size=75>{(CurrentStylishPoints == maxStylishPoints ? "\nMAX" : "")}</size>";
             _pointFalloffTimer = pointsFalloffTime;
+            displayUpdater.UpdateSliderValue(CurrentStylishPoints);
             
             if (CurrentStylishPoints > CurrentStylishRank.RequiredBreakthroughPoints)
             {
@@ -101,8 +112,9 @@ public class RankCalculator : MonoBehaviour
     {
         CurrentStylishPoints-= value;
         CurrentStylishPoints= Mathf.Clamp(CurrentStylishPoints, 0, maxStylishPoints);
-        stylishPointsText.text = $"{CurrentStylishPoints}";
+        //stylishPointsText.text = $"{CurrentStylishPoints}";
         _pointFalloffTimer = pointsFalloffTime;
+        displayUpdater.UpdateSliderValue(CurrentStylishPoints);
         
         if (_currentStylishRankIndex > 0 && CurrentStylishPoints <= stylishRanksList[_currentStylishRankIndex - 1].RequiredBreakthroughPoints)
         {
