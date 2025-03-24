@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 0}
-  scoreIncrease: 0
+  scoreIncrease: 100
 --- !u!1 &5179594993558115682
 GameObject:
   m_ObjectHideFlags: 0

@@ -124,11 +124,6 @@ public class Moving : MonoBehaviour, ITriggerable
     private bool _shouldMove;
     private bool _isMoving;
 
-    private void Start()
-    {
-        
-    }
-
     private void Update()
     {
         /*if (!_isMoving && _shouldMove)
@@ -213,12 +208,17 @@ public class Moving : MonoBehaviour, ITriggerable
         #endif
     }
 
-    public void DoTrigger()
+    public void DoTriggerEnter()
     {
         _shouldMove = true;
     }
 
-    public void StopTrigger()
+    public void DoTriggerStay()
+    {
+        _shouldMove = true;
+    }
+
+    public void StopTriggerExit()
     {
         _shouldMove = false;
         _isMoving = false;

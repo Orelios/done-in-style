@@ -280,6 +280,8 @@ public class PlayerTricks : MonoBehaviour
         while (!Input.anyKeyDown)
         {
             if (_rampPlayer.IsColliding) { break; }
+            if (_playerMovement.IsGrounded()) { break; }
+            if (IsWallRiding) { break; }
             //dashLastVelocity = _playerMovement.Rb.linearVelocity.y;
             //_playerMovement.Rb.linearVelocity -= _dashMomentumDecay;
             Vector2 lastVelocity = _playerMovement.Rb.linearVelocity;
@@ -333,7 +335,7 @@ public class PlayerTricks : MonoBehaviour
         _isWallRiding = false; 
         yield return new WaitForSeconds(_canDetroyDuration);
         _canDestroy = false;
-        if (_wall != null&&  _wall._canWallRide)
+        if (_wall != null && _wall._canWallRide)
         {
             _isWallRiding = true;
         }

@@ -5,6 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/Prototype_Level_1.unity
+    guid: 4e2de3bc12a219140bd7983d58147584
   - enabled: 1
     path: Assets/Scenes/Title_Screen.unity
     guid: cb32e623815079b4dbcfcabbd6b8ea7a
@@ -12,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Prototype_Level_2.unity
     guid: 7c74f323bb3a43f41ba1d3aa3e66c73f
   - enabled: 0
-    path: Assets/Scenes/Prototype_Level_1.unity
-    guid: 4e2de3bc12a219140bd7983d58147584
+    path: Assets/Scenes/Prototype_Level_3.unity
+    guid: 688f13b4ee70b194f9f633eef4d932de
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
