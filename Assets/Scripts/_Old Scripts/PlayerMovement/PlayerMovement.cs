@@ -127,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
     private RankCalculator _rankCalculator;
     private Vector2 _groundChecker;
     private RampPlayer _rampPlayer;
+    private PlayerRailing _playerRailing;
     #endregion
     
     private void Awake()
@@ -135,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
         _playerTricks = GetComponent<PlayerTricks>();
         _rankCalculator = FindFirstObjectByType<RankCalculator>();
         _rampPlayer = GetComponent<RampPlayer>();
+        _playerRailing = GetComponent<PlayerRailing>(); 
         
         _player = GetComponent<Player>();
         _originalRotation = quaternion.identity;
@@ -230,6 +232,7 @@ public class PlayerMovement : MonoBehaviour
     #region Horizontal Movement
     public void HorizontalMovement()
     {
+        if (_playerRailing.IsMovingOnRail) { return; }
         // Calculate target speed based on input
         float targetSpeed = _playerInputManager.HorizontalMovement * baseSpeed * _rankCalculator.CurrentStylishRank.MaxSpeedMultiplier;
         float speedDif = targetSpeed - Rb.linearVelocity.x;
@@ -289,7 +292,6 @@ public class PlayerMovement : MonoBehaviour
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpForce);
 
             _playerTricks.IsSliding = false;
-            
         }
         else if (!_playerInputManager.IsJumping)// Jump Cut (increase gravity when the jump button is released early)
         {
@@ -328,7 +330,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
     public void Flip() //flips character where player is facing towards
     {
-        if (_player.RailGrind.IsOnRail)
+        if (_player.Railing.IsMovingOnRail)
         {
             return;
         }

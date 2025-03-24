@@ -20,8 +20,10 @@ public class Player : MonoBehaviour
     public PlayerMovement Movement => _playerMovement;
     private PlayerTricks _playerTricks;
     public PlayerTricks Tricks => _playerTricks;
-    private PlayerRailGrind _playerRailGrind;
-    public PlayerRailGrind RailGrind => _playerRailGrind;
+    /*private PlayerRailGrind _playerRailGrind;
+    public PlayerRailGrind RailGrind => _playerRailGrind;*/
+    private PlayerRailing _playerRailing;
+    public PlayerRailing Railing => _playerRailing;
     private PlayerHealth _playerHealth;
     public PlayerHealth Health => _playerHealth;
     private PlayerInvulnerability _playerInvulnerability;
@@ -68,7 +70,8 @@ public class Player : MonoBehaviour
         _playerInputManager = GetComponent<PlayerInputManager>();        
         _playerMovement = GetComponent<PlayerMovement>();
         _playerTricks = GetComponent<PlayerTricks>();
-        _playerRailGrind = GetComponent<PlayerRailGrind>();
+        //_playerRailGrind = GetComponent<PlayerRailGrind>();
+        _playerRailing = GetComponent<PlayerRailing>();
         
         InitializeActionStateMachine();
     }
@@ -126,26 +129,27 @@ public class Player : MonoBehaviour
         #region Falling State
         NormalTransition(_playerActionSM, fallingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0f));
         NormalTransition(_playerActionSM, fallingState, idlingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) < 0.1f && _playerMovement.IsGrounded()));
-        NormalTransition(_playerActionSM, fallingState, skatingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) > 0.1f && _playerMovement.IsGrounded() && !_playerRailGrind.IsOnRail));
+        NormalTransition(_playerActionSM, fallingState, skatingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) > 0.1f && _playerMovement.IsGrounded() && !_playerRailing.IsMovingOnRail));
         NormalTransition(_playerActionSM, fallingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
         NormalTransition(_playerActionSM, fallingState, poundingState, new FuncPredicate(() => _playerTricks.IsPounding));
-        NormalTransition(_playerActionSM, fallingState, grindingState, new FuncPredicate(() =>_playerMovement.IsGrounded() && _playerRailGrind.IsOnRail));
+        NormalTransition(_playerActionSM, fallingState, grindingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) > 0.1f && _playerMovement.IsGrounded() && _playerRailing.IsMovingOnRail));
         NormalTransition(_playerActionSM, fallingState, wallRidingState, new FuncPredicate(() => _playerTricks.IsWallRiding));
         #endregion
 
         #region Dashing State
-        NormalTransition(_playerActionSM, dashingState, skatingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f && !_playerRailGrind.IsOnRail));
+        NormalTransition(_playerActionSM, dashingState, skatingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f && _playerRailing.IsMovingOnRail));
         NormalTransition(_playerActionSM, dashingState, idlingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
         NormalTransition(_playerActionSM, dashingState, risingState, new FuncPredicate(() => !_playerTricks.IsDashing &&  _playerRb.linearVelocityY > 0f));
         NormalTransition(_playerActionSM, dashingState, fallingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerRb.linearVelocityY < 0f));
-        NormalTransition(_playerActionSM, dashingState, grindingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerRailGrind.IsOnRail));
-        NormalTransition(_playerActionSM, dashingState, poundingState, new FuncPredicate(() => !_playerTricks.IsDashing && !_playerMovement.IsGrounded()));
+        NormalTransition(_playerActionSM, dashingState, grindingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerRailing.IsMovingOnRail));
+        NormalTransition(_playerActionSM, dashingState, poundingState, new FuncPredicate(() => !_playerTricks.IsDashing && !_playerMovement.IsGrounded() && !_playerTricks.IsWallRiding));
+        NormalTransition(_playerActionSM, dashingState, wallRidingState, new FuncPredicate(() => !_playerTricks.IsDashing && !_playerMovement.IsGrounded() && _playerTricks.IsWallRiding));
         #endregion
 
         #region Pounding State
         NormalTransition(_playerActionSM, poundingState, idlingState, new FuncPredicate(() => !_playerTricks.IsPounding && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
         NormalTransition(_playerActionSM, poundingState, skatingState, new FuncPredicate(() => !_playerTricks.IsPounding && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f));
-        NormalTransition(_playerActionSM, poundingState, grindingState, new FuncPredicate(() => !_playerTricks.IsPounding && _playerRailGrind.IsOnRail));
+        NormalTransition(_playerActionSM, poundingState, grindingState, new FuncPredicate(() => !_playerTricks.IsPounding && _playerRailing.IsMovingOnRail));
         #endregion
 
         #region Sliding State
@@ -155,8 +159,8 @@ public class Player : MonoBehaviour
         #endregion
 
         #region Grinding State
-        NormalTransition(_playerActionSM, grindingState, risingState, new FuncPredicate(() => !_playerRailGrind.IsOnRail && _playerRb.linearVelocityY > 0f));
-        NormalTransition(_playerActionSM, grindingState, fallingState, new FuncPredicate(() => !_playerRailGrind.IsOnRail && _playerRb.linearVelocityY < 0f));
+        NormalTransition(_playerActionSM, grindingState, risingState, new FuncPredicate(() => !_playerRailing.IsMovingOnRail && _playerRb.linearVelocityY > 0f));
+        NormalTransition(_playerActionSM, grindingState, fallingState, new FuncPredicate(() => !_playerRailing.IsMovingOnRail && _playerRb.linearVelocityY < 0f));
         #endregion
         
         #region Wall Riding State

@@ -6,7 +6,7 @@ public class VFXManager : MonoBehaviour
     private PlayerMovement _playerMovement;
     private PlayerInputManager _playerInputManager;
     private PlayerTricks _playerTricks;
-    private PlayerRailGrind _rail;
+    private PlayerRailing _rail;
     private JumpPad _jumpPad;
     private float movingSpeedVFX = 5f;
     public GameObject moving, landing, jumping, springBoard, hurt, groundPoundLand, groundPoundDive, dash, doubleJump, rail, wallRiding;
@@ -17,7 +17,7 @@ public class VFXManager : MonoBehaviour
         _playerMovement = transform.GetComponentInParent<PlayerMovement>();
         _playerInputManager = transform.GetComponentInParent<PlayerInputManager>();
         _playerTricks = transform.GetComponentInParent<PlayerTricks>();
-        _rail = transform.GetComponentInParent<PlayerRailGrind>();
+        _rail = transform.GetComponentInParent<PlayerRailing>();
         _jumpPad = transform.GetComponentInParent<JumpPad>();
 
         movingVFX = moving.GetComponent<ParticleSystem>();
@@ -53,10 +53,11 @@ public class VFXManager : MonoBehaviour
 
     private void MovementUpdate()
     {
-        if (_rail.IsOnRail)
+        if (_rail.IsMovingOnRail)
         {
             if (!railVFX.isPlaying) { railVFX.Play(); }
             if (wallRidingVFX.isPlaying) { wallRidingVFX.Stop(); }
+            if (movingVFX.isPlaying) { movingVFX.Stop(); }
         }
         else if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy)
         {

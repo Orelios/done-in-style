@@ -53,7 +53,7 @@ public class Railing : MonoBehaviour
             _player = player;
             var contact = other.contacts[0];
 
-            if (contact.normal == Vector2.down && Mathf.Abs(_player.Rigidbody.linearVelocityX) >= _player.RailGrind.MinimumSpeedToGrind)
+            /*if (contact.normal == Vector2.down && Mathf.Abs(_player.Rigidbody.linearVelocityX) >= _player.RailGrind.MinimumSpeedToGrind)
             {
                 Debug.Log("surface hit on top and can grind!");
                 _canRailGrind = true;
@@ -63,7 +63,7 @@ public class Railing : MonoBehaviour
             {
                 _canRailGrind = false;
                 Debug.Log("nope");
-            }
+            }*/
             
             _player.Tricks.DisableCanTrick();
         }
@@ -91,11 +91,11 @@ public class Railing : MonoBehaviour
         }*/
         if (other.gameObject.TryGetComponent<Player>(out var player))
         {
-            if (player.RailGrind.IsOnRail)
+            /*if (player.RailGrind.IsOnRail)
             {
                 player.RailGrind.DisableRailGrinding();
                 _canGeneratePoints = false;
-            }
+            }*/
             
             if (hasTricked != true && _canRailGrind)
             {

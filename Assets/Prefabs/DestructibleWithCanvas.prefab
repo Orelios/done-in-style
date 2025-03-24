@@ -472,7 +472,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065806156568493629}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -937,6 +937,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b61a9a532a67dfe4e8086c3b84158436, type: 3}
   typingSpeed: 0.1
   enlargeTime: 0.25
+  enlargeBGTime: 0.75
   smallScaleFactor: 0.5
   disableTime: 1.5
 --- !u!1 &3037962267503346346
@@ -1120,6 +1121,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 956b2506c01999d4faa6ed9c6ccb476e, type: 3}
   typingSpeed: 0.1
   enlargeTime: 0.25
+  enlargeBGTime: 0.75
   smallScaleFactor: 0.5
   disableTime: 1.5
 --- !u!1 &4423840331871925074
@@ -2151,6 +2153,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c550ac1490cd1a54ea620676951e7858, type: 3}
   typingSpeed: 0.1
   enlargeTime: 0.25
+  enlargeBGTime: 0.75
   smallScaleFactor: 0.5
   disableTime: 1.5
 --- !u!1001 &946849527243652585
