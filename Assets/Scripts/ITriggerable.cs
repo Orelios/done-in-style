@@ -1,5 +1,6 @@
 public interface ITriggerable
 {
-    void DoTrigger();
-    void StopTrigger();
+    void DoTriggerEnter();
+    void DoTriggerStay();
+    void StopTriggerExit();
 }

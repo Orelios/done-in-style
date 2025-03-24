@@ -1,8 +1,11 @@
+using System;
 using UnityEngine;
 
 public class TurretVariant : MonoBehaviour, ITriggerable
 {
-    [Header("Turret Configs")]
+    [Header("Turret Configs")] 
+    [SerializeField] private EBehaviourType shootWhen;
+    [SerializeField] private float fireRate;
     
     [Header("Bullet Components")]
     [SerializeField] private Transform shootPoint;
@@ -15,28 +18,57 @@ public class TurretVariant : MonoBehaviour, ITriggerable
     [SerializeField] private ScoreCalculator scoreCalculator;
 
     private bool _shouldShoot = true;
-    
+    private float _timeElapsed;
+
+    private void Update()
+    {
+        if (shootWhen == EBehaviourType.PlayerStays)
+        {
+            _timeElapsed += Time.deltaTime;
+        }
+    }
+
     public void Shoot()
     {
         var bulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
         bulletIns.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
         Destroy(bulletIns, bulletLifeSpan);
         _shouldShoot = canShootAgain;
+
+        if (shootWhen == EBehaviourType.PlayerStays)
+        {
+            _timeElapsed = 0f;
+        }
     }
 
-    public void DoTrigger()
+    public void DoTriggerEnter()
     {
-        if (_shouldShoot)
+        if (_shouldShoot && shootWhen == EBehaviourType.PlayerEnters)
+        {
+            Shoot();
+        }
+    }
+    
+    public void DoTriggerStay()
+    {
+        if (_shouldShoot && shootWhen == EBehaviourType.PlayerStays && _timeElapsed >= fireRate)
         {
             Shoot();
         }
     }
 
-    public void StopTrigger()
+    public void StopTriggerExit()
     {
-        /*if (_shouldShoot)
+        if (_shouldShoot && shootWhen == EBehaviourType.PlayerExits)
         {
             Shoot();
-        }*/
+        }
     }
+}
+
+public enum EBehaviourType
+{
+    PlayerEnters,
+    PlayerStays,
+    PlayerExits
 }

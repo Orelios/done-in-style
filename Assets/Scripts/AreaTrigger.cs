@@ -20,7 +20,18 @@ public class AreaTrigger : MonoBehaviour
         {
             foreach (var triggerable in _objectsToTrigger)
             {
-                triggerable.DoTrigger();
+                triggerable.DoTriggerEnter();
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            foreach (var triggerable in _objectsToTrigger)
+            {
+                triggerable.DoTriggerStay();
             }
         }
     }
@@ -31,7 +42,7 @@ public class AreaTrigger : MonoBehaviour
         {
             foreach (var triggerable in _objectsToTrigger)
             {
-                triggerable.StopTrigger();
+                triggerable.StopTriggerExit();
             }
         }
     }
