@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: e1b21f51bb17d7441ad68a55927d43ca
+guid: 17ba405e1841ee145b4d330918d1b60f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3036683477617168154
-    second: Mace Sprite Sheet_0
-  - first:
-      213: 8551791196240712281
-    second: Mace Sprite Sheet_1
-  - first:
-      213: -5826394661659148324
-    second: Mace Sprite Sheet_2
+      213: 310791068452430406
+    second: cloud (1)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -57,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -78,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -106,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mace Sprite Sheet_0
+      name: cloud (1)_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 515
-        width: 379
-        height: 378
+        x: 0
+        y: 0
+        width: 3840
+        height: 1763
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,52 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6e0b45557788bd5d0800000000000000
-      internalID: -3036683477617168154
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mace Sprite Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 418
-        y: 93
-        width: 61
-        height: 709
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9529d3d98c01ea670800000000000000
-      internalID: 8551791196240712281
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Mace Sprite Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 131
-        y: 387
-        width: 123
-        height: 122
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: cdff29ebcec742fa0800000000000000
-      internalID: -5826394661659148324
+      spriteID: 642a87284d6205400800000000000000
+      internalID: 310791068452430406
       vertices: []
       indices: 
       edges: []
@@ -185,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Mace Sprite Sheet_0: -3036683477617168154
-      Mace Sprite Sheet_1: 8551791196240712281
-      Mace Sprite Sheet_2: -5826394661659148324
+      cloud (1)_0: 310791068452430406
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
