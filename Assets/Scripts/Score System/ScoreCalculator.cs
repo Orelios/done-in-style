@@ -5,29 +5,28 @@ using UnityEngine;
 
 public class ScoreCalculator : MonoBehaviour
 {
+    [SerializeField] private IntEventChannel scoreEventChannel;
     private int _currentScore;
     public int CurrentScore { get => _currentScore; private set => _currentScore = value; }
-    
-    [Header("UI Elements")]
-    [SerializeField] private TextMeshProUGUI scoreText;
 
-    private void Start()
+    private void OnEnable()
     {
         ResetScore();
+        ResultsData.Reset();
     }
 
     //resets player score to zero
     public void ResetScore()
     {
         _currentScore = 0;
-        scoreText.text = $"{_currentScore : 00000}";
+        scoreEventChannel.Invoke(_currentScore);
     }
 
     //instantly adds score based on score value and rank multiplier, and updates score counter UI
     public void IncreaseScoreInstant(int scoreValueToAdd, float scoreMultiplier)
     {
         _currentScore += Mathf.RoundToInt(scoreValueToAdd * scoreMultiplier);
-        scoreText.text = $"{_currentScore : 00000}";
+        scoreEventChannel.Invoke(_currentScore);
     }
 
     //instantly reduces score based on scare value and updates score counter UI
@@ -35,7 +34,7 @@ public class ScoreCalculator : MonoBehaviour
     {
         if(_currentScore != 0) {
             _currentScore -= scoreValueToRemove;
-            scoreText.text = $"{_currentScore: 00000}";
+            scoreEventChannel.Invoke(_currentScore);
         }
     }
 
@@ -45,10 +44,26 @@ public class ScoreCalculator : MonoBehaviour
         for (int i = 0; i < maximumTime; i++)
         {
             _currentScore += Mathf.RoundToInt(scoreValueToAdd * scoreMultiplier);
-            scoreText.text = $"{_currentScore: 00000}";
+            scoreEventChannel.Invoke(_currentScore);
+            
             yield return new WaitForSeconds(1 / frequencyForAdding);
         }
     }
-    
-    //TODO: make a dedicated function that updates score counter UI just in case it needs extra flair like animation/effects
+
+    public void IncreaseScoreOnLevelClear(float timeElapsed)
+    {
+        _currentScore += timeElapsed switch
+        {
+            < 180f => 10000,
+            < 210f => 8000,
+            < 240f => 6000,
+            < 300f => 4000,
+            < 360f => 2000,
+            _ => 0
+        };
+        
+        ResultsData.RecordScore(_currentScore);
+        ResultsData.RecordTime(timeElapsed);
+        scoreEventChannel.Invoke(_currentScore);
+    }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TitleScreenState : GameState
 {
-    public TitleScreenState(Player player) : base(player)
+    public TitleScreenState(GameStateHandler handler, Player player) : base(handler, player)
     {
     }
 
@@ -10,6 +10,13 @@ public class TitleScreenState : GameState
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-        Object.FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
+        //Object.FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
+        GameStateHandler.IsTitleScreen = true;
+        Player.InputManager.EnableUserInterfaceControls();
+    }
+
+    public override void OnStateExit()
+    {
+        GameStateHandler.IsTitleScreen = false;
     }
 }

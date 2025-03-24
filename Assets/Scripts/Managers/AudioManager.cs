@@ -12,6 +12,9 @@ public class AudioManager : MonoBehaviour
     private Bus MasterBus;
     private Bus SFXBus;
     private Bus BGMusicBus;
+
+    private EventInstance musicEventInstance;
+    private EventInstance ambienceEventInstance;
     public static AudioManager instance { get; private set; }
 
     private void Awake()
@@ -31,6 +34,18 @@ public class AudioManager : MonoBehaviour
         BGMusicBus.setVolume(BGMusicVolume);
     }
 
+    public void InitializeAmbience(EventReference ambienceEventReference)
+    {
+        ambienceEventInstance = CreateInstance(ambienceEventReference);
+        ambienceEventInstance.start();
+    }
+
+    public void InitializeMusic(EventReference musicEventReference)
+    {
+        musicEventInstance = CreateInstance(musicEventReference);
+        musicEventInstance.start();
+    }
+
     public void PlayOneShot(EventReference sound, Vector3 position )
     {
         RuntimeManager.PlayOneShot(sound, position);
@@ -42,5 +57,6 @@ public class AudioManager : MonoBehaviour
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
         return eventInstance;
     }
+
 
 }

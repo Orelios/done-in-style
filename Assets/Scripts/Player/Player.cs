@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
     [SerializeField] private string hurt;
     public string HurtAnimationName => hurt;
     
-    private void Start()
+    private void OnEnable()
     {
         _playerSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         _playerRb = GetComponent<Rigidbody2D>();

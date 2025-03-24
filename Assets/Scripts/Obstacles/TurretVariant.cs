@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using FMOD.Studio;
 
 public class TurretVariant : MonoBehaviour, ITriggerable
 {
@@ -27,6 +28,7 @@ public class TurretVariant : MonoBehaviour, ITriggerable
 
     public void Shoot()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.TMShoot, this.transform.position);
         var bulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
         bulletIns.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
         Destroy(bulletIns, bulletLifeSpan);
