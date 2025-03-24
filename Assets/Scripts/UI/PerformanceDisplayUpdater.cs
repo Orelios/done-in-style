@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +17,7 @@ public class PerformanceDisplayUpdater : MonoBehaviour
     [SerializeField] private Image scoreMultiplierBase;
     [SerializeField] private Image scoreMultiplierOutline;
     [SerializeField] private Image scoreMultiplierFill;
+    [SerializeField] private float lerpDuration;
     
     [Header("Rank Display")]
     [SerializeField] private Image rankNameDisplay;
@@ -31,7 +34,24 @@ public class PerformanceDisplayUpdater : MonoBehaviour
     
     public void UpdateSliderValue(int value)
     {
-        scoreMultiplierDisplaySlider.value = value;
+        //scoreMultiplierDisplaySlider.value = value;
+        StartCoroutine(UpdateSliderValueRoutine((int)scoreMultiplierDisplaySlider.value, value, lerpDuration));
+    }
+
+    private IEnumerator UpdateSliderValueRoutine(int startValue, int endValue, float duration)
+    {
+        var elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            scoreMultiplierDisplaySlider.value = Mathf.Lerp(startValue, endValue, elapsedTime / duration);
+            
+            elapsedTime += Time.fixedDeltaTime;
+                
+            yield return null;
+        }
+        
+        scoreMultiplierDisplaySlider.value = endValue;
     }
     
     public void SetNewSliderMinLimit(StylishRankSO rank)

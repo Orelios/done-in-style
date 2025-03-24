@@ -15,8 +15,8 @@ public class ResultsDisplayer : MonoBehaviour
     {
         /*ShowScoreResult(ResultsData.FinalScore);
         ShowTimeResult(ResultsData.FinalTime);*/
-        /*scoreChannel.Invoke(ResultsData.FinalScore);
-        timeChannel.Invoke(ResultsData.FinalTime);*/
+        scoreChannel.Invoke(ResultsData.FinalScore);
+        timeChannel.Invoke(ResultsData.FinalTime);
     }
 
     public void ShowScoreResult(int score)
