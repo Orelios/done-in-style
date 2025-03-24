@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 using FMOD.Studio;
+using System.Collections.Generic;
 
 public class PlayerTricks : MonoBehaviour
 {
@@ -92,13 +93,19 @@ public class PlayerTricks : MonoBehaviour
     [SerializeField] private float enableTrickDuration = 2f;
     private GameObject _trickObject;
     private bool _destroyedObject = false;
+    [SerializeField] private GameObject trickSprite;
+    [SerializeField] private List<Sprite> trickSprites = new List<Sprite>();
+    private Color invisible = new Color(1f, 1f, 1f, 0f);
+    private Color visible = new Color(1f, 1f, 1f, 1f);
+    private Color red = new Color(1f, 0f, 0f, 1f);
     #region Temp Trick Animation
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer playerSprite;
     private Color startColor = Color.white;
     private Color trickColor = Color.red;
     private Color enableTrickColor = Color.white;
 
     private Player _player;
+    private PlayerRailing _playerRailing;
     #endregion
 
     [Header("VFX")]
@@ -117,6 +124,7 @@ public class PlayerTricks : MonoBehaviour
         _wall = GetComponent<Wall>();
         
         _player = GetComponent<Player>();
+        _playerRailing = GetComponent<PlayerRailing>();
 
         lastDashTime = Time.time - dashCooldown;
         lastPoundTime = Time.time - poundCooldown;
@@ -125,10 +133,10 @@ public class PlayerTricks : MonoBehaviour
         #region Temp Trick Animation
 
         //_player = GetComponent<Player>();
-        spriteRenderer = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
+        playerSprite = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
+        if (playerSprite != null)
         {
-            spriteRenderer.color = startColor;
+            playerSprite.color = startColor;
         }
         #endregion
 
@@ -297,7 +305,7 @@ public class PlayerTricks : MonoBehaviour
             yield return null;
         }
         //_isDashing = false;
-        //spriteRenderer.color = trickColor;
+        //playerSprite.color = trickColor;
         //StartCoroutine(RevertColorAfterTime());
         //Debug.Log("Momentum ends");
     }
@@ -469,18 +477,24 @@ public class PlayerTricks : MonoBehaviour
     #region TrickMove
     private void TrickMove()
     {
-        if (_destroyedObject && canTrick && _playerMovement.IsGrounded() != true && spriteRenderer != null)
+        if (_destroyedObject && canTrick && _playerMovement.IsGrounded() != true && playerSprite != null)
         {
+            trickSprite.GetComponent<SpriteRenderer>().sprite = trickSprites[Random.Range(0, trickSprites.Count)];
+            trickSprite.GetComponent<SpriteRenderer>().color = visible;
+            playerSprite.color = invisible;
             _destroyedObject = false;
-            spriteRenderer.color = trickColor;
+            //playerSprite.color = trickColor;
             canTrick = false;
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
             AddScoreAndRank();
-            StartCoroutine(RevertColorAfterTime());
+            StartCoroutine(RevertSpriteAfterTime());
         }
-        else if (canTrick && _playerMovement.IsGrounded() != true && spriteRenderer != null)
+        else if (canTrick && _playerMovement.IsGrounded() != true && playerSprite != null)
         {
-            spriteRenderer.color = trickColor;
+            trickSprite.GetComponent<SpriteRenderer>().sprite = trickSprites[Random.Range(0, trickSprites.Count)];
+            trickSprite.GetComponent<SpriteRenderer>().color = visible;
+            playerSprite.color = invisible;
+            //playerSprite.color = trickColor;
             canTrick = false;
             if (_trickObject.TryGetComponent<Ramp>(out var ramp))
             {
@@ -492,6 +506,12 @@ public class PlayerTricks : MonoBehaviour
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
                 jumpPad.hasTricked = true;
+                AddScoreAndRank();
+            }
+            else if (_trickObject.TryGetComponent<JumpPadVariation>(out var jumpPadVar))
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
+                jumpPadVar.hasTricked = true;
                 AddScoreAndRank();
             }
             else if (_trickObject.TryGetComponent<RailsParent>(out var railing))
@@ -507,18 +527,38 @@ public class PlayerTricks : MonoBehaviour
                 AddScoreAndRank();
             }
 
-            StartCoroutine(RevertColorAfterTime());
+            StartCoroutine(RevertSpriteAfterTime());
         }
     }
 
-    private IEnumerator RevertColorAfterTime()
+    private IEnumerator RevertSpriteAfterTime()
     {
+        /*
         yield return new WaitForSeconds(trickTime);
-        if (spriteRenderer != null)
+        if (playerSprite != null)
         {
-            spriteRenderer.color = startColor;
+            playerSprite.color = visible;
+            trickSprite.GetComponent<SpriteRenderer>().color = invisible;
         }
+        */
+        float trickTimeLeft = trickTime;
+        while (trickTimeLeft > 0)
+        {
+            trickTimeLeft -= Time.deltaTime;
+            //Debug.Log("trickTimeLeft = " + trickTimeLeft);
+            if (_playerMovement.IsGrounded() || IsWallRiding || _playerRailing.IsMovingOnRail) 
+            {
+                playerSprite.color = visible;
+                trickSprite.GetComponent<SpriteRenderer>().color = invisible;
+                break; 
+            }
+            yield return null;
+        }
+        playerSprite.color = visible;
+        trickSprite.GetComponent<SpriteRenderer>().color = invisible;
+        //Debug.Log("Trick Ended");
     }
+
 
     public void EnableTrickDestroyed()
     {
@@ -546,11 +586,11 @@ public class PlayerTricks : MonoBehaviour
     {
         
         canTrick = true;
-        spriteRenderer.color = enableTrickColor;
+        playerSprite.color = enableTrickColor;
         yield return new WaitForSeconds(enableTrickDuration);
-        if (spriteRenderer.color != trickColor)
+        if (playerSprite.color != trickColor)
         {
-            spriteRenderer.color = startColor;
+            playerSprite.color = startColor;
         }
         canTrick = false;
     }
@@ -559,9 +599,9 @@ public class PlayerTricks : MonoBehaviour
     {
         canTrick = false;
         StopCoroutine(EnableTrickCoroutine());
-        if (spriteRenderer.color != trickColor)
+        if (playerSprite.color != trickColor)
         {
-            spriteRenderer.color = startColor;
+            playerSprite.color = startColor;
         }
     }
     #endregion
