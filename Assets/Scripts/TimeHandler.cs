@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class TimeHandler : MonoBehaviour
 {
+    [SerializeField] private FloatEventChannel timeEventChannel;
     [SerializeField, Range(0.1f, 1f)] private float slowDownFactor;
     [SerializeField] private float slowDownDuration;
     [SerializeField, Range(0.1f, 1f)] private float percentageForSmoothingToStart;
-    [SerializeField] private TextMeshProUGUI timerText;
     
     private static float _originalTimeScale = 1f;
     private static float _slowDownFactor;
@@ -16,6 +16,7 @@ public class TimeHandler : MonoBehaviour
     private static float _percentageForSmoothingToStart;
 
     private float _elapsedTime;
+    public float ElapsedTime => _elapsedTime;
     private void Awake()
     {
         Time.timeScale = _originalTimeScale;
@@ -27,7 +28,7 @@ public class TimeHandler : MonoBehaviour
     {
         _elapsedTime += Time.fixedDeltaTime;
         
-        timerText.text = $"{Mathf.FloorToInt(_elapsedTime / 60f * Time.fixedDeltaTime)}:{Mathf.FloorToInt(_elapsedTime % 60f):D2}.{Mathf.FloorToInt(_elapsedTime * 100f % 100f):D2}";
+        timeEventChannel.Invoke(_elapsedTime);
     }
 
     public static void SlowDownTime()

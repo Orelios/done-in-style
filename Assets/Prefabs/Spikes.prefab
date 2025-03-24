@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ScoreCalculator: {fileID: 0}
-  scoreIncrease: 0
+  scoreIncrease: 100
 --- !u!1 &5179594993558115682
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,6 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BounceHeight: 10
   damage: 100
+  decreasePoints: 3
 --- !u!61 &5121393594291298412
 BoxCollider2D:
   m_ObjectHideFlags: 0

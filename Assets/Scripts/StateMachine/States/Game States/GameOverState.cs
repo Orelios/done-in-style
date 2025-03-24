@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class GameOverState : GameState
 {
-    public GameOverState(Player player) : base(player)
+    public GameOverState(GameStateHandler handler, Player player) : base(handler, player)
     {
     }
 
     public override void OnStateEnter()
     {
-        SetGameTimeScale(0f);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        GameStateHandler.IsGameOver = true;
+        Player.InputManager.EnableUserInterfaceControls();
     }
 
     public override void OnStateExit()
     {
-        SetGameTimeScale(1f);
+        GameStateHandler.IsGameOver = false;
     }
 }

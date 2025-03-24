@@ -109,7 +109,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 935695490158944579, guid: 2da5d1e2ca6394f4ea9340e346e81904, type: 3}
+  m_Sprite: {fileID: -1755898171987696372, guid: 6b76c7f0d33d68341914fea7effdf61c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -145,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 7185377509400612138}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.454, z: 0}
+  m_LocalPosition: {x: -0, y: -0.738, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 5724612179336765715}
   - component: {fileID: 8506451915751097081}
   - component: {fileID: 124782314367409991}
+  - component: {fileID: 1895125367870313278}
   m_Layer: 0
   m_Name: Turret variant
   m_TagString: Untagged
@@ -229,7 +230,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 6980403241149950859, guid: 2da5d1e2ca6394f4ea9340e346e81904, type: 3}
+  m_Sprite: {fileID: -7322941237095456671, guid: 2e86646d1ab33f6449f5adbd4e2f9cba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -256,4 +257,36 @@ MonoBehaviour:
   bullet: {fileID: 128889013100235571, guid: d68d622b5102b22478ea5d8de569916d, type: 3}
   bulletSpeed: 700
   bulletLifeSpan: 3
+  canShootAgain: 0
   scoreCalculator: {fileID: 0}
+--- !u!114 &1895125367870313278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8636918173773611720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 242471021
+      Data2: 1080971056
+      Data3: 1332776113
+      Data4: -690544727
+    Path: event:/EnvironmentEvents/TM_Whirling
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 10

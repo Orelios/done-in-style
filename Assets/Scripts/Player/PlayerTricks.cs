@@ -96,7 +96,7 @@ public class PlayerTricks : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color startColor = Color.white;
     private Color trickColor = Color.red;
-    private Color enableTrickColor = Color.blue;
+    private Color enableTrickColor = Color.white;
 
     private Player _player;
     #endregion
@@ -190,7 +190,7 @@ public class PlayerTricks : MonoBehaviour
     }
     public void SlidingInput(InputAction.CallbackContext context)
     {
-        if (context.performed) {if (_playerMovement.IsGrounded() && !_player.RailGrind.IsOnRail) 
+        if (context.performed) {if (_playerMovement.IsGrounded() && !_player.Railing.IsMovingOnRail)
             { _isSliding = true; Sliding(); }}
 
         if (context.canceled){if (_playerMovement.IsGrounded()) 
@@ -280,6 +280,8 @@ public class PlayerTricks : MonoBehaviour
         while (!Input.anyKeyDown)
         {
             if (_rampPlayer.IsColliding) { break; }
+            if (_playerMovement.IsGrounded()) { break; }
+            if (IsWallRiding) { break; }
             //dashLastVelocity = _playerMovement.Rb.linearVelocity.y;
             //_playerMovement.Rb.linearVelocity -= _dashMomentumDecay;
             Vector2 lastVelocity = _playerMovement.Rb.linearVelocity;
@@ -333,7 +335,7 @@ public class PlayerTricks : MonoBehaviour
         _isWallRiding = false; 
         yield return new WaitForSeconds(_canDetroyDuration);
         _canDestroy = false;
-        if (_wall._canWallRide)
+        if (_wall != null && _wall._canWallRide)
         {
             _isWallRiding = true;
         }
@@ -389,16 +391,15 @@ public class PlayerTricks : MonoBehaviour
         if (_isWallRiding) 
         {
 
-            _playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
-            _playerMovement._playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
+            //_playerMovement._playerSkatingGround.setPaused(true);
+            //_playerMovement._playerSkatingAir.setPaused(true);
 
             PLAYBACK_STATE playbackState;
             _playerSkatingWallRide.getPlaybackState(out playbackState);
 
-            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-            {
-                _playerSkatingWallRide.start();
-            }
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.groundIntensity, 0);
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.airIntensity, 0);
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.wallIntensity, 1);
 
             _playerMovement.Rb.gravityScale = wallRidingGravity;
 
@@ -420,13 +421,7 @@ public class PlayerTricks : MonoBehaviour
             DisableCanTrick();
         }
 
-        if (!_isWallRiding) 
-        {
-            Debug.Log("I should stop." + _playerSkatingWallRide.ToString());
-            _playerSkatingWallRide.stop(STOP_MODE.ALLOWFADEOUT);
-            _playerMovement.Rb.gravityScale = _playerMovement.GravityScale;
-            //if (!_wall.hasTricked) { EnableTrick(_wall.gameObject); }
-        }
+        
     }
 
     public void PlayWallRideLanding()
@@ -439,7 +434,17 @@ public class PlayerTricks : MonoBehaviour
         _wall = wall;
     }
 
-    public void NullWall() {  _wall = null; }
+    public void ResetWallRideValues() 
+    {  
+        if (!_isWallRiding)
+        {
+            Debug.Log("I should stop." + _playerSkatingWallRide.ToString());
+            //_playerSkatingWallRide.setPaused(true);
+            _playerMovement._playerMovement.setParameterByName(_playerMovement.wallIntensity, 0);
+            _playerMovement.Rb.gravityScale = _playerMovement.GravityScale;
+            //if (!_wall.hasTricked) { EnableTrick(_wall.gameObject); }
+        }
+    }
     #endregion
 
     #region Sliding
@@ -489,7 +494,7 @@ public class PlayerTricks : MonoBehaviour
                 jumpPad.hasTricked = true;
                 AddScoreAndRank();
             }
-            else if (_trickObject.TryGetComponent<Railing>(out var railing))
+            else if (_trickObject.TryGetComponent<RailsParent>(out var railing))
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
                 railing.hasTricked = true;

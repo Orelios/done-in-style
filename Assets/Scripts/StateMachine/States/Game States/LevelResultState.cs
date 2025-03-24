@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class LevelResultState : GameState
 {
-    public LevelResultState(Player player) : base(player)
+    public LevelResultState(GameStateHandler handler, Player player) : base(handler, player)
     {
     }
     
     public override void OnStateEnter()
     {
-        SetGameTimeScale(0f);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        GameStateHandler.IsResultScreen = true;
+        Player.InputManager.EnableUserInterfaceControls();
     }
 
     public override void OnStateExit()
     {
-        SetGameTimeScale(1f);
+        GameStateHandler.IsResultScreen = false;
     }
 }

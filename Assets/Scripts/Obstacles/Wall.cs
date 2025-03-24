@@ -15,6 +15,7 @@ public class Wall : MonoBehaviour
             _canWallRide = true;
             playerTricks.CanDoubleJump();
             playerTricks.GetWall(this);
+            
         }
     }
 
@@ -25,6 +26,7 @@ public class Wall : MonoBehaviour
             playerTricks.IsWallRiding = false;
             playerTricks._playerSkatingWallRide.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             _canWallRide = false;
+            playerTricks.ResetWallRideValues();
             if (!hasTricked) { playerTricks.EnableTrick(gameObject); }
             //playerTricks.NullWall();
         }

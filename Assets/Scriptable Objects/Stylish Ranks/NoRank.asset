@@ -14,7 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rankType: 0
   rankName: 
+  rankNameSprite: {fileID: 0}
   scoreMultiplier: 1
+  scoreMultiplierBaseSprite: {fileID: 21300000, guid: d69d5b8ef36a4c7458c3fc6ab1fcc2dd, type: 3}
+  scoreMultiplierOutlineSprite: {fileID: 8361640825747151079, guid: a7ca259629fadef40bfbc41bf2dd35b8, type: 3}
+  scoreMultiplierFillColor: {r: 0.5754717, g: 0.33133218, b: 0, a: 1}
   requiredBreakthroughPoints: 2
   accelerationMultiplier: 1
   maxSpeedMultiplier: 1
