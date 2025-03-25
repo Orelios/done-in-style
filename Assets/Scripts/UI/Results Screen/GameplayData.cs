@@ -19,7 +19,7 @@ public static class GameplayData
     public static void RecordLevel(string levelName)
     {
         LastLevelHash = levelName;
-        Debug.LogAssertion(LastLevelHash);
+        Debug.LogWarning(LastLevelHash);
     }
     
     public static void Reset()
