@@ -25,7 +25,7 @@ public class AfterimageVFX : MonoBehaviour
         rb = GetComponentInParent<Rigidbody2D>();
         //rb = _player.Rigidbody;
         spriteRenderer = transform.parent.GetChild(0).GetComponent<SpriteRenderer>();
-        //  spriteRenderer = _player.Sprite;
+        //  playerSprite = _player.Sprite;
 
         GameObject parentObj = GameObject.Find("Afterimages");
         if (parentObj == null)

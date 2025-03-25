@@ -32,7 +32,7 @@ public class JumpPadVariation : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         collision.gameObject.GetComponent<Rigidbody2D>().AddForce(_direction * bounceHeight, ForceMode2D.Impulse);
-        Debug.Log(_direction * bounceHeight);
+        //Debug.Log(_direction * bounceHeight);
 
         collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity =
                 Vector2.ClampMagnitude(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity, maxHeight);
