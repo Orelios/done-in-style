@@ -34,7 +34,7 @@ public class PlayerRailing : MonoBehaviour
 
         }
 
-        rankSpeedMult = _rankCalculator.speedMults[_rankCalculator.CurrentStylishRankIndex];
+        rankSpeedMult = _rankCalculator.railSpeedMults[_rankCalculator.CurrentStylishRankIndex];
 
         // Apply velocity in the direction the player is facing
         _playerMovement.Rb.linearVelocity = transform.right * _speedOnEnter * rankSpeedMult;
