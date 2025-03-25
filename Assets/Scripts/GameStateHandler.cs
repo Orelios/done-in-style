@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class GameStateHandler : MonoBehaviour
 {
@@ -47,9 +46,7 @@ public class GameStateHandler : MonoBehaviour
         _player = FindFirstObjectByType<Player>();
         _pauseMenuNavigator = FindFirstObjectByType<PauseMenuNavigator>();
         InitializeStateMachine();
-
-        //SetState(_gameplayState);
-        //StartTitleScreen();
+        
         SetState();
     }
 
@@ -77,6 +74,7 @@ public class GameStateHandler : MonoBehaviour
         
         NormalTransition(_stateMachine, _gameplayState, _gameOverState, new FuncPredicate(()=> _player.Health.CurrentHealth < 1));
         NormalTransition(_stateMachine, _gameplayState, _pausedState, new FuncPredicate(()=> IsGamePaused));
+        NormalTransition(_stateMachine, _gameplayState, _levelResultState, new FuncPredicate(()=> IsResultScreen));
         //TODO: gameplayState to levelResultState when player reaches level end point
         
         NormalTransition(_stateMachine, _pausedState, _gameplayState, new FuncPredicate(()=> !IsGamePaused));
@@ -84,7 +82,7 @@ public class GameStateHandler : MonoBehaviour
         //TODO: gameOverState to gameplayState when player restarts level
         NormalTransition(_stateMachine, _gameOverState, _gameplayState, new FuncPredicate(()=> !IsGameOver));
         
-        //TODO: levelResultState to gameplayState when player restarts level or goes to next level
+        NormalTransition(_stateMachine, _levelResultState, _gameplayState, new FuncPredicate(()=> !IsResultScreen));
     }
     
     private void NormalTransition(StateMachine stateMachine, IState currentState, IState nextState, IPredicate condition) => stateMachine.AddNormalTransition(currentState, nextState, condition);
@@ -109,7 +107,7 @@ public class GameStateHandler : MonoBehaviour
                 _stateMachine.SetState(_gameplayState);
                 IsGameplay = true;
                 FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
-                GameplayData.RecordLevel(SceneManager.GetActiveScene().name);
+                GameplayData.RecordLevel(SceneManager.GetActiveScene().path, SceneManager.GetActiveScene().buildIndex);
                 break;
             case EScreenType.GameOver:
                 _stateMachine.SetState(_gameOverState);
@@ -124,18 +122,6 @@ public class GameStateHandler : MonoBehaviour
         }
         
         Debug.Log($"Current Screen: {screenType}\n Current State: {CurrentGameState}");
-    }
-
-    public void StartTitleScreen()
-    {
-        IsGameplay = false; 
-        IsGamePaused = false; 
-        IsGameOver = false; 
-        IsResultScreen = false; 
-        IsTitleScreen = true;
-    
-    //SetState(_titleScreenState);
-    FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
     }
     
     public void StartGameplay()
@@ -164,10 +150,13 @@ public class GameStateHandler : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void AssignValues(Player player, PauseMenuNavigator pauseMenuNavigator)
+    public void FinishLevel()
     {
-        _player = player;
-        _pauseMenuNavigator = pauseMenuNavigator;
+        IsGameplay = false;
+        IsResultScreen = true;
+        FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
+        FindFirstObjectByType<ScoreCalculator>().IncreaseScoreOnLevelClear(FindFirstObjectByType<TimeHandler>().ElapsedTime);
+        SceneManager.LoadScene("ResultsScreen");
     }
 }
 
