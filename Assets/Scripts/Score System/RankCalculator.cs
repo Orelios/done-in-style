@@ -51,7 +51,7 @@ public class RankCalculator : MonoBehaviour
 
         if (_pointFalloffTimer <= 0)
         {
-            DecreaseStylishPoints();
+            DecreaseStylishPoints(1);
         }
     }
 
@@ -137,9 +137,9 @@ public class RankCalculator : MonoBehaviour
     }
 
     //decrements points, clamps points value between the lowest and highest points breakthrough, resets falloff timer, and updates points UI
-    public void DecreaseStylishPoints()
+    public void DecreaseStylishPoints(int value)
     {
-        CurrentStylishPoints--;
+        CurrentStylishPoints-= value;
         CurrentStylishPoints= Mathf.Clamp(CurrentStylishPoints, 0, maxStylishPoints);
         _pointFalloffTimer = pointsFalloffTime;        
         //stylishPointsText.text = $"{CurrentStylishPoints}";
