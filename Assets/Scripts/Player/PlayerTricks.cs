@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 using FMOD.Studio;
+using System.Collections.Generic;
 
 public class PlayerTricks : MonoBehaviour
 {
@@ -92,14 +93,19 @@ public class PlayerTricks : MonoBehaviour
     [SerializeField] private float enableTrickDuration = 2f;
     private GameObject _trickObject;
     private bool _destroyedObject = false;
-    #region Temp Trick Animation
-    private SpriteRenderer spriteRenderer;
-    private Color startColor = Color.white;
-    private Color trickColor = Color.red;
-    private Color enableTrickColor = Color.white;
+
+    [SerializeField] private GameObject trickSprite;
+    [SerializeField] private List<Sprite> trickSprites = new List<Sprite>();
+    private Color invisible = new Color(1f, 1f, 1f, 0f);
+    private Color visible = new Color(1f, 1f, 1f, 1f);
+    private SpriteRenderer playerSprite;
+    //private Color startColor = Color.white;
+    //private Color trickColor = Color.red;
+    //private Color enableTrickColor = Color.white;
 
     private Player _player;
-    #endregion
+    private PlayerRailing _playerRailing;
+    private Coroutine enableTrickCor, revertSpriteCor;
 
     [Header("VFX")]
     [SerializeField] private float jumpPadTimer = 0.2f;
@@ -117,18 +123,19 @@ public class PlayerTricks : MonoBehaviour
         _wall = GetComponent<Wall>();
         
         _player = GetComponent<Player>();
+        _playerRailing = GetComponent<PlayerRailing>();
 
         lastDashTime = Time.time - dashCooldown;
         lastPoundTime = Time.time - poundCooldown;
 
-        _playerSkatingWallRide = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkatingWallRide);
+        //_playerSkatingWallRide = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerSkatingWallRide);
         #region Temp Trick Animation
 
         //_player = GetComponent<Player>();
-        spriteRenderer = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null)
+        playerSprite = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
+        if (playerSprite != null)
         {
-            spriteRenderer.color = startColor;
+            //playerSprite.color = startColor;
         }
         #endregion
 
@@ -297,7 +304,7 @@ public class PlayerTricks : MonoBehaviour
             yield return null;
         }
         //_isDashing = false;
-        //spriteRenderer.color = trickColor;
+        //playerSprite.color = trickColor;
         //StartCoroutine(RevertColorAfterTime());
         //Debug.Log("Momentum ends");
     }
@@ -438,7 +445,7 @@ public class PlayerTricks : MonoBehaviour
     {  
         if (!_isWallRiding)
         {
-            Debug.Log("I should stop." + _playerSkatingWallRide.ToString());
+            //Debug.Log("I should stop." + _playerSkatingWallRide.ToString());
             //_playerSkatingWallRide.setPaused(true);
             _playerMovement._playerMovement.setParameterByName(_playerMovement.wallIntensity, 0);
             _playerMovement.Rb.gravityScale = _playerMovement.GravityScale;
@@ -469,19 +476,21 @@ public class PlayerTricks : MonoBehaviour
     #region TrickMove
     private void TrickMove()
     {
-        if (_destroyedObject && canTrick && _playerMovement.IsGrounded() != true && spriteRenderer != null)
+        if (_destroyedObject && canTrick && _playerMovement.IsGrounded() != true && playerSprite != null)
         {
+            //Debug.Log("trick stop cor");
             _destroyedObject = false;
-            spriteRenderer.color = trickColor;
-            canTrick = false;
+            //playerSprite.color = trickColor;
+            
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
             AddScoreAndRank();
-            StartCoroutine(RevertColorAfterTime());
+            revertSpriteCor = StartCoroutine(RevertSpriteAfterTime());
         }
-        else if (canTrick && _playerMovement.IsGrounded() != true && spriteRenderer != null)
+        else if (canTrick && _playerMovement.IsGrounded() != true && playerSprite != null)
         {
-            spriteRenderer.color = trickColor;
-            canTrick = false;
+            //Debug.Log("trick stop cor");
+            //playerSprite.color = trickColor;
+            
             if (_trickObject.TryGetComponent<Ramp>(out var ramp))
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
@@ -492,6 +501,12 @@ public class PlayerTricks : MonoBehaviour
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
                 jumpPad.hasTricked = true;
+                AddScoreAndRank();
+            }
+            else if (_trickObject.TryGetComponent<JumpPadVariation>(out var jumpPadVar))
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
+                jumpPadVar.hasTricked = true;
                 AddScoreAndRank();
             }
             else if (_trickObject.TryGetComponent<RailsParent>(out var railing))
@@ -507,38 +522,77 @@ public class PlayerTricks : MonoBehaviour
                 AddScoreAndRank();
             }
 
-            StartCoroutine(RevertColorAfterTime());
+            revertSpriteCor = StartCoroutine(RevertSpriteAfterTime());
         }
     }
 
-    private IEnumerator RevertColorAfterTime()
+    private IEnumerator RevertSpriteAfterTime()
     {
+        /*
         yield return new WaitForSeconds(trickTime);
-        if (spriteRenderer != null)
+        if (playerSprite != null)
         {
-            spriteRenderer.color = startColor;
+            playerSprite.color = visible;
+            trickSprite.GetComponent<SpriteRenderer>().color = invisible;
         }
+        */
+        
+        trickSprite.GetComponent<SpriteRenderer>().sprite = trickSprites[Random.Range(0, trickSprites.Count)];
+        trickSprite.GetComponent<SpriteRenderer>().color = visible;
+        playerSprite.color = invisible;
+        DisableCanTrick();
+        canTrick = false;
+
+        float trickTimeLeft = trickTime;
+        while (trickTimeLeft > 0)
+        {
+            trickTimeLeft -= Time.deltaTime;
+            //Debug.Log("trickTimeLeft = " + trickTimeLeft);
+            if (_playerMovement.IsGrounded() || IsWallRiding || _playerRailing.IsMovingOnRail) 
+            {
+                playerSprite.color = visible;
+                trickSprite.GetComponent<SpriteRenderer>().color = invisible;
+                break; 
+            }
+            yield return null;
+        }
+        playerSprite.color = visible;
+        trickSprite.GetComponent<SpriteRenderer>().color = invisible;
+        //Debug.Log("Trick Ended");
     }
+
 
     public void EnableTrickDestroyed()
     {
+        _trickObject = null;
         _destroyedObject = true;
-        StopCoroutine(EnableTrickCoroutine());
-        StartCoroutine(EnableTrickCoroutine());
+        if (enableTrickCor != null)
+        {
+            StopCoroutine(enableTrickCor);
+            enableTrickCor = null;
+            //Debug.Log("destroyed stop cor");
+        }
+        enableTrickCor = StartCoroutine(EnableTrickCoroutine());
     }
 
     public void EnableTrick(GameObject gameObject)
     {
-        if (gameObject.TryGetComponent<Ramp>(out _) || gameObject.TryGetComponent<Wall>(out _))
+        if (gameObject.TryGetComponent<Ramp>(out _) || gameObject.TryGetComponent<Wall>(out _) || gameObject.TryGetComponent<RailsParent>(out _))
         {
             _trickObject = gameObject;
-            StopCoroutine(EnableTrickCoroutine());
-            StartCoroutine(EnableTrickCoroutine());
+            if (enableTrickCor != null)
+            {
+                StopCoroutine(enableTrickCor);
+                enableTrickCor = null;
+                //Debug.Log(_trickObject.gameObject.name + " stopped trick cor");
+            }
+            enableTrickCor = StartCoroutine(EnableTrickCoroutine());
         }
         else if (!canTrick)
         {
             _trickObject = gameObject;
-            StartCoroutine(EnableTrickCoroutine());
+            //StopCoroutine(EnableTrickCoroutine());
+            enableTrickCor = StartCoroutine(EnableTrickCoroutine());
         }
     }
 
@@ -546,23 +600,29 @@ public class PlayerTricks : MonoBehaviour
     {
         
         canTrick = true;
-        spriteRenderer.color = enableTrickColor;
-        yield return new WaitForSeconds(enableTrickDuration);
-        if (spriteRenderer.color != trickColor)
+        //playerSprite.color = enableTrickColor;
+        //yield return new WaitForSeconds(enableTrickDuration);
+        float enableTrickTimer = enableTrickDuration;
+        while (enableTrickTimer > 0f)
         {
-            spriteRenderer.color = startColor;
+            enableTrickTimer -= Time.deltaTime;
+            yield return null;
         }
+        //Debug.Log("enableTrickDuration ended");
+        _trickObject = null;
         canTrick = false;
     }
 
     public void DisableCanTrick()
     {
         canTrick = false;
-        StopCoroutine(EnableTrickCoroutine());
-        if (spriteRenderer.color != trickColor)
+        if (enableTrickCor != null)
         {
-            spriteRenderer.color = startColor;
+            StopCoroutine(enableTrickCor);
+            enableTrickCor = null;
+            //Debug.Log("disabled canTrick");
         }
+
     }
     #endregion
 

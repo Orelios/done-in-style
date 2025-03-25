@@ -387,7 +387,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 //_playerSkatingGround.setPaused(false);
                 _playerMovement.setParameterByName(groundIntensity, 1);
-                Debug.Log("Set Parameter");
+                //Debug.Log("Set Parameter");
             }
             
             
