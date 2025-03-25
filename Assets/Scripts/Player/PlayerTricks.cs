@@ -482,6 +482,7 @@ public class PlayerTricks : MonoBehaviour
             trickSprite.GetComponent<SpriteRenderer>().color = visible;
             playerSprite.color = invisible;
             DisableCanTrick();
+            //Debug.Log("trick stop cor");
             _destroyedObject = false;
             //playerSprite.color = trickColor;
             canTrick = false;
@@ -495,6 +496,7 @@ public class PlayerTricks : MonoBehaviour
             trickSprite.GetComponent<SpriteRenderer>().color = visible;
             playerSprite.color = invisible;
             DisableCanTrick();
+            //Debug.Log("trick stop cor");
             //playerSprite.color = trickColor;
             canTrick = false;
             if (_trickObject.TryGetComponent<Ramp>(out var ramp))
@@ -563,10 +565,13 @@ public class PlayerTricks : MonoBehaviour
 
     public void EnableTrickDestroyed()
     {
+        _trickObject = null;
         _destroyedObject = true;
         if (enableTrickCor != null)
         {
             StopCoroutine(enableTrickCor);
+            enableTrickCor = null;
+            //Debug.Log("destroyed stop cor");
         }
         enableTrickCor = StartCoroutine(EnableTrickCoroutine());
     }
@@ -579,7 +584,8 @@ public class PlayerTricks : MonoBehaviour
             if (enableTrickCor != null)
             {
                 StopCoroutine(enableTrickCor);
-                Debug.Log(_trickObject.gameObject.name + " stopped trick cor");
+                enableTrickCor = null;
+                //Debug.Log(_trickObject.gameObject.name + " stopped trick cor");
             }
             enableTrickCor = StartCoroutine(EnableTrickCoroutine());
         }
@@ -603,7 +609,8 @@ public class PlayerTricks : MonoBehaviour
             enableTrickTimer -= Time.deltaTime;
             yield return null;
         }
-        Debug.Log("enableTrickDuration ended");
+        //Debug.Log("enableTrickDuration ended");
+        _trickObject = null;
         canTrick = false;
     }
 
@@ -613,7 +620,8 @@ public class PlayerTricks : MonoBehaviour
         if (enableTrickCor != null)
         {
             StopCoroutine(enableTrickCor);
-            Debug.Log("disabled canTrick");
+            enableTrickCor = null;
+            //Debug.Log("disabled canTrick");
         }
 
     }
