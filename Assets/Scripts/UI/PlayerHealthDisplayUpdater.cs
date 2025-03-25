@@ -21,6 +21,6 @@ public class PlayerHealthDisplayUpdater : MonoBehaviour
     public void UpdatePlayerPortraitDisplay(int health)
     {
         playerPortrait.sprite = playerPortraits[Mathf.Max(0, health - 1)];
-        playerPortrait.SetNativeSize();
+        //playerPortrait.SetNativeSize();
     }
 }

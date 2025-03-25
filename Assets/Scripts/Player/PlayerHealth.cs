@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
         _currentHealth = maxHealth;
         playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
+        playerHealthDisplayUpdater.UpdatePlayerPortraitDisplay(_currentHealth);
         _vfx = GetComponentInChildren<VFXManager>();
     }
 
@@ -30,6 +31,7 @@ public class PlayerHealth : MonoBehaviour
         { 
             _currentHealth -= 1;
             playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
+            playerHealthDisplayUpdater.UpdatePlayerPortraitDisplay(_currentHealth);
             playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         } 
         if(_currentHealth <= 0) 
@@ -46,6 +48,7 @@ public class PlayerHealth : MonoBehaviour
         { 
             _currentHealth += 1;
             playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
+            playerHealthDisplayUpdater.UpdatePlayerPortraitDisplay(_currentHealth);
             playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         } 
     }

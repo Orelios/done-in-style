@@ -17,7 +17,10 @@ public class ResultsScreenButtons : MonoBehaviour
 
     public void NextLevel()
     {
+        var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(GameplayData.LastLevelIndex + 1);
+        var nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextLevelHash);
         
+        SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(Mathf.Max(nextLevelIndex, 1)));
     }
 
     public void RetryLevel()
@@ -27,7 +30,7 @@ public class ResultsScreenButtons : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        
+        //NOOP
     }
 
     public void Big()
@@ -48,20 +51,15 @@ public class ResultsScreenButtons : MonoBehaviour
         
         while (elapsedTime < duration)
         {
-            // Calculate the lerp factor
-            float lerpFactor = elapsedTime / duration;
-
-            // Lerp the scale
+            var lerpFactor = elapsedTime / duration;
+            
             transform.localScale = Vector3.Lerp(transform.localScale, targetScale, lerpFactor);
-
-            // Increase elapsed time based on frame time
+            
             elapsedTime += Time.unscaledDeltaTime;
-
-            // Wait until the next frame
+            
             yield return null;
         }
-
-        // Ensure the final scale is exactly the target scale
+        
         transform.localScale = targetScale;
     }
 }
