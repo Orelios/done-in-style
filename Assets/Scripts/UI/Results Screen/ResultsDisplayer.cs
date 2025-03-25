@@ -46,7 +46,7 @@ public class ResultsDisplayer : MonoBehaviour
             }
             else
             {
-                textToLerp.text = $"TIME: <size=95><color=white>{Mathf.FloorToInt(currentValue / 60f * Time.fixedDeltaTime)}:" +
+                textToLerp.text = $"TIME: <size=95><color=white>{Mathf.FloorToInt(currentValue / 60f)}:" +
                                   $"{Mathf.FloorToInt(currentValue % 60f):D2}." +
                                   $"<size=75>{Mathf.FloorToInt(currentValue * 100f % 100f):D2}</size></color></size>";
             }
@@ -61,7 +61,7 @@ public class ResultsDisplayer : MonoBehaviour
         }
         else
         {
-            textToLerp.text = $"TIME: <size=95><color=white>{Mathf.FloorToInt(targetValue / 60f * Time.fixedDeltaTime)}:" +
+            textToLerp.text = $"TIME: <size=95><color=white>{Mathf.FloorToInt(targetValue / 60f)}:" +
                               $"{Mathf.FloorToInt(targetValue % 60f):D2}." +
                               $"<size=75>{Mathf.FloorToInt(targetValue * 100f % 100f):D2}</size></color></size>";
         }
