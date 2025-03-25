@@ -215,6 +215,16 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         RotatePlayer();
+        /*
+        switch (IsFacingRight)
+        {
+            //Flips player sprite to the direction they are heading to 
+            case false when _playerInputManager.HorizontalMovement > 0f:
+            case true when _playerInputManager.HorizontalMovement < 0f:
+                Flip();
+                break;
+        }
+        */
         //Disables movement while dashing
 
         if (_playerTricks.IsDashing || _playerTricks.IsPounding) { return; }
