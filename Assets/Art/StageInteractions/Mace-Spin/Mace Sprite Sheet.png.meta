@@ -184,7 +184,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Mace Sprite Sheet_0: -3036683477617168154
+      Mace Sprite Sheet_1: 8551791196240712281
+      Mace Sprite Sheet_2: -5826394661659148324
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
