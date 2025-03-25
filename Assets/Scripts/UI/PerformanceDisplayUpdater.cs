@@ -29,7 +29,7 @@ public class PerformanceDisplayUpdater : MonoBehaviour
 
     public void UpdateTimerDisplay(float time)
     {
-        timerText.text = $"{Mathf.FloorToInt(time / 60f * Time.fixedDeltaTime)}:{Mathf.FloorToInt(time % 60f):D2}.{Mathf.FloorToInt(time * 100f % 100f):D2}";
+        timerText.text = $"{Mathf.FloorToInt(time / 60f)}:{Mathf.FloorToInt(time % 60f):D2}.{Mathf.FloorToInt(time * 100f % 100f):D2}";
     }
     
     public void UpdateSliderValue(int value)

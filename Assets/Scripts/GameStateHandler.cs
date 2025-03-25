@@ -109,6 +109,7 @@ public class GameStateHandler : MonoBehaviour
                 _stateMachine.SetState(_gameplayState);
                 IsGameplay = true;
                 FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
+                GameplayData.RecordLevel(SceneManager.GetActiveScene().name);
                 break;
             case EScreenType.GameOver:
                 _stateMachine.SetState(_gameOverState);
