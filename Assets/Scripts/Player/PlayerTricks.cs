@@ -478,27 +478,19 @@ public class PlayerTricks : MonoBehaviour
     {
         if (_destroyedObject && canTrick && _playerMovement.IsGrounded() != true && playerSprite != null)
         {
-            trickSprite.GetComponent<SpriteRenderer>().sprite = trickSprites[Random.Range(0, trickSprites.Count)];
-            trickSprite.GetComponent<SpriteRenderer>().color = visible;
-            playerSprite.color = invisible;
-            DisableCanTrick();
             //Debug.Log("trick stop cor");
             _destroyedObject = false;
             //playerSprite.color = trickColor;
-            canTrick = false;
+            
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
             AddScoreAndRank();
             revertSpriteCor = StartCoroutine(RevertSpriteAfterTime());
         }
         else if (canTrick && _playerMovement.IsGrounded() != true && playerSprite != null)
         {
-            trickSprite.GetComponent<SpriteRenderer>().sprite = trickSprites[Random.Range(0, trickSprites.Count)];
-            trickSprite.GetComponent<SpriteRenderer>().color = visible;
-            playerSprite.color = invisible;
-            DisableCanTrick();
             //Debug.Log("trick stop cor");
             //playerSprite.color = trickColor;
-            canTrick = false;
+            
             if (_trickObject.TryGetComponent<Ramp>(out var ramp))
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
@@ -544,6 +536,13 @@ public class PlayerTricks : MonoBehaviour
             trickSprite.GetComponent<SpriteRenderer>().color = invisible;
         }
         */
+        
+        trickSprite.GetComponent<SpriteRenderer>().sprite = trickSprites[Random.Range(0, trickSprites.Count)];
+        trickSprite.GetComponent<SpriteRenderer>().color = visible;
+        playerSprite.color = invisible;
+        DisableCanTrick();
+        canTrick = false;
+
         float trickTimeLeft = trickTime;
         while (trickTimeLeft > 0)
         {
