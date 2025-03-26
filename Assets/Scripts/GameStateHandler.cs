@@ -138,6 +138,21 @@ public class GameStateHandler : MonoBehaviour
         
         SceneManager.LoadScene(2);
     }
+
+    public void ReturnToMainMenu()
+    {
+        IsGameplay = false;
+        IsTitleScreen = true;
+        
+        GameplayData.Reset();
+        
+        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.musicEventInstance.release();
+        AudioManager.instance.ambienceEventInstance.release();
+        
+        SceneManager.LoadScene("TitleScreen");
+    }
     
     public void PauseGame()
     {
