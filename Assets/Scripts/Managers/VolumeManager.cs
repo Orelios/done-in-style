@@ -29,15 +29,24 @@ public class VolumeSlider : MonoBehaviour
         switch (volumeType)
         {
             case VolumeType.MASTER:
-                AudioManager.instance.MasterVolume = PlayerPrefs.GetFloat("Master");
+                if (PlayerPrefs.HasKey("Master"))
+                {
+                    AudioManager.instance.MasterVolume = PlayerPrefs.GetFloat("Master");
+                }
                 volumeSlider.value = AudioManager.instance.MasterVolume;
                 break;
             case VolumeType.MUSIC:
-                AudioManager.instance.BGMusicVolume = PlayerPrefs.GetFloat("BG");
+                if (PlayerPrefs.HasKey("BG"))
+                {
+                    AudioManager.instance.BGMusicVolume = PlayerPrefs.GetFloat("BG");
+                }
                 volumeSlider.value = AudioManager.instance.BGMusicVolume;
                 break;
             case VolumeType.SFX:
-                AudioManager.instance.SFXVolume = PlayerPrefs.GetFloat("SFX");
+                if (PlayerPrefs.HasKey("SFX"))
+                {
+                    AudioManager.instance.SFXVolume = PlayerPrefs.GetFloat("SFX");
+                }
                 volumeSlider.value = AudioManager.instance.SFXVolume;
                 break;
             default:
