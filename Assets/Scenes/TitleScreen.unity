@@ -13269,8 +13269,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1617951821}
-        m_TargetAssemblyTypeName: SceneHandler, Assembly-CSharp
+      - m_Target: {fileID: 3013333081566588084}
+        m_TargetAssemblyTypeName: GameStateHandler, Assembly-CSharp
         m_MethodName: StartGameplay
         m_Mode: 1
         m_Arguments:
