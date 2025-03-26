@@ -262,7 +262,8 @@ public class PlayerTricks : MonoBehaviour
         }
 
         // Dash always in the current horizontal direction
-        float horizontalDirection = transform.rotation.y == 0 ? 1 : -1;
+        //float horizontalDirection = transform.rotation.y == 0 ? 1 : -1;
+        int horizontalDirection = _playerMovement.IsFacingRight? 1 : -1;
         dashDirection = new Vector2(horizontalDirection, 0).normalized;
 
         // Disable gravity during the dash

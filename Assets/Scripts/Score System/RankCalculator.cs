@@ -12,6 +12,8 @@ public class RankCalculator : MonoBehaviour
     
     [Header("Stylish Ranks Configs")]
     [SerializeField] private List<StylishRankSO> stylishRanksList = new();
+    //railing speed multipliers based on rank
+    public float[] railSpeedMults = new float[] { 1, 2, 3, 4, 5, 6 };
     [SerializeField] private StylishRankSO defaultStylishRank;
     public StylishRankSO CurrentStylishRank {get; private set;}
     [SerializeField] private int _currentStylishRankIndex;
