@@ -292,6 +292,7 @@ public class PlayerMovement : MonoBehaviour
     public void Jump()
     {
         if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy) { return; }
+
         //Handles the timer for coyote time
         _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
 
@@ -305,6 +306,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (!_playerInputManager.IsJumping)// Jump Cut (increase gravity when the jump button is released early)
         {
+            _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
             Rb.gravityScale = _gravityScale * jumpCutGravityMult;
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Max(Rb.linearVelocity.y, -maxFallSpeed));
         }
