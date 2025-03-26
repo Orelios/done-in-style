@@ -16,12 +16,18 @@ public class SceneHandler : MonoBehaviour
 
     public void ReturnToMainMenu()
     {
+        GameplayData.Reset();
         SceneManager.LoadScene("TitleScreen");
     }
 
     public void QuitApllication()
     {
         Application.Quit();
+    }
+
+    public void StartGameplay()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void LoadNextScene()
