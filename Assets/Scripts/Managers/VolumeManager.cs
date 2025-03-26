@@ -24,7 +24,7 @@ public class VolumeSlider : MonoBehaviour
         volumeSlider = GetComponent<Slider>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
         switch (volumeType)
         {
