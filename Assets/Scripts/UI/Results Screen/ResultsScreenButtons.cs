@@ -30,7 +30,7 @@ public class ResultsScreenButtons : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        //NOOP
+        SceneManager.LoadScene("TitleScreen");
     }
 
     public void Big()
