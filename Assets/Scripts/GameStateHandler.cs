@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -147,6 +148,7 @@ public class GameStateHandler : MonoBehaviour
 
     public void RestartLevel()
     {
+        stopAudio();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -154,11 +156,23 @@ public class GameStateHandler : MonoBehaviour
     {
         IsGameplay = false;
         IsResultScreen = true;
+
+        stopAudio();
         FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
         FindFirstObjectByType<ScoreCalculator>().IncreaseScoreOnLevelClear(FindFirstObjectByType<TimeHandler>().ElapsedTime);
         SceneManager.LoadScene("ResultsScreen");
     }
+
+    private void stopAudio()
+{
+    AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    AudioManager.instance.musicEventInstance.release();
+    AudioManager.instance.ambienceEventInstance.release();
 }
+
+}
+
 
 public enum EScreenType
 {

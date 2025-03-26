@@ -13,8 +13,8 @@ public class AudioManager : MonoBehaviour
     private Bus SFXBus;
     private Bus BGMusicBus;
 
-    private EventInstance musicEventInstance;
-    private EventInstance ambienceEventInstance;
+    public EventInstance musicEventInstance;
+    public EventInstance ambienceEventInstance;
     public static AudioManager instance { get; private set; }
 
     private void Awake()
