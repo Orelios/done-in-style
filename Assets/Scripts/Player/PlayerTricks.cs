@@ -319,11 +319,15 @@ public class PlayerTricks : MonoBehaviour
         if (!_playerMovement.IsGrounded() || IsWallRiding)
         {
             if (!canDoubleJump) { return; }
-            StopCoroutine(dashCor);
-            dashCor = null;
-            Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
-            _playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY;
-            _isDashing = false;
+            if (dashCor != null)
+            {
+                StopCoroutine(dashCor);
+                dashCor = null;
+                Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
+                _playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY;
+                _isDashing = false;
+            }
+  
             //AddScoreAndRank();
             StartCoroutine(DoubleJumpDestroy());
 
