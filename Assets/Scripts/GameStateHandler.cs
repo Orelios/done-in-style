@@ -134,14 +134,16 @@ public class GameStateHandler : MonoBehaviour
     }
     
     public void PauseGame()
-    { 
+    {
+        _player.GetComponent<PlayerMovement>()._playerMovement.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         IsGamePaused = true;
         IsGameplay = false;
         _pauseMenuNavigator.OpenMainInterface();
         
     }
     public void ResumeGame()
-    { 
+    {
+        _player.GetComponent<PlayerMovement>()._playerMovement.start();
         IsGamePaused = false;
         IsGameplay = true;
         FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
@@ -174,6 +176,7 @@ public class GameStateHandler : MonoBehaviour
         IsGameplay = false;
         IsResultScreen = true;
 
+        _player.GetComponent<PlayerMovement>()._playerMovement.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.musicEventInstance.release();
@@ -182,15 +185,6 @@ public class GameStateHandler : MonoBehaviour
         FindFirstObjectByType<ScoreCalculator>().IncreaseScoreOnLevelClear(FindFirstObjectByType<TimeHandler>().ElapsedTime);
         SceneManager.LoadScene("ResultsScreen");
     }
-
-    private void stopAudio()
-{
-        Debug.Log("working");
-    AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-    AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-    AudioManager.instance.musicEventInstance.release();
-    AudioManager.instance.ambienceEventInstance.release();
-}
 
 }
 
