@@ -33,6 +33,7 @@ public class PlayerTricks : MonoBehaviour
     private RampPlayer _rampPlayer;
     private Vector2 dashLastVelocity;
     [SerializeField] private Vector2 _dashMomentumDecay = new Vector2(0.345f, 0.69f);
+    private Coroutine dashCor, preserveMomentumCor;
 
     [Header("Ground Pound")]
     private bool _isPounding = false;
@@ -240,7 +241,7 @@ public class PlayerTricks : MonoBehaviour
     {
         if (Time.time >= lastDashTime + dashCooldown)
         {
-            StartCoroutine(DashCoroutine());
+            dashCor = StartCoroutine(DashCoroutine());
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerDash, this.transform.position);
         }
     }
@@ -278,7 +279,7 @@ public class PlayerTricks : MonoBehaviour
         _vfx.CallDashVFX();
         Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
         //Rb.linearVelocity = new(Rb.linearVelocityX / 2f, Rb.linearVelocityY / 2f); // Reset velocity
-        StartCoroutine(PreserveMomentum());
+        preserveMomentumCor = StartCoroutine(PreserveMomentum());
         _playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY; 
         _isDashing = false;
     }
@@ -318,7 +319,11 @@ public class PlayerTricks : MonoBehaviour
         if (!_playerMovement.IsGrounded() || IsWallRiding)
         {
             if (!canDoubleJump) { return; }
-
+            StopCoroutine(dashCor);
+            dashCor = null;
+            Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
+            _playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY;
+            _isDashing = false;
             //AddScoreAndRank();
             StartCoroutine(DoubleJumpDestroy());
 
