@@ -31,41 +31,49 @@ public class JumpPadVariation : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        collision.gameObject.GetComponent<Rigidbody2D>().AddForce(_direction * bounceHeight, ForceMode2D.Impulse);
-        //Debug.Log(_direction * bounceHeight);
+        if (!collision.gameObject.GetComponent<PlayerMovement>().IsGrounded())
+        {
+            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(_direction * bounceHeight, ForceMode2D.Impulse);
+            Debug.Log(_direction * bounceHeight);
 
-        collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity =
-                Vector2.ClampMagnitude(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity, maxHeight);
+            collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity =
+                    Vector2.ClampMagnitude(collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity, maxHeight);
+        }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        AudioManager.instance.PlayOneShot(FMODEvents.instance.SpringBoard, this.transform.position);
-
-        if (collision.gameObject.TryGetComponent<PlayerTricks>(out var playerTricks))
+        if (!collision.gameObject.GetComponent<PlayerMovement>().IsGrounded())
         {
-            _playerTricks = playerTricks;
-            if (!playerTricks.isOnJumpPad)
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.SpringBoard, this.transform.position);
+
+            if (collision.gameObject.TryGetComponent<PlayerTricks>(out var playerTricks))
             {
-                playerTricks.isOnJumpPad = true;
-                _playerTricks.CallJumpPadTimer();
+                _playerTricks = playerTricks;
+                if (!playerTricks.isOnJumpPad)
+                {
+                    playerTricks.isOnJumpPad = true;
+                    _playerTricks.CallJumpPadTimer();
+                }
+            }
+
+            if (!_hasGivenScore)
+            {
+                collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
+                _hasGivenScore = true;
+                if (graffiti != null)
+                {
+                    graffiti.StartGraffiti();
+                }
+            }
+            if (!hasTricked)
+            {
+                collision.gameObject.GetComponent<PlayerTricks>().DisableCanTrick();
+                collision.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
             }
         }
-
-        if (!_hasGivenScore)
-        {
-            collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
-            _hasGivenScore = true;
-            if (graffiti != null)
-            {
-                graffiti.StartGraffiti();
-            }
-        }
-        if (!hasTricked)
-        {
-            collision.gameObject.GetComponent<PlayerTricks>().DisableCanTrick();
-            collision.gameObject.GetComponent<PlayerTricks>().EnableTrick(gameObject);
-        }
+        
 
     }
 }
