@@ -130,7 +130,13 @@ public class GameStateHandler : MonoBehaviour
     {
         IsGameplay = true;
         IsTitleScreen = false;
-        FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
+        
+        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.musicEventInstance.release();
+        AudioManager.instance.ambienceEventInstance.release();
+        
+        SceneManager.LoadScene(2);
     }
     
     public void PauseGame()
