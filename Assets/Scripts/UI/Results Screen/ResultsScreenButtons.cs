@@ -20,7 +20,7 @@ public class ResultsScreenButtons : MonoBehaviour
         var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(GameplayData.LastLevelIndex + 1);
         var nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextLevelHash);
         
-        SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(Mathf.Max(nextLevelIndex, 1)));
+        SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(Mathf.Max(nextLevelIndex, 2)));
     }
 
     public void RetryLevel()
@@ -30,18 +30,16 @@ public class ResultsScreenButtons : MonoBehaviour
 
     public void BackToMainMenu()
     {
-        //NOOP
+        SceneManager.LoadScene("TitleScreen");
     }
 
     public void Big()
     {
-        //transform.localScale = new(bigFactor, bigFactor);
         StartCoroutine(ChangeScaleRoutine(new(bigFactor, bigFactor)));
     }
 
     public void Small()
     {
-        //transform.localScale = _original;
         StartCoroutine(ChangeScaleRoutine(_original));
     }
 
@@ -52,9 +50,7 @@ public class ResultsScreenButtons : MonoBehaviour
         while (elapsedTime < duration)
         {
             var lerpFactor = elapsedTime / duration;
-            
             transform.localScale = Vector3.Lerp(transform.localScale, targetScale, lerpFactor);
-            
             elapsedTime += Time.unscaledDeltaTime;
             
             yield return null;

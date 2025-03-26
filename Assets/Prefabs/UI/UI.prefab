@@ -1043,10 +1043,10 @@ RectTransform:
   - {fileID: 7203317322562817344}
   m_Father: {fileID: 3472238984236621542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -0.012245, y: 108}
-  m_SizeDelta: {x: 1111.3, y: 176.2328}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 221.4593}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2870196387399333192
 MonoBehaviour:
@@ -7589,7 +7589,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 277.825, y: -88.1164}
+  m_AnchoredPosition: {x: 214.5318, y: -110.72965}
   m_SizeDelta: {x: 374.8291, y: 91.0072}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7556927213376943964
@@ -7673,7 +7673,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6076446855844840574}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: SceneHandler, Assembly-CSharp
+        m_MethodName: ReturnToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7781684915765716998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11517,11 +11529,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3472238984236621542}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 79.16826}
-  m_SizeDelta: {x: 826.8715, y: 194.8887}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 189.48}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &5415004061660586127
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11550,7 +11562,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: confirmation text
+  m_text: Return to Main Menu?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13157,7 +13169,7 @@ MonoBehaviour:
   playerPortraits:
   - {fileID: -244982852182462975, guid: 395ae0e7658581549abd6636a23c7df9, type: 3}
   - {fileID: -6475027379396197031, guid: 6ee90e6d153c67f4cb5b2fa40b976141, type: 3}
-  - {fileID: 6027060698548654659, guid: 18c6a59e04f4d924ab131b79b21d51f1, type: 3}
+  - {fileID: 4612101683266780981, guid: 2457c3e5afd57ba4f8a6d98e45605587, type: 3}
 --- !u!1 &6376407107957731974
 GameObject:
   m_ObjectHideFlags: 0
@@ -16151,17 +16163,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7329714230645433623}
-        m_TargetAssemblyTypeName: PauseMenuNavigator, Assembly-CSharp
-        m_MethodName: OpenConfirmation
-        m_Mode: 1
+      - m_Target: {fileID: 1248018123621871707}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &5491828728329197376
 MonoBehaviour:
@@ -17859,7 +17871,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8028643035871486995}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.0664481, w: 0.9977899}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -17867,11 +17879,11 @@ RectTransform:
   - {fileID: 3904483568521996049}
   - {fileID: 2916547785232510246}
   m_Father: {fileID: 3861280986611042478}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -7.62}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -39}
-  m_SizeDelta: {x: 1111.2523, y: 703.5263}
+  m_AnchoredPosition: {x: 360, y: 7}
+  m_SizeDelta: {x: 858.1272, y: 410.9369}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3040620715740689671
 CanvasRenderer:
@@ -17894,7 +17906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6784314, g: 0.6784314, b: 0.6784314, a: 1}
+  m_Color: {r: 0.83921576, g: 0.83921576, b: 0.83921576, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -21101,7 +21113,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 833.47504, y: -88.1164}
+  m_AnchoredPosition: {x: 643.5954, y: -110.72965}
   m_SizeDelta: {x: 374.8291, y: 91.0072}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4968927776417126849
@@ -21186,10 +21198,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7329714230645433623}
-        m_TargetAssemblyTypeName: PauseMenuNavigator, Assembly-CSharp
-        m_MethodName: Back
-        m_Mode: 1
+      - m_Target: {fileID: 1248018123621871707}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
