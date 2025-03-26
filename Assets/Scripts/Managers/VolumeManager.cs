@@ -33,6 +33,11 @@ public class VolumeSlider : MonoBehaviour
                 {
                     AudioManager.instance.MasterVolume = PlayerPrefs.GetFloat("Master");
                 }
+                else
+                {
+                    AudioManager.instance.MasterVolume = 0.5f;
+                }
+                //AudioManager.instance.MasterVolume = 0.5f;
                 volumeSlider.value = AudioManager.instance.MasterVolume;
                 break;
             case VolumeType.MUSIC:
@@ -40,6 +45,11 @@ public class VolumeSlider : MonoBehaviour
                 {
                     AudioManager.instance.BGMusicVolume = PlayerPrefs.GetFloat("BG");
                 }
+                else
+                {
+                    AudioManager.instance.BGMusicVolume = 0.5f;
+                }
+                //AudioManager.instance.BGMusicVolume = 0.5f;
                 volumeSlider.value = AudioManager.instance.BGMusicVolume;
                 break;
             case VolumeType.SFX:
@@ -47,6 +57,11 @@ public class VolumeSlider : MonoBehaviour
                 {
                     AudioManager.instance.SFXVolume = PlayerPrefs.GetFloat("SFX");
                 }
+                else
+                {
+                    AudioManager.instance.SFXVolume = 0.5f;
+                }
+                //AudioManager.instance.SFXVolume = 0.5f;
                 volumeSlider.value = AudioManager.instance.SFXVolume;
                 break;
             default:
