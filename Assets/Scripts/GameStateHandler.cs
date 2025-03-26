@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -148,16 +149,35 @@ public class GameStateHandler : MonoBehaviour
 
     public void RestartLevel()
     {
-        stopAudio();
+        StartCoroutine(RestartLevelRoutine());
+        //AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //AudioManager.instance.musicEventInstance.release();
+        //AudioManager.instance.ambienceEventInstance.release();
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    private IEnumerator RestartLevelRoutine()
+    {
+        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.musicEventInstance.release();
+        AudioManager.instance.ambienceEventInstance.release();
+       
+        yield return null;
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void FinishLevel()
     {
+
         IsGameplay = false;
         IsResultScreen = true;
 
-        stopAudio();
+        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.musicEventInstance.release();
+        AudioManager.instance.ambienceEventInstance.release();
         FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
         FindFirstObjectByType<ScoreCalculator>().IncreaseScoreOnLevelClear(FindFirstObjectByType<TimeHandler>().ElapsedTime);
         SceneManager.LoadScene("ResultsScreen");
@@ -165,6 +185,7 @@ public class GameStateHandler : MonoBehaviour
 
     private void stopAudio()
 {
+        Debug.Log("working");
     AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     AudioManager.instance.musicEventInstance.release();
