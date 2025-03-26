@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 
     private ScoreCalculator _scoreCalculator;
     private RankCalculator _rankCalculator;
+    [SerializeField] private int decreasePoints = 3;
     [SerializeField] private float rps = 60;
 
     private void Awake()
@@ -33,7 +34,7 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.TryGetComponent<Player>(out var player) && !player.Invulnerability.IsInvulnerable)
         {
             _scoreCalculator.DecreaseScoreInstant(damage);
-            _rankCalculator.DecreaseStylishPoints();
+            _rankCalculator.DecreaseStylishPoints(decreasePoints);
             player.Invulnerability.DamagePlayer();
         }
         

@@ -9,6 +9,8 @@ using UnityEngine.InputSystem;
 
 public class PauseMenuNavigator : MonoBehaviour
 {
+    [Header("Background Elements")]
+    [SerializeField] private GameObject backgroundElements;
     [Header("Pause Menu Sections")]
     [SerializeField] private List<GameObject> interfaceSections;
     
@@ -70,6 +72,8 @@ public class PauseMenuNavigator : MonoBehaviour
 
     public void OpenMainInterface()
     {
+        backgroundElements.SetActive(true);
+            
         foreach (var section in interfaceSections)
         {
             section.SetActive(false);
@@ -108,6 +112,7 @@ public class PauseMenuNavigator : MonoBehaviour
             section.SetActive(false);
         }
         
+        settingsSections.FirstOrDefault(directory => directory.name == settingsDirectoryHash)?.SetActive(true);
         settingsSections.FirstOrDefault(audioSettings => audioSettings.name == audioSettingsHash)?.SetActive(true);
         
         _eventSystem.SetSelectedGameObject(null);
@@ -121,6 +126,7 @@ public class PauseMenuNavigator : MonoBehaviour
             section.SetActive(false);
         }
         
+        settingsSections.FirstOrDefault(directory => directory.name == settingsDirectoryHash)?.SetActive(true);
         settingsSections.FirstOrDefault(videoSettings => videoSettings.name == videoSettingsHash)?.SetActive(true);
         
         _eventSystem.SetSelectedGameObject(null);
@@ -134,6 +140,7 @@ public class PauseMenuNavigator : MonoBehaviour
             section.SetActive(false);
         }
         
+        settingsSections.FirstOrDefault(directory => directory.name == settingsDirectoryHash)?.SetActive(true);
         settingsSections.FirstOrDefault(controlsSettings => controlsSettings.name == controlsSettingsHash)?.SetActive(true);
         
         _eventSystem.SetSelectedGameObject(null);
@@ -163,18 +170,23 @@ public class PauseMenuNavigator : MonoBehaviour
                 break;
             case EMenuLookingAt.SettingsDirectory:
             case EMenuLookingAt.Confirmation:
-                OpenMainInterface();
-                break;
             case EMenuLookingAt.AudioSettings:
             case EMenuLookingAt.VideoSettings:
             case EMenuLookingAt.ControlsSettings:
-                OpenSettingsDirectory();
+                OpenMainInterface();
                 break;
+            /*case EMenuLookingAt.AudioSettings:
+            case EMenuLookingAt.VideoSettings:
+            case EMenuLookingAt.ControlsSettings:
+                OpenSettingsDirectory();
+                break;*/
         }
     }
 
     public void CloseAllInterfaces()
     {
+        backgroundElements.SetActive(false);
+        
         foreach (var section in interfaceSections)
         {
             section.SetActive(false);

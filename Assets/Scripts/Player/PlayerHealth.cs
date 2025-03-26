@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public int MaxHealth { get => maxHealth; set => maxHealth = value;  }
     [SerializeField] private EndScreen endScreen; 
     [SerializeField] private TextMeshProUGUI playerHealthDisplay;
+    [SerializeField] private PlayerHealthDisplayUpdater playerHealthDisplayUpdater;
     private VFXManager _vfx;
     private int _currentHealth;
     public int CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
@@ -17,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         _currentHealth = maxHealth;
         playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
+        playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
         _vfx = GetComponentInChildren<VFXManager>();
     }
 
@@ -27,6 +29,7 @@ public class PlayerHealth : MonoBehaviour
         if(_currentHealth != 0) 
         { 
             _currentHealth -= 1;
+            playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
             playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         } 
         if(_currentHealth <= 0) 
@@ -42,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
         if (_currentHealth != 0) 
         { 
             _currentHealth += 1;
+            playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
             playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         } 
     }

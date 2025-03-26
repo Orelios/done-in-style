@@ -14,13 +14,13 @@ public class PlayerHealthDisplayUpdater : MonoBehaviour
 
     public void UpdatePlayerHealthBarDisplay(int health)
     {
-        healthBar.sprite = healthBars[health - 1];
+        healthBar.sprite = healthBars[Mathf.Max(0, health - 1)];
         healthBar.SetNativeSize();
     }
     
     public void UpdatePlayerPortraitDisplay(int health)
     {
-        playerPortrait.sprite = playerPortraits[health - 1];
+        playerPortrait.sprite = playerPortraits[Mathf.Max(0, health - 1)];
         playerPortrait.SetNativeSize();
     }
 }
