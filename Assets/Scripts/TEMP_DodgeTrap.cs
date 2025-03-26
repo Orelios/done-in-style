@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TEMP_DodgeTrap : MonoBehaviour
 {
+    /*
     [SerializeField]private ScoreCalculator _ScoreCalculator;
     [SerializeField] private int scoreIncrease = 100; 
     private bool _playerPassed;
@@ -28,4 +29,5 @@ public class TEMP_DodgeTrap : MonoBehaviour
         }
         
     }
+    */
 }
