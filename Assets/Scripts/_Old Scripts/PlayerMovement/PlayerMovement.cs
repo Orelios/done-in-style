@@ -242,7 +242,7 @@ public class PlayerMovement : MonoBehaviour
     #region Horizontal Movement
     public void HorizontalMovement()
     {
-        if (_playerRailing.IsMovingOnRail) { return; }
+        if (_playerRailing.IsMovingOnRail && PlayerOnRailing()) { return; }
         // Calculate target speed based on input
         float targetSpeed = _playerInputManager.HorizontalMovement * baseSpeed * _rankCalculator.CurrentStylishRank.MaxSpeedMultiplier;
         float speedDif = targetSpeed - Rb.linearVelocity.x;
@@ -294,6 +294,11 @@ public class PlayerMovement : MonoBehaviour
         return Physics2D.OverlapBox(GroundCheck.position, new(0.9f, 0.1f), 0f, LayerMask.GetMask("SpringBoard"));
     }
 
+    public bool PlayerOnRailing()
+    {
+        return Physics2D.OverlapBox(GroundCheck.position, new(0.9f, 0.1f), 0f, LayerMask.GetMask("Railing"));
+    }
+
     public void Jump()
     {
         if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy) { return; }
@@ -307,7 +312,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpForce);
 
-            _playerTricks.IsSliding = false;
+            //_playerTricks.IsSliding = false;
         }
         else if (!_playerInputManager.IsJumping)// Jump Cut (increase gravity when the jump button is released early)
         {
@@ -347,7 +352,7 @@ public class PlayerMovement : MonoBehaviour
     #endregion
     public void Flip() //flips character where player is facing towards
     {
-        if (_player.Railing.IsMovingOnRail)
+        if (_player.Railing.IsMovingOnRail && PlayerOnRailing())
         {
             return;
         }

@@ -53,7 +53,7 @@ public class VFXManager : MonoBehaviour
 
     private void MovementUpdate()
     {
-        if (_rail.IsMovingOnRail)
+        if (_rail.IsMovingOnRail && _playerMovement.PlayerOnRailing())
         {
             if (!railVFX.isPlaying) { railVFX.Play(); }
             if (wallRidingVFX.isPlaying) { wallRidingVFX.Stop(); }
