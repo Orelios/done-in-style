@@ -36,8 +36,10 @@ public class PlayerHealth : MonoBehaviour
         } 
         if(_currentHealth <= 0) 
         {
-            playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
-            playerMovement._playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.musicEventInstance.release();
+            AudioManager.instance.ambienceEventInstance.release();
             endScreen.Toggle(true);
             endScreen.EndScreenText("You ran out of health...");
         }
