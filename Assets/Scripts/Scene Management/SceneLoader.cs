@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public static class SceneLoader
 {
-    public static async Task LoadScene(string loadingScreen, string sceneToLoad, float minimumLoadingTime)
+    public static async Task LoadScene(string loadingScreen, string sceneToLoad, float minimumLoadingTime = 2f)
     {
         var loadingScreenAsync = SceneManager.LoadSceneAsync(loadingScreen, LoadSceneMode.Additive);
         loadingScreenAsync.allowSceneActivation = true;
