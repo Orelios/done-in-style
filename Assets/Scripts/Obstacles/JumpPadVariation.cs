@@ -31,8 +31,12 @@ public class JumpPadVariation : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (!collision.gameObject.GetComponent<PlayerMovement>().IsGrounded())
+        if (!collision.gameObject.GetComponent<PlayerMovement>().IsGrounded() || collision.gameObject.GetComponent<PlayerTricks>().IsPounding)
         {
+            if (collision.gameObject.GetComponent<PlayerTricks>().IsPounding)
+            {
+                collision.gameObject.GetComponent<PlayerTricks>().StopPounding(); 
+            }
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(_direction * bounceHeight, ForceMode2D.Impulse);
             Debug.Log(_direction * bounceHeight);
 
@@ -44,8 +48,12 @@ public class JumpPadVariation : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.GetComponent<PlayerMovement>().IsGrounded())
+        if (!collision.gameObject.GetComponent<PlayerMovement>().IsGrounded() || collision.gameObject.GetComponent<PlayerTricks>().IsPounding)
         {
+            if (collision.gameObject.GetComponent<PlayerTricks>().IsPounding)
+            {
+                collision.gameObject.GetComponent<PlayerTricks>().StopPounding();
+            }
             AudioManager.instance.PlayOneShot(FMODEvents.instance.SpringBoard, this.transform.position);
 
             if (collision.gameObject.TryGetComponent<PlayerTricks>(out var playerTricks))

@@ -43,6 +43,7 @@ public class PlayerTricks : MonoBehaviour
     public float poundCooldown = 1f;
     private float lastPoundTime;
     private VFXManager _vfx;
+    public Coroutine PoundingCor; 
     #region DO NOT DELETE
     [SerializeField] private float fallingSpeed;
     [SerializeField] private float slowFallTimer; 
@@ -366,7 +367,7 @@ public class PlayerTricks : MonoBehaviour
         if ((Time.time >= lastPoundTime + poundCooldown) && !_playerMovement.IsGrounded())
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerGroundPound, this.transform.position);
-            StartCoroutine(GroundPoundCoroutine());
+            PoundingCor = StartCoroutine(GroundPoundCoroutine());
         }
         
     }
@@ -383,6 +384,7 @@ public class PlayerTricks : MonoBehaviour
         //Debug.Log("isPounding = " + _isPounding);
         while (_isPounding && !_playerMovement.IsGrounded())
         {
+            Debug.Log("Is pounding = " + _isPounding);
             if (Input.GetKeyUp(KeyCode.D))
             {
                 _isPounding = false;
@@ -390,6 +392,7 @@ public class PlayerTricks : MonoBehaviour
             }
             //Rb.linearVelocity = new Vector2(0f, (-1f * _groundPoundSpeed));
             _playerMovement.Rb.linearVelocity = new Vector2(0f, (-1 * _groundPoundSpeed));
+            
             yield return null;
         }
 
@@ -399,6 +402,25 @@ public class PlayerTricks : MonoBehaviour
         Rb.linearVelocity = new Vector2(velocityX * momentumRetainFactor, Rb.linearVelocityY);
         lastPoundTime = Time.time;
         _isPounding = false;
+        Debug.Log("Not pounding no no no");
+    }
+
+    public void StopPounding()
+    {
+        if(PoundingCor != null)
+        {
+            StopCoroutine(PoundingCor);
+            PoundingCor = null;
+
+            var velocityX = Rb.linearVelocityX;
+            _vfx.CallGroundPoundLandVFX();
+            Rb.gravityScale = _playerMovement.BaseGravity;
+            Rb.linearVelocity = new Vector2(velocityX * momentumRetainFactor, Rb.linearVelocityY);
+            lastPoundTime = Time.time;
+            _isPounding = false;
+            Debug.Log("Not pounding no no no jump pad");
+        }
+       
     }
     #endregion
 

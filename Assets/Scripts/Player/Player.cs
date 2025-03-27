@@ -147,8 +147,8 @@ public class Player : MonoBehaviour
         #endregion
 
         #region Pounding State
-        NormalTransition(_playerActionSM, poundingState, idlingState, new FuncPredicate(() => !_playerTricks.IsPounding && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
-        NormalTransition(_playerActionSM, poundingState, skatingState, new FuncPredicate(() => !_playerTricks.IsPounding && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f));
+        NormalTransition(_playerActionSM, poundingState, idlingState, new FuncPredicate(() => !_playerTricks.IsPounding && (_playerMovement.IsGrounded() || _playerMovement.IsSpringBoarding()) && Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
+        NormalTransition(_playerActionSM, poundingState, skatingState, new FuncPredicate(() => !_playerTricks.IsPounding && (_playerMovement.IsGrounded() || _playerMovement.IsSpringBoarding()) && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f));
         NormalTransition(_playerActionSM, poundingState, grindingState, new FuncPredicate(() => !_playerTricks.IsPounding && _playerRailing.IsMovingOnRail));
         #endregion
 

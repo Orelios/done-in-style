@@ -289,6 +289,11 @@ public class PlayerMovement : MonoBehaviour
         return Physics2D.OverlapBox(GroundCheck.position, new(0.9f, 0.1f), 0f, GroundLayer);
     }
 
+    public bool IsSpringBoarding()
+    {
+        return Physics2D.OverlapBox(GroundCheck.position, new(0.9f, 0.1f), 0f, LayerMask.GetMask("SpringBoard"));
+    }
+
     public void Jump()
     {
         if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy) { return; }

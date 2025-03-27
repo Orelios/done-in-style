@@ -310,6 +310,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Springboard
       objectReference: {fileID: 0}
+    - target: {fileID: 5359484636547850695, guid: 96a6d75aa9caf2d4d8b0c52d22d4ac18, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
