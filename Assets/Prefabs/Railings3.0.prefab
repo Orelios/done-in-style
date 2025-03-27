@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5990197634495278482}
   m_Layer: 6
   m_Name: Railing 3.0 (1)
-  m_TagString: Untagged
+  m_TagString: Railing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 7327684993615901287}
   m_Layer: 6
   m_Name: Railing 3.0 (4)
-  m_TagString: Untagged
+  m_TagString: Railing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -308,7 +308,7 @@ GameObject:
   - component: {fileID: 3041696305692594295}
   m_Layer: 6
   m_Name: Railing 3.0 (3)
-  m_TagString: Untagged
+  m_TagString: Railing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -560,7 +560,7 @@ GameObject:
   - component: {fileID: 7871258148900991654}
   m_Layer: 6
   m_Name: Railing 3.0
-  m_TagString: Untagged
+  m_TagString: Railing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -707,7 +707,7 @@ GameObject:
   - component: {fileID: 7804121147819736069}
   m_Layer: 6
   m_Name: Railing 3.0 (2)
-  m_TagString: Untagged
+  m_TagString: Railing
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
