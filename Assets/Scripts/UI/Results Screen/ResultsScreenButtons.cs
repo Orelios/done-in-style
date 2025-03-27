@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,22 +16,25 @@ public class ResultsScreenButtons : MonoBehaviour
         _original = transform.localScale;
     }
 
-    public void NextLevel()
+    public async void NextLevel()
     {
-        var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(GameplayData.LastLevelIndex + 1);
-        var nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextLevelHash);
+        var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(Mathf.Max(GameplayData.LastLevelIndex + 1, 3));
+        //var nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextLevelHashTemp);
         
-        SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(Mathf.Max(nextLevelIndex, 2)));
+        //SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(Mathf.Max(nextLevelIndex, 2)));
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, Path.GetFileNameWithoutExtension(nextLevelHash));
     }
 
-    public void RetryLevel()
+    public async void RetryLevel()
     {
-        SceneManager.LoadScene(GameplayData.LastLevelHash);
+        //SceneManager.LoadScene(GameplayData.LastLevelHash);
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, GameplayData.LastLevelHash);
     }
 
-    public void BackToMainMenu()
+    public async void BackToMainMenu()
     {
-        SceneManager.LoadScene("TitleScreen");
+        //SceneManager.LoadScene("TitleScreen");
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.TitleScreenHash);
     }
 
     public void Big()

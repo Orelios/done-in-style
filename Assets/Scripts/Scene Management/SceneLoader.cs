@@ -4,6 +4,10 @@ using UnityEngine.SceneManagement;
 
 public static class SceneLoader
 {
+    public static string LoadingScreenHash = "LoadingScreen";
+    public static string TitleScreenHash = "TitleScreen";
+    public static string ResultsScreenHash = "ResultsScreen";
+    
     public static async Task LoadScene(string loadingScreen, string sceneToLoad, float minimumLoadingTime = 2f)
     {
         var loadingScreenAsync = SceneManager.LoadSceneAsync(loadingScreen, LoadSceneMode.Additive);
@@ -33,6 +37,7 @@ public static class SceneLoader
             if (sceneToLoadAsync.progress >= 0.9f && timeElapsedInLoading >= minimumLoadingTime)
             {
                 sceneToLoadAsync.allowSceneActivation = true;
+                GameplayData.RecordLevel(sceneToLoad, SceneManager.GetSceneByName(sceneToLoad).buildIndex);
             }
 
             await Task.Yield();
