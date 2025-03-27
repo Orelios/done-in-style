@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -10,23 +12,60 @@ public class ResultsDisplayer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI clearRankText;
+    [SerializeField] private float countDuration;
 
     private void Start()
     {
-        /*ShowScoreResult(ResultsData.FinalScore);
-        ShowTimeResult(ResultsData.FinalTime);*/
-        scoreChannel.Invoke(ResultsData.FinalScore);
-        timeChannel.Invoke(ResultsData.FinalTime);
+        scoreChannel.Invoke(GameplayData.FinalScore);
+        timeChannel.Invoke(GameplayData.FinalTime);
     }
 
     public void ShowScoreResult(int score)
     {
-        scoreText.text = $"SCORE: <size=100>{score:n0}</size>";
+        StartCoroutine(CountUpRoutine(score, scoreText));
     }
 
     public void ShowTimeResult(float time)
     {
-        timeText.text = $"TIME: <size=100>{Mathf.FloorToInt(time / 60f * Time.fixedDeltaTime)}:{Mathf.FloorToInt(time % 60f):D2}.{Mathf.FloorToInt(time * 100f % 100f):D2}</size>";
+        StartCoroutine(CountUpRoutine(time, timeText, false));
+    }
+
+    private IEnumerator CountUpRoutine(float targetValue, TextMeshProUGUI textToLerp, bool isScoreCounting = true)
+    {
+        var elapsedTime = 0f;
+        var startingValue = 0;
+
+        while (elapsedTime < countDuration)
+        {
+            elapsedTime += Time.unscaledDeltaTime;
+            var currentValue = Mathf.Lerp(startingValue, targetValue, elapsedTime / countDuration);
+            
+            if (isScoreCounting)
+            {
+                textToLerp.text = $"SCORE: <size=95><color=white>{currentValue:n0}</color></size>";
+            }
+            else
+            {
+                textToLerp.text = $"TIME: <size=95><color=white>{Mathf.FloorToInt(currentValue / 60f)}:" +
+                                  $"{Mathf.FloorToInt(currentValue % 60f):D2}." +
+                                  $"<size=75>{Mathf.FloorToInt(currentValue * 100f % 100f):D2}</size></color></size>";
+            }
+            
+            
+            yield return null;
+        }
+
+        if (isScoreCounting)
+        {
+            textToLerp.text = $"SCORE: <size=95><color=white>{targetValue:n0}</color></size>";
+        }
+        else
+        {
+            textToLerp.text = $"TIME: <size=95><color=white>{Mathf.FloorToInt(targetValue / 60f)}:" +
+                              $"{Mathf.FloorToInt(targetValue % 60f):D2}." +
+                              $"<size=75>{Mathf.FloorToInt(targetValue * 100f % 100f):D2}</size></color></size>";
+        }
+        
     }
     
     public void DetermineClearRank(int score)

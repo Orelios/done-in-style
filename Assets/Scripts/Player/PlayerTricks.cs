@@ -33,6 +33,7 @@ public class PlayerTricks : MonoBehaviour
     private RampPlayer _rampPlayer;
     private Vector2 dashLastVelocity;
     [SerializeField] private Vector2 _dashMomentumDecay = new Vector2(0.345f, 0.69f);
+    private Coroutine dashCor, preserveMomentumCor;
 
     [Header("Ground Pound")]
     private bool _isPounding = false;
@@ -240,7 +241,7 @@ public class PlayerTricks : MonoBehaviour
     {
         if (Time.time >= lastDashTime + dashCooldown)
         {
-            StartCoroutine(DashCoroutine());
+            dashCor = StartCoroutine(DashCoroutine());
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerDash, this.transform.position);
         }
     }
@@ -262,7 +263,8 @@ public class PlayerTricks : MonoBehaviour
         }
 
         // Dash always in the current horizontal direction
-        float horizontalDirection = transform.rotation.y == 0 ? 1 : -1;
+        //float horizontalDirection = transform.rotation.y == 0 ? 1 : -1;
+        int horizontalDirection = _playerMovement.IsFacingRight? 1 : -1;
         dashDirection = new Vector2(horizontalDirection, 0).normalized;
 
         // Disable gravity during the dash
@@ -277,7 +279,8 @@ public class PlayerTricks : MonoBehaviour
         _vfx.CallDashVFX();
         Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
         //Rb.linearVelocity = new(Rb.linearVelocityX / 2f, Rb.linearVelocityY / 2f); // Reset velocity
-        StartCoroutine(PreserveMomentum());
+        preserveMomentumCor = StartCoroutine(PreserveMomentum());
+        _playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY; 
         _isDashing = false;
     }
 
@@ -316,7 +319,15 @@ public class PlayerTricks : MonoBehaviour
         if (!_playerMovement.IsGrounded() || IsWallRiding)
         {
             if (!canDoubleJump) { return; }
-
+            if (dashCor != null)
+            {
+                StopCoroutine(dashCor);
+                dashCor = null;
+                Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
+                _playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY;
+                _isDashing = false;
+            }
+  
             //AddScoreAndRank();
             StartCoroutine(DoubleJumpDestroy());
 

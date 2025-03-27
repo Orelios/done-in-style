@@ -19,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
         _currentHealth = maxHealth;
         playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
+        playerHealthDisplayUpdater.UpdatePlayerPortraitDisplay(_currentHealth);
         _vfx = GetComponentInChildren<VFXManager>();
     }
 
@@ -30,12 +31,15 @@ public class PlayerHealth : MonoBehaviour
         { 
             _currentHealth -= 1;
             playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
+            playerHealthDisplayUpdater.UpdatePlayerPortraitDisplay(_currentHealth);
             playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         } 
         if(_currentHealth <= 0) 
         {
-            playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
-            playerMovement._playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.musicEventInstance.release();
+            AudioManager.instance.ambienceEventInstance.release();
             endScreen.Toggle(true);
             endScreen.EndScreenText("You ran out of health...");
         }
@@ -46,6 +50,7 @@ public class PlayerHealth : MonoBehaviour
         { 
             _currentHealth += 1;
             playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
+            playerHealthDisplayUpdater.UpdatePlayerPortraitDisplay(_currentHealth);
             playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         } 
     }

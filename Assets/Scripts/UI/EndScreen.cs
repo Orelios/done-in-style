@@ -19,8 +19,10 @@ public class EndScreen : MonoBehaviour
         if (endScreenToggle)
         {
             transform.GetChild(0).gameObject.SetActive(true);
-            playerMovement._playerSkatingGround.stop(STOP_MODE.ALLOWFADEOUT);
-            playerMovement._playerSkatingAir.stop(STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.musicEventInstance.release();
+            AudioManager.instance.ambienceEventInstance.release();
             Time.timeScale = 0; 
         }
         else 
