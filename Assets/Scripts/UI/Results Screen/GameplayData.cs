@@ -22,9 +22,12 @@ public static class GameplayData
 
     public static void RecordLevel(string levelName, int levelIndex)
     {
-        LastLevelHash = levelName;
-        LastLevelIndex = levelIndex;
-        Debug.LogWarning($"{LastLevelHash}, index {LastLevelIndex}");
+        if (!levelName.Contains("Screen") || levelIndex > 2)
+        {
+            LastLevelHash = levelName;
+            LastLevelIndex = levelIndex;
+            Debug.LogWarning($"{LastLevelHash}, index {LastLevelIndex}");
+        }
     }
     
     public static void Reset()

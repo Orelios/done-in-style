@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -77,11 +77,9 @@ public class GameStateHandler : MonoBehaviour
         NormalTransition(_stateMachine, _gameplayState, _gameOverState, new FuncPredicate(()=> _player.Health.CurrentHealth < 1));
         NormalTransition(_stateMachine, _gameplayState, _pausedState, new FuncPredicate(()=> IsGamePaused));
         NormalTransition(_stateMachine, _gameplayState, _levelResultState, new FuncPredicate(()=> IsResultScreen));
-        //TODO: gameplayState to levelResultState when player reaches level end point
         
         NormalTransition(_stateMachine, _pausedState, _gameplayState, new FuncPredicate(()=> !IsGamePaused));
         
-        //TODO: gameOverState to gameplayState when player restarts level
         NormalTransition(_stateMachine, _gameOverState, _gameplayState, new FuncPredicate(()=> !IsGameOver));
         
         NormalTransition(_stateMachine, _levelResultState, _gameplayState, new FuncPredicate(()=> !IsResultScreen));
@@ -92,11 +90,7 @@ public class GameStateHandler : MonoBehaviour
     
     private void SetState()
     {
-        IsGameplay = false; 
-        IsGamePaused = false; 
-        IsGameOver = false; 
-        IsResultScreen = false; 
-        IsTitleScreen = false;
+        ResetFlags();
         
         switch (screenType)
         {
@@ -109,7 +103,6 @@ public class GameStateHandler : MonoBehaviour
                 _stateMachine.SetState(_gameplayState);
                 IsGameplay = true;
                 FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
-                GameplayData.RecordLevel(SceneManager.GetActiveScene().path, SceneManager.GetActiveScene().buildIndex);
                 break;
             case EScreenType.GameOver:
                 _stateMachine.SetState(_gameOverState);
@@ -122,91 +115,81 @@ public class GameStateHandler : MonoBehaviour
                 FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
                 break;
         }
-        
-        Debug.Log($"Current Screen: {screenType}\n Current State: {CurrentGameState}");
     }
     
-    public void StartGameplay()
+    public async void StartGameplay()
     {
+        ResetFlags();
         IsGameplay = true;
-        IsTitleScreen = false;
         
-        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        AudioManager.instance.musicEventInstance.release();
-        AudioManager.instance.ambienceEventInstance.release();
-        
-        SceneManager.LoadScene(2);
+        StopAudio();
+        //SceneManager.LoadScene(2);
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(3)));
     }
 
-    public void ReturnToMainMenu()
+    public async void ReturnToMainMenu()
     {
-        IsGameplay = false;
+        ResetFlags();
         IsTitleScreen = true;
         
         GameplayData.Reset();
-        
-        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        AudioManager.instance.musicEventInstance.release();
-        AudioManager.instance.ambienceEventInstance.release();
-        
-        SceneManager.LoadScene("TitleScreen");
+        StopAudio();
+        //SceneManager.LoadScene("TitleScreen");
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.TitleScreenHash);
     }
     
     public void PauseGame()
     {
-        _player.GetComponent<PlayerMovement>()._playerMovement.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        ResetFlags();
         IsGamePaused = true;
-        IsGameplay = false;
+        _player.GetComponent<PlayerMovement>()._playerMovement.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);        
         _pauseMenuNavigator.OpenMainInterface();
-        
     }
     public void ResumeGame()
     {
-        _player.GetComponent<PlayerMovement>()._playerMovement.start();
-        IsGamePaused = false;
+        ResetFlags();
         IsGameplay = true;
+        _player.GetComponent<PlayerMovement>()._playerMovement.start();
         FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
     }
 
-    public void RestartLevel()
+    public async void RestartLevel()
     {
-        StartCoroutine(RestartLevelRoutine());
-        //AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        //AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        //AudioManager.instance.musicEventInstance.release();
-        //AudioManager.instance.ambienceEventInstance.release();
+        StopAudio();
+        
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    private IEnumerator RestartLevelRoutine()
-    {
-        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        AudioManager.instance.musicEventInstance.release();
-        AudioManager.instance.ambienceEventInstance.release();
-       
-        yield return null;
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneManager.GetActiveScene().name);
     }
 
-    public void FinishLevel()
+    public async void FinishLevel()
     {
-
-        IsGameplay = false;
+        ResetFlags();
         IsResultScreen = true;
 
         _player.GetComponent<PlayerMovement>()._playerMovement.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        StopAudio();
+        FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
+        FindFirstObjectByType<ScoreCalculator>().IncreaseScoreOnLevelClear(FindFirstObjectByType<TimeHandler>().ElapsedTime);
+        //SceneManager.LoadScene("ResultsScreen");
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.ResultsScreenHash);
+    }
+
+    private void ResetFlags()
+    {
+        IsGameplay = false; 
+        IsGamePaused = false; 
+        IsGameOver = false; 
+        IsResultScreen = false; 
+        IsTitleScreen = false;
+    }
+
+    private void StopAudio()
+    {
         AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.musicEventInstance.release();
         AudioManager.instance.ambienceEventInstance.release();
-        FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
-        FindFirstObjectByType<ScoreCalculator>().IncreaseScoreOnLevelClear(FindFirstObjectByType<TimeHandler>().ElapsedTime);
-        SceneManager.LoadScene("ResultsScreen");
     }
-
 }
 
 
