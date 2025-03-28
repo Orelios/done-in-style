@@ -50,6 +50,12 @@ public class GameStateHandler : MonoBehaviour
         InitializeStateMachine();
         
         SetState();
+        
+        //TODO: Optimize in the scene flow
+        if (GameplayData.LastLevelIndex < 3 && SceneManager.GetActiveScene().buildIndex > 2)
+        {
+            GameplayData.RecordLevel(SceneManager.GetActiveScene().name, SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     private void Update()
@@ -123,7 +129,6 @@ public class GameStateHandler : MonoBehaviour
         IsGameplay = true;
         
         StopAudio();
-        //SceneManager.LoadScene(2);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(3)));
     }
 
@@ -134,7 +139,6 @@ public class GameStateHandler : MonoBehaviour
         
         GameplayData.Reset();
         StopAudio();
-        //SceneManager.LoadScene("TitleScreen");
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.TitleScreenHash);
     }
     
@@ -157,7 +161,6 @@ public class GameStateHandler : MonoBehaviour
     {
         StopAudio();
         
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneManager.GetActiveScene().name);
     }
 
@@ -170,7 +173,6 @@ public class GameStateHandler : MonoBehaviour
         StopAudio();
         FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
         FindFirstObjectByType<ScoreCalculator>().IncreaseScoreOnLevelClear(FindFirstObjectByType<TimeHandler>().ElapsedTime);
-        //SceneManager.LoadScene("ResultsScreen");
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.ResultsScreenHash);
     }
 
