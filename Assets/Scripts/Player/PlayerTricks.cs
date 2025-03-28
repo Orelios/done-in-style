@@ -100,6 +100,7 @@ public class PlayerTricks : MonoBehaviour
     [SerializeField] private List<Sprite> trickSprites = new List<Sprite>();
     private Color invisible = new Color(1f, 1f, 1f, 0f);
     private Color visible = new Color(1f, 1f, 1f, 1f);
+    private int lastTrickSpriteIndex = -1, randomSpriteIndex;
     private SpriteRenderer playerSprite;
     //private Color startColor = Color.white;
     //private Color trickColor = Color.red;
@@ -575,12 +576,18 @@ public class PlayerTricks : MonoBehaviour
             trickSprite.GetComponent<SpriteRenderer>().color = invisible;
         }
         */
+        do
+        {
+            randomSpriteIndex = Random.Range(0, trickSprites.Count);
+        } while (randomSpriteIndex == lastTrickSpriteIndex);
         
-        trickSprite.GetComponent<SpriteRenderer>().sprite = trickSprites[Random.Range(0, trickSprites.Count)];
+        trickSprite.GetComponent<SpriteRenderer>().sprite = trickSprites[randomSpriteIndex];
         trickSprite.GetComponent<SpriteRenderer>().color = visible;
         playerSprite.color = invisible;
         DisableCanTrick();
         canTrick = false;
+        lastTrickSpriteIndex = randomSpriteIndex;
+        //Debug.Log("randomSpriteIndex = " + randomSpriteIndex);
 
         float trickTimeLeft = trickTime;
         while (trickTimeLeft > 0)
