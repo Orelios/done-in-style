@@ -52,7 +52,7 @@ public class GameStateHandler : MonoBehaviour
         SetState();
         
         //TODO: Optimize in the scene flow
-        if (GameplayData.LastLevelHash == string.Empty && SceneManager.GetActiveScene().buildIndex > 2)
+        if (GameplayData.LastLevelIndex < 3 && SceneManager.GetActiveScene().buildIndex > 2)
         {
             GameplayData.RecordLevel(SceneManager.GetActiveScene().name, SceneManager.GetActiveScene().buildIndex);
         }
