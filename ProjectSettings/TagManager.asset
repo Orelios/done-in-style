@@ -14,6 +14,7 @@ TagManager:
   - Springboard
   - MidRight
   - MidLeft
+  - Railing
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Bullet
   - target1
   - SpringBoard
-  - 
+  - Railing
   - 
   - 
   - 
