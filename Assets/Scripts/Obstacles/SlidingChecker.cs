@@ -9,12 +9,13 @@ public class SlidingChecker : MonoBehaviour
 
     private ScoreCalculator _scoreCalculator;
     private RankCalculator _rankCalculator;
-
+    private TEMP_DodgeTrap _dodgeTrap;
 
     private void Awake()
     {
         _scoreCalculator = FindFirstObjectByType<ScoreCalculator>();
         _rankCalculator = FindFirstObjectByType<RankCalculator>();
+        _dodgeTrap = GetComponentInChildren<TEMP_DodgeTrap>();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -28,6 +29,7 @@ public class SlidingChecker : MonoBehaviour
         {
             if (!playerTricks.IsSliding)
             {
+                _dodgeTrap.PlayerDamaged();
                 collision.gameObject.transform.position = closestRespawnPoint.transform.position;
                 collision.transform.gameObject.GetComponent<PlayerInvulnerability>().DamagePlayer();
 
