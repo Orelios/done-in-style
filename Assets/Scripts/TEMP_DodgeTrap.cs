@@ -11,6 +11,7 @@ public class TEMP_DodgeTrap : MonoBehaviour
     {
         _ScoreCalculator = GameObject.Find("Score System");
     }
+    /*
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.TryGetComponent<PlayerInvulnerability>(out PlayerInvulnerability playerInvulnerability))
@@ -21,7 +22,7 @@ public class TEMP_DodgeTrap : MonoBehaviour
             }
         }
     }
-
+    */
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.TryGetComponent<PlayerInvulnerability>(out PlayerInvulnerability playerInvulnerability))
@@ -37,6 +38,11 @@ public class TEMP_DodgeTrap : MonoBehaviour
             }
         }
         
+    }
+
+    public void PlayerDamaged()
+    {
+        _playerPassed = true;
     }
     
 }
