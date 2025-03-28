@@ -23,7 +23,7 @@ public class PlayerRailing : MonoBehaviour
     }
     public void MoveForward()
     {
-        Debug.Log(_playerMovement.PlayerOnRailing());
+        //Debug.Log(_playerMovement.PlayerOnRailing());
         if (_playerMovement.PlayerOnRailing())
         {
             //Debug.Log(_playerMovement.IsGrounded());
