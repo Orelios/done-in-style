@@ -251,6 +251,11 @@ public class PlayerTricks : MonoBehaviour
     {
         _vfx.CallDashVFX();
         _isDashing = true;
+        if (IsDashing)
+        {
+            _isPounding = false;
+            StopPounding();
+        }
         //_vfx.CallDashVFX();
         lastDashTime = Time.time;
 
@@ -320,6 +325,8 @@ public class PlayerTricks : MonoBehaviour
         if (!_playerMovement.IsGrounded() || IsWallRiding)
         {
             if (!canDoubleJump) { return; }
+            _isPounding = false;
+            StopPounding();
             if (dashCor != null)
             {
                 StopCoroutine(dashCor);
@@ -346,6 +353,7 @@ public class PlayerTricks : MonoBehaviour
     public void CanDoubleJump()
     {
         canDoubleJump = true;
+        
     }
 
     private IEnumerator DoubleJumpDestroy()
@@ -384,7 +392,7 @@ public class PlayerTricks : MonoBehaviour
         //Debug.Log("isPounding = " + _isPounding);
         while (_isPounding && !_playerMovement.IsGrounded())
         {
-            Debug.Log("Is pounding = " + _isPounding);
+            
             if (Input.GetKeyUp(KeyCode.D))
             {
                 _isPounding = false;
@@ -402,7 +410,6 @@ public class PlayerTricks : MonoBehaviour
         Rb.linearVelocity = new Vector2(velocityX * momentumRetainFactor, Rb.linearVelocityY);
         lastPoundTime = Time.time;
         _isPounding = false;
-        Debug.Log("Not pounding no no no");
     }
 
     public void StopPounding()
@@ -418,7 +425,6 @@ public class PlayerTricks : MonoBehaviour
             Rb.linearVelocity = new Vector2(velocityX * momentumRetainFactor, Rb.linearVelocityY);
             lastPoundTime = Time.time;
             _isPounding = false;
-            Debug.Log("Not pounding no no no jump pad");
         }
        
     }
