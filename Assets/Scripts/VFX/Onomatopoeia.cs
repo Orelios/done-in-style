@@ -10,6 +10,7 @@ public class Onomatopoeia : MonoBehaviour
     [SerializeField] private float enlargeTime = 0.25f, enlargeBGTime = 0.75f;
     [SerializeField] private float smallScaleFactor = 0.5f;
     [SerializeField] private float disableTime = 1.5f;
+    [SerializeField] private GameObject player; 
     
     private void Start()
     {
@@ -21,6 +22,7 @@ public class Onomatopoeia : MonoBehaviour
     public void StartTypingVFX()
     {
         EnableChildren();
+        GoToPlayerLocation(); 
         StartCoroutine(TypeImages());
     }
 
@@ -113,5 +115,10 @@ public class Onomatopoeia : MonoBehaviour
         {
             child.gameObject.SetActive(true);
         }
+    }
+
+    private void GoToPlayerLocation()
+    {
+        gameObject.transform.position = player.GetComponent<Transform>().position; 
     }
 }
