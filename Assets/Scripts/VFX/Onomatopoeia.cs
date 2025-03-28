@@ -10,7 +10,8 @@ public class Onomatopoeia : MonoBehaviour
     [SerializeField] private float enlargeTime = 0.25f, enlargeBGTime = 0.75f;
     [SerializeField] private float smallScaleFactor = 0.5f;
     [SerializeField] private float disableTime = 1.5f;
-    [SerializeField] private GameObject player; 
+    [SerializeField] private GameObject player;
+    [SerializeField] private Vector3 offsetPosition; 
     
     private void Start()
     {
@@ -119,6 +120,7 @@ public class Onomatopoeia : MonoBehaviour
 
     private void GoToPlayerLocation()
     {
-        gameObject.transform.position = player.GetComponent<Transform>().position; 
+
+        gameObject.transform.position = player.GetComponent<Transform>().position + offsetPosition; 
     }
 }
