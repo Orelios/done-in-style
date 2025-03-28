@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.SceneManagement;
 
 public class ResultsScreenButtons : MonoBehaviour
@@ -18,9 +19,12 @@ public class ResultsScreenButtons : MonoBehaviour
 
     public async void NextLevel()
     {
-        var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(Mathf.Max(GameplayData.LastLevelIndex + 1, 3));
+        var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(Mathf.Min(GameplayData.LastLevelIndex + 1, 3));
         //var nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextLevelHashTemp);
-        
+        Debug.Log($"Last Level Index: {GameplayData.LastLevelIndex}");
+        Debug.Log($"Next Level Index: {GameplayData.LastLevelIndex + 1}");
+        Debug.Log($"Next Level Path: {nextLevelHash}");
+        Debug.Log($"Next Level Hash: {Path.GetFileNameWithoutExtension(nextLevelHash)}");
         //SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(Mathf.Max(nextLevelIndex, 2)));
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, Path.GetFileNameWithoutExtension(nextLevelHash));
     }
