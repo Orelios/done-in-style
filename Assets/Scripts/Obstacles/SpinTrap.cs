@@ -16,6 +16,7 @@ public class SpinTrap : MonoBehaviour
     
     private ScoreCalculator _scoreCalculator;
     private RankCalculator _rankCalculator;
+    [SerializeField] private TEMP_DodgeTrap _dodgeTrap;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class SpinTrap : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<Player>(out var player) && !player.Invulnerability.IsInvulnerable)
         {
+            _dodgeTrap.PlayerDamaged();
             _scoreCalculator.DecreaseScoreInstant(damage);
             _rankCalculator.DecreaseStylishPoints(decreasePoints);
             player.Invulnerability.DamagePlayer();
@@ -50,6 +52,7 @@ public class SpinTrap : MonoBehaviour
         
         if (collision.gameObject.TryGetComponent<Player>(out var player) && !player.Invulnerability.IsInvulnerable)
         {
+            _dodgeTrap.PlayerDamaged();
             _scoreCalculator.DecreaseScoreInstant(damage);
             _rankCalculator.DecreaseStylishPoints(decreasePoints);
             player.Invulnerability.DamagePlayer();

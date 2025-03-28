@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
 
     private ScoreCalculator _scoreCalculator;
     private RankCalculator _rankCalculator;
+    private TEMP_DodgeTrap _dodgeTrap;
     [SerializeField] private int decreasePoints = 3;
     [SerializeField] private float rps = 60;
 
@@ -14,6 +15,7 @@ public class Bullet : MonoBehaviour
     {
         _scoreCalculator = FindFirstObjectByType<ScoreCalculator>();
         _rankCalculator = FindFirstObjectByType<RankCalculator>();
+        _dodgeTrap = FindFirstObjectByType<TEMP_DodgeTrap>();
     }
 
     private void Update()
@@ -33,6 +35,7 @@ public class Bullet : MonoBehaviour
         
         if (collision.gameObject.TryGetComponent<Player>(out var player) && !player.Invulnerability.IsInvulnerable)
         {
+            _dodgeTrap.PlayerDamaged();
             _scoreCalculator.DecreaseScoreInstant(damage);
             _rankCalculator.DecreaseStylishPoints(decreasePoints);
             player.Invulnerability.DamagePlayer();
