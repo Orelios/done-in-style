@@ -940,6 +940,7 @@ MonoBehaviour:
   enlargeBGTime: 0.75
   smallScaleFactor: 0.5
   disableTime: 1.5
+  player: {fileID: 2107818445637447191, guid: d0726f2c1de492b479c38f784c591fea, type: 3}
 --- !u!1 &3037962267503346346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1124,6 +1125,7 @@ MonoBehaviour:
   enlargeBGTime: 0.75
   smallScaleFactor: 0.5
   disableTime: 1.5
+  player: {fileID: 2107818445637447191, guid: d0726f2c1de492b479c38f784c591fea, type: 3}
 --- !u!1 &4423840331871925074
 GameObject:
   m_ObjectHideFlags: 0
@@ -2156,6 +2158,7 @@ MonoBehaviour:
   enlargeBGTime: 0.75
   smallScaleFactor: 0.5
   disableTime: 1.5
+  player: {fileID: 2107818445637447191, guid: d0726f2c1de492b479c38f784c591fea, type: 3}
 --- !u!1001 &946849527243652585
 PrefabInstance:
   m_ObjectHideFlags: 0
