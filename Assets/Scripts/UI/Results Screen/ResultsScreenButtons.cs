@@ -19,7 +19,7 @@ public class ResultsScreenButtons : MonoBehaviour
 
     public async void NextLevel()
     {
-        var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(Mathf.Min(GameplayData.LastLevelIndex + 1, 3));
+        var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(GetNextLevelIndex(GameplayData.LastLevelIndex + 1));
         //var nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextLevelHashTemp);
         Debug.Log($"Last Level Index: {GameplayData.LastLevelIndex}");
         Debug.Log($"Next Level Index: {GameplayData.LastLevelIndex + 1}");
@@ -27,6 +27,11 @@ public class ResultsScreenButtons : MonoBehaviour
         Debug.Log($"Next Level Hash: {Path.GetFileNameWithoutExtension(nextLevelHash)}");
         //SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(Mathf.Max(nextLevelIndex, 2)));
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, Path.GetFileNameWithoutExtension(nextLevelHash));
+    }
+
+    private int GetNextLevelIndex(int levelIndex)
+    {
+        return levelIndex > SceneManager.sceneCountInBuildSettings - 1 ? 3 : levelIndex;
     }
 
     public async void RetryLevel()
