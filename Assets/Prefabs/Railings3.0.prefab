@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8369566369566227383}
   - component: {fileID: 98495884008144782}
   - component: {fileID: 5990197634495278482}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Railing 3.0 (1)
   m_TagString: Railing
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 7278925319266585053}
   - component: {fileID: 3266952473201885871}
   - component: {fileID: 7327684993615901287}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Railing 3.0 (4)
   m_TagString: Railing
   m_Icon: {fileID: 0}
@@ -306,7 +306,7 @@ GameObject:
   - component: {fileID: 8388300896981847257}
   - component: {fileID: 2526264373374814097}
   - component: {fileID: 3041696305692594295}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Railing 3.0 (3)
   m_TagString: Railing
   m_Icon: {fileID: 0}
@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 5178693609825168881}
   - component: {fileID: 1172754748106186649}
   - component: {fileID: 7871258148900991654}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Railing 3.0
   m_TagString: Railing
   m_Icon: {fileID: 0}
@@ -705,7 +705,7 @@ GameObject:
   - component: {fileID: 5971169767770212624}
   - component: {fileID: 1412030283715586164}
   - component: {fileID: 7804121147819736069}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: Railing 3.0 (2)
   m_TagString: Railing
   m_Icon: {fileID: 0}

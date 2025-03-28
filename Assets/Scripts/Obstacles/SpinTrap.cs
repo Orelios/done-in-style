@@ -28,6 +28,17 @@ public class SpinTrap : MonoBehaviour
         Rotate(); 
     }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<Player>(out var player) && !player.Invulnerability.IsInvulnerable)
+        {
+            _scoreCalculator.DecreaseScoreInstant(damage);
+            _rankCalculator.DecreaseStylishPoints(decreasePoints);
+            player.Invulnerability.DamagePlayer();
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         /*if (collision.gameObject.GetComponent<PlayerInvulnerability>() && !collision.gameObject.GetComponent<PlayerInvulnerability>().IsHit)
