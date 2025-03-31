@@ -18,7 +18,7 @@ public class DestructibleObjects : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out PlayerTricks playerTricks) && ((dashable ? playerTricks.IsDashing : false)
+        if (collision.gameObject.TryGetComponent(out PlayerTricks playerTricks) && ((dashable ? (playerTricks.IsDashing || playerTricks.DashCanDestroy) : false)
             || (poundable ? playerTricks.IsPounding : false) || (doubleJumpable ? playerTricks.CanDestroy : false)))
         {
             collision.gameObject.GetComponent<PlayerTricks>().AddScoreAndRank();
@@ -32,7 +32,7 @@ public class DestructibleObjects : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out PlayerTricks playerTricks) && ((dashable ? playerTricks.IsDashing : false)
+        if (collision.gameObject.TryGetComponent(out PlayerTricks playerTricks) && ((dashable ? (playerTricks.IsDashing || playerTricks.DashCanDestroy) : false)
             || (poundable ? playerTricks.IsPounding : false) || (doubleJumpable ? playerTricks.CanDestroy : false)))
         {
             if (collision.gameObject.GetComponent<PlayerTricks>().canTrick == false)

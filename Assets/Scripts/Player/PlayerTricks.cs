@@ -24,6 +24,10 @@ public class PlayerTricks : MonoBehaviour
     public float dashSpeed = 20f;
     public float dashDuration = 0.2f;
     public float dashCooldown = 1f;
+    [SerializeField] private float _dashCanDetroyDuration = 0.5f;
+    private bool _dashCanDestroy = false;
+
+    public bool DashCanDestroy => _dashCanDestroy;
 
     private bool _isDashing = false;
     public bool IsDashing => _isDashing;
@@ -245,6 +249,7 @@ public class PlayerTricks : MonoBehaviour
         {
             dashCor = StartCoroutine(DashCoroutine());
             AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerDash, this.transform.position);
+            StartCoroutine(DashDestroy());
         }
     }
 
@@ -289,6 +294,13 @@ public class PlayerTricks : MonoBehaviour
         preserveMomentumCor = StartCoroutine(PreserveMomentum());
         _playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY; 
         _isDashing = false;
+    }
+
+    private IEnumerator DashDestroy()
+    {
+        _dashCanDestroy = true;
+        yield return new WaitForSeconds(_dashCanDetroyDuration);
+        _dashCanDestroy = false;
     }
 
     IEnumerator PreserveMomentum()
