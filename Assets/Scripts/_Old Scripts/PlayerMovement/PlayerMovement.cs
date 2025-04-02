@@ -46,14 +46,17 @@ public class PlayerMovement : MonoBehaviour
     #region Jump
     [Header("Jump Configs")]
     [Tooltip("Insert here how long Coyote Time will run after the player goes off of a ledge; this is how long the Player can still jump after going off a ledge")]
-    [SerializeField, Range(0.05f, 0.25f)] private float coyoteTime = 0.2f;
+    [SerializeField, Range(0.05f, 1f)] private float coyoteTime = 0.2f;
     [Tooltip("UNIMPLEMENTED: Insert here how long the Player's jump input will buffer; this is how long the Player's jump input is saved when in the air to help time the next jump when landing on the ground")]
     [SerializeField, Range(0.05f, 0.25f)]private float jumpBufferTime = 0.2f;
 
     // Jump Settings
     [SerializeField] private float jumpHeight;
     [SerializeField] private float jumpTimeToApex;
+    [SerializeField] private float jumpTimeHeight;  
     private float _jumpForce;
+    private bool _canJump;
+    private bool _isJumping; 
     // Jump Hang
     [SerializeField] private float jumpCutGravityMult;
     [SerializeField] private float jumpHangGravityMult;
@@ -72,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
     public float JumpHangTimeThreshold { get => jumpHangTimeThreshold; set => jumpHangTimeThreshold = value; }
     public float JumpHangAccelerationMult { get => jumpHangAccelerationMult; set => jumpHangAccelerationMult = value; }
     public float JumpHangMaxSpeedMult { get => jumpHangMaxSpeedMult; set => jumpHangMaxSpeedMult = value; }
+    public bool CanJump { get => _canJump; set => _canJump = value; }
 
 
     private float _lastJumpTime;
@@ -306,22 +310,37 @@ public class PlayerMovement : MonoBehaviour
         //Handles the timer for coyote time
         _lastGroundedTime = IsGrounded() ? 0f : _lastGroundedTime += Time.deltaTime;
 
-        bool canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
-        // Jump
-        if (_playerInputManager.IsJumping && canJump)
-        {
-            Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpForce);
+        _canJump = IsGrounded() || (!IsGrounded() && _lastGroundedTime < coyoteTime);
+ 
+        JumpTimeHeightCooldown();
 
-            //_playerTricks.IsSliding = false;
-        }
-        else if (!_playerInputManager.IsJumping)// Jump Cut (increase gravity when the jump button is released early)
+        if (_canJump) {_isJumping = true; }
+
+        if(!_playerInputManager.IsJumping && !CanJump) { _isJumping = false; }
+
+        if (!_playerInputManager.IsJumping)// Jump Cut (increase gravity when the jump button is released early)
         {
             _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
             Rb.gravityScale = _gravityScale * jumpCutGravityMult;
             Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Max(Rb.linearVelocity.y, -maxFallSpeed));
         }
+        // Jump
+        if (_playerInputManager.IsJumping && _isJumping)
+        {
+            if(JumpTimeHeightCooldown() >= 0)
+            {
+                Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpForce);
+            }
 
-        if (!canJump && Rb.linearVelocity.y > 0 && Rb.linearVelocity.y < jumpHangTimeThreshold) // Jump Hang
+            if(JumpTimeHeightCooldown() < 0)
+            {
+                _isJumping = false;
+            }
+            //_playerTricks.IsSliding = false;
+        }
+
+        Debug.Log(_isJumping);
+        if (!_canJump && Rb.linearVelocity.y > 0 && Rb.linearVelocity.y < jumpHangTimeThreshold) // Jump Hang
         {
             Rb.gravityScale = _gravityScale * jumpHangGravityMult;
             //Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
@@ -329,6 +348,21 @@ public class PlayerMovement : MonoBehaviour
         }
 
         PlayJumpSound();
+    }
+
+    private float JumpTimeHeightCooldown()
+    {
+        if (IsGrounded())
+        {
+            jumpTimeHeight = 0.5f;
+        }
+
+        if (_playerInputManager.IsJumping)
+        {
+            jumpTimeHeight -= Time.fixedDeltaTime;  
+        }
+
+        return jumpTimeHeight; 
     }
     #endregion
 
