@@ -53,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
     // Jump Settings
     [SerializeField] private float jumpHeight;
     [SerializeField] private float jumpTimeToApex;
-    [SerializeField] private float jumpTimeHeight;  
+    [SerializeField] private float jumpTimeHeight = 0.5f;
+    private float _jumpTimeHeight;
     private float _jumpForce;
     private bool _canJump;
     private bool _isJumping; 
@@ -339,7 +340,7 @@ public class PlayerMovement : MonoBehaviour
             //_playerTricks.IsSliding = false;
         }
 
-        Debug.Log(_isJumping);
+        //Debug.Log(_isJumping);
         if (!_canJump && Rb.linearVelocity.y > 0 && Rb.linearVelocity.y < jumpHangTimeThreshold) // Jump Hang
         {
             Rb.gravityScale = _gravityScale * jumpHangGravityMult;
@@ -354,15 +355,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsGrounded())
         {
-            jumpTimeHeight = 0.5f;
+            _jumpTimeHeight = jumpTimeHeight;
         }
 
         if (_playerInputManager.IsJumping)
         {
-            jumpTimeHeight -= Time.fixedDeltaTime;  
+            _jumpTimeHeight -= Time.fixedDeltaTime;  
         }
 
-        return jumpTimeHeight; 
+        return _jumpTimeHeight; 
     }
     #endregion
 
