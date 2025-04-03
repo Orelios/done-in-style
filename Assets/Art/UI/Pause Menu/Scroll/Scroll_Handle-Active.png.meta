@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4fee730e0706f28408c29d4fd5c2787a
+guid: fa1436d6cf7f2984a89959b4cf9183bf
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1848363394346694950
-    second: Settings_Meter_Handle-Active_0
+      213: 4708518118961054188
+    second: Scroll_Handle-Active_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Settings_Meter_Handle-Active_0
+      name: Scroll_Handle-Active_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 25
-        height: 52
+        height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 6, y: 6, z: 6, w: 6}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad64120394b4956e0800000000000000
-      internalID: -1848363394346694950
+      spriteID: ce10a2b4844085140800000000000000
+      internalID: 4708518118961054188
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a9551a4a766d87249b40afd50335f43d
+    spriteID: 09805c7aadba2a34baab2b1d3ee37c60
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Settings_Meter_Handle-Active_0: -1848363394346694950
+      Scroll_Handle-Active_0: 4708518118961054188
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

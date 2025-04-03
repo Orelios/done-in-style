@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4fee730e0706f28408c29d4fd5c2787a
+guid: cfc227d478d9a7a4282f7449a4ec1de8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1848363394346694950
-    second: Settings_Meter_Handle-Active_0
+      213: 5654348360525736345
+    second: Graphics_Dropdown-Full_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Settings_Meter_Handle-Active_0
+      name: Graphics_Dropdown-Full_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 25
-        height: 52
+        width: 623
+        height: 430
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ad64120394b4956e0800000000000000
-      internalID: -1848363394346694950
+      spriteID: 999e27930e7487e40800000000000000
+      internalID: 5654348360525736345
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a9551a4a766d87249b40afd50335f43d
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Settings_Meter_Handle-Active_0: -1848363394346694950
+      Graphics_Dropdown-Full_0: 5654348360525736345
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
