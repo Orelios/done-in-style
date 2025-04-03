@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ea222ce069d2da547a9430d3b873f9b7
+guid: c394a6a04f35f0e42a778293c862aa06
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4979557089851523880
-    second: Graphics_Settings-Overlay_0
+      213: -5519758062741699926
+    second: Graphics_Settings_Phone_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Graphics_Settings-Overlay_0
+      name: Graphics_Settings_Phone_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1080
+        width: 754
+        height: 1434
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 823c0675ac0fa1540800000000000000
-      internalID: 4979557089851523880
+      spriteID: aa2ce207941e563b0800000000000000
+      internalID: -5519758062741699926
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Graphics_Settings-Overlay_0: 4979557089851523880
+      Graphics_Settings_Phone_0: -5519758062741699926
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

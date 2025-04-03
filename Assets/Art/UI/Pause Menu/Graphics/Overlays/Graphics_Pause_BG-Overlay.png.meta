@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: e3ab56a4cfa072a49a0dbff413ea7210
+guid: 94bd4bea0125a654888e7350ace62600
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1790191627928547123
-    second: Page 7_0
-  - first:
-      213: 6777985604619692917
-    second: Page 7_1
+      213: 2772528916260153690
+    second: Graphics_Pause_BG-Overlay_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -129,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Page 7_1
+      name: Graphics_Pause_BG-Overlay_0
       rect:
         serializedVersion: 2
-        x: 570
-        y: 149
-        width: 1267
-        height: 658
+        x: 0
+        y: 0
+        width: 1920
+        height: 1080
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 57b61100ffd301e50800000000000000
-      internalID: 6777985604619692917
+      spriteID: a596f2f1c500a7620800000000000000
+      internalID: 2772528916260153690
       vertices: []
       indices: 
       edges: []
@@ -154,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 97aec31936f462549a00f025fe9df9c7
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -164,8 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Page 7_0: 1790191627928547123
-      Page 7_1: 6777985604619692917
+      Graphics_Pause_BG-Overlay_0: 2772528916260153690
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

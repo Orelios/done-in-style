@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: aa2755fa8b177ff419a554abae84bb8e
+guid: 6f68e70e27a88e845937f86041899385
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4171884529899818233
-    second: Icon_Battery_0
+      213: 4507162162781784842
+    second: Border_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Battery_0
+      name: Border_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 85
-        height: 47
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9fc40a850e285e930800000000000000
-      internalID: 4171884529899818233
+      spriteID: a0b80b96b18ac8e30800000000000000
+      internalID: 4507162162781784842
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Icon_Battery_0: 4171884529899818233
+      Border_0: 4507162162781784842
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
