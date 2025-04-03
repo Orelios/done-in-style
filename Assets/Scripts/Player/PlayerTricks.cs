@@ -335,7 +335,7 @@ public class PlayerTricks : MonoBehaviour
     #region DoubleJump
     private void DoubleJump() 
     {
-        if (!_playerMovement.IsGrounded() || IsWallRiding)
+        if (!_playerMovement.CanJump || IsWallRiding)
         {
             if (!canDoubleJump) { return; }
             _isPounding = false;
