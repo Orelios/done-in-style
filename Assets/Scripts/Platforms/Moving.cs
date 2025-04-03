@@ -220,8 +220,8 @@ public class Moving : MonoBehaviour, ITriggerable
 
     public void StopTriggerExit()
     {
-        _shouldMove = false;
-        _isMoving = false;
+        /*_shouldMove = false;
+        _isMoving = false;*/
     }
 }
 
