@@ -58,5 +58,6 @@ public class ChromaticAberration : MonoBehaviour
             yield return null;
         }
         chromaticAberration.intensity.value = 0f;
+        ChromaticAberrationCor = null;
     }
 }
