@@ -20,12 +20,9 @@ public class RailsParent : MonoBehaviour
     [Header("Points Configs")]
     [SerializeField] private int pointsPerSecond;
     [SerializeField] private int maxTimeForPoints;
-
-    //Audio
-    private EventInstance _playerRailGrinding;
     private void Start()
     {
-        _playerRailGrinding = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerRailGrinding);
+       
     }
 
     public void ApplyGraffiti()
@@ -63,11 +60,11 @@ public class RailsParent : MonoBehaviour
             _playerTricks.DisableCanTrick();
 
             PLAYBACK_STATE playbackState;
-            _playerRailGrinding.getPlaybackState(out playbackState);
+            AudioManager.instance.PlayerRailing.getPlaybackState(out playbackState);
 
             if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
-                _playerRailGrinding.start();
+                AudioManager.instance.PlayerRailing.start();
             }
 
             if (!hasGivenScore)
@@ -83,10 +80,12 @@ public class RailsParent : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         //StopAllCoroutines();
-        _playerRailGrinding.stop(STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.PlayerRailing.stop(STOP_MODE.ALLOWFADEOUT);
         StopCoroutine(_scoreRoutine);
         StopCoroutine(_rankRoutine);
         ApplyGraffiti();
         CheckTrickMove();
     }
+
+
 }

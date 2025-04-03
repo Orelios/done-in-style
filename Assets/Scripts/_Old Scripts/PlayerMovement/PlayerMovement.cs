@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight;
     [SerializeField] private float jumpTimeToApex;
     [SerializeField] private float jumpTimeHeight = 0.5f;
+    [SerializeField] private float railHorizontalDamping = 2f; 
     private float _jumpTimeHeight;
     private float _jumpForce;
     private bool _canJump;
@@ -319,7 +320,7 @@ public class PlayerMovement : MonoBehaviour
 
         if(!_playerInputManager.IsJumping && !CanJump) { _isJumping = false; }
 
-        if (!_playerInputManager.IsJumping)// Jump Cut (increase gravity when the jump button is released early)
+        if (!_playerInputManager.IsJumping && !IsGrounded())// Jump Cut (increase gravity when the jump button is released early)
         {
             _jumpForce = Mathf.Abs(_gravityStrength) * jumpTimeToApex;
             Rb.gravityScale = _gravityScale * jumpCutGravityMult;
@@ -333,15 +334,20 @@ public class PlayerMovement : MonoBehaviour
                 Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, _jumpForce);
             }
 
-            if(JumpTimeHeightCooldown() < 0)
+            if (JumpTimeHeightCooldown() >= 0 && transform.rotation.z > 0 && PlayerOnRailing()) 
+            {
+                Rb.linearVelocity = new Vector2(Rb.linearVelocityX / railHorizontalDamping, _jumpForce);
+            }
+            Debug.Log(Rb.linearVelocityY);
+            if (JumpTimeHeightCooldown() < 0)
             {
                 _isJumping = false;
             }
             //_playerTricks.IsSliding = false;
         }
-
+        
         //Debug.Log(_isJumping);
-        if (!_canJump && Rb.linearVelocity.y > 0 && Rb.linearVelocity.y < jumpHangTimeThreshold) // Jump Hang
+        if (!_canJump && Rb.linearVelocity.y > 0 && Rb.linearVelocity.y < jumpHangTimeThreshold && !IsGrounded()) // Jump Hang
         {
             Rb.gravityScale = _gravityScale * jumpHangGravityMult;
             //Rb.linearVelocity = new Vector2(Rb.linearVelocity.x, Mathf.Min(Rb.linearVelocity.y, jumpHangMaxSpeedMult * maxFallSpeed));
@@ -373,7 +379,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_playerTricks.IsWallRiding && !_playerTricks.CanDestroy) { _playerTricks.WallRiding(); return; }
 
-        if (Rb.linearVelocity.y < 0) // Player is falling
+        if (Rb.linearVelocity.y < 0 && !IsGrounded()) // Player is falling
         {
             Rb.gravityScale = _gravityScale * fallGravityMult;
 
