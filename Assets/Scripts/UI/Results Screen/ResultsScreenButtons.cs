@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.SceneManagement;
 
 public class ResultsScreenButtons : MonoBehaviour
@@ -15,22 +17,33 @@ public class ResultsScreenButtons : MonoBehaviour
         _original = transform.localScale;
     }
 
-    public void NextLevel()
+    public async void NextLevel()
     {
-        var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(GameplayData.LastLevelIndex + 1);
-        var nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextLevelHash);
-        
-        SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(Mathf.Max(nextLevelIndex, 2)));
+        var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(GetNextLevelIndex(GameplayData.LastLevelIndex + 1));
+        //var nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextLevelHashTemp);
+        Debug.Log($"Last Level Index: {GameplayData.LastLevelIndex}");
+        Debug.Log($"Next Level Index: {GameplayData.LastLevelIndex + 1}");
+        Debug.Log($"Next Level Path: {nextLevelHash}");
+        Debug.Log($"Next Level Hash: {Path.GetFileNameWithoutExtension(nextLevelHash)}");
+        //SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(Mathf.Max(nextLevelIndex, 2)));
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, Path.GetFileNameWithoutExtension(nextLevelHash));
     }
 
-    public void RetryLevel()
+    private int GetNextLevelIndex(int levelIndex)
     {
-        SceneManager.LoadScene(GameplayData.LastLevelHash);
+        return levelIndex > SceneManager.sceneCountInBuildSettings - 1 ? 3 : levelIndex;
     }
 
-    public void BackToMainMenu()
+    public async void RetryLevel()
     {
-        SceneManager.LoadScene("TitleScreen");
+        //SceneManager.LoadScene(GameplayData.LastLevelHash);
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, GameplayData.LastLevelHash);
+    }
+
+    public async void BackToMainMenu()
+    {
+        //SceneManager.LoadScene("TitleScreen");
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.TitleScreenHash);
     }
 
     public void Big()
