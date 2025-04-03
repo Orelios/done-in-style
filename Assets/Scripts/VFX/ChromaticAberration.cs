@@ -15,16 +15,17 @@ public class ChromaticAberration : MonoBehaviour
         UnityEngine.Rendering.VolumeProfile profile = gameObject.GetComponent<UnityEngine.Rendering.Volume>().profile;
         profile.TryGet(out chromaticAberration);
         //chromaticAberration.intensity.Override(intensityVal);
-        ChromaticAberrationCor = StartCoroutine(ChromaticAberrationCoroutine());
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyUp(KeyCode.Q))
         {
             StartChromaticAberration();
         }
+        */
     }
 
     public void StartChromaticAberration()
