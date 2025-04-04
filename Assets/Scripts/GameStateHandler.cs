@@ -151,7 +151,7 @@ public class GameStateHandler : MonoBehaviour
         ResetFlags();
         IsGamePaused = true;
         _player.GetComponent<PlayerMovement>()._playerMovement.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);        
-        _pauseMenuNavigator.OpenMainInterface();
+        _pauseMenuNavigator.OpenPauseMenu();
     }
     public void ResumeGame()
     {   
