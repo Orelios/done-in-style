@@ -522,6 +522,7 @@ MonoBehaviour:
   dashSpeed: 30
   dashDuration: 0.2
   dashCooldown: 1
+  _dashCanDetroyDuration: 0.25
   _dashMomentumDecay: {x: 0.345, y: 0.69}
   _groundPoundSpeed: 50
   momentumRetainFactor: 0.5
