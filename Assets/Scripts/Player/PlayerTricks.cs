@@ -38,6 +38,8 @@ public class PlayerTricks : MonoBehaviour
     private Vector2 dashLastVelocity;
     [SerializeField] private Vector2 _dashMomentumDecay = new Vector2(0.345f, 0.69f);
     private Coroutine dashCor, preserveMomentumCor;
+    [SerializeField] private GameObject motionBlur;
+    [SerializeField] private bool motionBlurOn = true;
 
     [Header("Ground Pound")]
     private bool _isPounding = false;
@@ -255,6 +257,11 @@ public class PlayerTricks : MonoBehaviour
 
     private IEnumerator DashCoroutine()
     {
+        if (motionBlurOn && motionBlur != null)
+        {
+            motionBlur.SetActive(true);
+        }
+        
         _vfx.CallDashVFX();
         _isDashing = true;
         if (IsDashing)
@@ -294,6 +301,11 @@ public class PlayerTricks : MonoBehaviour
         preserveMomentumCor = StartCoroutine(PreserveMomentum());
         //_playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY; 
         _isDashing = false;
+
+        if (motionBlurOn && motionBlur != null)
+        {
+            motionBlur.SetActive(false);
+        }
     }
 
     private IEnumerator DashDestroy()
