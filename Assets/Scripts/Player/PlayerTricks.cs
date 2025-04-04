@@ -292,7 +292,7 @@ public class PlayerTricks : MonoBehaviour
         Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
         //Rb.linearVelocity = new(Rb.linearVelocityX / 2f, Rb.linearVelocityY / 2f); // Reset velocity
         preserveMomentumCor = StartCoroutine(PreserveMomentum());
-        _playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY; 
+        //_playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY; 
         _isDashing = false;
     }
 
@@ -345,7 +345,7 @@ public class PlayerTricks : MonoBehaviour
                 StopCoroutine(dashCor);
                 dashCor = null;
                 Rb.gravityScale = _playerMovement.BaseGravity; // Restore gravity
-                _playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY;
+                //_playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY;
                 _isDashing = false;
             }
   
