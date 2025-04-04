@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ResultsDisplayer : MonoBehaviour
 {
+    [SerializeField] private List<ResultsScreenButtons> resultsScreenButtons;
+    
     [SerializeField] private IntEventChannel scoreChannel;
     [SerializeField] private FloatEventChannel timeChannel;
     
@@ -37,35 +39,44 @@ public class ResultsDisplayer : MonoBehaviour
 
         while (elapsedTime < countDuration)
         {
+            //TODO: convert to input system
+            if (Input.anyKeyDown)
+            {
+                break;
+            }
+            
             elapsedTime += Time.unscaledDeltaTime;
             var currentValue = Mathf.Lerp(startingValue, targetValue, elapsedTime / countDuration);
             
             if (isScoreCounting)
             {
-                textToLerp.text = $"SCORE: <size=95><color=white>{currentValue:n0}</color></size>";
+                textToLerp.text = $"{currentValue:n0}";
             }
             else
             {
-                textToLerp.text = $"TIME: <size=95><color=white>{Mathf.FloorToInt(currentValue / 60f)}:" +
+                textToLerp.text = $"{Mathf.FloorToInt(currentValue / 60f)}:" +
                                   $"{Mathf.FloorToInt(currentValue % 60f):D2}." +
-                                  $"<size=75>{Mathf.FloorToInt(currentValue * 100f % 100f):D2}</size></color></size>";
+                                  $"<size=75>{Mathf.FloorToInt(currentValue * 100f % 100f):D2}</size>";
             }
-            
             
             yield return null;
         }
 
         if (isScoreCounting)
         {
-            textToLerp.text = $"SCORE: <size=95><color=white>{targetValue:n0}</color></size>";
+            textToLerp.text = $"{targetValue:n0}";
         }
         else
         {
-            textToLerp.text = $"TIME: <size=95><color=white>{Mathf.FloorToInt(targetValue / 60f)}:" +
+            textToLerp.text = $"{Mathf.FloorToInt(targetValue / 60f)}:" +
                               $"{Mathf.FloorToInt(targetValue % 60f):D2}." +
-                              $"<size=75>{Mathf.FloorToInt(targetValue * 100f % 100f):D2}</size></color></size>";
+                              $"<size=75>{Mathf.FloorToInt(targetValue * 100f % 100f):D2}</size>";
         }
-        
+
+        foreach (var button in resultsScreenButtons)
+        {
+            button.AllowButtonInteraction();
+        }
     }
     
     public void DetermineClearRank(int score)

@@ -5,27 +5,31 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Rendering.VirtualTexturing;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ResultsScreenButtons : MonoBehaviour
 {
     [SerializeField] private float bigFactor;
     [SerializeField] private float duration;
     private Vector2 _original;
-
+    private Button _button;
+    
     private void OnEnable()
     {
         _original = transform.localScale;
+        _button = GetComponent<Button>();
+        
+        _button.interactable = false;
     }
 
     public async void NextLevel()
     {
         var nextLevelHash = SceneUtility.GetScenePathByBuildIndex(GetNextLevelIndex(GameplayData.LastLevelIndex + 1));
-        //var nextLevelIndex = SceneUtility.GetBuildIndexByScenePath(nextLevelHashTemp);
-        Debug.Log($"Last Level Index: {GameplayData.LastLevelIndex}");
+        /*Debug.Log($"Last Level Index: {GameplayData.LastLevelIndex}");
         Debug.Log($"Next Level Index: {GameplayData.LastLevelIndex + 1}");
         Debug.Log($"Next Level Path: {nextLevelHash}");
-        Debug.Log($"Next Level Hash: {Path.GetFileNameWithoutExtension(nextLevelHash)}");
-        //SceneManager.LoadScene(SceneUtility.GetScenePathByBuildIndex(Mathf.Max(nextLevelIndex, 2)));
+        Debug.Log($"Next Level Hash: {Path.GetFileNameWithoutExtension(nextLevelHash)}");*/
+
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, Path.GetFileNameWithoutExtension(nextLevelHash));
     }
 
@@ -36,13 +40,11 @@ public class ResultsScreenButtons : MonoBehaviour
 
     public async void RetryLevel()
     {
-        //SceneManager.LoadScene(GameplayData.LastLevelHash);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, GameplayData.LastLevelHash);
     }
 
     public async void BackToMainMenu()
     {
-        //SceneManager.LoadScene("TitleScreen");
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.TitleScreenHash);
     }
 
@@ -70,5 +72,10 @@ public class ResultsScreenButtons : MonoBehaviour
         }
         
         transform.localScale = targetScale;
+    }
+
+    public void AllowButtonInteraction()
+    {
+        _button.interactable = true;
     }
 }
