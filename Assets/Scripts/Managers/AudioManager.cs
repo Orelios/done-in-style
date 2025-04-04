@@ -15,6 +15,7 @@ public class AudioManager : MonoBehaviour
 
     public EventInstance musicEventInstance;
     public EventInstance ambienceEventInstance;
+    public EventInstance PlayerRailing; 
     public static AudioManager instance { get; private set; }
 
     private void Awake()

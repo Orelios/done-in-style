@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System;
 using System.Collections;
 using System.IO;
@@ -56,6 +57,8 @@ public class GameStateHandler : MonoBehaviour
         {
             GameplayData.RecordLevel(SceneManager.GetActiveScene().name, SceneManager.GetActiveScene().buildIndex);
         }
+
+        AudioManager.instance.PlayerRailing = AudioManager.instance.CreateInstance(FMODEvents.instance.PlayerRailGrinding);
     }
 
     private void Update()
@@ -144,13 +147,14 @@ public class GameStateHandler : MonoBehaviour
     
     public void PauseGame()
     {
+        StopAudio();
         ResetFlags();
         IsGamePaused = true;
         _player.GetComponent<PlayerMovement>()._playerMovement.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);        
-        _pauseMenuNavigator.OpenMainInterface();
+        _pauseMenuNavigator.OpenPauseMenu();
     }
     public void ResumeGame()
-    {
+    {   
         ResetFlags();
         IsGameplay = true;
         _player.GetComponent<PlayerMovement>()._playerMovement.start();
@@ -189,6 +193,7 @@ public class GameStateHandler : MonoBehaviour
     {
         AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.PlayerRailing.stop(STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.musicEventInstance.release();
         AudioManager.instance.ambienceEventInstance.release();
     }
