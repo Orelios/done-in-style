@@ -25,7 +25,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             set
             {
                 m_Action = value;
-                UpdateActionLabel();
+                //UpdateActionLabel();
                 UpdateBindingDisplay();
             }
         }
@@ -63,7 +63,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             set
             {
                 m_ActionLabel = value;
-                UpdateActionLabel();
+                //UpdateActionLabel();
             }
         }
 
@@ -236,6 +236,11 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         /// Initiate an interactive rebind that lets the player actuate a control to choose a new binding
         /// for the action.
         /// </summary>
+        public void CancelInteractiveRebind()
+        {
+            m_RebindOperation?.Cancel();
+        }
+        
         public void StartInteractiveRebind()
         {
             if (!ResolveActionAndBinding(out var action, out var bindingIndex))
@@ -271,13 +276,14 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
             // Configure the rebind.
             m_RebindOperation = action.PerformInteractiveRebinding(bindingIndex)
+                .WithControlsExcluding("<Mouse>")
                 .OnCancel(
                     operation =>
                     {
                         action.Enable(); 
                         m_RebindStopEvent?.Invoke(this, operation);
-                        if (m_RebindOverlay != null)
-                            m_RebindOverlay.SetActive(false);
+                        /*if (m_RebindOverlay != null)
+                            m_RebindOverlay.SetActive(false);*/
                         UpdateBindingDisplay();
                         CleanUp();
                     })
@@ -285,8 +291,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                     operation =>
                     {
                         action.Enable(); 
-                        if (m_RebindOverlay != null)
-                            m_RebindOverlay.SetActive(false);
+                        /*if (m_RebindOverlay != null)
+                            m_RebindOverlay.SetActive(false);*/
                         m_RebindStopEvent?.Invoke(this, operation);
                         UpdateBindingDisplay();
                         CleanUp();
@@ -304,26 +310,27 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             // If it's a part binding, show the name of the part in the UI.
             var partName = default(string);
             if (action.bindings[bindingIndex].isPartOfComposite)
-                partName = $"Binding '{action.bindings[bindingIndex].name}'. ";
+                //partName = $"Binding '{action.bindings[bindingIndex].name}'. ";
+                
 
             // Bring up rebind overlay, if we have one.
             m_RebindOverlay?.SetActive(true);
             if (m_RebindText != null)
             {
-                var text = !string.IsNullOrEmpty(m_RebindOperation.expectedControlType)
+                /*var text = !string.IsNullOrEmpty(m_RebindOperation.expectedControlType)
                     ? $"{partName}Waiting for {m_RebindOperation.expectedControlType} input..."
-                    : $"{partName}Waiting for input...";
-                m_RebindText.text = text;
+                    : $"{partName}Waiting for input...";*/
+                m_RebindText.text = $"Press a key to assign to <color=#85290E>[{actionLabel.text}]</color>";
             }
 
             // If we have no rebind overlay and no callback but we have a binding text label,
             // temporarily set the binding text label to "<Waiting>".
             if (m_RebindOverlay == null && m_RebindText == null && m_RebindStartEvent == null && m_BindingText != null)
                 m_BindingText.text = "<Waiting...>";
-
+            
             // Give listeners a chance to act on the rebind starting.
             m_RebindStartEvent?.Invoke(this, m_RebindOperation);
-
+            
             m_RebindOperation.Start();
         }
 
@@ -427,7 +434,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         #if UNITY_EDITOR
         protected void OnValidate()
         {
-            UpdateActionLabel();
+            //UpdateActionLabel();
             UpdateBindingDisplay();
         }
 
