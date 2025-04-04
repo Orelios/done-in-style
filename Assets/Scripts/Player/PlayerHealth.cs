@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
     private int _currentHealth;
     public int CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
     private PlayerMovement playerMovement;
+    [SerializeField] private ChromaticAberration chromaticAberration;
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -21,12 +22,17 @@ public class PlayerHealth : MonoBehaviour
         playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
         playerHealthDisplayUpdater.UpdatePlayerPortraitDisplay(_currentHealth);
         _vfx = GetComponentInChildren<VFXManager>();
+        if (chromaticAberration == null)
+        {
+            chromaticAberration = GameObject.Find("/Chromatic Aberration").GetComponent<ChromaticAberration>();
+        }
     }
 
     public void DecreaseHealth() 
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerHurt, this.transform.position);
         _vfx.CallHurtVFX();
+        chromaticAberration.StartChromaticAberration();
         if(_currentHealth != 0) 
         { 
             _currentHealth -= 1;
