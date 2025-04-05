@@ -120,6 +120,7 @@ public class VFXManager : MonoBehaviour
         }
         isWaitingToLand = true;
         //Debug.Log("Landed");
+        _playerTricks.DisableCanTrick();
     }
 
     private IEnumerator DetectJump()
