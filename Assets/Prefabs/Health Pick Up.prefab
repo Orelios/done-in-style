@@ -147,3 +147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5c0bd4acdc5c6048ab11ec2c63e08b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPos: {x: 0, y: 0}
+  targetPos: {x: 0, y: 0}
+  floatTime: 1

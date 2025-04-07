@@ -550,8 +550,10 @@ public class PlayerTricks : MonoBehaviour
     #region TrickMove
     private void TrickMove()
     {
+        _vfx.StopTrickReadyVFX();
         if (_destroyedObject && canTrick && _playerMovement.IsGrounded() != true && playerSprite != null)
         {
+            _vfx.CallTrickVFX();
             //Debug.Log("trick stop cor");
             _destroyedObject = false;
             //playerSprite.color = trickColor;
@@ -564,7 +566,8 @@ public class PlayerTricks : MonoBehaviour
         {
             //Debug.Log("trick stop cor");
             //playerSprite.color = trickColor;
-            
+            _vfx.CallTrickVFX();
+
             if (_trickObject.TryGetComponent<Ramp>(out var ramp))
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);
@@ -680,6 +683,7 @@ public class PlayerTricks : MonoBehaviour
     {
         
         canTrick = true;
+        _vfx.CallTrickReadyVFX();
         //playerSprite.color = enableTrickColor;
         //yield return new WaitForSeconds(enableTrickDuration);
         float enableTrickTimer = enableTrickDuration;
@@ -691,6 +695,7 @@ public class PlayerTricks : MonoBehaviour
         //Debug.Log("enableTrickDuration ended");
         _trickObject = null;
         canTrick = false;
+        _vfx.StopTrickReadyVFX();
     }
 
     public void DisableCanTrick()
@@ -702,6 +707,7 @@ public class PlayerTricks : MonoBehaviour
             enableTrickCor = null;
             //Debug.Log("disabled canTrick");
         }
+        _vfx.StopTrickReadyVFX();
 
     }
     #endregion
