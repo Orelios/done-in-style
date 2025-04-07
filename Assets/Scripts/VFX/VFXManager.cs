@@ -9,8 +9,8 @@ public class VFXManager : MonoBehaviour
     private PlayerRailing _rail;
     private JumpPad _jumpPad;
     private float movingSpeedVFX = 5f;
-    public GameObject moving, landing, jumping, springBoard, hurt, groundPoundLand, groundPoundDive, dash, doubleJump, rail, wallRiding;
-    private ParticleSystem movingVFX, landingVFX, jumpingVFX, springBoardVFX, hurtVFX, groundPoundLandVFX, groundPoundDiveVFX, dashVFX, doubleJumpVFX, railVFX, wallRidingVFX;
+    public GameObject moving, landing, jumping, springBoard, hurt, groundPoundLand, groundPoundDive, dash, doubleJump, rail, wallRiding, trickReady, trick;
+    private ParticleSystem movingVFX, landingVFX, jumpingVFX, springBoardVFX, hurtVFX, groundPoundLandVFX, groundPoundDiveVFX, dashVFX, doubleJumpVFX, railVFX, wallRidingVFX, trickReadyVFX, trickVFX;
     [SerializeField] private bool isWaitingToLand = true, isWaitingToJump = false, isOnRailOrSpringboard = false;
     void Start()
     {
@@ -31,6 +31,8 @@ public class VFXManager : MonoBehaviour
         doubleJumpVFX = doubleJump.GetComponent<ParticleSystem>();
         railVFX = rail.GetComponent<ParticleSystem>();
         wallRidingVFX = wallRiding.GetComponent<ParticleSystem>();
+        trickReadyVFX = trickReady.GetComponent<ParticleSystem>();
+        trickVFX = trick.GetComponent<ParticleSystem>();
 
         landingVFX.Stop();
         jumpingVFX.Stop();
@@ -42,6 +44,8 @@ public class VFXManager : MonoBehaviour
         doubleJumpVFX.Stop();
         railVFX.Stop();
         wallRidingVFX.Stop();
+        trickReadyVFX.Stop();
+        trickVFX.Stop();
     }
 
     // Update is called once per frame
@@ -118,6 +122,7 @@ public class VFXManager : MonoBehaviour
         }
         isWaitingToLand = true;
         //Debug.Log("Landed");
+        _playerTricks.DisableCanTrick();
     }
 
     private IEnumerator DetectJump()
@@ -193,6 +198,21 @@ public class VFXManager : MonoBehaviour
     public void SetOnRailOrSpringboard(bool b)
     {
         isOnRailOrSpringboard = b;
+    }
+
+    public void CallTrickReadyVFX()
+    {
+        trickReadyVFX.Play();
+    }
+
+    public void StopTrickReadyVFX()
+    {
+        trickReadyVFX.Stop();
+    }
+
+    public void CallTrickVFX()
+    {
+        trickVFX.Play();
     }
 
     #endregion
