@@ -14,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     public int CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
     private PlayerMovement playerMovement;
     [SerializeField] private ChromaticAberration chromaticAberration;
+    [SerializeField] private bool chromaticAberrationOn = true;
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -32,7 +33,10 @@ public class PlayerHealth : MonoBehaviour
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerHurt, this.transform.position);
         _vfx.CallHurtVFX();
-        chromaticAberration.StartChromaticAberration();
+        if (chromaticAberrationOn)
+        {
+            chromaticAberration.StartChromaticAberration();
+        }
         if(_currentHealth != 0) 
         { 
             _currentHealth -= 1;
@@ -61,5 +65,15 @@ public class PlayerHealth : MonoBehaviour
             playerHealthDisplayUpdater.UpdatePlayerPortraitDisplay(_currentHealth);
             playerHealthDisplay.text = $"Health: {_currentHealth: 0}";
         } 
+    }
+
+    public void ToggleChromaticAberrationOn()
+    {
+        chromaticAberrationOn = true;
+    }
+
+    public void ToggleChromaticAberrationOff()
+    {
+        chromaticAberrationOn = false;
     }
 }

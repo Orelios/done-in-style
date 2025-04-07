@@ -342,6 +342,16 @@ public class PlayerTricks : MonoBehaviour
         //StartCoroutine(RevertColorAfterTime());
         //Debug.Log("Momentum ends");
     }
+
+    public void ToggleMotionBlurOn()
+    {
+        motionBlurOn = true;
+    }
+
+    public void ToggleMotionBlurOff()
+    {
+        motionBlurOn = false;
+    }
     #endregion
 
     #region DoubleJump

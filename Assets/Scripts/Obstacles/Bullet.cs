@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(0, 0, rps * Time.deltaTime); //rotates rps degrees per second around z axis
+        //transform.Rotate(0, 0, rps * Time.deltaTime); //rotates rps degrees per second around z axis
     }
 
 

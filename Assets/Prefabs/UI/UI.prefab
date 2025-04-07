@@ -743,6 +743,7 @@ GameObject:
   - component: {fileID: 3613019748262585857}
   - component: {fileID: 8900515288836871773}
   - component: {fileID: 4598573030872152088}
+  - component: {fileID: 1831322264597322789}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -865,25 +866,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 945846491277912397}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
+        - m_Target: {fileID: 1831322264597322789}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: ChangeImageOnPointerEnter
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 2470638242036292416, guid: 2a8099ad06f38aa4ca047d44db01474d, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 4839116105036658545}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: -1848363394346694950, guid: 4fee730e0706f28408c29d4fd5c2787a, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -893,30 +882,92 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 945846491277912397}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
+        - m_Target: {fileID: 1831322264597322789}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: ChangeImageOnPointerExit
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 2032748812519570398, guid: caba8fd2e4096944994715e8ab766def, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 4839116105036658545}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1831322264597322789}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: SelectOnPointerDown
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: -1170912961002037716, guid: 87e609d9360e07c46ab66d387897cc42, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1831322264597322789}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: UnselectOnPointerUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1831322264597322789}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: ChangeImageOnPointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1831322264597322789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464638211639659544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba9fa853068a6545ae372ee9dee421e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphicsToColorize: []
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  unselectedColor: {r: 0, g: 0, b: 0, a: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage:
+  - {fileID: 945846491277912397}
+  - {fileID: 4839116105036658545}
+  originalImages:
+  - {fileID: 2032748812519570398, guid: caba8fd2e4096944994715e8ab766def, type: 3}
+  - {fileID: -1170912961002037716, guid: 87e609d9360e07c46ab66d387897cc42, type: 3}
+  newImages:
+  - {fileID: 2470638242036292416, guid: 2a8099ad06f38aa4ca047d44db01474d, type: 3}
+  - {fileID: -1848363394346694950, guid: 4fee730e0706f28408c29d4fd5c2787a, type: 3}
 --- !u!1 &580198882992961621
 GameObject:
   m_ObjectHideFlags: 0
@@ -3521,7 +3572,10 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 6517997112559419669}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &1014710220915659759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6357,6 +6411,9 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   horizontalPositionOnEnter: 0
   horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &2350101058074037895
 GameObject:
   m_ObjectHideFlags: 0
@@ -7657,7 +7714,10 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 5447279469483609091}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &4782269618710043305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8292,7 +8352,10 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 4185696805392318394}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &3304431570948115138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9037,6 +9100,9 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   horizontalPositionOnEnter: 0
   horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &3267892351253048449
 GameObject:
   m_ObjectHideFlags: 0
@@ -9328,6 +9394,9 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   horizontalPositionOnEnter: 0
   horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &3429434646323055753
 GameObject:
   m_ObjectHideFlags: 0
@@ -10027,7 +10096,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 17.7, z: 0, w: 0}
+  m_margin: {x: 0, y: 17.7, z: 0, w: 10.85}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -10435,7 +10504,10 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 3566904927182023170}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &8071509292730246269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10688,6 +10760,9 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   horizontalPositionOnEnter: 0
   horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &3659581356806490445
 GameObject:
   m_ObjectHideFlags: 0
@@ -11664,6 +11739,9 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   horizontalPositionOnEnter: 0
   horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &3989482913333752834
 GameObject:
   m_ObjectHideFlags: 0
@@ -12220,6 +12298,9 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   horizontalPositionOnEnter: 0
   horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &4197760337392358657
 GameObject:
   m_ObjectHideFlags: 0
@@ -14616,6 +14697,9 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   horizontalPositionOnEnter: 0
   horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &5708745024051985010
 GameObject:
   m_ObjectHideFlags: 0
@@ -16409,7 +16493,10 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 1636916760977057753}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &92415899634143212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16577,6 +16664,7 @@ GameObject:
   - component: {fileID: 9222193363390073335}
   - component: {fileID: 5873834501902540379}
   - component: {fileID: 6439926621674510255}
+  - component: {fileID: 6819186100562918753}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -16699,25 +16787,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3823762016149317287}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
+        - m_Target: {fileID: 6819186100562918753}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: ChangeImageOnPointerEnter
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 2470638242036292416, guid: 2a8099ad06f38aa4ca047d44db01474d, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 3549775190831854617}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: -1848363394346694950, guid: 4fee730e0706f28408c29d4fd5c2787a, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -16727,30 +16803,92 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3823762016149317287}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
+        - m_Target: {fileID: 6819186100562918753}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: ChangeImageOnPointerExit
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 2032748812519570398, guid: caba8fd2e4096944994715e8ab766def, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 3549775190831854617}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6819186100562918753}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: SelectOnPointerDown
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: -1170912961002037716, guid: 87e609d9360e07c46ab66d387897cc42, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 6819186100562918753}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: UnselectOnPointerUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 6819186100562918753}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: ChangeImageOnPointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &6819186100562918753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6615534831642563772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba9fa853068a6545ae372ee9dee421e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphicsToColorize: []
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  unselectedColor: {r: 0, g: 0, b: 0, a: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage:
+  - {fileID: 3823762016149317287}
+  - {fileID: 3549775190831854617}
+  originalImages:
+  - {fileID: 2032748812519570398, guid: caba8fd2e4096944994715e8ab766def, type: 3}
+  - {fileID: -1170912961002037716, guid: 87e609d9360e07c46ab66d387897cc42, type: 3}
+  newImages:
+  - {fileID: 2470638242036292416, guid: 2a8099ad06f38aa4ca047d44db01474d, type: 3}
+  - {fileID: -1848363394346694950, guid: 4fee730e0706f28408c29d4fd5c2787a, type: 3}
 --- !u!1 &6635960660623866033
 GameObject:
   m_ObjectHideFlags: 0
@@ -16955,6 +17093,7 @@ GameObject:
   - component: {fileID: 489128312129575616}
   - component: {fileID: 499658720986010869}
   - component: {fileID: 1697957154853153197}
+  - component: {fileID: 8949234513285558436}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -17077,25 +17216,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3550677626100662978}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
+        - m_Target: {fileID: 8949234513285558436}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: ChangeImageOnPointerEnter
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 2470638242036292416, guid: 2a8099ad06f38aa4ca047d44db01474d, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 8478056211310035529}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: -1848363394346694950, guid: 4fee730e0706f28408c29d4fd5c2787a, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -17105,30 +17232,92 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3550677626100662978}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
+        - m_Target: {fileID: 8949234513285558436}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: ChangeImageOnPointerExit
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: 2032748812519570398, guid: caba8fd2e4096944994715e8ab766def, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-        - m_Target: {fileID: 8478056211310035529}
-          m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
-          m_MethodName: set_sprite
-          m_Mode: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8949234513285558436}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: SelectOnPointerDown
+          m_Mode: 1
           m_Arguments:
-            m_ObjectArgument: {fileID: -1170912961002037716, guid: 87e609d9360e07c46ab66d387897cc42, type: 3}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Sprite, UnityEngine
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8949234513285558436}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: UnselectOnPointerUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 8949234513285558436}
+          m_TargetAssemblyTypeName: PointerEvents, Assembly-CSharp
+          m_MethodName: ChangeImageOnPointerExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &8949234513285558436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6733630420130994563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fba9fa853068a6545ae372ee9dee421e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  graphicsToColorize: []
+  selectedColor: {r: 0, g: 0, b: 0, a: 0}
+  unselectedColor: {r: 0, g: 0, b: 0, a: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage:
+  - {fileID: 3550677626100662978}
+  - {fileID: 8478056211310035529}
+  originalImages:
+  - {fileID: 2032748812519570398, guid: caba8fd2e4096944994715e8ab766def, type: 3}
+  - {fileID: -1170912961002037716, guid: 87e609d9360e07c46ab66d387897cc42, type: 3}
+  newImages:
+  - {fileID: 2470638242036292416, guid: 2a8099ad06f38aa4ca047d44db01474d, type: 3}
+  - {fileID: -1848363394346694950, guid: 4fee730e0706f28408c29d4fd5c2787a, type: 3}
 --- !u!1 &6745317166180637431
 GameObject:
   m_ObjectHideFlags: 0
@@ -18871,7 +19060,10 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 526528544399779164}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &3571774871425044341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21287,7 +21479,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 17.7, z: 0, w: 0}
+  m_margin: {x: 0, y: 17.7, z: 0, w: 10.85}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -21834,6 +22026,9 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   horizontalPositionOnEnter: 0
   horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &8464871429985183604
 GameObject:
   m_ObjectHideFlags: 0
@@ -22835,7 +23030,10 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 898954249771516119}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &5529059857854608758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23084,6 +23282,9 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   horizontalPositionOnEnter: 0
   horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &8672922056007784269
 GameObject:
   m_ObjectHideFlags: 0
@@ -24697,7 +24898,10 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 3670371602197944904}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &1328035797735430445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24873,6 +25077,9 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   horizontalPositionOnEnter: 0
   horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &9176559732270223739
 GameObject:
   m_ObjectHideFlags: 0
