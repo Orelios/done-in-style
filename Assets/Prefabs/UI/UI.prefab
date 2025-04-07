@@ -3521,7 +3521,7 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 6517997112559419669}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
 --- !u!114 &1014710220915659759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7657,7 +7657,7 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 5447279469483609091}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
 --- !u!114 &4782269618710043305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8292,7 +8292,7 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 4185696805392318394}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
 --- !u!114 &3304431570948115138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10435,7 +10435,7 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 3566904927182023170}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
 --- !u!114 &8071509292730246269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16409,7 +16409,7 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 1636916760977057753}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
 --- !u!114 &92415899634143212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18871,7 +18871,7 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 526528544399779164}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
 --- !u!114 &3571774871425044341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22835,7 +22835,7 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 898954249771516119}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
 --- !u!114 &5529059857854608758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24697,7 +24697,7 @@ MonoBehaviour:
   unselectedTransparency: 0
   textToChange: {fileID: 3670371602197944904}
   horizontalPositionOnEnter: 75
-  horizontalPositionOnExit: 38.67
+  horizontalPositionOnExit: 19
 --- !u!114 &1328035797735430445
 MonoBehaviour:
   m_ObjectHideFlags: 0
