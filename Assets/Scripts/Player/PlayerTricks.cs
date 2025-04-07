@@ -553,6 +553,7 @@ public class PlayerTricks : MonoBehaviour
         _vfx.StopTrickReadyVFX();
         if (_destroyedObject && canTrick && _playerMovement.IsGrounded() != true && playerSprite != null)
         {
+            _vfx.CallTrickVFX();
             //Debug.Log("trick stop cor");
             _destroyedObject = false;
             //playerSprite.color = trickColor;
@@ -565,7 +566,8 @@ public class PlayerTricks : MonoBehaviour
         {
             //Debug.Log("trick stop cor");
             //playerSprite.color = trickColor;
-            
+            _vfx.CallTrickVFX();
+
             if (_trickObject.TryGetComponent<Ramp>(out var ramp))
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerTrick, this.transform.position);

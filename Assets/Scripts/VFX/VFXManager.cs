@@ -9,8 +9,8 @@ public class VFXManager : MonoBehaviour
     private PlayerRailing _rail;
     private JumpPad _jumpPad;
     private float movingSpeedVFX = 5f;
-    public GameObject moving, landing, jumping, springBoard, hurt, groundPoundLand, groundPoundDive, dash, doubleJump, rail, wallRiding, trickReady;
-    private ParticleSystem movingVFX, landingVFX, jumpingVFX, springBoardVFX, hurtVFX, groundPoundLandVFX, groundPoundDiveVFX, dashVFX, doubleJumpVFX, railVFX, wallRidingVFX, trickReadyVFX;
+    public GameObject moving, landing, jumping, springBoard, hurt, groundPoundLand, groundPoundDive, dash, doubleJump, rail, wallRiding, trickReady, trick;
+    private ParticleSystem movingVFX, landingVFX, jumpingVFX, springBoardVFX, hurtVFX, groundPoundLandVFX, groundPoundDiveVFX, dashVFX, doubleJumpVFX, railVFX, wallRidingVFX, trickReadyVFX, trickVFX;
     [SerializeField] private bool isWaitingToLand = true, isWaitingToJump = false, isOnRailOrSpringboard = false;
     void Start()
     {
@@ -32,6 +32,7 @@ public class VFXManager : MonoBehaviour
         railVFX = rail.GetComponent<ParticleSystem>();
         wallRidingVFX = wallRiding.GetComponent<ParticleSystem>();
         trickReadyVFX = trickReady.GetComponent<ParticleSystem>();
+        trickVFX = trick.GetComponent<ParticleSystem>();
 
         landingVFX.Stop();
         jumpingVFX.Stop();
@@ -44,6 +45,7 @@ public class VFXManager : MonoBehaviour
         railVFX.Stop();
         wallRidingVFX.Stop();
         trickReadyVFX.Stop();
+        trickVFX.Stop();
     }
 
     // Update is called once per frame
@@ -206,6 +208,11 @@ public class VFXManager : MonoBehaviour
     public void StopTrickReadyVFX()
     {
         trickReadyVFX.Stop();
+    }
+
+    public void CallTrickVFX()
+    {
+        trickVFX.Play();
     }
 
     #endregion
