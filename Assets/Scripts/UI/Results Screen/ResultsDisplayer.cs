@@ -50,13 +50,13 @@ public class ResultsDisplayer : MonoBehaviour
             
             if (isScoreCounting)
             {
-                textToLerp.text = $"{currentValue:n0}";
+                textToLerp.text = $"{currentValue:N0}";
             }
             else
             {
-                textToLerp.text = $"{Mathf.FloorToInt(currentValue / 60f)}:" +
-                                  $"{Mathf.FloorToInt(currentValue % 60f):D2}." +
-                                  $"<size=75>{Mathf.FloorToInt(currentValue * 100f % 100f):D2}</size>";
+                textToLerp.text = $"{Mathf.FloorToInt(currentValue / 60f):D2}:" +
+                                  $"{Mathf.FloorToInt(currentValue % 60f):D2}" +
+                                  $"<font=\"Grandstander Stroke 2\"><size=75>.{Mathf.FloorToInt(currentValue * 100f % 100f):D2}</font></size>";
             }
             
             yield return null;
@@ -64,13 +64,13 @@ public class ResultsDisplayer : MonoBehaviour
 
         if (isScoreCounting)
         {
-            textToLerp.text = $"{targetValue:n0}";
+            textToLerp.text = $"{targetValue:N0}";
         }
         else
         {
-            textToLerp.text = $"{Mathf.FloorToInt(targetValue / 60f)}:" +
-                              $"{Mathf.FloorToInt(targetValue % 60f):D2}." +
-                              $"<size=75>{Mathf.FloorToInt(targetValue * 100f % 100f):D2}</size>";
+            textToLerp.text = $"{Mathf.FloorToInt(targetValue / 60f):D2}:" +
+                              $"{Mathf.FloorToInt(targetValue % 60f):D2}" +
+                              $"<font=\"Grandstander Stroke 2\"><size=75>.{Mathf.FloorToInt(targetValue * 100f % 100f):D2}</font></size>";
         }
 
         foreach (var button in resultsScreenButtons)
