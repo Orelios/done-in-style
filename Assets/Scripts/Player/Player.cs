@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
         #endregion
         
         #region Falling State
-        NormalTransition(_playerActionSM, fallingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0f));
+        NormalTransition(_playerActionSM, fallingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0.1f));
         NormalTransition(_playerActionSM, fallingState, idlingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) < 0.1f && _playerMovement.IsGrounded()));
         NormalTransition(_playerActionSM, fallingState, skatingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) > 0.1f && _playerMovement.IsGrounded() && !_playerRailing.IsMovingOnRail));
         NormalTransition(_playerActionSM, fallingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
