@@ -154,7 +154,11 @@ public class GameStateHandler : MonoBehaviour
         _pauseMenuNavigator.OpenPauseMenu();
     }
     public void ResumeGame()
-    {   
+    {
+        AudioManager.instance.musicEventInstance.setPaused(false);
+        AudioManager.instance.ambienceEventInstance.setPaused(false);
+        //AudioManager.instance.InitializeMusic(FMODEvents.instance.SkateParkMusic1);
+        //AudioManager.instance.InitializeAmbience(FMODEvents.instance.SkateParkAmbience);
         ResetFlags();
         IsGameplay = true;
         _player.GetComponent<PlayerMovement>()._playerMovement.start();
@@ -191,8 +195,10 @@ public class GameStateHandler : MonoBehaviour
 
     private void StopAudio()
     {
-        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.musicEventInstance.setPaused(true);
+        AudioManager.instance.ambienceEventInstance.setPaused(true);
+        //AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.PlayerRailing.stop(STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.musicEventInstance.release();
         AudioManager.instance.ambienceEventInstance.release();
