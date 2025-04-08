@@ -16,5 +16,6 @@ public class SlidingState : SpecialState
     {
         //reset sprite local transform
         Player.Sprite.transform.localPosition = Vector2.zero;
+        Player.Tricks.IsSliding = false;
     }
 }

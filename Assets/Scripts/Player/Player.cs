@@ -105,22 +105,22 @@ public class Player : MonoBehaviour
         
         #region Idling State
         NormalTransition(_playerActionSM, idlingState, skatingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) > 0.1f));
-        NormalTransition(_playerActionSM, idlingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0f && !_playerMovement.IsGrounded()));
-        NormalTransition(_playerActionSM, idlingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0f && !_playerMovement.IsGrounded()));
+        NormalTransition(_playerActionSM, idlingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0.1f && !_playerMovement.IsGrounded()));
+        NormalTransition(_playerActionSM, idlingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0.1f && !_playerMovement.IsGrounded()));
         NormalTransition(_playerActionSM, idlingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
         NormalTransition(_playerActionSM, idlingState, slidingState, new FuncPredicate(() => _playerTricks.IsSliding));
         #endregion
         
         #region Skating State
         NormalTransition(_playerActionSM, skatingState, idlingState, new FuncPredicate(() => Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
-        NormalTransition(_playerActionSM, skatingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0f && !_playerMovement.IsGrounded()));
-        NormalTransition(_playerActionSM, skatingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0f && !_playerMovement.IsGrounded()));
+        NormalTransition(_playerActionSM, skatingState, risingState, new FuncPredicate(() => _playerRb.linearVelocityY > 0.1f && !_playerMovement.IsGrounded()));
+        NormalTransition(_playerActionSM, skatingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0.1f && !_playerMovement.IsGrounded()));
         NormalTransition(_playerActionSM, skatingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
         NormalTransition(_playerActionSM, skatingState, slidingState, new FuncPredicate(() => _playerTricks.IsSliding));
         #endregion
         
         #region Rising State
-        NormalTransition(_playerActionSM, risingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0f));
+        NormalTransition(_playerActionSM, risingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0.1f));
         NormalTransition(_playerActionSM, risingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
         NormalTransition(_playerActionSM, risingState, poundingState, new FuncPredicate(() => _playerTricks.IsPounding));
         NormalTransition(_playerActionSM, risingState, wallRidingState, new FuncPredicate(() => _playerTricks.IsWallRiding));
@@ -139,8 +139,8 @@ public class Player : MonoBehaviour
         #region Dashing State
         NormalTransition(_playerActionSM, dashingState, skatingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f && _playerRailing.IsMovingOnRail));
         NormalTransition(_playerActionSM, dashingState, idlingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerMovement.IsGrounded() && Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
-        NormalTransition(_playerActionSM, dashingState, risingState, new FuncPredicate(() => !_playerTricks.IsDashing &&  _playerRb.linearVelocityY > 0f));
-        NormalTransition(_playerActionSM, dashingState, fallingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerRb.linearVelocityY < 0f));
+        NormalTransition(_playerActionSM, dashingState, risingState, new FuncPredicate(() => !_playerTricks.IsDashing &&  _playerRb.linearVelocityY > 0.1f));
+        NormalTransition(_playerActionSM, dashingState, fallingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerRb.linearVelocityY < 0.1f));
         NormalTransition(_playerActionSM, dashingState, grindingState, new FuncPredicate(() => !_playerTricks.IsDashing && _playerRailing.IsMovingOnRail));
         NormalTransition(_playerActionSM, dashingState, poundingState, new FuncPredicate(() => !_playerTricks.IsDashing && !_playerMovement.IsGrounded() && !_playerTricks.IsWallRiding));
         NormalTransition(_playerActionSM, dashingState, wallRidingState, new FuncPredicate(() => !_playerTricks.IsDashing && !_playerMovement.IsGrounded() && _playerTricks.IsWallRiding));
@@ -153,27 +153,28 @@ public class Player : MonoBehaviour
         #endregion
 
         #region Sliding State
-        NormalTransition(_playerActionSM, slidingState, idlingState, new FuncPredicate(() => !_playerTricks.IsSliding && Mathf.Abs(_playerMovement.Rb.linearVelocityX) < 0f));
-        NormalTransition(_playerActionSM, slidingState, skatingState, new FuncPredicate(() => !_playerTricks.IsSliding && Mathf.Abs(_playerMovement.Rb.linearVelocityX) >0f));
-        NormalTransition(_playerActionSM, slidingState, risingState, new FuncPredicate(() => !_playerTricks.IsSliding && _playerMovement.Rb.linearVelocityY > 0f));
+        NormalTransition(_playerActionSM, slidingState, idlingState, new FuncPredicate(() => !_playerTricks.IsSliding && Mathf.Abs(_playerMovement.Rb.linearVelocityX) < 0.1f));
+        NormalTransition(_playerActionSM, slidingState, skatingState, new FuncPredicate(() => !_playerTricks.IsSliding && Mathf.Abs(_playerMovement.Rb.linearVelocityX) >0.1f));
+        NormalTransition(_playerActionSM, slidingState, risingState, new FuncPredicate(() => !_playerMovement.IsGrounded() && _playerMovement.Rb.linearVelocityY > 0.1f));
+        NormalTransition(_playerActionSM, slidingState, fallingState, new FuncPredicate(() => !_playerMovement.IsGrounded() && _playerMovement.Rb.linearVelocityY < 0.1f));
         #endregion
 
         #region Grinding State
-        NormalTransition(_playerActionSM, grindingState, risingState, new FuncPredicate(() => !_playerRailing.IsMovingOnRail && _playerRb.linearVelocityY > 0f));
-        NormalTransition(_playerActionSM, grindingState, fallingState, new FuncPredicate(() => !_playerRailing.IsMovingOnRail && _playerRb.linearVelocityY < 0f));
+        NormalTransition(_playerActionSM, grindingState, risingState, new FuncPredicate(() => !_playerRailing.IsMovingOnRail && _playerRb.linearVelocityY > 0.1f));
+        NormalTransition(_playerActionSM, grindingState, fallingState, new FuncPredicate(() => !_playerRailing.IsMovingOnRail && _playerRb.linearVelocityY < 0.1f));
         #endregion
         
         #region Wall Riding State
-        NormalTransition(_playerActionSM, wallRidingState, fallingState, new FuncPredicate(() => (!_playerTricks.IsWallRiding) && _playerRb.linearVelocityY < 0f));
-        NormalTransition(_playerActionSM, wallRidingState, risingState, new FuncPredicate(() => (!_playerTricks.IsWallRiding) && _playerRb.linearVelocityY > 0f));
+        NormalTransition(_playerActionSM, wallRidingState, fallingState, new FuncPredicate(() => (!_playerTricks.IsWallRiding) && _playerRb.linearVelocityY < 0.1f));
+        NormalTransition(_playerActionSM, wallRidingState, risingState, new FuncPredicate(() => (!_playerTricks.IsWallRiding) && _playerRb.linearVelocityY > 0.1f));
         #endregion
 
         #region Hurt State
         AnyTransition(_playerActionSM, hurtState, new FuncPredicate(() => _playerInvulnerability.IsHit));
         NormalTransition(_playerActionSM, hurtState, idlingState, new FuncPredicate(() => !_playerInvulnerability.IsHit && Mathf.Abs(_playerRb.linearVelocityX) < 0.1f));
         NormalTransition(_playerActionSM, hurtState, skatingState, new FuncPredicate(() => !_playerInvulnerability.IsHit && Mathf.Abs(_playerRb.linearVelocityX) > 0.1f));
-        NormalTransition(_playerActionSM, hurtState, risingState, new FuncPredicate(() => !_playerInvulnerability.IsHit && _playerRb.linearVelocityY > 0f));
-        NormalTransition(_playerActionSM, hurtState, risingState, new FuncPredicate(() => !_playerInvulnerability.IsHit && _playerRb.linearVelocityY < 0f));
+        NormalTransition(_playerActionSM, hurtState, risingState, new FuncPredicate(() => !_playerInvulnerability.IsHit && _playerRb.linearVelocityY > 0.1f));
+        NormalTransition(_playerActionSM, hurtState, risingState, new FuncPredicate(() => !_playerInvulnerability.IsHit && _playerRb.linearVelocityY < 0.1f));
         #endregion
         
         _playerActionSM.SetState(idlingState);
