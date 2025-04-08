@@ -53,15 +53,31 @@ public class FMODEvents : MonoBehaviour
     public EventReference TMShoot { get => tmShoot; set => tmShoot = value; }
     public EventReference CameraRecording { get => cameraRecording; set => cameraRecording = value; }
 
-    [field: Header("Score SFX")]
+    [field: Header("UI SFX")]
     [SerializeField] private EventReference voxCookin;
     [SerializeField] private EventReference voxBallin;
     [SerializeField] private EventReference voxAwesome;
     [SerializeField] private EventReference voxStylish;
+    [SerializeField] private EventReference phoneActivate;
+    [SerializeField] private EventReference phoneHover;
+    [SerializeField] private EventReference phoneClick;
+    [SerializeField] private EventReference phoneExit;
+    [SerializeField] private EventReference mainMenuHover;
+    [SerializeField] private EventReference mainMenuClick;
+    [SerializeField] private EventReference mainMenuExit;
     public EventReference VOXCookin { get => voxCookin; set => voxCookin = value; }
     public EventReference VOXBallin { get => voxBallin; set => voxBallin = value; }
     public EventReference VOXAwesome { get => voxAwesome; set => voxAwesome = value; }
     public EventReference VOXStylish { get => voxStylish; set => voxStylish = value; }
+    public EventReference PhoneActivate { get => phoneActivate; set => phoneActivate = value; }
+    public EventReference PhoneHover { get => phoneHover; set => phoneHover = value; }
+    public EventReference PhoneClick { get => phoneClick; set => phoneClick = value; }
+    public EventReference PhoneExit { get => phoneExit; set => phoneExit = value; }
+    public EventReference MainMenuHover { get => mainMenuHover; set => mainMenuHover = value; }
+    public EventReference MainMenuClick { get => mainMenuClick; set => mainMenuClick = value; }
+    public EventReference MainMenuExit { get => mainMenuExit; set => mainMenuExit = value; }
+
+
 
     public static FMODEvents instance { get; private set; }
 

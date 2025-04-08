@@ -219,6 +219,55 @@ MonoBehaviour:
       Data3: -471688277
       Data4: -522339441
     Path: event:/ComboEvents/AwesomeToStylish
+  phoneActivate:
+    Guid:
+      Data1: -1667517477
+      Data2: 1082296908
+      Data3: 1271035804
+      Data4: -358788544
+    Path: event:/UIEvents/PhoneActivate
+  phoneHover:
+    Guid:
+      Data1: -503385166
+      Data2: 1273167409
+      Data3: 178341784
+      Data4: 2043819031
+    Path: event:/UIEvents/PhoneHover
+  phoneClick:
+    Guid:
+      Data1: 1233508314
+      Data2: 1279037436
+      Data3: -67483250
+      Data4: -415458016
+    Path: event:/UIEvents/PhoneClick
+  phoneExit:
+    Guid:
+      Data1: -1173168603
+      Data2: 1325516592
+      Data3: 561770664
+      Data4: -1363049988
+    Path: event:/UIEvents/PhoneExit
+  mainMenuHover:
+    Guid:
+      Data1: -1318731179
+      Data2: 1164167731
+      Data3: -769299786
+      Data4: 1045097758
+    Path: event:/UIEvents/MainMenuHover
+  mainMenuClick:
+    Guid:
+      Data1: 2053440087
+      Data2: 1337957335
+      Data3: -1308127859
+      Data4: -652024769
+    Path: event:/UIEvents/MainMenuClick
+  mainMenuExit:
+    Guid:
+      Data1: -1558299572
+      Data2: 1274491331
+      Data3: 127378843
+      Data4: -1059122288
+    Path: event:/UIEvents/MainMenuExit
 --- !u!1 &9045434382394425780
 GameObject:
   m_ObjectHideFlags: 0
