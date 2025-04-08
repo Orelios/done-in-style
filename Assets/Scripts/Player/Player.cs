@@ -117,6 +117,7 @@ public class Player : MonoBehaviour
         NormalTransition(_playerActionSM, skatingState, fallingState, new FuncPredicate(() => _playerRb.linearVelocityY < 0.1f && !_playerMovement.IsGrounded()));
         NormalTransition(_playerActionSM, skatingState, dashingState, new FuncPredicate(() => _playerTricks.IsDashing));
         NormalTransition(_playerActionSM, skatingState, slidingState, new FuncPredicate(() => _playerTricks.IsSliding));
+        NormalTransition(_playerActionSM, skatingState, grindingState, new FuncPredicate(() => _playerRailing.IsMovingOnRail));
         #endregion
         
         #region Rising State
