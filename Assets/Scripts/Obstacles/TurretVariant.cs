@@ -30,7 +30,7 @@ public class TurretVariant : MonoBehaviour, ITriggerable
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.TMShoot, this.transform.position);
         var bulletIns = Instantiate(bullet, shootPoint.position, Quaternion.identity);
-        bulletIns.GetComponent<Rigidbody2D>().AddForce(transform.right * bulletSpeed);
+        bulletIns.GetComponent<Rigidbody2D>().linearVelocity = transform.right * bulletSpeed;
         Destroy(bulletIns, bulletLifeSpan);
         _shouldShoot = canShootAgain;
 

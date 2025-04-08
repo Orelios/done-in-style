@@ -57,6 +57,11 @@ public class AudioManager : MonoBehaviour
         RuntimeManager.PlayOneShot(sound, position);
     }
 
+    public void PlayOneShotNoLocation(EventReference sound)
+    {
+        RuntimeManager.PlayOneShot(sound);
+    }
+
     public EventInstance CreateInstance(EventReference eventReference)
     {
         //Debug.Log("walkingAU");
