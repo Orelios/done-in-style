@@ -59,6 +59,7 @@ public class FMODEvents : MonoBehaviour
     [SerializeField] private EventReference voxAwesome;
     [SerializeField] private EventReference voxStylish;
     [SerializeField] private EventReference phoneActivate;
+    [SerializeField] private EventReference phoneDeactivate;
     [SerializeField] private EventReference phoneHover;
     [SerializeField] private EventReference phoneClick;
     [SerializeField] private EventReference phoneExit;
@@ -70,6 +71,7 @@ public class FMODEvents : MonoBehaviour
     public EventReference VOXAwesome { get => voxAwesome; set => voxAwesome = value; }
     public EventReference VOXStylish { get => voxStylish; set => voxStylish = value; }
     public EventReference PhoneActivate { get => phoneActivate; set => phoneActivate = value; }
+    public EventReference PhoneDeactivate { get => phoneDeactivate; set => phoneDeactivate = value; }
     public EventReference PhoneHover { get => phoneHover; set => phoneHover = value; }
     public EventReference PhoneClick { get => phoneClick; set => phoneClick = value; }
     public EventReference PhoneExit { get => phoneExit; set => phoneExit = value; }

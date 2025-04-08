@@ -226,6 +226,13 @@ MonoBehaviour:
       Data3: 1271035804
       Data4: -358788544
     Path: event:/UIEvents/PhoneActivate
+  phoneDeactivate:
+    Guid:
+      Data1: 1426901233
+      Data2: 1175190920
+      Data3: -1452364655
+      Data4: 458239394
+    Path: event:/UIEvents/PhoneDeactivate
   phoneHover:
     Guid:
       Data1: -503385166
