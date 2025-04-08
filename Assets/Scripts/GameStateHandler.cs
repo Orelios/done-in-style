@@ -152,6 +152,7 @@ public class GameStateHandler : MonoBehaviour
         IsGamePaused = true;
         _player.GetComponent<PlayerMovement>()._playerMovement.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);        
         _pauseMenuNavigator.OpenPauseMenu();
+        AudioManager.instance.PlayOneShotNoLocation(FMODEvents.instance.PhoneActivate);
     }
     public void ResumeGame()
     {
@@ -163,6 +164,7 @@ public class GameStateHandler : MonoBehaviour
         IsGameplay = true;
         _player.GetComponent<PlayerMovement>()._playerMovement.start();
         FindFirstObjectByType<PlayerInputManager>().EnableGameplayControls();
+        AudioManager.instance.PlayOneShotNoLocation(FMODEvents.instance.PhoneDeactivate);
     }
 
     public async void RestartLevel()
