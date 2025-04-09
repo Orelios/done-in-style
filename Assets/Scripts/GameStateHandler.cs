@@ -145,6 +145,7 @@ public class GameStateHandler : MonoBehaviour
         GameplayData.Reset();
         StopAudio();
         AudioManager.instance.InGameSFXBus.setMute(false);
+        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.TitleScreenHash);
     }
     
