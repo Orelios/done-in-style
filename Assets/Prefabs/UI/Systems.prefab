@@ -178,8 +178,54 @@ Transform:
   - {fileID: 3528985618685365010}
   - {fileID: 1656555565377470515}
   - {fileID: 5432637246318228822}
+  - {fileID: 585873374221625786}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5093850215002157950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 585873374221625786}
+  - component: {fileID: 3844828177062400660}
+  m_Layer: 0
+  m_Name: LoadKeyBinds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &585873374221625786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5093850215002157950}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 344.38873, y: 156.6466, z: -3.0104945}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 979636253756185377}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3844828177062400660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5093850215002157950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b6c2da2db9374dada6761b5e35121c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: {fileID: -944628639613478452, guid: 586a9145b18bda04e8d79f1b2b114b0e, type: 3}
 --- !u!1 &6999107024669950992
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,6 +493,62 @@ MonoBehaviour:
       Data3: -471688277
       Data4: -522339441
     Path: event:/ComboEvents/AwesomeToStylish
+  phoneActivate:
+    Guid:
+      Data1: -1667517477
+      Data2: 1082296908
+      Data3: 1271035804
+      Data4: -358788544
+    Path: event:/UIEvents/PhoneActivate
+  phoneDeactivate:
+    Guid:
+      Data1: 1426901233
+      Data2: 1175190920
+      Data3: -1452364655
+      Data4: 458239394
+    Path: event:/UIEvents/PhoneDeactivate
+  phoneHover:
+    Guid:
+      Data1: -503385166
+      Data2: 1273167409
+      Data3: 178341784
+      Data4: 2043819031
+    Path: event:/UIEvents/PhoneHover
+  phoneClick:
+    Guid:
+      Data1: 1233508314
+      Data2: 1279037436
+      Data3: -67483250
+      Data4: -415458016
+    Path: event:/UIEvents/PhoneClick
+  phoneExit:
+    Guid:
+      Data1: -1173168603
+      Data2: 1325516592
+      Data3: 561770664
+      Data4: -1363049988
+    Path: event:/UIEvents/PhoneExit
+  mainMenuHover:
+    Guid:
+      Data1: -1318731179
+      Data2: 1164167731
+      Data3: -769299786
+      Data4: 1045097758
+    Path: event:/UIEvents/MainMenuHover
+  mainMenuClick:
+    Guid:
+      Data1: 2053440087
+      Data2: 1337957335
+      Data3: -1308127859
+      Data4: -652024769
+    Path: event:/UIEvents/MainMenuClick
+  mainMenuExit:
+    Guid:
+      Data1: -1558299572
+      Data2: 1274491331
+      Data3: 127378843
+      Data4: -1059122288
+    Path: event:/UIEvents/MainMenuExit
 --- !u!1 &9084801687313410927
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,6 +616,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: df9775503568e8742bf07cebacc53f23, type: 2}
   - {fileID: 11400000, guid: 6e89772f0c637f84bbe67ea7a7f1ca41, type: 2}
   - {fileID: 11400000, guid: 738d8e028fc16354da812b1f74039cf0, type: 2}
+  railSpeedMults:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  - 6
   defaultStylishRank: {fileID: 11400000, guid: 680e10bc9d8f63941a54a60bdbbbece8, type: 2}
   _currentStylishRankIndex: 0
   maxStylishPoints: 30
