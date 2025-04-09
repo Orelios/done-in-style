@@ -258,7 +258,7 @@ MonoBehaviour:
   fireRate: 0
   shootPoint: {fileID: 4530741814956228367}
   bullet: {fileID: 128889013100235571, guid: d68d622b5102b22478ea5d8de569916d, type: 3}
-  bulletSpeed: 700
+  bulletSpeed: 20
   bulletLifeSpan: 3
   canShootAgain: 0
 --- !u!114 &1895125367870313278

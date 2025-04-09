@@ -10,8 +10,9 @@ public class AudioManager : MonoBehaviour
     [Range(0, 1)] public float BGMusicVolume = 1;
 
     private Bus MasterBus;
-    private Bus SFXBus;
+    public Bus SFXBus;
     private Bus BGMusicBus;
+    public Bus InGameSFXBus; 
 
     public EventInstance musicEventInstance;
     public EventInstance ambienceEventInstance;
@@ -26,6 +27,7 @@ public class AudioManager : MonoBehaviour
         MasterBus = RuntimeManager.GetBus("bus:/");
         SFXBus = RuntimeManager.GetBus("bus:/SFX");
         BGMusicBus = RuntimeManager.GetBus("bus:/Music");
+        InGameSFXBus = RuntimeManager.GetBus("bus:/SFX/InGameSFX");
 
         //On Awake, load PlayerPrefs
         MasterVolume = PlayerPrefs.GetFloat("Master");
@@ -55,6 +57,11 @@ public class AudioManager : MonoBehaviour
     public void PlayOneShot(EventReference sound, Vector3 position )
     {
         RuntimeManager.PlayOneShot(sound, position);
+    }
+
+    public void PlayOneShotNoLocation(EventReference sound)
+    {
+        RuntimeManager.PlayOneShot(sound);
     }
 
     public EventInstance CreateInstance(EventReference eventReference)
