@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using FMOD.Studio;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class PlayerHealth : MonoBehaviour
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerHurt, this.transform.position);
         _vfx.CallHurtVFX();
-        if (chromaticAberrationOn)
+        if (chromaticAberrationOn && chromaticAberration != null)
         {
             chromaticAberration.StartChromaticAberration();
         }
@@ -67,13 +68,9 @@ public class PlayerHealth : MonoBehaviour
         } 
     }
 
-    public void ToggleChromaticAberrationOn()
+    public void ToggleChromaticAberration(Image image)
     {
-        chromaticAberrationOn = true;
-    }
-
-    public void ToggleChromaticAberrationOff()
-    {
-        chromaticAberrationOn = false;
+        chromaticAberrationOn = !chromaticAberrationOn;
+        image?.gameObject.SetActive(chromaticAberrationOn);
     }
 }

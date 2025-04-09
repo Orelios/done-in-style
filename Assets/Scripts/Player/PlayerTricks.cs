@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 using FMOD.Studio;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerTricks : MonoBehaviour
 {
@@ -343,14 +344,10 @@ public class PlayerTricks : MonoBehaviour
         //Debug.Log("Momentum ends");
     }
 
-    public void ToggleMotionBlurOn()
+    public void ToggleMotionBlur(Image image)
     {
-        motionBlurOn = true;
-    }
-
-    public void ToggleMotionBlurOff()
-    {
-        motionBlurOn = false;
+        motionBlurOn = !motionBlurOn;
+        image?.gameObject.SetActive(motionBlurOn);
     }
     #endregion
 
