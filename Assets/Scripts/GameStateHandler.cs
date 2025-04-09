@@ -4,6 +4,7 @@ using System.Collections;
 using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using FMODUnity;
 
 public class GameStateHandler : MonoBehaviour
 {
@@ -132,6 +133,7 @@ public class GameStateHandler : MonoBehaviour
         IsGameplay = true;
         
         StopAudio();
+        AudioManager.instance.InGameSFXBus.setMute(false);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(3)));
     }
 
@@ -142,6 +144,7 @@ public class GameStateHandler : MonoBehaviour
         
         GameplayData.Reset();
         StopAudio();
+        AudioManager.instance.InGameSFXBus.setMute(false);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.TitleScreenHash);
     }
     
@@ -156,6 +159,7 @@ public class GameStateHandler : MonoBehaviour
     }
     public void ResumeGame()
     {
+        AudioManager.instance.InGameSFXBus.setMute(false);
         AudioManager.instance.musicEventInstance.setPaused(false);
         AudioManager.instance.ambienceEventInstance.setPaused(false);
         //AudioManager.instance.InitializeMusic(FMODEvents.instance.SkateParkMusic1);
@@ -170,7 +174,7 @@ public class GameStateHandler : MonoBehaviour
     public async void RestartLevel()
     {
         StopAudio();
-        
+        AudioManager.instance.InGameSFXBus.setMute(false);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneManager.GetActiveScene().name);
     }
 
@@ -181,6 +185,7 @@ public class GameStateHandler : MonoBehaviour
 
         _player.GetComponent<PlayerMovement>()._playerMovement.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         StopAudio();
+        AudioManager.instance.InGameSFXBus.setMute(false);
         FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
         FindFirstObjectByType<ScoreCalculator>().IncreaseScoreOnLevelClear(FindFirstObjectByType<TimeHandler>().ElapsedTime);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.ResultsScreenHash);
@@ -197,11 +202,12 @@ public class GameStateHandler : MonoBehaviour
 
     private void StopAudio()
     {
+        AudioManager.instance.InGameSFXBus.setMute(true);
         AudioManager.instance.musicEventInstance.setPaused(true);
         AudioManager.instance.ambienceEventInstance.setPaused(true);
         //AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         //AudioManager.instance.ambienceEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        AudioManager.instance.PlayerRailing.stop(STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.PlayerRailing.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         AudioManager.instance.musicEventInstance.release();
         AudioManager.instance.ambienceEventInstance.release();
     }
