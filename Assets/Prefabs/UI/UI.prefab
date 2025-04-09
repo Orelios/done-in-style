@@ -11966,6 +11966,114 @@ RectTransform:
   m_AnchoredPosition: {x: -165.39957, y: -4.0823975}
   m_SizeDelta: {x: 696.5587, y: 509.3752}
   m_Pivot: {x: 1, y: 0.5}
+--- !u!1 &4006616636998756229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 217703956042343635}
+  - component: {fileID: 5981360877317346028}
+  - component: {fileID: 6179638500724585838}
+  m_Layer: 5
+  m_Name: Score Pop Up Generator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &217703956042343635
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006616636998756229}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 5709420938123329203}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 33.196, y: 24.101185}
+  m_SizeDelta: {x: 198.9, y: 48.2032}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5981360877317346028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006616636998756229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c220f267586d42040a91eb6b28e68f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scorePopUpPrefab: {fileID: 2301363221530004198, guid: 4f4d35913696b8d468cce59445a3fd66, type: 3}
+  defaultPoolSize: 5
+  maxPoolSize: 100
+  gainScoreColor: {r: 1, g: 0.95084643, b: 0, a: 1}
+  loseScoreColor: {r: 1, g: 0, b: 0, a: 1}
+  popUpFadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  popUpDuration: 3
+  popUpMoveSpeed: 15
+--- !u!114 &6179638500724585838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006616636998756229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a0d363b0ecc663479e58325dd1414ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventChannel: {fileID: 11400000, guid: d1e58b844785e6142844c7ad9e4b5aa5, type: 2}
+  unityEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5981360877317346028}
+        m_TargetAssemblyTypeName: ScorePopUpGenerator, Assembly-CSharp
+        m_MethodName: ShowScorePopUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4012602918938655825
 GameObject:
   m_ObjectHideFlags: 0
@@ -21461,6 +21569,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4521170257507208007}
+  - {fileID: 217703956042343635}
   m_Father: {fileID: 3978351548954168321}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
