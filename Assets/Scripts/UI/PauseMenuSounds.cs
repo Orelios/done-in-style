@@ -11,4 +11,10 @@ public class PauseMenuSounds : MonoBehaviour
     public void PhoneClick(){ AudioManager.instance.PlayOneShotNoLocation(FMODEvents.instance.PhoneClick); }
 
     public void PhoneExit(){ AudioManager.instance.PlayOneShotNoLocation(FMODEvents.instance.PhoneExit); }
+
+    public void MenuHover() { AudioManager.instance.PlayOneShotNoLocation(FMODEvents.instance.MainMenuHover); }
+
+    public void MenuClick() { AudioManager.instance.PlayOneShotNoLocation(FMODEvents.instance.MainMenuClick); }
+
+    public void MenuExit() { AudioManager.instance.PlayOneShotNoLocation(FMODEvents.instance.MainMenuExit); } 
 }
