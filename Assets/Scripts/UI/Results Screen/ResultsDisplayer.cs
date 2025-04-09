@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using FMOD.Studio;
 
 public class ResultsDisplayer : MonoBehaviour
 {
@@ -17,19 +16,10 @@ public class ResultsDisplayer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI clearRankText;
     [SerializeField] private float countDuration;
 
-    public EventInstance _resultsPointsIncrease;
-    [NonSerialized] public string pointsTransition;
-
     private void Start()
     {
-        _resultsPointsIncrease = AudioManager.instance.CreateInstance(FMODEvents.instance.ResultsPointsIncrease);
         scoreChannel.Invoke(GameplayData.FinalScore);
         timeChannel.Invoke(GameplayData.FinalTime);
-
-        pointsTransition = "points_transition";
-
-        _resultsPointsIncrease.start();
-        _resultsPointsIncrease.setParameterByName(pointsTransition, 1);
     }
 
     public void ShowScoreResult(int score)
@@ -74,12 +64,10 @@ public class ResultsDisplayer : MonoBehaviour
 
         if (isScoreCounting)
         {
-            _resultsPointsIncrease.setParameterByName(pointsTransition, 0);
-            AudioManager.instance.InitializeMusic(FMODEvents.instance.ResultsMusic);
             textToLerp.text = $"{targetValue:N0}";
         }
         else
-        { 
+        {
             textToLerp.text = $"{Mathf.FloorToInt(targetValue / 60f):D2}:" +
                               $"{Mathf.FloorToInt(targetValue % 60f):D2}" +
                               $"<font=\"Grandstander Stroke 2\"><size=75>.{Mathf.FloorToInt(targetValue * 100f % 100f):D2}</font></size>";
