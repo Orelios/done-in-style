@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,10 +17,20 @@ public class ResultsDisplayer : MonoBehaviour
     [SerializeField] private TextMeshProUGUI clearRankText;
     [SerializeField] private float countDuration;
 
+    public EventInstance _resultsScreenPointsIncrease;
+
+    [NonSerialized] public string pointsTransition;
+
     private void Start()
     {
         scoreChannel.Invoke(GameplayData.FinalScore);
         timeChannel.Invoke(GameplayData.FinalTime);
+        _resultsScreenPointsIncrease = AudioManager.instance.CreateInstance(FMODEvents.instance.ResultsScreenPointsIncrease);
+
+        pointsTransition = "points_transition";
+
+        _resultsScreenPointsIncrease.start();
+        _resultsScreenPointsIncrease.setParameterByName(pointsTransition, 1);
     }
 
     public void ShowScoreResult(int score)
@@ -68,6 +79,8 @@ public class ResultsDisplayer : MonoBehaviour
         }
         else
         {
+            _resultsScreenPointsIncrease.setParameterByName(pointsTransition, 0);
+            AudioManager.instance.InitializeMusic(FMODEvents.instance.ResultsScreenMusic);
             textToLerp.text = $"{Mathf.FloorToInt(targetValue / 60f):D2}:" +
                               $"{Mathf.FloorToInt(targetValue % 60f):D2}" +
                               $"<font=\"Grandstander Stroke 2\"><size=75>.{Mathf.FloorToInt(targetValue * 100f % 100f):D2}</font></size>";

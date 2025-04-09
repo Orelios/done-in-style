@@ -5,7 +5,9 @@ public class FMODEvents : MonoBehaviour
 {
     [field: Header("BGM")]
     [SerializeField] private EventReference skateParkMusic1;
+    [SerializeField] private EventReference resultsScreenMusic;
     public EventReference SkateParkMusic1 { get => skateParkMusic1; set => skateParkMusic1 = value; }
+    public EventReference ResultsScreenMusic { get => resultsScreenMusic; set => resultsScreenMusic = value; }
 
     [field: Header("Ambience")]
     [SerializeField] private EventReference skateParkAmbience;
@@ -66,6 +68,7 @@ public class FMODEvents : MonoBehaviour
     [SerializeField] private EventReference mainMenuHover;
     [SerializeField] private EventReference mainMenuClick;
     [SerializeField] private EventReference mainMenuExit;
+    [SerializeField] private EventReference resultsScreenPointsIncrease;
     public EventReference VOXCookin { get => voxCookin; set => voxCookin = value; }
     public EventReference VOXBallin { get => voxBallin; set => voxBallin = value; }
     public EventReference VOXAwesome { get => voxAwesome; set => voxAwesome = value; }
@@ -78,6 +81,7 @@ public class FMODEvents : MonoBehaviour
     public EventReference MainMenuHover { get => mainMenuHover; set => mainMenuHover = value; }
     public EventReference MainMenuClick { get => mainMenuClick; set => mainMenuClick = value; }
     public EventReference MainMenuExit { get => mainMenuExit; set => mainMenuExit = value; }
+    public EventReference ResultsScreenPointsIncrease { get => resultsScreenPointsIncrease; set => resultsScreenPointsIncrease = value; }
 
 
 

@@ -51,6 +51,13 @@ MonoBehaviour:
       Data3: -1829132876
       Data4: 855701355
     Path: event:/MusicEvents/SkateParkMusic1
+  resultsScreenMusic:
+    Guid:
+      Data1: 2110074023
+      Data2: 1083564485
+      Data3: -1931843436
+      Data4: 1540645788
+    Path: event:/MusicEvents/ResultsMusic
   skateParkAmbience:
     Guid:
       Data1: -586501438
@@ -275,6 +282,13 @@ MonoBehaviour:
       Data3: 127378843
       Data4: -1059122288
     Path: event:/UIEvents/MainMenuExit
+  resultsScreenPointsIncrease:
+    Guid:
+      Data1: -697194308
+      Data2: 1226478694
+      Data3: -1856049226
+      Data4: -1524531821
+    Path: event:/UIEvents/ResultsScreenPoints
 --- !u!1 &9045434382394425780
 GameObject:
   m_ObjectHideFlags: 0
