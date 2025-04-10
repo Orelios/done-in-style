@@ -586,6 +586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45237d497abaa18488bfd108965495c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthEventChannel: {fileID: 11400000, guid: 6f4f97965b3c6194d8c19d437589dae4, type: 2}
   maxHealth: 3
   endScreen: {fileID: 0}
   playerHealthDisplay: {fileID: 0}
