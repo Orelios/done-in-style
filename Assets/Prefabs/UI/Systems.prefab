@@ -595,6 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreEventChannel: {fileID: 11400000, guid: d1c2857e5009e8c46afc20eb7406222d, type: 2}
+  scorePopUpEventChannel: {fileID: 11400000, guid: d1e58b844785e6142844c7ad9e4b5aa5, type: 2}
 --- !u!114 &3491166957557139335
 MonoBehaviour:
   m_ObjectHideFlags: 0

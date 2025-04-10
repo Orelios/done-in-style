@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 using FMOD.Studio;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerTricks : MonoBehaviour
 {
@@ -38,8 +39,7 @@ public class PlayerTricks : MonoBehaviour
     private Vector2 dashLastVelocity;
     [SerializeField] private Vector2 _dashMomentumDecay = new Vector2(0.345f, 0.69f);
     private Coroutine dashCor, preserveMomentumCor;
-    [SerializeField] private GameObject motionBlur;
-    [SerializeField] private bool motionBlurOn = true;
+    private PostProcessingManager _postProcessing;
 
     [Header("Ground Pound")]
     private bool _isPounding = false;
@@ -130,7 +130,8 @@ public class PlayerTricks : MonoBehaviour
         _rampPlayer = GetComponent<RampPlayer>();
         _vfx = GetComponentInChildren<VFXManager>();
         _wall = GetComponent<Wall>();
-        
+        _postProcessing = GetComponent<PostProcessingManager>();
+
         _player = GetComponent<Player>();
         _playerRailing = GetComponent<PlayerRailing>();
 
@@ -257,9 +258,9 @@ public class PlayerTricks : MonoBehaviour
 
     private IEnumerator DashCoroutine()
     {
-        if (motionBlurOn && motionBlur != null)
+        if (_postProcessing.MotionBlurOn && _postProcessing.motionBlur != null)
         {
-            motionBlur.SetActive(true);
+            _postProcessing.motionBlur.SetActive(true);
         }
         
         _vfx.CallDashVFX();
@@ -302,9 +303,9 @@ public class PlayerTricks : MonoBehaviour
         //_playerMovement.JumpForce = _playerMovement.Rb.linearVelocityY; 
         _isDashing = false;
 
-        if (motionBlurOn && motionBlur != null)
+        if (_postProcessing.MotionBlurOn && _postProcessing.motionBlur != null)
         {
-            motionBlur.SetActive(false);
+            _postProcessing.motionBlur.SetActive(false);
         }
     }
 
@@ -342,16 +343,7 @@ public class PlayerTricks : MonoBehaviour
         //StartCoroutine(RevertColorAfterTime());
         //Debug.Log("Momentum ends");
     }
-
-    public void ToggleMotionBlurOn()
-    {
-        motionBlurOn = true;
-    }
-
-    public void ToggleMotionBlurOff()
-    {
-        motionBlurOn = false;
-    }
+    
     #endregion
 
     #region DoubleJump

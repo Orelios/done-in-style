@@ -2,11 +2,14 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class PointerEvents : MonoBehaviour
+public class PointerEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
+    [Header("Cursors")] 
+    [SerializeField] private Texture2D normalCursor;
+    [SerializeField] private Texture2D highlightedCursor;
+    
     [Header("Changing Graphic Colours")]
     [SerializeField] private Graphic[] graphicsToColorize;
     [SerializeField] private Color selectedColor;
@@ -26,6 +29,47 @@ public class PointerEvents : MonoBehaviour
     [SerializeField] private Graphic[] graphicsToChangeImage;
     [SerializeField] private Sprite[] originalImages;
     [SerializeField] private Sprite[] newImages;
+
+    private bool _isMouseHovering;
+    private bool _isMouseDown;
+    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        _isMouseHovering = true;
+
+        if (!_isMouseDown)
+        {
+            Cursor.SetCursor(highlightedCursor, new(50, 0), CursorMode.Auto);
+        }
+    }
+    
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _isMouseHovering = false;
+
+        if (!_isMouseDown)
+        {
+            Cursor.SetCursor(normalCursor, new(33, 2), CursorMode.Auto);
+        }
+    }
+    
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            _isMouseDown = true;
+            Cursor.SetCursor(highlightedCursor, new(50, 0), CursorMode.Auto);
+        }
+    }
+    
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            _isMouseDown = false;
+            Cursor.SetCursor(normalCursor, new(33, 2), CursorMode.Auto);
+        }
+    }
     
     public void ChangeColorOnPointerEnter()
     {
@@ -67,7 +111,7 @@ public class PointerEvents : MonoBehaviour
         }
         
     }
-
+    
     public void ChangeColorOnPointerExit()
     {
         foreach (var graphic in graphicsToColorize)

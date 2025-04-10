@@ -41,8 +41,8 @@ public class RailsParent : MonoBehaviour
     {
         if (!hasTricked)
         {
-            _playerTricks.DisableCanTrick();
-            _playerTricks.EnableTrick(gameObject);
+            _playerTricks?.DisableCanTrick();
+            _playerTricks?.EnableTrick(gameObject);
             //hasTricked = true;
         }
     }
@@ -81,8 +81,18 @@ public class RailsParent : MonoBehaviour
     {
         //StopAllCoroutines();
         AudioManager.instance.PlayerRailing.stop(STOP_MODE.ALLOWFADEOUT);
-        StopCoroutine(_scoreRoutine);
-        StopCoroutine(_rankRoutine);
+        if (_scoreRoutine != null )
+        {
+            StopCoroutine(_scoreRoutine);
+            _scoreRoutine = null;
+        }
+
+        if (_rankRoutine != null)
+        {
+            StopCoroutine(_rankRoutine);
+            _scoreRoutine = null;
+        }
+
         ApplyGraffiti();
         CheckTrickMove();
     }
