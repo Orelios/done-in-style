@@ -63,11 +63,11 @@ public class ScoreCalculator : MonoBehaviour
     {
         _currentScore += timeElapsed switch
         {
-            < 180f => 10000,
-            < 210f => 8000,
-            < 240f => 6000,
-            < 300f => 4000,
-            < 360f => 2000,
+            < 60f => 10000,
+            < 90f => 8000,
+            < 120f => 6000,
+            < 150f => 4000,
+            < 180f => 2000,
             _ => 0
         };
         
