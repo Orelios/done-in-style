@@ -11,6 +11,9 @@ public class PostProcessingManager : MonoBehaviour
     [SerializeField] private bool motionBlurOn = true;
     public bool MotionBlurOn => motionBlurOn;
 
+    [SerializeField] private Image tickChromatic;
+    [SerializeField] private Image tickBlur;
+
     private void Start()
     {
         if (chromaticAberration == null)
@@ -30,6 +33,13 @@ public class PostProcessingManager : MonoBehaviour
         {
             LoadMotionBlur();
         }
+        tickChromatic.gameObject.SetActive(chromaticAberrationOn);
+        tickBlur.gameObject.SetActive(motionBlurOn);
+    }
+
+    private void Awake()
+    {
+        
     }
 
     public void ToggleChromaticAberration(Image image)
