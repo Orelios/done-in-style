@@ -14,8 +14,8 @@ public class PlayerHealth : MonoBehaviour
     private int _currentHealth;
     public int CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
     private PlayerMovement playerMovement;
-    [SerializeField] private ChromaticAberration chromaticAberration;
-    [SerializeField] private bool chromaticAberrationOn = true;
+    private PostProcessingManager _postProcessing;
+    
     private void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
@@ -24,19 +24,16 @@ public class PlayerHealth : MonoBehaviour
         playerHealthDisplayUpdater.UpdatePlayerHealthBarDisplay(_currentHealth);
         playerHealthDisplayUpdater.UpdatePlayerPortraitDisplay(_currentHealth);
         _vfx = GetComponentInChildren<VFXManager>();
-        if (chromaticAberration == null)
-        {
-            chromaticAberration = GameObject.Find("/Chromatic Aberration").GetComponent<ChromaticAberration>();
-        }
+        _postProcessing = GetComponent<PostProcessingManager>();
     }
 
     public void DecreaseHealth() 
     {
         AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerHurt, this.transform.position);
         _vfx.CallHurtVFX();
-        if (chromaticAberrationOn && chromaticAberration != null)
+        if (_postProcessing.ChromaticAberrationOn && _postProcessing.chromaticAberration != null)
         {
-            chromaticAberration.StartChromaticAberration();
+            _postProcessing.chromaticAberration.StartChromaticAberration();
         }
         if(_currentHealth != 0) 
         { 
@@ -68,9 +65,5 @@ public class PlayerHealth : MonoBehaviour
         } 
     }
 
-    public void ToggleChromaticAberration(Image image)
-    {
-        chromaticAberrationOn = !chromaticAberrationOn;
-        image?.gameObject.SetActive(chromaticAberrationOn);
-    }
+    
 }

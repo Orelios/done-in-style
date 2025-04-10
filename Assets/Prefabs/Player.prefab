@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 9195726562988526586}
   - component: {fileID: 5621221375375349037}
   - component: {fileID: 7087586787043519691}
+  - component: {fileID: 5096173341857136471}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -316,6 +317,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7258199056242029713}
+        m_TargetAssemblyTypeName: VFXManager, Assembly-CSharp
+        m_MethodName: CallJumpingVFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f49adadb-0fe6-405f-8cdc-da09a279d818
     m_ActionName: 'Player Controls/Jump[/Keyboard/upArrow]'
   - m_PersistentCalls:
@@ -493,6 +506,8 @@ MonoBehaviour:
   jumpBufferTime: 0.2
   jumpHeight: 3
   jumpTimeToApex: 0.3
+  jumpTimeHeight: 0.5
+  railHorizontalDamping: 2
   jumpCutGravityMult: 2
   jumpHangGravityMult: 0.5
   jumpHangTimeThreshold: 1
@@ -638,6 +653,22 @@ MonoBehaviour:
   maxSpeed: 20
   acceleration: 30
   deceleration: 2
+--- !u!114 &5096173341857136471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107818445637447191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0a5dd38573c924d87469c0b32f937a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chromaticAberration: {fileID: 0}
+  chromaticAberrationOn: 1
+  motionBlur: {fileID: 0}
+  motionBlurOn: 1
 --- !u!1 &3567983644593754154
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,3 +1250,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 923897534787534770, guid: d4a9fb2507f898f4bae8e77f8d50c255, type: 3}
   m_PrefabInstance: {fileID: 2985853321562336380}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7258199056242029713 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5608578373766158573, guid: d4a9fb2507f898f4bae8e77f8d50c255, type: 3}
+  m_PrefabInstance: {fileID: 2985853321562336380}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96474722d22dfdf4fb66cc7d456ff60e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
