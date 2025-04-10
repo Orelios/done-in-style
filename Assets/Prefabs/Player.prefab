@@ -121,6 +121,7 @@ GameObject:
   - component: {fileID: 9195726562988526586}
   - component: {fileID: 5621221375375349037}
   - component: {fileID: 7087586787043519691}
+  - component: {fileID: 4983596688444922874}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -526,8 +527,6 @@ MonoBehaviour:
   dashCooldown: 1
   _dashCanDetroyDuration: 0.25
   _dashMomentumDecay: {x: 0.2, y: 0.5}
-  motionBlur: {fileID: 0}
-  motionBlurOn: 1
   _groundPoundSpeed: 50
   momentumRetainFactor: 0.5
   poundCooldown: 0
@@ -591,8 +590,6 @@ MonoBehaviour:
   endScreen: {fileID: 0}
   playerHealthDisplay: {fileID: 0}
   playerHealthDisplayUpdater: {fileID: 0}
-  chromaticAberration: {fileID: 0}
-  chromaticAberrationOn: 1
 --- !u!114 &9195726562988526586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,6 +641,24 @@ MonoBehaviour:
   maxSpeed: 20
   acceleration: 30
   deceleration: 2
+--- !u!114 &4983596688444922874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107818445637447191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0a5dd38573c924d87469c0b32f937a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chromaticAberration: {fileID: 0}
+  chromaticAberrationOn: 1
+  motionBlur: {fileID: 0}
+  motionBlurOn: 1
+  tickChromatic: {fileID: 0}
+  tickBlur: {fileID: 0}
 --- !u!1 &3567983644593754154
 GameObject:
   m_ObjectHideFlags: 0
