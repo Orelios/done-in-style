@@ -20,7 +20,9 @@ public static class SceneLoader
         }
 
         var videoPlayer = Object.FindFirstObjectByType<VideoPlayer>();
-        videoPlayer.Stop();
+        
+        videoPlayer.targetTexture.Release();
+        videoPlayer.targetTexture.Create();
         videoPlayer.time = 0f;
         videoPlayer.Play();
         
