@@ -493,6 +493,8 @@ MonoBehaviour:
   jumpBufferTime: 0.2
   jumpHeight: 3
   jumpTimeToApex: 0.3
+  jumpTimeHeight: 0.75
+  railHorizontalDamping: 2
   jumpCutGravityMult: 2
   jumpHangGravityMult: 0.5
   jumpHangTimeThreshold: 1
@@ -523,7 +525,9 @@ MonoBehaviour:
   dashDuration: 0.2
   dashCooldown: 1
   _dashCanDetroyDuration: 0.25
-  _dashMomentumDecay: {x: 0.345, y: 0.69}
+  _dashMomentumDecay: {x: 0.2, y: 0.5}
+  motionBlur: {fileID: 0}
+  motionBlurOn: 1
   _groundPoundSpeed: 50
   momentumRetainFactor: 0.5
   poundCooldown: 0
@@ -587,6 +591,8 @@ MonoBehaviour:
   endScreen: {fileID: 0}
   playerHealthDisplay: {fileID: 0}
   playerHealthDisplayUpdater: {fileID: 0}
+  chromaticAberration: {fileID: 0}
+  chromaticAberrationOn: 1
 --- !u!114 &9195726562988526586
 MonoBehaviour:
   m_ObjectHideFlags: 0
