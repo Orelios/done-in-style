@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
 
     private Bus MasterBus;
     public Bus SFXBus;
-    private Bus BGMusicBus;
+    public Bus BGMusicBus;
     public Bus InGameSFXBus; 
 
     public EventInstance musicEventInstance;

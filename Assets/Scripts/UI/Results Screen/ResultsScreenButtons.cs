@@ -29,7 +29,7 @@ public class ResultsScreenButtons : MonoBehaviour
         Debug.Log($"Next Level Index: {GameplayData.LastLevelIndex + 1}");
         Debug.Log($"Next Level Path: {nextLevelHash}");
         Debug.Log($"Next Level Hash: {Path.GetFileNameWithoutExtension(nextLevelHash)}");*/
-
+        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, Path.GetFileNameWithoutExtension(nextLevelHash));
     }
 
@@ -40,11 +40,13 @@ public class ResultsScreenButtons : MonoBehaviour
 
     public async void RetryLevel()
     {
+        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, GameplayData.LastLevelHash);
     }
 
     public async void BackToMainMenu()
     {
+        AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.TitleScreenHash);
     }
 
