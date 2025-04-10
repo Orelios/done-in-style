@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public static class SceneLoader
 {
@@ -17,6 +18,11 @@ public static class SceneLoader
         {
             await Task.Yield();
         }
+
+        var videoPlayer = Object.FindFirstObjectByType<VideoPlayer>();
+        videoPlayer.Stop();
+        videoPlayer.time = 0f;
+        videoPlayer.Play();
         
         var sceneToUnloadAsync = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
 
@@ -34,7 +40,7 @@ public static class SceneLoader
         {
             timeElapsedInLoading += Time.unscaledDeltaTime;
 
-            if (sceneToLoadAsync.progress >= 0.9f && timeElapsedInLoading >= minimumLoadingTime)
+            if (!videoPlayer.isPlaying && sceneToLoadAsync.progress >= 0.9f && timeElapsedInLoading >= minimumLoadingTime)
             {
                 sceneToLoadAsync.allowSceneActivation = true;
                 GameplayData.RecordLevel(sceneToLoad, SceneManager.GetSceneByName(sceneToLoad).buildIndex);
