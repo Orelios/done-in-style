@@ -15,7 +15,20 @@ public class PostProcessingManager : MonoBehaviour
     {
         if (chromaticAberration == null)
         {
-            chromaticAberration = GameObject.Find("/Chromatic Aberration").GetComponent<ChromaticAberration>(); //doesn't work
+            //chromaticAberration = GameObject.Find("/Chromatic Aberration").GetComponent<ChromaticAberration>(); //doesn't work
+            chromaticAberration = GameObject.FindFirstObjectByType<ChromaticAberration>();
+        }
+        if (motionBlur == null)
+        {
+            motionBlur = GameObject.Find("/Motion Blur"); //doesn't work
+        }
+        if (PlayerPrefs.HasKey("KeyChromaticAberration"))
+        {
+            LoadChromaticAberration();
+        }
+        if (PlayerPrefs.HasKey("KeyMotionBlur"))
+        {
+            LoadMotionBlur();
         }
     }
 
@@ -29,5 +42,39 @@ public class PostProcessingManager : MonoBehaviour
     {
         motionBlurOn = !motionBlurOn;
         image?.gameObject.SetActive(motionBlurOn);
+    }
+
+    public void SaveChromaticAberration()
+    {
+        PlayerPrefs.SetInt("KeyChromaticAberration", chromaticAberrationOn ? 1 : 0);
+    }
+
+    public void LoadChromaticAberration()
+    {
+        if (PlayerPrefs.GetInt("KeyChromaticAberration") == 1)
+        {
+            chromaticAberrationOn = true;
+        }
+        else if (PlayerPrefs.GetInt("KeyChromaticAberration") == 0)
+        {
+            chromaticAberrationOn = false;
+        }
+    }
+
+    public void SaveMotionBlur()
+    {
+        PlayerPrefs.SetInt("KeyMotionBlur", motionBlurOn ? 1 : 0);
+    }
+
+    public void LoadMotionBlur()
+    {
+        if (PlayerPrefs.GetInt("KeyMotionBlur") == 1)
+        {
+            motionBlurOn = true;
+        }
+        else if (PlayerPrefs.GetInt("KeyMotionBlur") == 0)
+        {
+            motionBlurOn = false;
+        }
     }
 }
