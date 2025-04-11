@@ -5,7 +5,7 @@
 			<value>SprayPaintSFX</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{5e9d539a-24f5-4bfc-a818-a01335c13d99}</destination>
@@ -99,6 +99,7 @@
 	<object class="MixerBusEffectChain" id="{6936f627-72a2-4da5-b74d-1807943be821}">
 		<relationship name="effects">
 			<destination>{92f696c8-7aef-4194-886d-3a84f80f5b55}</destination>
+			<destination>{bda4e14b-f1ad-460c-97bb-4886ed7001c5}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{f0773ac0-d966-4be9-b481-6e94845b237d}" />
@@ -109,4 +110,5 @@
 	</object>
 	<object class="MixerBusFader" id="{3db87903-ca8d-4e51-ad6b-6d16542d747f}" />
 	<object class="MixerBusFader" id="{92f696c8-7aef-4194-886d-3a84f80f5b55}" />
+	<object class="SpatialiserEffect" id="{bda4e14b-f1ad-460c-97bb-4886ed7001c5}" />
 </objects>
