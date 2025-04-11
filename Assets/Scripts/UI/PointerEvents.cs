@@ -29,14 +29,11 @@ public class PointerEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     [SerializeField] private Graphic[] graphicsToChangeImage;
     [SerializeField] private Sprite[] originalImages;
     [SerializeField] private Sprite[] newImages;
-
-    private bool _isMouseHovering;
+    
     private bool _isMouseDown;
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _isMouseHovering = true;
-
         if (!_isMouseDown)
         {
             Cursor.SetCursor(highlightedCursor, new(50, 0), CursorMode.Auto);
@@ -45,8 +42,6 @@ public class PointerEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     
     public void OnPointerExit(PointerEventData eventData)
     {
-        _isMouseHovering = false;
-
         if (!_isMouseDown)
         {
             Cursor.SetCursor(normalCursor, new(33, 2), CursorMode.Auto);
@@ -109,7 +104,6 @@ public class PointerEvents : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 index++;
             }
         }
-        
     }
     
     public void ChangeColorOnPointerExit()
