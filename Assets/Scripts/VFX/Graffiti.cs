@@ -34,6 +34,7 @@ public class Graffiti : MonoBehaviour
     public void StartGraffiti()
     {
         StartCoroutine(ReplaceGraffiti());
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.GraffitiSpray, this.transform.position);
     }
 
     private IEnumerator ReplaceGraffiti()
