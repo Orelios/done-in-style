@@ -11,6 +11,7 @@ public class ResultsScreenButtons : MonoBehaviour
 {
     [SerializeField] private float bigFactor;
     [SerializeField] private float duration;
+    [SerializeField] private bool isInteractableAtStart;
     private Vector2 _original;
     private Button _button;
     
@@ -19,7 +20,7 @@ public class ResultsScreenButtons : MonoBehaviour
         _original = transform.localScale;
         _button = GetComponent<Button>();
         
-        _button.interactable = false;
+        _button.interactable = isInteractableAtStart;
     }
 
     public async void NextLevel()

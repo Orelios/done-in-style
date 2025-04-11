@@ -6,6 +6,7 @@ using UnityEngine;
 public class ScoreCalculator : MonoBehaviour
 {
     [SerializeField] private IntEventChannel scoreEventChannel;
+    [SerializeField] private IntEventChannel scorePopUpEventChannel;
     private int _currentScore;
     public int CurrentScore { get => _currentScore; private set => _currentScore = value; }
 
@@ -25,7 +26,10 @@ public class ScoreCalculator : MonoBehaviour
     //instantly adds score based on score value and rank multiplier, and updates score counter UI
     public void IncreaseScoreInstant(int scoreValueToAdd, float scoreMultiplier)
     {
-        _currentScore += Mathf.RoundToInt(scoreValueToAdd * scoreMultiplier);
+        var score = Mathf.RoundToInt(scoreValueToAdd * scoreMultiplier);
+        _currentScore += score;
+        
+        scorePopUpEventChannel.Invoke(score);
         scoreEventChannel.Invoke(_currentScore);
     }
 
@@ -34,6 +38,8 @@ public class ScoreCalculator : MonoBehaviour
     {
         if(_currentScore != 0) {
             _currentScore -= scoreValueToRemove;
+            
+            scorePopUpEventChannel.Invoke(-scoreValueToRemove);
             scoreEventChannel.Invoke(_currentScore);
         }
     }
@@ -43,7 +49,10 @@ public class ScoreCalculator : MonoBehaviour
     {
         for (int i = 0; i < maximumTime; i++)
         {
-            _currentScore += Mathf.RoundToInt(scoreValueToAdd * scoreMultiplier);
+            var score = Mathf.RoundToInt(scoreValueToAdd * scoreMultiplier);
+            _currentScore += score;
+            
+            scorePopUpEventChannel.Invoke(score);
             scoreEventChannel.Invoke(_currentScore);
             
             yield return new WaitForSeconds(1 / frequencyForAdding);
@@ -54,11 +63,11 @@ public class ScoreCalculator : MonoBehaviour
     {
         _currentScore += timeElapsed switch
         {
-            < 180f => 10000,
-            < 210f => 8000,
-            < 240f => 6000,
-            < 300f => 4000,
-            < 360f => 2000,
+            < 60f => 10000,
+            < 90f => 8000,
+            < 120f => 6000,
+            < 150f => 4000,
+            < 180f => 2000,
             _ => 0
         };
         
