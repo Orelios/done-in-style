@@ -221,12 +221,12 @@ public class Tutorial : MonoBehaviour
 
                 if (binding.isPartOfComposite)
                 {
-                    Debug.Log($"(Composite) Key: {readableKey}");
+                    //Debug.Log($"(Composite) Key: {readableKey}");
                     tutorialTexts.Add(readableKey);
                 }
                 else
                 {
-                    Debug.Log($"Key: {readableKey}");
+                    //Debug.Log($"Key: {readableKey}");
                     tutorialTexts.Add(readableKey);
                 }
             }
@@ -236,7 +236,7 @@ public class Tutorial : MonoBehaviour
             Debug.LogError("Action not found!");
         }
     }
-
+    /*
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -244,4 +244,5 @@ public class Tutorial : MonoBehaviour
             UpdateTutorialKeybinds();
         }
     }
+    */
 }
