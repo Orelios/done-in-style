@@ -44,8 +44,8 @@ public class GameStateHandler : MonoBehaviour
         
         //DontDestroyOnLoad(gameObject);
     }
-    
-    private void Start()
+
+    private  void Start()
     {
         _player = FindFirstObjectByType<Player>();
         _pauseMenuNavigator = FindFirstObjectByType<PauseMenuNavigator>();
@@ -134,7 +134,7 @@ public class GameStateHandler : MonoBehaviour
         
         StopAudio();
         AudioManager.instance.InGameSFXBus.setMute(false);
-        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(3)));
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenName, Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(3)), true);
     }
 
     public async void ReturnToMainMenu()
@@ -146,7 +146,7 @@ public class GameStateHandler : MonoBehaviour
         StopAudio();
         AudioManager.instance.InGameSFXBus.setMute(false);
         AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.TitleScreenHash);
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenName, SceneLoader.TitleScreenName);
     }
     
     public void PauseGame()
@@ -176,7 +176,7 @@ public class GameStateHandler : MonoBehaviour
     {
         StopAudio();
         AudioManager.instance.InGameSFXBus.setMute(false);
-        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneManager.GetActiveScene().name);
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenName, SceneManager.GetActiveScene().name);
     }
 
     public async void FinishLevel()
@@ -189,7 +189,12 @@ public class GameStateHandler : MonoBehaviour
         AudioManager.instance.InGameSFXBus.setMute(false);
         FindFirstObjectByType<PlayerInputManager>().EnableUserInterfaceControls();
         FindFirstObjectByType<ScoreCalculator>().IncreaseScoreOnLevelClear(FindFirstObjectByType<TimeHandler>().ElapsedTime);
-        await SceneLoader.LoadScene(SceneLoader.LoadingScreenHash, SceneLoader.ResultsScreenHash);
+        await SceneLoader.LoadScene(SceneLoader.LoadingScreenName, SceneLoader.ResultsScreenName);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     private void ResetFlags()

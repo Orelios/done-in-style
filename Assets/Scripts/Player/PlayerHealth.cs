@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using FMOD.Studio;
@@ -27,6 +28,11 @@ public class PlayerHealth : MonoBehaviour
         _vfx = GetComponentInChildren<VFXManager>();
         _postProcessing = GetComponent<PostProcessingManager>();
         
+        
+    }
+
+    private void Start()
+    {
         healthEventChannel?.Invoke(_currentHealth);
     }
 
