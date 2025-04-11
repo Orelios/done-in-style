@@ -139,7 +139,7 @@ public class VFXManager : MonoBehaviour
         }
         else if (!_playerTricks.isOnJumpPad)//onAir but not on JumpPad/SpringBoard
         {
-            jumpingVFX.Play();
+            //jumpingVFX.Play();
             isWaitingToJump = false;
             //Debug.Log("Jumped");
         }
