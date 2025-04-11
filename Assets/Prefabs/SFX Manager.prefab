@@ -58,6 +58,20 @@ MonoBehaviour:
       Data3: -1931843436
       Data4: 1540645788
     Path: event:/MusicEvents/ResultsMusic
+  mainMenuMusic:
+    Guid:
+      Data1: 1054648789
+      Data2: 1191918564
+      Data3: -321245762
+      Data4: -2138163064
+    Path: event:/MusicEvents/MainMenuMusic
+  creditsMusic:
+    Guid:
+      Data1: -1134179677
+      Data2: 1078196594
+      Data3: 292383661
+      Data4: 595651213
+    Path: event:/MusicEvents/CreditsMusic
   skateParkAmbience:
     Guid:
       Data1: -586501438
@@ -198,6 +212,13 @@ MonoBehaviour:
       Data3: 806773172
       Data4: 1513238179
     Path: event:/EnvironmentEvents/CameraRecording
+  graffitiSpray:
+    Guid:
+      Data1: 1741086932
+      Data2: 1314372815
+      Data3: 192021644
+      Data4: 303534220
+    Path: event:/EnvironmentEvents/SprayPaintSFX
   voxCookin:
     Guid:
       Data1: -273431211
@@ -289,6 +310,13 @@ MonoBehaviour:
       Data3: -1856049226
       Data4: -1524531821
     Path: event:/UIEvents/ResultsScreenPoints
+  wastedActivate:
+    Guid:
+      Data1: -536371718
+      Data2: 1177288139
+      Data3: 1943465651
+      Data4: -336084870
+    Path: event:/UIEvents/WastedActivate
 --- !u!1 &9045434382394425780
 GameObject:
   m_ObjectHideFlags: 0
