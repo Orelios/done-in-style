@@ -6,8 +6,12 @@ public class FMODEvents : MonoBehaviour
     [field: Header("BGM")]
     [SerializeField] private EventReference skateParkMusic1;
     [SerializeField] private EventReference resultsScreenMusic;
+    [SerializeField] private EventReference mainMenuMusic;
+    [SerializeField] private EventReference creditsMusic;
     public EventReference SkateParkMusic1 { get => skateParkMusic1; set => skateParkMusic1 = value; }
     public EventReference ResultsScreenMusic { get => resultsScreenMusic; set => resultsScreenMusic = value; }
+    public EventReference MainMenuMusic { get => mainMenuMusic; set => mainMenuMusic = value; }
+    public EventReference CreditsMusic { get => creditsMusic; set => creditsMusic = value; }
 
     [field: Header("Ambience")]
     [SerializeField] private EventReference skateParkAmbience;
@@ -48,12 +52,14 @@ public class FMODEvents : MonoBehaviour
     [SerializeField] private EventReference healthPickup;
     [SerializeField] private EventReference tmShoot;
     [SerializeField] private EventReference cameraRecording;
+    [SerializeField] private EventReference graffitiSpray;
     public EventReference Slowmo { get => slowmo; set => slowmo = value; }
     public EventReference BreakObstacle { get => breakObstacle; set => breakObstacle = value; }
     public EventReference SpringBoard { get => springBoard; set => springBoard = value; }
     public EventReference HealthPickup { get => healthPickup; set => healthPickup = value; }
     public EventReference TMShoot { get => tmShoot; set => tmShoot = value; }
     public EventReference CameraRecording { get => cameraRecording; set => cameraRecording = value; }
+    public EventReference GraffitiSpray { get => graffitiSpray; set => graffitiSpray = value; }
 
     [field: Header("UI SFX")]
     [SerializeField] private EventReference voxCookin;
@@ -69,6 +75,7 @@ public class FMODEvents : MonoBehaviour
     [SerializeField] private EventReference mainMenuClick;
     [SerializeField] private EventReference mainMenuExit;
     [SerializeField] private EventReference resultsScreenPointsIncrease;
+    [SerializeField] private EventReference wastedActivate;
     public EventReference VOXCookin { get => voxCookin; set => voxCookin = value; }
     public EventReference VOXBallin { get => voxBallin; set => voxBallin = value; }
     public EventReference VOXAwesome { get => voxAwesome; set => voxAwesome = value; }
@@ -82,6 +89,7 @@ public class FMODEvents : MonoBehaviour
     public EventReference MainMenuClick { get => mainMenuClick; set => mainMenuClick = value; }
     public EventReference MainMenuExit { get => mainMenuExit; set => mainMenuExit = value; }
     public EventReference ResultsScreenPointsIncrease { get => resultsScreenPointsIncrease; set => resultsScreenPointsIncrease = value; }
+    public EventReference WastedActivate { get => wastedActivate; set => wastedActivate = value; }
 
 
 

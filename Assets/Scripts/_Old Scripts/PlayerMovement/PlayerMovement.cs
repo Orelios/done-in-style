@@ -67,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHangMaxSpeedMult;
 
     private float _lastGroundedTime = 0f;
+    private bool _hasLandedSfx = true; 
     public float CoyoteTime { get => coyoteTime; set => coyoteTime = value; }
     public float JumpBufferTime { get => jumpBufferTime; set => jumpBufferTime = value; }
     public float JumpHeight { get => jumpHeight; set => jumpHeight = value; }
@@ -482,6 +483,17 @@ public class PlayerMovement : MonoBehaviour
         {
             _playerMovement.setParameterByName(airIntensity, 0);
             //_playerSkatingAir.setPaused(true);
+        }
+
+        if(!IsGrounded() && !_hasLandedSfx)
+        {
+            _hasLandedSfx = true; 
+        }
+
+        if(IsGrounded() && _hasLandedSfx)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PlayerLanding, this.transform.position);
+            _hasLandedSfx = false; 
         }
     }
 }

@@ -497,8 +497,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &30193058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1432,8 +1439,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &150030386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1932,8 +1946,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &193258065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2342,8 +2363,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &247983110
 GameObject:
   m_ObjectHideFlags: 0
@@ -2463,8 +2491,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &247983114
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3835,8 +3870,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &338274394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3981,8 +4023,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!222 &341189035
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4542,8 +4591,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &388254671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5326,8 +5382,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &593730938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5509,8 +5572,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &617958061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6120,8 +6190,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!222 &740613989
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6225,8 +6302,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &755839351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7168,8 +7252,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &862557647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7624,8 +7715,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &908818080
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7767,8 +7865,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &914148993
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7891,8 +7996,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &960418734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8367,8 +8479,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &1078770301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8519,8 +8638,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &1080779178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9762,8 +9888,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &1285429995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9998,8 +10131,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &1316188902
 GameObject:
   m_ObjectHideFlags: 0
@@ -10141,8 +10281,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &1318755343
 GameObject:
   m_ObjectHideFlags: 0
@@ -10391,8 +10538,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!222 &1323599322
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11383,8 +11537,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &1473138977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11759,8 +11920,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!222 &1494157266
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12943,8 +13111,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!222 &1654418662
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13962,8 +14137,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &1727285510
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14041,8 +14223,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &1730748779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14329,8 +14518,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &1743937443
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15417,8 +15613,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &1843288776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15912,8 +16115,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!222 &1899854141
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18357,6 +18567,27 @@ MonoBehaviour:
       Data3: -1829132876
       Data4: 855701355
     Path: event:/MusicEvents/SkateParkMusic1
+  resultsScreenMusic:
+    Guid:
+      Data1: 2110074023
+      Data2: 1083564485
+      Data3: -1931843436
+      Data4: 1540645788
+    Path: event:/MusicEvents/ResultsMusic
+  mainMenuMusic:
+    Guid:
+      Data1: 1054648789
+      Data2: 1191918564
+      Data3: -321245762
+      Data4: -2138163064
+    Path: event:/MusicEvents/MainMenuMusic
+  creditsMusic:
+    Guid:
+      Data1: -1134179677
+      Data2: 1078196594
+      Data3: 292383661
+      Data4: 595651213
+    Path: event:/MusicEvents/CreditsMusic
   skateParkAmbience:
     Guid:
       Data1: -586501438
@@ -18497,6 +18728,13 @@ MonoBehaviour:
       Data3: 806773172
       Data4: 1513238179
     Path: event:/EnvironmentEvents/CameraRecording
+  graffitiSpray:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   voxCookin:
     Guid:
       Data1: -273431211
@@ -18525,6 +18763,76 @@ MonoBehaviour:
       Data3: -471688277
       Data4: -522339441
     Path: event:/ComboEvents/AwesomeToStylish
+  phoneActivate:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  phoneDeactivate:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  phoneHover:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  phoneClick:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  phoneExit:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  mainMenuHover:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  mainMenuClick:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  mainMenuExit:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  resultsScreenPointsIncrease:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  wastedActivate:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!199 &196809711614183016
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -18665,8 +18973,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!222 &230807205204296869
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23931,8 +24246,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &482016166914502791
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29775,8 +30097,15 @@ MonoBehaviour:
   - {fileID: 3553582142231982707}
   selectedColor: {r: 0.30588236, g: 0.27450982, b: 0.29411766, a: 1}
   unselectedColor: {r: 0.8784314, g: 0.87058824, b: 0.8784314, a: 1}
-  shouldChangeTitle: 1
-  titleText: {fileID: 7959216491000806440}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &905790357655911073
 GameObject:
   m_ObjectHideFlags: 0
@@ -29957,8 +30286,15 @@ MonoBehaviour:
   - {fileID: 1516780912431738265}
   selectedColor: {r: 0.30588236, g: 0.27450982, b: 0.29411766, a: 1}
   unselectedColor: {r: 0.99607843, g: 0.99607843, b: 0.99607843, a: 1}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &962196658710150585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29976,8 +30312,15 @@ MonoBehaviour:
   - {fileID: 6902193005432862854}
   selectedColor: {r: 0.30588236, g: 0.27450982, b: 0.29411766, a: 1}
   unselectedColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &979087497878574624
 RectTransform:
   m_ObjectHideFlags: 0
@@ -45439,8 +45782,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &1470281453132188885
 RectTransform:
   m_ObjectHideFlags: 0
@@ -63823,8 +64173,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &2879651477765481359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64429,8 +64786,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &3124289360289477002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64446,8 +64810,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &3143857618787337637
 RectTransform:
   m_ObjectHideFlags: 0
@@ -64633,8 +65004,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &3210386861349344214
 RectTransform:
   m_ObjectHideFlags: 0
@@ -64812,8 +65190,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &3301558890638021767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65075,8 +65460,15 @@ MonoBehaviour:
   - {fileID: 2035895820343556684}
   selectedColor: {r: 0.30588236, g: 0.27450982, b: 0.29411766, a: 1}
   unselectedColor: {r: 0.8784314, g: 0.87058824, b: 0.8784314, a: 1}
-  shouldChangeTitle: 1
-  titleText: {fileID: 7959216491000806440}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &3439613512636292678
 GameObject:
   m_ObjectHideFlags: 0
@@ -72499,8 +72891,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &4306225339790050038
 GameObject:
   m_ObjectHideFlags: 0
@@ -73231,8 +73630,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!222 &4501863841338910812
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -73321,8 +73727,15 @@ MonoBehaviour:
   - {fileID: 4009748331614666428}
   selectedColor: {r: 0.30588236, g: 0.27450982, b: 0.29411766, a: 1}
   unselectedColor: {r: 0.99607843, g: 0.99607843, b: 0.99607843, a: 1}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &4550957722629833792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73338,8 +73751,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &4570395476695945873
 RectTransform:
   m_ObjectHideFlags: 0
@@ -79264,6 +79684,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d539a9e7591222a46b97be6a5f49e667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activateInGameMusic: 0
+  activateTitleScreenMusic: 1
 --- !u!222 &5000185531686519916
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -84069,8 +84491,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!222 &5012405457179193567
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -84122,8 +84551,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &5051834482285035333
 RectTransform:
   m_ObjectHideFlags: 0
@@ -84434,8 +84870,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &5229941036033574435
 RectTransform:
   m_ObjectHideFlags: 0
@@ -85117,8 +85560,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &5539447771916736305
 RectTransform:
   m_ObjectHideFlags: 0
@@ -85365,6 +85815,8 @@ MonoBehaviour:
   jumpBufferTime: 0.2
   jumpHeight: 3
   jumpTimeToApex: 0.3
+  jumpTimeHeight: 0.5
+  railHorizontalDamping: 2
   jumpCutGravityMult: 2
   jumpHangGravityMult: 0.5
   jumpHangTimeThreshold: 1
@@ -85899,8 +86351,15 @@ MonoBehaviour:
   - {fileID: 7565608473918848690}
   selectedColor: {r: 0.30588236, g: 0.27450982, b: 0.29411766, a: 1}
   unselectedColor: {r: 0.8784314, g: 0.87058824, b: 0.8784314, a: 1}
-  shouldChangeTitle: 1
-  titleText: {fileID: 7959216491000806440}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &5773875942486231466
 GameObject:
   m_ObjectHideFlags: 0
@@ -86164,8 +86623,15 @@ MonoBehaviour:
   - {fileID: 8070177638310155884}
   selectedColor: {r: 0.30588236, g: 0.27450982, b: 0.29411766, a: 1}
   unselectedColor: {r: 0.99607843, g: 0.99607843, b: 0.99607843, a: 1}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &5817779542877629975
 GameObject:
   m_ObjectHideFlags: 0
@@ -86596,8 +87062,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &6086264725490172756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87432,8 +87905,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &6392167878649601654
 RectTransform:
   m_ObjectHideFlags: 0
@@ -87473,7 +87953,6 @@ MonoBehaviour:
   maxSpeed: 20
   acceleration: 30
   deceleration: 2
-  speedRequirement: 5
 --- !u!114 &6428457365183383760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88169,8 +88648,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!222 &6631532988122343762
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -93672,6 +94158,8 @@ MonoBehaviour:
   doubleJump: {fileID: 4693600534644987292}
   rail: {fileID: 5776633083959920793}
   wallRiding: {fileID: 2176471316685269547}
+  trickReady: {fileID: 0}
+  trick: {fileID: 0}
   isWaitingToLand: 1
   isWaitingToJump: 0
   isOnRailOrSpringboard: 0
@@ -94112,8 +94600,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &7168640257247867485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94129,8 +94624,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &7174488398123362092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94331,7 +94833,10 @@ MonoBehaviour:
   dashSpeed: 30
   dashDuration: 0.2
   dashCooldown: 1
+  _dashCanDetroyDuration: 0.5
   _dashMomentumDecay: {x: 0.345, y: 0.69}
+  motionBlur: {fileID: 0}
+  motionBlurOn: 1
   _groundPoundSpeed: 50
   momentumRetainFactor: 0.5
   poundCooldown: 0
@@ -94894,13 +95399,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cefbf16ac14d0b94e8821b6084ea4637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundElements: {fileID: 4722275187132127406}
+  backgroundElements:
+  - {fileID: 0}
   interfaceSections:
   - {fileID: 1042532605356662815}
   - {fileID: 8556840788082330604}
   - {fileID: 1335678779309086936}
+  overlaySwitcher: {fileID: 0}
   mainInterfaceHash: Main Interface
-  mainDefaultSelected: {fileID: 9036453659735188504}
   settingsInterfaceHash: Settings Interface
   settingsSections:
   - {fileID: 8698200494521613507}
@@ -94908,15 +95414,11 @@ MonoBehaviour:
   - {fileID: 1290812257692962992}
   - {fileID: 8605938435799383505}
   settingsDirectoryHash: Settings Directory Panel
-  settingsDirectoryDefaultSelected: {fileID: 1429558285062309949}
+  settingsConfigurationHash: 
   audioSettingsHash: Audio Settings Panel
-  audioSettingsDefaultSelected: {fileID: 6821326339680366848}
   videoSettingsHash: Video Settings Panel
-  videoSettingsDefaultSelected: {fileID: 7541708269530354809}
   controlsSettingsHash: Controls Settings Panel
-  controlsSettingsDefaultSelected: {fileID: 3041585842666927624}
   confirmationInterfaceHash: Confirmation Interface
-  confirmationDefaultSelected: {fileID: 3209354018060471921}
 --- !u!1 &7385064275241111352
 GameObject:
   m_ObjectHideFlags: 0
@@ -94950,8 +95452,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &7390615862343539507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94967,8 +95476,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!224 &7404907484847193870
 RectTransform:
   m_ObjectHideFlags: 0
@@ -95269,8 +95785,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &7494218829945617707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95334,8 +95857,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &7507603918873512286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95970,8 +96500,15 @@ MonoBehaviour:
   - {fileID: 9125174345254072800}
   selectedColor: {r: 0.30588236, g: 0.27450982, b: 0.29411766, a: 1}
   unselectedColor: {r: 0.8784314, g: 0.87058824, b: 0.8784314, a: 1}
-  shouldChangeTitle: 1
-  titleText: {fileID: 7959216491000806440}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!114 &7656354292425385433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96569,6 +97106,8 @@ MonoBehaviour:
   endScreen: {fileID: 1617951820}
   playerHealthDisplay: {fileID: 69236736691850663}
   playerHealthDisplayUpdater: {fileID: 5276594724358580486}
+  chromaticAberration: {fileID: 0}
+  chromaticAberrationOn: 1
 --- !u!114 &7936849027125696604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104776,8 +105315,15 @@ MonoBehaviour:
   graphicsToColorize: []
   selectedColor: {r: 0, g: 0, b: 0, a: 0}
   unselectedColor: {r: 0, g: 0, b: 0, a: 0}
-  shouldChangeTitle: 0
-  titleText: {fileID: 0}
+  graphicsToTransparency: []
+  selectedTransparency: 0
+  unselectedTransparency: 0
+  textToChange: {fileID: 0}
+  horizontalPositionOnEnter: 0
+  horizontalPositionOnExit: 0
+  graphicsToChangeImage: []
+  originalImages: []
+  newImages: []
 --- !u!1 &9019361479514408116
 GameObject:
   m_ObjectHideFlags: 0
