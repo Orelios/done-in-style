@@ -9,6 +9,8 @@ public class GameOverScreen : MonoBehaviour
     {
         if (playerHealth <= 0)
         {
+            AudioManager.instance.InGameSFXBus.setMute(true);
+            AudioManager.instance.PlayOneShotNoLocation(FMODEvents.instance.WastedActivate);
             AudioManager.instance.musicEventInstance.stop(STOP_MODE.ALLOWFADEOUT);
             AudioManager.instance.ambienceEventInstance.stop(STOP_MODE.ALLOWFADEOUT);
             AudioManager.instance.musicEventInstance.release();

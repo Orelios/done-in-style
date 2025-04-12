@@ -49,6 +49,8 @@ public class ResultsScreenButtons : MonoBehaviour, IPointerEnterHandler, IPointe
         }
         else
         {
+            AudioManager.instance.musicEventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            AudioManager.instance.InitializeMusic(FMODEvents.instance.CreditsMusic);
             demoEndScreen?.SetActive(true);
         }
     }
