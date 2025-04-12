@@ -20,9 +20,15 @@ public class SkateParkAudioTrigger : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ActivateCreditsMusic()
     {
+        AudioManager.instance.musicEventInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.InitializeMusic(FMODEvents.instance.CreditsMusic);
+    }
         
+    public void ActivateMainMenuMusic()
+    {
+        AudioManager.instance.musicEventInstance.stop(STOP_MODE.ALLOWFADEOUT);
+        AudioManager.instance.InitializeMusic(FMODEvents.instance.MainMenuMusic);
     }
 }
